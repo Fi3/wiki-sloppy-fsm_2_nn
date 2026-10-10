@@ -17,15 +17,15 @@ No package installation or model API key is needed. Python 3.10+ is sufficient f
 
 ## Use on another PC
 
-Install Git to clone the repository and Python 3.10+ to run the optional helpers. To use the initial portable snapshot, copy `rsm-2-nn.bundle` to the other PC and run:
+This directory is a Git repository. Install Git to clone it and Python 3.10+ to run the optional helpers. If the repository is hosted or accessible through SSH, replace `REPOSITORY_URL` with its location:
 
 ```bash
-git clone rsm-2-nn.bundle rsm-2-nn
+git clone REPOSITORY_URL rsm-2-nn
 cd rsm-2-nn
 python3 scripts/wiki.py lint
 ```
 
-If you host the repository later, you can use its URL instead of the bundle path. A bundle includes the committed files and Git history; local changes need to be committed and bundled again to transfer them this way.
+For offline transfer, copy `rsm-2-nn.bundle` to the other PC and run `git clone rsm-2-nn.bundle rsm-2-nn`. A bundle includes the committed files and Git history; create a fresh bundle after additional commits using the command below.
 
 You can read the Markdown files in any text editor or open the project root as an Obsidian vault. All sources, provenance records, wiki pages, templates, helper scripts, tests, and shared Obsidian settings are included. The helper locates the project from its own path, so no machine-specific paths or configuration are needed.
 
@@ -76,7 +76,7 @@ Use the page templates rather than leaving empty placeholder pages in the wiki. 
 
 Open the project root as a vault to make both sources and compiled pages accessible. Standard relative Markdown links work without plugins. Optionally set the attachment folder to `raw/assets/`; inspect clipped images as well as text during ingestion.
 
-Commit source imports and compiled updates together; keep private material private. Use `git status` in a clone to review changes, then commit the relevant files. To create an updated portable snapshot after committing, run:
+Commit source imports and compiled updates together; keep private material private. Use `git status` to review changes, then commit the relevant files. To create an updated portable snapshot after committing, run:
 
 ```bash
 git bundle create rsm-2-nn.bundle --all

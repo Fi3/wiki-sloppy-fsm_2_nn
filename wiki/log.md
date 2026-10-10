@@ -72,3 +72,9 @@ Append entries in chronological order. Preserve existing entries.
 - Defined the snapshot to include sources and provenance, wiki pages, agent instructions, templates, helper scripts, tests, and shared Obsidian settings. Added Git attributes to preserve source bytes and checksums across operating systems, and ignored local agent directories and the exported bundle.
 - Direct initialization in the workspace was blocked because `.git/` is read-only in this environment. Initialized a separate temporary repository for exporting the first commit as `rsm-2-nn.bundle`; the README explains how to clone the bundle into a normal working repository.
 - Structural lint checked 55 wiki pages with zero errors and zero warnings. All nine existing helper tests passed.
+
+## [2026-10-10] setup | Initialize Git directly in the wiki directory
+
+- After environment permissions changed, initialized Git in the project root and imported the existing first commit (`e76a599`) from the portable bundle onto `main`.
+- Updated the [README](../README.md) with standard clone instructions and offline bundle transfer instructions, retaining the website test-wiki notice.
+- Structural lint checked 55 wiki pages with zero errors and zero warnings.
