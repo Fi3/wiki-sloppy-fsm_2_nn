@@ -1,0 +1,5 @@
+# Use consistent line endings for project text on every operating system.
+* text=auto eol=lf
+
+# Source checksums depend on preserving imported bytes exactly.
+raw/** -text

@@ -1,0 +1,21 @@
+{
+  "original_url": "https://arxiv.org/html/2402.15814v2",
+  "aliases": [],
+  "retrieved_on": "2026-10-07",
+  "segments": [
+    {
+      "url": "https://arxiv.org/html/2402.15814v2",
+      "total_browser_lines": 574,
+      "captured_lines": 315,
+      "missing_line_ranges": [
+        [
+          315,
+          573
+        ]
+      ],
+      "text_extraction_complete": false
+    }
+  ],
+  "review_status": "first-pass; source summary specifies reviewed scope",
+  "limitations": "Text only; original file bytes and linked assets were not downloaded. Browser extraction can omit equations and figures even with complete line coverage."
+}

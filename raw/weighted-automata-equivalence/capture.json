@@ -1,0 +1,16 @@
+{
+  "original_url": "https://arxiv.org/html/2009.01217v1",
+  "aliases": [],
+  "retrieved_on": "2026-10-07",
+  "segments": [
+    {
+      "url": "https://arxiv.org/html/2009.01217v1",
+      "total_browser_lines": 405,
+      "captured_lines": 405,
+      "missing_line_ranges": [],
+      "text_extraction_complete": true
+    }
+  ],
+  "review_status": "first-pass; source summary specifies reviewed scope",
+  "limitations": "Text only; original file bytes and linked assets were not downloaded. Browser extraction can omit equations and figures even with complete line coverage."
+}

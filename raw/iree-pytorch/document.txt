@@ -1,0 +1,623 @@
+IREE PyTorch Integration
+Supplied URL: https://iree.dev/guides/ml-frameworks/pytorch/
+Retrieved on: 2026-10-07
+Format: text extracted by the web browsing tool, not the original PDF/HTML bytes.
+L numbers refer to the browser extraction. PDF P numbers are zero-based.
+A complete text extraction does not imply that every figure, equation, or proof was reviewed.
+Read capture.json for captured URLs, line coverage, and missing ranges.
+
+
+=== Segment 1: https://iree.dev/guides/ml-frameworks/pytorch/ ===
+
+L0: [Input] [Input]
+L1: 
+L2: cite0†Skip to content
+L3: 
+L4: IREE
+L5: 
+L6: PyTorch
+L7: 
+L8: [Input] [Input]
+L9: 
+L10: [Input: Search]
+L11: 
+L12: Initializing search
+L13: 
+L14: cite1†iree-org/iree†github.com
+L15: 
+L16:   * cite2†Home
+L17:   * cite3†Building from source
+L18:   * cite4†Guides
+L19:   * cite5†Reference
+L20:   * cite6†Developers
+L21:   * cite7†Community
+L22: 
+L23: IREE
+L24: 
+L25: cite1†iree-org/iree†github.com
+L26: 
+L27:   * cite2†Home
+L28:   * [Input]
+L29: 
+L30: cite3†Building from source
+L31: 
+L32: Building from source
+L33:     * cite8†Getting started
+L34:     * cite9†Android cross-compilation
+L35:     * cite10†iOS cross-compilation
+L36:     * cite11†RISC-V cross-compilation
+L37:   * [Input]
+L38: cite4†Guides
+L39: 
+L40: Guides
+L41:     * [Input]
+L42: 
+L43: cite12†ML frameworks
+L44: ML frameworks
+L45:       * cite13†JAX
+L46:       * cite14†ONNX
+L47:       * [Input] PyTorch cite15†PyTorch Table of contents
+L48:         * cite16†Overview
+L49:         * cite17†Prerequisites
+L50:         * cite18†Just-in-time (JIT) execution
+L51:           * cite19†Quickstart
+L52:           * cite20†Samples
+L53:         * cite21†Ahead-of-time (AOT) export
+L54:           * cite22†Simple API
+L55:             * cite23†Samples
+L56:           * cite24†Advanced API
+L57:             * cite25†Exporting functions
+L58:             * cite26†Global variables
+L59:             * cite27†Using external parameters
+L60:             * cite28†Samples
+L61:       * cite29†TensorFlow
+L62:       * cite30†TensorFlow Lite
+L63:     * [Input]
+L64: cite31†Deployment configurations
+L65: 
+L66: Deployment configurations
+L67:       * cite32†CPU
+L68:       * cite33†CPU - Bare-Metal
+L69:       * cite34†GPU - Vulkan
+L70:       * cite35†GPU - ROCm
+L71:       * cite36†GPU - CUDA
+L72:       * cite37†GPU - Metal
+L73:     * [Input] General topics General topics
+L74:       * cite38†Parameters
+L75:   * [Input]
+L76: 
+L77: cite5†Reference
+L78: 
+L79: Reference
+L80:     * [Input] General topics General topics
+L81:       * cite39†Glossary
+L82:       * cite40†Optimization options
+L83:       * cite41†Tuning
+L84:       * cite42†Extensions
+L85:     * [Input]
+L86: 
+L87: cite43†API bindings
+L88: API bindings
+L89:       * cite44†C API
+L90:       * cite45†Python
+L91:     * [Input]
+L92: 
+L93: cite46†MLIR dialects
+L94: MLIR dialects
+L95:       * [Input] Core Core
+L96:         * cite47†Flow
+L97:         * cite48†HAL
+L98:         * cite49†Stream
+L99:         * cite50†Util
+L100:         * cite51†VM
+L101:       * [Input] MLIR extensions MLIR extensions
+L102:         * cite52†Encoding
+L103:         * cite53†LinalgExt
+L104:         * cite54†TensorExt
+L105:       * [Input] Codegen/target-specific Codegen/target-specific
+L106:         * cite55†IREECodegen
+L107:         * cite56†IREECPU
+L108:         * cite57†IREEGPU
+L109:         * cite58†IREEVectorExt
+L110:         * cite59†PCF
+L111:         * cite60†VMVX
+L112:       * [Input] Optional modules Optional modules
+L113:         * cite61†Check
+L114:         * [Input] HAL HAL
+L115:           * cite62†Inline
+L116:           * cite63†Loader
+L117:         * [Input] IO IO
+L118:           * cite64†Parameters
+L119:     * [Input]
+L120: cite65†MLIR passes
+L121: MLIR passes
+L122:       * [Input] Core dialects Core dialects
+L123:         * cite66†Flow
+L124:         * cite67†HAL
+L125:         * cite68†Stream
+L126:         * cite69†Util
+L127:         * cite70†VM
+L128:       * [Input] Pipelines Pipelines
+L129:         * cite71†ConstEval
+L130:         * cite72†DispatchCreation
+L131:         * cite73†GlobalOptimization
+L132:         * cite74†InputConversion
+L133:         * cite75†Preprocessing
+L134:       * [Input] Codegen Codegen
+L135:         * cite76†Common
+L136:         * cite77†Common/CPU
+L137:         * cite78†Common/GPU
+L138:         * cite79†Dialect/GPU
+L139:         * cite80†Dialect/PCF
+L140:         * cite81†Dialect/VectorExt
+L141:         * cite82†LLVMCPU
+L142:         * cite83†LLVMGPU
+L143:         * cite84†SPIRV
+L144:         * cite85†VMVX
+L145:   * [Input]
+L146: cite6†Developers
+L147: Developers
+L148:     * [Input] General development topics General development topics
+L149:       * cite86†Contributing to IREE
+L150:       * cite87†Developer overview
+L151:       * cite88†Developer tips and tricks
+L152:       * cite89†Testing guide
+L153:       * cite90†GitHub Actions
+L154:       * cite91†Release management
+L155:       * cite92†Versioning scheme
+L156:     * [Input] Building Building
+L157:       * cite93†Building with Bazel
+L158:       * cite94†Building with Emscripten
+L159:       * cite95†CMake options
+L160:       * cite96†CMake with ccache
+L161:     * [Input] Debugging Debugging
+L162:       * cite97†Android LLDB debugging
+L163:       * cite98†Compile time regression debugging
+L164:       * cite99†GPU debugging playbook
+L165:       * cite100†LLVM debugging playbook
+L166:       * cite101†Integration test debugging
+L167:       * cite102†Model development debugging
+L168:       * cite103†Release debugging playbook
+L169:       * cite104†Sanitizers (ASan/MSan/TSan)
+L170:       * cite105†Fuzzing with libFuzzer
+L171:     * [Input] Performance Performance
+L172:       * cite106†Benchmarking
+L173:       * cite107†Profiling overview
+L174:       * cite108†Device profiling
+L175:       * cite109†Device replay
+L176:       * cite110†Profiling CPUs
+L177:       * cite111†Profiling GPUs using Vulkan
+L178:       * cite112†Profiling with Tracy
+L179:     * [Input] Design docs Design docs
+L180:       * cite113†Design roadmap
+L181:       * cite114†Function ABI
+L182:       * cite115†Invocation execution model
+L183:       * cite116†CUDA HAL driver
+L184:       * cite117†HIP HAL driver
+L185:       * cite118†Metal HAL driver
+L186:       * cite119†Virtual machine (VM)
+L187:       * [Input]
+L188: cite120†Async Scheduling
+L189: 
+L190: Async Scheduling
+L191:         * cite121†Frontiers vs. Binary Events
+L192:         * cite122†Multi-Model Scheduling Scenarios
+L193:     * [Input] Other topics Other topics
+L194:       * cite123†Usage best practices
+L195:       * cite124†Integrating newer LLVM in IREE
+L196:       * cite125†Updating SDXL Golden Outputs for IREE CI
+L197:       * cite126†Vulkan environment setup
+L198:       * cite127†IREE Lowering Configs
+L199:   * [Input]
+L200: 
+L201: cite7†Community
+L202: 
+L203: Community
+L204:     * [Input]
+L205: 
+L206: cite128†Blog
+L207: Blog
+L208:       * [Input] Archive Archive
+L209:         * cite129†2026
+L210:         * cite130†2025
+L211:         * cite131†2024
+L212:         * cite132†2021
+L213:       * [Input] Categories Categories
+L214:         * cite133†Frontends
+L215:         * cite134†Performance
+L216:         * cite135†Platforms
+L217:     * cite136†Tags
+L218: 
+L219: Table of contents
+L220:   * cite16†Overview
+L221:   * cite17†Prerequisites
+L222:   * cite18†Just-in-time (JIT) execution
+L223:     * cite19†Quickstart
+L224:     * cite20†Samples
+L225:   * cite21†Ahead-of-time (AOT) export
+L226:     * cite22†Simple API
+L227:       * cite23†Samples
+L228:     * cite24†Advanced API
+L229:       * cite25†Exporting functions
+L230:       * cite26†Global variables
+L231:       * cite27†Using external parameters
+L232:       * cite28†Samples
+L233: 
+L234: cite137†PyTorch cite138†Python
+L235: # PyTorch + IREE = cite0†link
+L236: ## Overviewcite16†link
+L237: 
+L238: cite139†iree-turbine†github.com offers a tight integration between compatible versions of IREE, cite140†torch-mlir†github.com , and cite141†PyTorch†pytorch.org .
+L239: 
+L240:   * [Input] Seamless integration with standard PyTorch workflows
+L241:   * [Input] Deployment support for running PyTorch models on cloud and edge devices
+L242:   * [Input] General purpose model compilation and execution tools
+L243: Both just-in-time (JIT) and ahead-of-time (AOT) workflows are supported:
+L244: 
+L245:     `graph LR
+L246:       accTitle: PyTorch integration overview
+L247:       accDescr {
+L248:         PyTorch programs can be optimized within a Python session with
+L249:         iree-turbine's just-in-time tools.
+L250:         PyTorch programs can be exported out of Python to native binaries using
+L251:         iree-turbine's ahead-of-time export toolkit.
+L252:       }
+L253: 
+L254:       subgraph Python
+L255:         pytorch(PyTorch)
+L256:         subgraph turbine [iree-turbine]
+L257:           jit("Eager execution (JIT)")
+L258:           aot("Export toolkit (AOT)")
+L259:         end
+L260: 
+L261:         pytorch --> jit
+L262:         jit --> pytorch
+L263:         pytorch --> aot
+L264:       end
+L265: 
+L266:       subgraph Native
+L267:         binary(["binary (.vmfb)"])
+L268:       end
+L269: 
+L270:       aot -.-> binary`
+L271: Info
+L272: 
+L273: Documentation for iree-turbine is available at cite142†https://iree-turbine.readthedocs.io/†iree-turbine.readthedocs.io .
+L274: ## Prerequisitescite17†link
+L275: 
+L276:   1. First install a recent version of PyTorch by following the cite143†official instructions†pytorch.org :
+L277: 
+L278: [Input][Input][Input]
+L279: 
+L280: Linux macOS Windows
+L281: 
+L282:     `python -m pip install torch --index-url https://download.pytorch.org/whl/cpu
+L283:     `
+L284: 
+L285:     `python -m pip install torch
+L286:     `
+L287: 
+L288:     `python -m pip install torch
+L289:     `
+L290: 
+L291: Tip
+L292: IREE includes its own GPU support, so we recommend the CPU versions of PyTorch. You can install CUDA or ROCm as you wish, but those packages can be quite large.
+L293: 
+L294:   2. Then install iree-turbine:
+L295: 
+L296: [Input][Input]
+L297: 
+L298: Stable releases Nightly pre-releases
+L299: 
+L300: Stable release packages are cite144†published to PyPI†pypi.org .
+L301: 
+L302:     `python -m pip install iree-turbine
+L303:     `
+L304: Nightly pre-releases are published on cite145†GitHub releases†github.com .
+L305: 
+L306:     `python -m pip install \
+L307:       --find-links https://iree.dev/pip-release-links.html \
+L308:       --pre \
+L309:       --upgrade \
+L310:       iree-turbine
+L311:     `
+L312: ## Just-in-time (JIT) executioncite18†link
+L313: Just-in-time integration allows for Python code using TorchDynamo to optimize PyTorch models/functions using IREE, all within an interactive Python session.
+L314: 
+L315:     `graph TD
+L316:       accTitle: PyTorch JIT workflow overview
+L317:       accDescr {
+L318:         Programs start as either PyTorch nn.Module objects or callable functions.
+L319:         Programs are compiled into optimized modules using torch.compile.
+L320:         Within torch.compile, Dynamo runs the program through Turbine and IREE.
+L321:       }
+L322: 
+L323:       subgraph Python
+L324:         input([nn.Module / function])
+L325: 
+L326:         subgraph compile ["torch.compile()"]
+L327:           direction LR
+L328:           dynamo{{TorchDynamo}}
+L329:           turbine{{iree-turbine}}
+L330:           iree{{IREE}}
+L331:           dynamo --> turbine --> iree
+L332:         end
+L333: 
+L334:         output([Optimized module])
+L335:         input --> compile --> output
+L336:       end`
+L337: For deployment outside of Python, see the cite21†ahead-of-time sections below .
+L338: ### Quickstartcite19†link
+L339: 
+L340: Turbine integrates into PyTorch as a cite146†custom backend†pytorch.org for cite147†`torch.compile`†pytorch.org .
+L341: Behind the scenes, PyTorch captures the structure of the input model into a computation graph and feeds that graph through to the selected backend compiler.
+L342: 
+L343:     `import torch
+L344: 
+L345:     # Define the `nn.Module` or Python function to run.
+L346:     class LinearModule(torch.nn.Module):
+L347:       def __init__(self, in_features, out_features):
+L348:         super().__init__()
+L349:         self.weight = torch.nn.Parameter(torch.randn(in_features, out_features))
+L350:         self.bias = torch.nn.Parameter(torch.randn(out_features))
+L351: 
+L352:       def forward(self, input):
+L353:         return (input @ self.weight) + self.bias
+L354: 
+L355:     linear_module = LinearModule(4, 3)
+L356: 
+L357:     # Compile the program using the turbine backend.(1)
+L358:     opt_linear_module = torch.compile(linear_module, backend="turbine_cpu")
+L359: 
+L360:     # Use the compiled program as you would the original program.
+L361:     args = torch.randn(4)
+L362:     turbine_output = opt_linear_module(args)
+L363:     `
+L364:   1. Initial integration only supports CPU, but support for many of IREE's other targets is coming soon.
+L365: ### Samplescite20†link
+L366: 
+L367: Code samples  |
+L368: --- | ---
+L369: JIT compilation notebook  |
+L370: Simple MLP eager  | cite148†iree-turbine `core/examples/eager_mlp/mlp_eager_simple.py`†github.com
+L371: 
+L372: ## Ahead-of-time (AOT) exportcite21†link
+L373: 
+L374: The ahead-of-time toolkit allows developers to define a program's structure in Python and then export deployment-ready artifacts that can be used in IREE's cite31†deployment configurations via the cite43†API bindings .
+L375: ### Simple APIcite22†link
+L376: For simple models, a one-shot export API is available.
+L377: 
+L378:     `graph LR
+L379:       accTitle: PyTorch simple AOT workflow overview
+L380:       accDescr {
+L381:         Programs start as PyTorch nn.Module objects.
+L382:         Modules are exported using the "aot" API.
+L383:         Exported outputs are then compiled to .vmfb files with executable binaries.
+L384:       }
+L385: 
+L386:       subgraph Python
+L387:         input([nn.Module])
+L388:         export(["ExportOutput (MLIR)"])
+L389:         input -- "aot.export()" --> export
+L390:       end
+L391:       subgraph Native
+L392:         binary(["binary (.vmfb)"])
+L393:       end
+L394: 
+L395:       export -. "compile()" .-> binary`
+L396: 
+L397:     `import iree.runtime as ireert
+L398:     import numpy as np
+L399:     import iree.turbine.aot as aot
+L400:     import torch
+L401: 
+L402:     # Define the `nn.Module` to export.
+L403:     class LinearModule(torch.nn.Module):
+L404:       def __init__(self, in_features, out_features):
+L405:         super().__init__()
+L406:         self.weight = torch.nn.Parameter(torch.randn(in_features, out_features))
+L407:         self.bias = torch.nn.Parameter(torch.randn(out_features))
+L408: 
+L409:       def forward(self, input):
+L410:         return (input @ self.weight) + self.bias
+L411: 
+L412:     linear_module = LinearModule(4, 3)
+L413: 
+L414:     # Export the program using the simple API.
+L415:     example_arg = torch.randn(4)
+L416:     export_output = aot.export(linear_module, example_arg)
+L417: 
+L418:     # Compile to a deployable artifact.
+L419:     binary = export_output.compile(save_to=None)
+L420: 
+L421:     # Use the IREE runtime API to test the compiled program.
+L422:     config = ireert.Config("local-task")
+L423:     vm_module = ireert.load_vm_module(
+L424:         ireert.VmModule.copy_buffer(config.vm_instance, binary.map_memory()),
+L425:         config,
+L426:     )
+L427:     input = np.array([1.0, 2.0, 3.0, 4.0], dtype=np.float32)
+L428:     result = vm_module.main(input)
+L429:     print(result.to_host())
+L430:     `
+L431: #### Samplescite23†link
+L432: 
+L433: Code samples  |
+L434: --- | ---
+L435: Simple AOT export notebook  |
+L436: Import cite149†Whisper†huggingface.co from cite150†Hugging Face†huggingface.co notebook  |
+L437: Simple MLP export  | cite151†iree-turbine `core/examples/aot_mlp/mlp_export_simple.py`†github.com
+L438: ### Advanced APIcite24†link
+L439: For more complex models, an underlying advanced API is available that gives access to more features.
+L440: 
+L441:     `graph LR
+L442:       accTitle: PyTorch advanced AOT workflow overview
+L443:       accDescr {
+L444:         Programs are represented using the aot.CompiledModule class.
+L445:         CompiledModules can extend nn.Module objects, export globals, and set
+L446:         shapes and dtypes for each function.
+L447:         Modules are exported using the "aot" API.
+L448:         Exported outputs are then compiled to .vmfb files with executable binaries.
+L449:       }
+L450: 
+L451:       subgraph Python
+L452:         compiledmodule("aot.CompiledModule<br><br>- extend nn.Module<br>- export globals<br>- set shapes/dtypes")
+L453:         export(["ExportOutput (MLIR)"])
+L454:         compiledmodule -- "aot.export()" --> export
+L455:       end
+L456: 
+L457:       subgraph Native
+L458:         binary(["binary (.vmfb)"])
+L459:       end
+L460: 
+L461:       export -. "compile()" .-> binary`
+L462: Advanced export workflows can use the cite152†`aot.CompiledModule`†github.com class to define and constrain the structure of a program prior to compiling it.
+L463: 
+L464:     `import iree.turbine.aot as aot
+L465: 
+L466:     # A minimal program, with no functions or variables.
+L467:     class BasicModule(aot.CompiledModule):
+L468:       ...
+L469: 
+L470:     # Create an instance of the program and convert it to MLIR.
+L471:     from iree.compiler.ir import Context
+L472:     instance = BasicModule(context=Context())
+L473:     module_str = str(aot.CompiledModule.get_mlir_module(instance))
+L474: 
+L475:     print(module_str)
+L476:     # module @basic {
+L477:     # }
+L478:     `
+L479: #### Exporting functionscite25†link
+L480: 
+L481: Exported functions are the API entry points into a compiled program.
+L482: 
+L483: Simple feed-forward neural networks used for inference may have a single exported function (typically called "forward"), while more complex programs can have multiple computation functions, initialization functions, "backward" methods for training, state management functions, debugging functions, etc.
+L484: #### Global variablescite26†link
+L485: 
+L486: Global variables are used to represent persistent state within a program instance.
+L487: 
+L488: For example, they can be used to represent the weights and biases in a neural network, and exporting these as mutable variables can allow for setting their values independently at runtime.
+L489:   * Individual globals can be exported using `aot.export_global()`:
+L490: 
+L491:     `state_example = torch.zeros([1], dtype=torch.int32)
+L492: 
+L493:     class SampleModule(aot.CompiledModule):
+L494:       value = aot.export_global(state_example, mutable=True)
+L495: 
+L496:       def get_value(self):
+L497:         return self.value
+L498: 
+L499:       def update_value(self, new_value=aot.abstractify(value)):
+L500:         self.value = new_value
+L501:     `
+L502: #### Using external parameterscite27†link
+L503: 
+L504: Model parameters can be stored in standalone files that can be efficiently stored and loaded separately from model compute graphs. See the cite38†Parameters guide for more general information about parameters in IREE.
+L505: 
+L506: When using iree-turbine, the `aot.externalize_module_parameters()` function separates parameters from program modules and encodes a symbolic relationship between them so they can be loaded at runtime.
+L507: We use cite153†Safetensors†huggingface.co here to store the models parameters on disk, so that they can be loaded later during runtime.
+L508: 
+L509:     `import torch
+L510:     from safetensors.torch import save_file
+L511:     import numpy as np
+L512:     import iree.turbine.aot as aot
+L513: 
+L514:     class LinearModule(torch.nn.Module):
+L515:         def __init__(self, in_features, out_features):
+L516:             super().__init__()
+L517:             self.weight = torch.nn.Parameter(torch.randn(in_features, out_features))
+L518:             self.bias = torch.nn.Parameter(torch.randn(out_features))
+L519: 
+L520:         def forward(self, input):
+L521:             return (input @ self.weight) + self.bias
+L522: 
+L523:     linear_module = LinearModule(4,3)
+L524: 
+L525:     # Create a params dictionary. Note that the keys here match LinearModule's
+L526:     # attributes. We will use the saved safetensor file for use from the command
+L527:     # line.
+L528:     wt = linear_module.weight.data.contiguous()
+L529:     bias = linear_module.bias.data.contiguous()
+L530:     params = { "weight": wt, "bias": bias }
+L531:     save_file(params, "params.safetensors")
+L532: 
+L533:     # Externalize the model parameters. This removes weight tensors from the IR
+L534:     # module, allowing them to be loaded at runtime. Symbolic references to these
+L535:     # parameters are still retained in the IR.
+L536:     aot.externalize_module_parameters(linear_module)
+L537: 
+L538:     input = torch.randn(4)
+L539:     exported_module = aot.export(linear_module, input)
+L540:     # Compile the exported module, to generate the binary. When `save_to` is
+L541:     # not None, the binary will be stored at the path passed in to `save_to`.
+L542:     # Here, we pass in None, so that the binary can stored in a variable.
+L543:     binary = exported_module.compile(save_to=None)
+L544: 
+L545:     # Save the input as an npy tensor, so that it can be passed in through the
+L546:     # command line to `iree-run-module`.
+L547:     input_np = input.numpy()
+L548:     np.save("input.npy", input_np)
+L549:     `
+L550: [Input][Input]
+L551: 
+L552: Python runtime Command line tools
+L553: Runtime invocation now requires loading the parameters as a separate module. To get the parameters as a module, iree.runtime provides a convenient method, called `create_io_parameters_module()`.
+L554: 
+L555:     `import iree.runtime as ireert
+L556: 
+L557:     # To load the parameters, we need to define ParameterIndex for each
+L558:     # parameter class.
+L559:     idx = ireert.ParameterIndex()
+L560:     idx.add_buffer("weight", wt.detach().numpy().tobytes())
+L561:     idx.add_buffer("bias", bias.detach().numpy().tobytes())
+L562:     # Create the runtime instance, and load the runtime.
+L563:     config = ireert.Config(driver_name="local-task")
+L564:     instance = config.vm_instance
+L565: 
+L566:     param_module = ireert.create_io_parameters_module(
+L567:         instance, idx.create_provider(scope="model"),
+L568:     )
+L569: 
+L570:     # Load the runtime. There are essentially two modules to load, one for the
+L571:     # weights, and one for the main module. Ensure that the VMFB file is not
+L572:     # already open or deleted before use.
+L573:     vm_modules = ireert.load_vm_modules(
+L574:         param_module,
+L575:         ireert.create_hal_module(instance, config.device),
+L576:         ireert.VmModule.copy_buffer(instance, binary.map_memory()),
+L577:         config=config,
+L578:     )
+L579: 
+L580:     # vm_modules is a list of modules. The last module in the list is the one
+L581:     # generated from the binary, so we use that to generate an output.
+L582:     result = vm_modules[-1].main(input)
+L583:     print(result.to_host())
+L584:     `
+L585: It is also possible to save the VMFB binary to disk, then call `iree-run-module` through the command line to generate outputs.
+L586: 
+L587:     `# When save_to is not None, the binary is saved to the given path,
+L588:     # and a None value is returned.
+L589:     binary = exported_module.compile(save_to="compiled_module.vmfb")
+L590:     `
+L591: The stored safetensors file, the input tensor, and the VMFB can now be passed in to IREE through the command line.
+L592: 
+L593:     `iree-run-module --module=compiled_module.vmfb --parameters=model=params.safetensors \
+L594:                     --input=@input.npy
+L595:     `
+L596: 
+L597: Note here that the `--parameters` flag has `model=` following it immediately. This simply specifies the scope of the parameters, and is reflected in the compiled module.
+L598: #### Samplescite28†link
+L599: 
+L600: Code samples  |
+L601: --- | ---
+L602: Advanced AOT export notebook  |
+L603: PyTorch dynamic shapes notebook  |
+L604: AOT unit tests  | cite154†iree-turbine `tests/aot/`†github.com
+L605: 
+L606: The sharktank project hosted at cite155†https://github.com/nod-ai/amd-shark-ai/tree/main/amdsharktank†github.com also uses `iree-turbine` heavily to provide inference-optimized ops, layers, and models for popular gen-ai applications.
+L607: 
+L608: Back to top
+L609: Copyright © 2026 IREE a Series of LF Projects, LLC. For web site terms of use, trademark policy and other project policies please see cite156†https://lfprojects.org†lfprojects.org .
+L610: 
+L611: Made with cite157†Material for MkDocs†squidfunk.github.io

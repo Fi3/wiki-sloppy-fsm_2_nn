@@ -1,0 +1,535 @@
+Optimizing Neural Network Representations of Boolean Networks
+Supplied URL: https://proceedings.iclr.cc/paper_files/paper/2025/hash/f67852b3910e3aba21c951849b4531a6-Abstract-Conference.html
+Retrieved on: 2026-10-07
+Format: text extracted by the web browsing tool, not the original PDF/HTML bytes.
+L numbers refer to the browser extraction. PDF P numbers are zero-based.
+A complete text extraction does not imply that every figure, equation, or proof was reviewed.
+Read capture.json for captured URLs, line coverage, and missing ranges.
+
+
+=== Segment 1: https://proceedings.iclr.cc/paper_files/paper/2025/hash/f67852b3910e3aba21c951849b4531a6-Abstract-Conference.html ===
+
+L0: # Optimizing Neural Network Representations of Boolean Networks
+L1: 
+L2: Joshua Russell, Ignacio Gavier, Devdhar Patel, Edward Rietman, Hava Siegelmann
+L3: 
+L4: cite0†International Conference on Learning Representations 2025 (ICLR 2025) Conference
+L5: 
+L6: cite1†Bibtex cite2†Paper
+L7: ## Abstract
+L8: Neural networks are known to be universal computers for Boolean functions. Recent advancements in hardware have significantly reduced matrix multiplication times, making neural network simulation both fast and efficient. Consequently, functions defined by complex Boolean networks are increasingly viable candidates for simulation through their neural network representation. Prior research has introduced a general method for deriving neural network representations of Boolean networks.
+L9: However, the resulting neural networks are often suboptimal in terms of the number of neurons and connections, leading to slower simulation performance. Optimizing them while preserving functional equivalence --lossless optimization-- is an NP-hard problem, and current methods only provide lossy solutions. In this paper, we present a deterministic algorithm to optimize such neural networks in terms of neurons and connections while preserving functional equivalence.
+L10: Moreover, to accelerate the compression of the neural network, we introduce an objective-aware algorithm that exploits representations that are shared among subproblems of the overall optimization. We demonstrate experimentally that we are able to reduce connections and neurons by up to 70% and 60%, respectively, in comparison to state-of-the-art.
+L11: We also find that our objective-aware algorithm results in consistent speedups in optimization time, achieving up to 34.3x and 5.9x speedup relative to naive and caching solutions, respectively. Our methods are of practical relevance to applications such as high-throughput circuit simulation and placing neurosymbolic systems on the same hardware architecture.
+L12: #### Name Change Policy
+L13: 
+L14: Requests for name changes in the electronic proceedings will be accepted with no questions asked. However name changes may cause bibliographic tracking issues. Authors are asked to consider this carefully and discuss it with their co-authors prior to requesting a name change in the electronic proceedings.
+L15: 
+L16: Use the "Report an Issue" link to request a name change.
+L17: 
+L18: cite3†Report an Issue†iclr.cc |    cite4†Name Change Policy
+L19: Do not remove: This comment is monitored to verify that the site is working properly
+
+=== Segment 2: https://proceedings.iclr.cc/paper_files/paper/2025/file/f67852b3910e3aba21c951849b4531a6-Paper-Conference.pdf ===
+
+L0@P0: Published as a conference paper at ICLR 2025
+L1@P0: OPTIMIZING NEURAL NETWORK REPRESENTATIONS
+L2@P0: OF BOOLEAN NETWORKS
+L3@P0: Joshua Russell Ignacio Gavier Devdhar Patel Edward Rietman Hava T. Siegelmann
+L4@P0: University of Massachusetts Amherst
+L5@P0: {jgrussell,igavier,devdharpatel,erietman,hava}@umass.edu
+L6@P0: ABSTRACT
+L7@P0: Neural networks are known to be universal computers for Boolean functions.
+L8@P0: Recent advancements in hardware have significantly reduced matrix multiplication
+L9@P0: times, making neural network simulation both fast and efficient. Consequently,
+L10@P0: functions defined by complex Boolean networks are increasingly viable candidates
+L11@P0: for simulation through their neural network representation. Prior research has
+L12@P0: introduced a general method for deriving neural network representations of Boolean
+L13@P0: networks. However, the resulting neural networks are often suboptimal in terms of
+L14@P0: the number of neurons and connections, leading to slower simulation performance.
+L15@P0: Optimizing them while preserving functional equivalence –lossless optimization–
+L16@P0: is an NP-hard problem, and current methods only provide lossy solutions. In
+L17@P0: this paper, we present a deterministic algorithm to optimize such neural networks
+L18@P0: in terms of neurons and connections while preserving functional equivalence.
+L19@P0: Moreover, to accelerate the compression of the neural network, we introduce
+L20@P0: an objective-aware algorithm that exploits representations that are shared among
+L21@P0: subproblems of the overall optimization. We demonstrate experimentally that we
+L22@P0: are able to reduce connections and neurons by up to 70% and 60%, respectively,
+L23@P0: in comparison to state-of-the-art. We also find that our objective-aware algorithm
+L24@P0: results in consistent speedups in optimization time, achieving up to 34.3× and
+L25@P0: 5.9× speedup relative to naive and caching solutions, respectively. Our methods
+L26@P0: are of practical relevance to applications such as high-throughput circuit simulation
+L27@P0: and placing neurosymbolic systems on the same hardware architecture.
+L28@P0: 1 INTRODUCTION
+L29@P0: Universal approximation theorems (Hornik et al., 1989) and Turing-completeness (Siegelmann &
+L30@P0: Sontag, 1992) provide the theoretical foundation for implementing computable functions with neural
+L31@P0: networks (NNs). At present, the predominant methods for implementing functions with NNs are
+L32@P0: learning-based techniques, which rely on optimization algorithms, data, and compute to elicit a
+L33@P0: function of interest (LeCun et al., 2015). While these techniques provide a solution for obtaining
+L34@P0: functions that are difficult to programmatically specify, they come at the cost of unsustainable energy
+L35@P0: usage (Strubell et al., 2019), ever-longer training times, and safety concerns due to the current lack of
+L36@P0: understanding surrounding functions derived from learning-based techniques (Qi et al., 2023).
+L37@P0: Another much less prevalent implementation method for NNs is to synthesize a network from a known
+L38@P0: functional specification. The specification may be in the form of an explicit construction, detailing
+L39@P0: the network structure, neurons, and connections (Hewitt et al., 2020; Karuvally et al., 2024), or it
+L40@P0: may be provided in a programming language, requiring a method to convert the specification into a
+L41@P0: resulting NN (Siegelmann, 1994; Gruau et al., 1995; Neto et al., 2003). These implementation methods
+L42@P0: generally require significantly less time and energy in comparison to learning-based techniques and
+L43@P0: provide guarantees on NN functionality which are critical for safety and security.
+L44@P0: One such programmatic implementation method is that of NN-based technology mapping (Patel et al.,
+L45@P0: 2022; Gavier et al., 2023), the problem of finding a NN that is functionally equivalent to a Boolean
+L46@P0: network (BN) (i.e., ∀x ∈ {0, 1}
+L47@P0: n, NN(x) = BN(x)). This method holds significant potential for
+L48@P0: 1Published as a conference paper at ICLR 2025
+L49@P1: Objective landscape
+L50@P1: Objectiveaware
+L51@P1: subproblem
+L52@P1: accelerator
+L53@P1: NNj
+L54@P1: Lossless
+L55@P1: region i Losslessregion j
+L56@P1: NNi
+L57@P1: NNj
+L58@P1: Subproblem classes
+L59@P1: NNi NNj ...
+L60@P1: ...
+L61@P1: ...
+L62@P1: ...
+L63@P1: NNi
+L64@P1: NNj
+L65@P1: Neural Network representation of a Boolean Network,
+L66@P1: as a composition of two-layer subnetworks NNi
+L67@P1: Shortcut learned
+L68@P1: from optimizing NNi
+L69@P1: Figure 1: Summary of our optimization problem. A neural network (NN) representing a Boolean
+L70@P1: network (BN) can be constructed as a composition of two-layer sub-NNs NNi (left). Optimizing the
+L71@P1: size of the NN is performed by optimizing each sub-NN NNi (top right). To maintain functional
+L72@P1: equivalence of the original NN, it is necessary that each subproblem solution lies within its lossless
+L73@P1: region. Subproblems can be accelerated for sub-NNs NNj that have shared representation with (i.e.,
+L74@P1: are in the same class as) already optimized sub-NNs NNi (bottom and top right).
+L75@P1: applications in the integrated circuits industry and for neurosymbolic hardware architectures; however,
+L76@P1: the current state-of-the-art (SOTA) solution of Gavier et al. (2023) faces two significant drawbacks: (1)
+L77@P1: the resulting NNs are often suboptimal in terms of neurons and connections, and (2) slow execution
+L78@P1: time makes the technique less appealing for industrial settings.
+L79@P1: In light of these shortcomings in the SOTA, our first goal is to develop a technique for optimizing
+L80@P1: NN size while maintaining functional equivalence. NN compression techniques, such as pruning and
+L81@P1: quantization, have been extensively researched under the learning-based paradigm (Liang et al.,
+L82@P1: 2021; Li et al., 2023). However, in general, pruning techniques are lossy and do not guarantee
+L83@P1: preservation of functional equivalence (Vadera & Ameen, 2022). Moreover, since optimal bit widths
+L84@P1: for parameters and activations can be calculated analytically following NN-based technology mapping,
+L85@P1: further quantization cannot be applied as it would break functional equivalence. While lossless
+L86@P1: compression techniques that maintain functional equivalence have been presented for ReLU (Serra
+L87@P1: et al., 2020) and single-hidden-layer hyperbolic tangent (Sussmann, 1992; Farrugia-Roberts, 2024)
+L88@P1: NNs, they are not applicable to the Heaviside threshold NNs we investigate in this work.
+L89@P1: Figure 1 (left) depicts the NN representation of a BN as proposed by Gavier et al. (2023); a composition of two-layer sub-NNs. Optimizing the size of the NN can be thought of as the aggregation of
+L90@P1: subproblems, one for each sub-NN, as shown in Figure 1 (top right). Our second goal is to develop
+L91@P1: an algorithm that exploits shared representations among these subproblems to accelerate the NN
+L92@P1: optimization process, which is key for dealing with the large-scale BNs faced in industrial applications.
+L93@P1: Summary: The SOTA solution for NN-based technology mapping does not effectively optimize
+L94@P1: the resulting NN representation. Since existing NN compression techniques are either lossy or
+L95@P1: inapplicable, the challenge of efficiently optimizing NN representations of BNs remains open.
+L96@P1: Contributions. We introduce a practical methodology to overcome these challenges:
+L97@P1: • We propose a lossless technique for optimizing a two-layer NN representation of a Boolean
+L98@P1: function (see § 3.1). We present two objectives that correlate with minimizing neurons or
+L99@P1: connections.
+L100@P1: • We propose an objective-aware optimization algorithm based on Negation-PermutationNegation (NPN) classification, exploiting shared representations among the two-layer
+L101@P1: sub-NNs (see § 3.2). We show that our algorithm consistently accelerates optimization
+L102@P1: time, achieving up to 34.3× and 5.9× speedup relative to naive and caching solutions,
+L103@P1: respectively (see Figure 6).
+L104@P1: • We propose an architecture-aware lossless optimization algorithm that selects which twolayer sub-NNs to minimize (see § 3.3). We demonstrate experimentally that connections
+L105@P1: and neurons can be reduced by up to 70% and 60% in comparison to SOTA (see Figure 5).
+L106@P1: 2Published as a conference paper at ICLR 2025
+L107@P2: 2 BACKGROUND
+L108@P2: In this section we introduce the necessary definitions and background for NN-based technology mapping and our optimization algorithms. The essential notions are covered here, while a comprehensive
+L109@P2: treatment is provided in the appendix.
+L110@P2: 2.1 DEFINITIONS
+L111@P2: Notation. We denote the set of binary numbers as B = {0, 1}, the set of natural numbers (including
+L112@P2: 0) as N0 = {0, 1, 2, . . . }, and the set of integers as Z = {. . . , −2, −1, 0, 1, 2, . . . }.
+L113@P2: Definition 2.1 (Boolean function). A k-input, (single-output) Boolean function (BF) is a function
+L114@P2: f : B
+L115@P2: k → B, x 7→ f(x), where x = (x1, . . . , xk) is a bit vector representing the k input variables
+L116@P2: xi ∈ B, 1 ≤ i ≤ k.
+L117@P2: Definition 2.2 (Truth table representation of a BF). The truth table representation is an expansion of
+L118@P2: BF f : B
+L119@P2: k → B in a basis of indicator functions f(x) = P
+L120@P2: a∈Bk f(a)1a(x), where 1a : B
+L121@P2: k → B is
+L122@P2: defined as 1a(x) = 1 if x = a, and 0 otherwise. The truth table vector f ∈ B
+L123@P2: 2
+L124@P2: k
+L125@P2: of f is the vector of
+L126@P2: coordinates f(a) in such a basis. E.g., the truth table vector of f(a, b) = a ∨ b is f = [0, 1, 1, 1]⊺.
+L127@P2: Definition 2.3 (Multilinear polynomial representation of a BF). The multilinear polynomial (MP)
+L128@P2: representation is an expansion of BF f : B
+L129@P2: k → B, extended to p : Zk → Z, in the basis (O’Donnell,
+L130@P2: 2014) of logical AND functions p(x) = P
+L131@P2: S⊆{1,...,k}
+L132@P2: ˆf(S)χS(x), where χS : Z
+L133@P2: k → Z is defined
+L134@P2: as χS(x) = Q
+L135@P2: i∈S
+L136@P2: xi and S ⊆ {1, . . . , k}. The MP vector p ∈ Z
+L137@P2: 2
+L138@P2: k
+L139@P2: of f is the vector of coordinates
+L140@P2: ˆf(S) in such a basis. E.g., if f(a, b) = a ∨ b then p(a, b) = a + b − ab and p = [0, 1, 1, −1]⊺
+L141@P2: .
+L142@P2: Definition 2.4 (Boolean network). A Boolean network (BN) GF = (V, E) is a directed-acyclic
+L143@P2: graph (DAG), with vertex labeling function ψ : V → F, that represents an n-input, m-output BF
+L144@P2: B : B
+L145@P2: n → Bm. Vertices with indegree zero are primary inputs (PI), and vertices with outdegree zero
+L146@P2: are primary outputs (PO). The labeling function ψ assigns a single-output BF to each non-PI vertex in
+L147@P2: the graph. A directed edge (u, v) ∈ E exists if the output of u’s BF is an input to v’s BF. The depth of
+L148@P2: vertex v ∈ V , denoted depth(v) ∈ N0, is the length of the longest path from any PI to v. The depth
+L149@P2: of a BN, denoted depth(GF ), is the maximum vertex depth in the BN.
+L150@P2: Definition 2.5 (Neural network). Let L ∈ N0 and (D0, D1, . . . , DL) ∈ N
+L151@P2: L+1
+L152@P2: 0
+L153@P2: . A neural network (NN)
+L154@P2: N : B
+L155@P2: D0 → BDL is a function with specification
+L156@P2: N (x) = σ
+L157@P2: 
+L158@P2: WL
+L159@P2: 
+L160@P2: σ
+L161@P2: 
+L162@P2: WL−1
+L163@P2: 
+L164@P2: . . . σ W1x + b
+L165@P2: 1
+L166@P2: 
+L167@P2: . . . + b
+L168@P2: L−1
+L169@P2:  + b
+L170@P2: L
+L171@P2: 
+L172@P2: , (1)
+L173@P2: where σ is the Heaviside step function1and ∀l ∈ {1, . . . , L}, Wl ∈ Z
+L174@P2: Dl×Dl−1 and b
+L175@P2: l ∈ Z
+L176@P2: Dl
+L177@P2: . The
+L178@P2: depth of a NN is denoted depth(N ) = L.
+L179@P2: Definition 2.6 (Functional equivalence). Two functions f, g : X → Y are functionally equivalent if
+L180@P2: ∀x ∈ X , f(x) = g(x).
+L181@P2: 2.2 OBTAINING A NEURAL NETWORK REPRESENTATION OF A BOOLEAN NETWORK
+L182@P2: Here we review the SOTA for NN-based technology mapping (Gavier et al., 2023). The method takes a
+L183@P2: BN Ginit
+L184@P2: F as input and, through a sequence of mappings, converts it into a functionally equivalent NN.
+L185@P2: LUT-based technology mapping. K-LUT-based technology mapping (Cong & Ding, 1994), K ∈
+L186@P2: N0, is used to convert Ginit
+L187@P2: F into a functionally equivalent BN GFf with function set Ff = ∪
+L188@P2: K
+L189@P2: k=0B
+L190@P2: 2
+L191@P2: k
+L192@P2: consisting of k-input look-up tables (LUTs), or truth table vectors f ∈ B
+L193@P2: 2
+L194@P2: k
+L195@P2: , k ≤ K.
+L196@P2: MP-based technology mapping. Following K-LUT-based technology mapping, each truth table
+L197@P2: vector f ∈ B
+L198@P2: 2
+L199@P2: k
+L200@P2: , k ≤ K, in BN GFfis mapped to a functionally equivalent MP vector p ∈ Z
+L201@P2: 2
+L202@P2: k
+L203@P2: . The
+L204@P2: resulting function set is Fp = ∪
+L205@P2: K
+L206@P2: k=0Z
+L207@P2: 2
+L208@P2: k
+L209@P2: . Each conversion from truth table vector to MP vector can be
+L210@P2: computed via a divide-and-conquer algorithm in time O(2kk) (Gavier et al., 2023). We denote this
+L211@P2: conversion algorithmically as ttToMP.
+L212@P2: 1σ(x) = 1 if x > 0, and 0 otherwise, and it is extended to an element-wise function.
+L213@P2: 3Published as a conference paper at ICLR 2025
+L214@P3: NN-based technology mapping from MP BNs. Following MP-based technology mapping, each MP
+L215@P3: vector p ∈ Z
+L216@P3: 2
+L217@P3: k
+L218@P3: , k ≤ K, in BN GFpis mapped to a functionally equivalent two-layer NN ζ : Z
+L219@P3: k → Z,
+L220@P3: ζ(x) = W2σ(W1x + b1) with parameters (W1, b1, W2) ∈ Z
+L221@P3: (2k×k)+(2k)+(1×2
+L222@P3: k
+L223@P3: )
+L224@P3: . The resulting
+L225@P3: function set is FN = ∪
+L226@P3: K
+L227@P3: k=0Z
+L228@P3: (2k×k)+(2k)+(1×2
+L229@P3: k
+L230@P3: )
+L231@P3: . See Figure 2 for an example of k = 2.
+L232@P3: Intra-depth parallelization & the Unmerged NN. Let GFN = (V, E) be a BN following NN-based
+L233@P3: technology mapping in which all vertices v ∈ V have incoming edges only from vertices at depth
+L234@P3: depth(v) − 1, that is, there are no “skip connections” (this can be achieved by adding additional
+L235@P3: vertices that compute the identity function). Moreover, let Vd = {v ∈ V | depth(v) = d} be
+L236@P3: the set of vertices at depth d, and d ∈ {1, . . . , depth(GFN )}. Then the output of all vertices in
+L237@P3: Vd = {v1, v2, . . . , v|Vd|} can be computed in parallel as
+L238@P3: 
+L239@P3: 
+L240@P3: 
+L241@P3: ζ(x
+L242@P3: v1 )
+L243@P3: .
+L244@P3: .
+L245@P3: .
+L246@P3: ζ(x
+L247@P3: v|Vd| )
+L248@P3: 
+L249@P3: 
+L250@P3:  =
+L251@P3: 
+L252@P3: 
+L253@P3: 
+L254@P3: Wv1
+L255@P3: 2
+L256@P3: · · · 0
+L257@P3: .
+L258@P3: .
+L259@P3: .
+L260@P3: .
+L261@P3: .
+L262@P3: .
+L263@P3: .
+L264@P3: .
+L265@P3: .
+L266@P3: 0 · · · W
+L267@P3: v|Vd|
+L268@P3: 2
+L269@P3: 
+L270@P3: 
+L271@P3:  σ
+L272@P3: 
+L273@P3: 
+L274@P3: 
+L275@P3: 
+L276@P3: 
+L277@P3: Wv1
+L278@P3: 1
+L279@P3: · · · 0
+L280@P3: .
+L281@P3: .
+L282@P3: .
+L283@P3: .
+L284@P3: .
+L285@P3: .
+L286@P3: .
+L287@P3: .
+L288@P3: .
+L289@P3: 0 · · · W
+L290@P3: v|Vd|
+L291@P3: 1
+L292@P3: 
+L293@P3: 
+L294@P3: 
+L295@P3: 
+L296@P3: 
+L297@P3: 
+L298@P3: x
+L299@P3: v1
+L300@P3: .
+L301@P3: .
+L302@P3: .
+L303@P3: x
+L304@P3: v|Vd|
+L305@P3: 
+L306@P3: 
+L307@P3:  +
+L308@P3: 
+L309@P3: 
+L310@P3: 
+L311@P3: b
+L312@P3: v1
+L313@P3: 1
+L314@P3: .
+L315@P3: .
+L316@P3: .
+L317@P3: b
+L318@P3: v|Vd|
+L319@P3: 1
+L320@P3: 
+L321@P3: 
+L322@P3: 
+L323@P3: 
+L324@P3:  (2)
+L325@P3: where (Wvi
+L326@P3: 1
+L327@P3: , b
+L328@P3: vi
+L329@P3: 1
+L330@P3: , Wvi
+L331@P3: 2
+L332@P3: ) = ψ(vi), i ∈ {1, . . . , |Vd|}. Note that various vertices at the same depth
+L333@P3: could share the same input signals and in turn hidden vertices, thus reducing the input and hidden
+L334@P3: dimensions of the above two-layer NN. We call the NN obtained via intra-depth parallelization of GFN
+L335@P3: the unmerged NN of BN GFN .
+L336@P3: Inter-depth composition & the Layer-Merged NN. Let d ∈ {1, . . . , depth(GFN )−1}. Moreover,
+L337@P3: let ζ
+L338@P3: (d)
+L339@P3: (x
+L340@P3: (d−1)) = W
+L341@P3: (d)
+L342@P3: 2 σ(W
+L343@P3: (d)
+L344@P3: 1 x
+L345@P3: (d−1)+b
+L346@P3: (d)
+L347@P3: 1
+L348@P3: ) = x
+L349@P3: (d)
+L350@P3: and ζ
+L351@P3: (d+1)(x
+L352@P3: (d)
+L353@P3: ) = W
+L354@P3: (d+1)
+L355@P3: 2 σ(W
+L356@P3: (d+1)
+L357@P3: 1 x
+L358@P3: (d)+
+L359@P3: b
+L360@P3: (d+1)
+L361@P3: 1
+L362@P3: ) = x
+L363@P3: (d+1) be the intra-depth parallelized two-layer NNs (as in Equation 2) for vertices in Vd
+L364@P3: and Vd+1, respectively. Then,
+L365@P3: x
+L366@P3: (d+1) = (ζ
+L367@P3: (d+1)
+L368@P3: ◦ ζ
+L369@P3: (d)
+L370@P3: )(x
+L371@P3: (d−1)) (3)
+L372@P3: = W
+L373@P3: (d+1)
+L374@P3: 2 σ
+L375@P3: 
+L376@P3: W
+L377@P3: (d+1)
+L378@P3: 1
+L379@P3: 
+L380@P3: W
+L381@P3: (d)
+L382@P3: 2 σ
+L383@P3: 
+L384@P3: W
+L385@P3: (d)
+L386@P3: 1 x
+L387@P3: (d−1) + b
+L388@P3: (d)
+L389@P3: 1
+L390@P3:  + b
+L391@P3: (d+1)
+L392@P3: 1
+L393@P3: 
+L394@P3: (4)
+L395@P3: = W
+L396@P3: (d+1)
+L397@P3: 2 σ
+L398@P3: 
+L399@P3: W′σ
+L400@P3: 
+L401@P3: W
+L402@P3: (d)
+L403@P3: 1 x
+L404@P3: (d−1) + b
+L405@P3: (d)
+L406@P3: 1
+L407@P3: 
+L408@P3: + b
+L409@P3: (d+1)
+L410@P3: 1
+L411@P3: 
+L412@P3: , (5)
+L413@P3: where W′ = W
+L414@P3: (d+1)
+L415@P3: 1 W
+L416@P3: (d)
+L417@P3: 2
+L418@P3: . That is, since the second layer at depth d does not required a threshold, we
+L419@P3: can merge it with the first layer at depth d + 1. We call the NN obtained via intra-depth parallelization
+L420@P3: and inter-depth composition of GFN the layer-merged NN of BN GFN .
+L421@P3: Remark 2.1 (Implications for depth). Let d = depth(GFN ). Then the depth of the unmerged NN is
+L422@P3: 2d (non-PI vertices in V1, . . . , Vd have a layer of hidden neurons added before them), and the depth
+L423@P3: of the layer-merged NN is d + 1 (the second layer of non-PI and non-PO vertices in V1, . . . , Vd−1 is
+L424@P3: merged with the first layer of vertices at the next depth).
+L425@P3: 3 METHODS
+L426@P3: Figure 2: NN representation of MP p(a, b) =
+L427@P3: c∅ + caa + cbb + cabab.
+L428@P3: Weights and biases are
+L429@P3: shown above connections
+L430@P3: and neurons.
+L431@P3: In this section we set out to achieve the two goals stated in the introduction: (1) optimizing the NN size and (2) doing so efficiently. We begin
+L432@P3: by considering the problem of optimizing NN size while maintaining
+L433@P3: functional equivalence. The SOTA mapping procedure reviewed in § 2.2
+L434@P3: constructs a NN representation of a BN via a composition of sub-NNs, each
+L435@P3: built from the MP representation of a BF. We propose to optimize the size
+L436@P3: of the NN by treating the sub-NNs as optimization subproblems. In § 3.1,
+L437@P3: we identify sub-NN optimization as a constrained minimization problem,
+L438@P3: and propose a convex technique to solve it.
+L439@P3: Next, we turn our attention to accelerating the NN optimization process in
+L440@P3: aggregate. Since we pose NN optimization as minimizing various sub-NNs,
+L441@P3: we seek to exploit similarities among the subproblems that must be solved.
+L442@P3: We develop this idea in § 3.2, showing that by classifying the subproblems
+L443@P3: into classes, the solution for a representative of the class can be used to
+L444@P3: accelerate the acquisition of the solutions for all other members of the class.
+L445@P3: 4Published as a conference paper at ICLR 2025
+L446@P4: Finally, in § 3.3, we piece these insights together to form architecture-aware optimization algorithms
+L447@P4: for the problem of NN-based technology mapping. In particular, we consider how to apply the
+L448@P4: proposed optimization techniques to the two kinds of NNs that result from the SOTA mapping procedure
+L449@P4: reviewed in § 2.2: unmerged and layer-merged NNs. The essential notions critical for describing the
+L450@P4: main results are presented here, while a comprehensive treatment is provided in the appendix.
+L451@P4: 3.1 OPTIMIZING NEURAL NETWORK REPRESENTATIONS OF BOOLEAN FUNCTIONS
+L452@P4: We begin by establishing a relationship between MPs and the size of their two-layer NN representation.
+L453@P4: Figure 2 depicts this relationship for k = 2. We see that the number of hidden neurons in the NN
+L454@P4: corresponds to the number of non-constant monomials in the MP, and the number of (layer one)
+L455@P4: connections corresponds to the sum of non-constant monomial degrees. To express this relationship
+L456@P4: in terms of MP vectors, we introduce the following definition and lemma.
+L457@P4: Definition 3.1 (Uniform & degree criterions). Let k ∈ N0 and c
+L458@P4: uni
+L459@P4: k
+L460@P4: , c
+L461@P4: deg
+L462@P4: k ∈ Z
+L463@P4: 2
+L464@P4: k
+L465@P4: have specification
+L466@P4: (c
+L467@P4: uni
+L468@P4: k
+L469@P4: )i = 1 if i > 0 and 0 otherwise, and c
+L470@P4: deg
+L471@P4: k =
+L472@P4: h
+L473@P4: c
+L474@P4: deg
+L475@P4: k−1
+L476@P4: , c
+L477@P4: deg
+L478@P4: k−1 + 1k−1
+L479@P4: i⊺
+L480@P4: if k > 0 and [0] otherwise,
+L481@P4: where 1k−1 ∈ B
+L482@P4: 2
+L483@P4: k−1
+L484@P4: denotes the all ones vector. E.g., c
+L485@P4: uni
+L486@P4: 2 = [0, 1, 1, 1]⊺
+L487@P4: and c
+L488@P4: deg
+L489@P4: 2 = [0, 1, 1, 2]⊺
+L490@P4: .
+L491@P4: Lemma 3.1. Let p ∈ Z
+L492@P4: 2
+L493@P4: k
+L494@P4: be a MP vector, c ∈ Z
+L495@P4: 2
+L496@P4: k
+L497@P4: , and C : Z
+L498@P4: 2
+L499@P4: k → N0 be a cost function with
+L500@P4: specification C(p) = ∥p∥0,c , where ∥·∥0,c denotes the zero-norm weighted by vector c. Then, (1)

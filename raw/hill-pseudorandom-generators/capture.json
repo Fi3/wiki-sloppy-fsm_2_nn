@@ -1,0 +1,21 @@
+{
+  "original_url": "https://www.cs.bu.edu/fac/lnd/pdf/hill.pdf",
+  "aliases": [],
+  "retrieved_on": "2026-10-07",
+  "segments": [
+    {
+      "url": "https://www.cs.bu.edu/fac/lnd/pdf/hill.pdf",
+      "total_browser_lines": 2643,
+      "captured_lines": 329,
+      "missing_line_ranges": [
+        [
+          329,
+          2642
+        ]
+      ],
+      "text_extraction_complete": false
+    }
+  ],
+  "review_status": "first-pass; source summary specifies reviewed scope",
+  "limitations": "Text only; original file bytes and linked assets were not downloaded. Browser extraction can omit equations and figures even with complete line coverage."
+}

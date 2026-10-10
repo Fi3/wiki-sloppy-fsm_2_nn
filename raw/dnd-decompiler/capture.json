@@ -1,0 +1,21 @@
+{
+  "original_url": "https://wuruoyu.github.io/assets/pdf/dnd.pdf",
+  "aliases": [],
+  "retrieved_on": "2026-10-07",
+  "segments": [
+    {
+      "url": "https://wuruoyu.github.io/assets/pdf/dnd.pdf",
+      "total_browser_lines": 1674,
+      "captured_lines": 378,
+      "missing_line_ranges": [
+        [
+          378,
+          1673
+        ]
+      ],
+      "text_extraction_complete": false
+    }
+  ],
+  "review_status": "first-pass; source summary specifies reviewed scope",
+  "limitations": "Text only; original file bytes and linked assets were not downloaded. Browser extraction can omit equations and figures even with complete line coverage."
+}

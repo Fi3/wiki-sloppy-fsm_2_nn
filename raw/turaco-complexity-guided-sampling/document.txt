@@ -1,0 +1,349 @@
+Title/catalog label: Turaco complexity guided sampling
+Original URL: https://arxiv.org/pdf/2309.11726
+Retrieved: 2026-10-07
+Format: browser-extracted text; not original PDF/HTML bytes. Coverage is recorded in capture.json. PDF P labels are zero-based. No figures or proofs were audited.
+
+L0@P0: 280
+L1@P0: Turaco: Complexity-Guided Data Sampling for Training
+L2@P0: Neural Surrogates of Programs
+L3@P0: ALEX RENDA, MIT CSAIL, USA
+L4@P0: YI DING, Purdue University, USA
+L5@P0: MICHAEL CARBIN, MIT CSAIL, USA
+L6@P0: Programmers and researchers are increasingly developing surrogates of programs, models of a subset of the
+L7@P0: observable behavior of a given program, to solve a variety of software development challenges. Programmers
+L8@P0: train surrogates from measurements of the behavior of a program on a dataset of input examples. A key challenge
+L9@P0: of surrogate construction is determining what training data to use to train a surrogate of a given program.
+L10@P0: We present a methodology for sampling datasets to train neural-network-based surrogates of programs. We
+L11@P0: first characterize the proportion of data to sample from each region of a program’s input space (corresponding to
+L12@P0: different execution paths of the program) based on the complexity of learning a surrogate of the corresponding
+L13@P0: execution path. We next provide a program analysis to determine the complexity of different paths in a program.
+L14@P0: We evaluate these results on a range of real-world programs, demonstrating that complexity-guided sampling
+L15@P0: results in empirical improvements in accuracy.
+L16@P0: CCS Concepts: • Software and its engineering → Automatic programming; Software evolution; • Computing methodologies → Machine learning.
+L17@P0: Additional Key Words and Phrases: programming languages, surrogate models, neural networks
+L18@P0: ACM Reference Format:
+L19@P0: Alex Renda, Yi Ding, and Michael Carbin. 2023. Turaco: Complexity-Guided Data Sampling for Training
+L20@P0: Neural Surrogates of Programs. Proc. ACM Program. Lang. 7, OOPSLA2, Article 280 (October 2023), 51 pages.
+L21@P0: https://doi.org/10.1145/3622856
+L22@P0: 1 INTRODUCTION
+L23@P0: Surrogate programming – the act of replacing a program with a surrogate model of its behavior –
+L24@P0: has been increasingly leveraged to solve a variety of software development challenges [Renda et al.
+L25@P0: 2021]. For example, Esmaeilzadeh et al. [2012] train neural networks to mimic existing numerical
+L26@P0: programs (a fast Fourier transform, a triangle intersection detection algorithm, a JPEG encoder, etc.)
+L27@P0: and execute these neural networks on specialized hardware, achieving an average speedup of 2.3×
+L28@P0: across benchmarks at the cost of 10% accuracy in these numerical programs. Kustowski et al. [2020]
+L29@P0: train a neural network to mimic computer simulations of inertial confinement fusion, then fine-tune
+L30@P0: the neural network on a small amount of data from real experiments to improve the accuracy of the
+L31@P0: simulated predictions. Renda et al. [2020] train a neural network to mimic a CPU simulator, then
+L32@P0: exploit the fact that this neural surrogate is differentiable to optimize the CPU simulator’s simulation
+L33@P0: parameters with gradient descent.
+L34@P0: Authors’ addresses: Alex Renda, MIT CSAIL, USA, renda@csail.mit.edu; Yi Ding, Purdue University, USA, yiding@purdue.edu;
+L35@P0: Michael Carbin, MIT CSAIL, USA, mcarbin@csail.mit.edu.
+L36@P0: Permission to make digital or hard copies of part or all of this work for personal or classroom use is granted without fee
+L37@P0: provided that copies are not made or distributed for profit or commercial advantage and that copies bear this notice and the
+L38@P0: full citation on the first page. Copyrights for third-party components of this work must be honored. For all other uses, contact
+L39@P0: the owner/author(s).
+L40@P0: © 2023 Copyright held by the owner/author(s).
+L41@P0: 2475-1421/2023/10-ART280
+L42@P0: https://doi.org/10.1145/3622856
+L43@P0: Proc. ACM Program. Lang., Vol. 7, No. OOPSLA2, Article 280. Publication date: October 2023.
+L44@P0-1: arXiv:2309.11726v1 [cs.PL] 21 Sep 2023280:2 Alex Renda, Yi Ding, and Michael Carbin
+L45@P1: 1.1 Surrogate Programming
+L46@P1: Beyond these examples, surrogate programming has developed into a diverse set of techniques and
+L47@P1: applications across many areas of computing and science. Renda et al. [2021] organize the uses of
+L48@P1: neural network based surrogates of programs into three categories.
+L49@P1: Surrogate compilation. In surrogate compilation, programmers develop a surrogate that replicates
+L50@P1: the behavior of a program to deploy to end-users in place of that program. For example, in addition to
+L51@P1: Esmaeilzadeh et al.[2012] (who use a surrogate to speed up numerical programs), Mendis[2020] use a
+L52@P1: surrogate to speed up compiler autovectorization by replacing an integer linear program (ILP) solver
+L53@P1: with a surrogate. Key benefits of surrogate compilation include the ability to execute the surrogate
+L54@P1: on different hardware and the ability to bound or to accelerate the execution time of the surrogate.
+L55@P1: Surrogate adaptation. In surrogate adaptation, programmers first develop a surrogate of a program
+L56@P1: and then further train that surrogate on data from a different task. For example, in addition to
+L57@P1: Kustowski et al. [2020] (who use a surrogate to improve the accuracy of inertial confinement fusion
+L58@P1: simulations), Tercan et al. [2018] use this technique to improve the accuracy of computer simulations
+L59@P1: of plastic injection molding. Key benefits of surrogate adaptation include that it makes it possible
+L60@P1: to alter the semantics of the program to perform a different task of interest and that it may be more
+L61@P1: data-efficient or result in higher accuracy than training a model from scratch for the task.
+L62@P1: Surrogate optimization. In surrogate optimization programmers develop a surrogate of a program,
+L63@P1: use gradient descent against the surrogate to identify program inputs that optimize a downstream
+L64@P1: objective, then use the inputs for executing the original program. In addition to Renda et al. [2020]
+L65@P1: (who use this technique to optimize CPU simulation parameters),Tseng et al.[2019] use this technique
+L66@P1: to find parameters for camera pipelines that lead to the most photorealistic images. She et al. [2019]
+L67@P1: use this technique to find inputs that trigger branches that may cause bugs in the original program.
+L68@P1: The key benefit of surrogate optimization is that it can identify optimal inputs faster than optimizing
+L69@P1: directly against the program, due to the faster execution speed of the surrogate and that the surrogate
+L70@P1: is differentiable even when the original program is not (allowing the use of gradient descent).
+L71@P1: 1.2 Dataset Generation
+L72@P1: In each of these scenarios, training a surrogate of a program requires measuring the behavior of
+L73@P1: the program on a dataset of input examples. There are three common approaches to collecting this
+L74@P1: dataset. The first is to use data instrumented from running the original program on a workload of
+L75@P1: interest [Esmaeilzadeh et al. 2012; Renda et al. 2020]. In the absence of an available workload, another
+L76@P1: is to uniformly sample(or sample using another manually defined distribution) from the input space of
+L77@P1: the program [Kustowski et al. 2020; Tseng et al. 2019]. The third is to use active learning [Settles 2009],
+L78@P1: a class of online methods that iteratively query labels for the data points that are most useful (however
+L79@P1: defined) for further training the surrogate [İpek et al. 2006; Pestourie et al. 2020; She et al. 2019].
+L80@P1: Each of these approaches face challenges on programs with different behaviors in different regions
+L81@P1: of the input space. For example, Renda et al. [2020, Section IV.A] identify a scenario in which an
+L82@P1: instrumented dataset does not exercise a set of control flow paths in the program enough times for the
+L83@P1: surrogate to learn the program’s behavior along those paths, resulting in a surrogate that generates
+L84@P1: highly inaccurate predictions for inputs in the regions of the input space corresponding to those paths.
+L85@P1: 1.3 Our Approach: Complexity-Guided Sampling
+L86@P1: Rather than treating the program as a black box, our approach uses the source code and semantics
+L87@P1: of the program under study to guide dataset generation for training a surrogate of the program.
+L88@P1: The core concept is to allocate samples based on both the the complexity of learning the program’s
+L89@P1: behavior on a given path and the frequency of that path in the input data distribution.
+L90@P1-2: Proc. ACM Program. Lang., Vol. 7, No. OOPSLA2, Article 280. Publication date: October 2023.Turaco: Complexity-Guided Data Sampling for Training Neural Surrogates of Programs 280:3
+L91@P2: Complexity-guided sampling. Our objective is to find how many samples to allocate to each region
+L92@P2: of the input space to minimize the expected error of the resulting surrogate. To reason about the error
+L93@P2: of a surrogate, we use neural network sample complexity bounds for learning analytic functions [Agarwala et al. 2021; Arora et al. 2019]. These bounds give an upper bound on how many samples are
+L94@P2: required to learn a surrogate of an analytic function to a given error as a function of a complexity
+L95@P2: measure of that function. Our approach calculates a complexity measure for the function induced by
+L96@P2: each control flow path in the program and combines that with the frequency of each path according
+L97@P2: to an input data distribution. The output of the approach is the proportion of samples to allocate
+L98@P2: to each region of the input space, minimizing an upper bound on the stratified surrogate’s error.
+L99@P2: Stratified functions. Our core modeling assumption is to represent the program as a stratified
+L100@P2: function, a piecewise1function across different regions (strata) of the input space. We use stratified
+L101@P2: surrogates to model such functions. To construct a stratified surrogate, we train independent surrogates of each component of the stratified function. During evaluation, a stratified surrogate uses the
+L102@P2: original program to check which stratum an input is in, then applies the corresponding surrogate.
+L103@P2: Complexity analysis. We present a programming language, Turaco, in which programs denote
+L104@P2: stratified functions with well-defined complexity measures (specifically, stratified analytic functions).
+L105@P2: We provide a static program analysis for Turaco programs that automatically calculates an upper
+L106@P2: bound on the complexity of each component of the stratified function that the program denotes.
+L107@P2: Evaluation. To demonstrate that complexity-guided sampling using our complexity analysis
+L108@P2: improves surrogate error on downstream tasks, we evaluate our approach on a range of programs,
+L109@P2: finding that across this selection of programs complexity-guided sampling improves error relative to
+L110@P2: baseline distributions by around 5%.We demonstrate that a 5%improvementin error of a surrogate can
+L111@P2: result in a 28%improvement in execution speed in an application with a maximum error threshold.We
+L112@P2: then analyze the classes of problems for which complexity-guided sampling excels, finding potential
+L113@P2: improvementsin error of up to 30%, and the classes of problems for which complexity-guided sampling
+L114@P2: using Turaco’s complexity analysis sampling fails, finding deteriorations in error of up to 500%.
+L115@P2: Renderer demonstration. We further present a case study of learning a surrogate of a renderer
+L116@P2: in a video game engine. We show that our complexity-guided sampling approach results in between 17% and 44% lower error than training using baseline distributions that do not take into
+L117@P2: account path complexity. These error improvements correspond with perceptual improvements
+L118@P2: in the generated renders.
+L119@P2: Contributions. We present the following contributions:
+L120@P2: • An approach to allocating samples among strata to train stratified neural network surrogates
+L121@P2: of stratified analytic functions that minimizes an upper bound on the surrogate’s error.
+L122@P2: • A programming language, Turaco, in which all programs are stratified analytic functions, and
+L123@P2: a program analysis to bound the complexity of learning surrogates of those programs.
+L124@P2: • Empirical evaluations on real-world programs demonstrating that complexity-guided sampling
+L125@P2: using Turaco’s complexity analysis results in empirical improvements in error, and that these
+L126@P2: improvements in error result in improvements in downstream applications.
+L127@P2: • Further empirical evaluations of the classes of problems where complexity-guided sampling
+L128@P2: using Turaco’s complexity analysis succeeds and fails.
+L129@P2: We lay the groundwork for analyzing complexity-guided sampling approaches for training surrogates
+L130@P2: of programs. Our results hold out the promise of surrogate training approaches that intelligently
+L131@P2: use the program’s semantics to guide the design and training of surrogates of programs.
+L132@P2: 1We choose the term stratified by analogy with the technique of stratified sampling.
+L133@P2-3: Proc. ACM Program. Lang., Vol. 7, No. OOPSLA2, Article 280. Publication date: October 2023.280:4 Alex Renda, Yi Ding, and Michael Carbin
+L134@P3: 1 fun ( s u n P o s i t i o n , e mi s si o n ) {
+L135@P3: 2 i f ( s u n P o s i t i o n < 0) {
+L136@P3: 3 ambie n t = 0 ;
+L137@P3: 4 } e l s e {
+L138@P3: 5 ambie n t = s u n P o s i t i o n ;
+L139@P3: 6 }
+L140@P3: 7 i f ( s u n P o s i t i o n < 0 . 1 ) {
+L141@P3: 8 e mi s si o n ∗= 0 . 1 ;
+L142@P3: 9 } e l s e {
+L143@P3: 10 e mi s si o n ∗= s u n P o s i t i o n ;
+L144@P3: 11 }
+L145@P3: 12 r e t u r n ambie n t + e mi s si o n ;
+L146@P3: 13 }
+L147@P3: (a) Graphics program calculating the luminance of a pixel
+L148@P3: as a function of ambient light and material properties.
+L149@P3: -1.0-0.6-0.2
+L150@P3: 0.20.61.0
+L151@P3: sunPosition
+L152@P3: -1.0
+L153@P3: -0.6
+L154@P3: -0.2
+L155@P3: 0.2
+L156@P3: 0.6
+L157@P3: 1.0
+L158@P3: emission
+L159@P3: Luminance Across Input Distribution
+L160@P3: 0.0
+L161@P3: 0.5
+L162@P3: 1.0
+L163@P3: 1.5
+L164@P3: 2.0
+L165@P3: Luminance
+L166@P3: (b) Output of the program on inputs in [−1, 1], with
+L167@P3: dashes separating the three paths.
+L168@P3: / / assume : s u n P o s i t i o n < 0
+L169@P3: fun ( s u n P o s i t i o n , e mi s si o n ) {
+L170@P3: ambie n t = 0 ;
+L171@P3: e mi s si o n ∗= 0 . 1 ;
+L172@P3: r e t u r n ambie n t + e mi s si o n ;
+L173@P3: }
+L174@P3: (c) Nighttime (ll) path.
+L175@P3: / / assume 0< s u n P o s i t i o n < 0 . 1
+L176@P3: fun ( s u n P o s i t i o n , e mi s si o n ) {
+L177@P3: ambie n t = s u n P o s i t i o n ;
+L178@P3: e mi s si o n ∗= 0 . 1 ;
+L179@P3: r e t u r n ambie n t + e mi s si o n ;
+L180@P3: }
+L181@P3: (d) Twilight (rl) path.
+L182@P3: / / assume : s u n P o s i t i o n > 0 . 1
+L183@P3: fun ( s u n P o s i t i o n , e mi s si o n ) {
+L184@P3: ambie n t = s u n P o s i t i o n ;
+L185@P3: e mi s si o n ∗= s u n P o s i t i o n ;
+L186@P3: r e t u r n ambie n t + e mi s si o n ;
+L187@P3: }
+L188@P3: (e) Daytime (rr) path.
+L189@P3: Fig. 1. Example program, outputs, and traces.
+L190@P3: 2 EXAMPLE
+L191@P3: Figure 1a presents an example distilled from our evaluation (Section 5.2) that we use to demonstrate
+L192@P3: how complexity-guided sampling results in a more accurate surrogate than frequency-based sampling,
+L193@P3: sampling according to the frequency of paths alone.
+L194@P3: Program under study. Figure 1a presents a graphics program that calculates the luminance (i.e.,
+L195@P3: brightness) at a point in a scene as a function of sunPosition, the height of the sun in the sky (i.e.,
+L196@P3: the time of day), and emission, which describes how reflective the material is at that point.
+L197@P3: The program first checks whether it is nighttime (Line 2), and sets the ambient lighting variable to
+L198@P3: zero accordingly. The program next checks whether the sun position is below a threshold indicating
+L199@P3: direct sunlight (Line 7) and sets the emission variable accordingly. The output is then the sum of the
+L200@P3: ambient light and the light emitted by the material. Figure 1b presents the output of this program
+L201@P3: over the valid input range of sunPosition and emission (i.e., between −1 and 1 for both variables).
+L202@P3: The path conditions (Lines 2 and 7) partition the program into three traces: nighttime, when
+L203@P3: sunPosition is less than 0 (Figure 1c); twilight, when sunPosition is between 0 and 0.1 (Figure 1d);
+L204@P3: and daytime, when sunPosition is greater than 0.1 (Figure 1e). These paths are separated by dashed
+L205@P3: black lines in Figure 1b.
+L206@P3: Complexity. Training a surrogate of this program poses a particular challenge because these traces
+L207@P3: have not only different behavior but also different relative complexities: when sunPosition is less
+L208@P3: than 0.1 the function is linear, but when sunPosition is above 0.1 the function is quadratic. This
+L209@P3: notion of complexity is quantified by the sample complexity of each trace: traces that are more complex
+L210@P3-4: Proc. ACM Program. Lang., Vol. 7, No. OOPSLA2, Article 280. Publication date: October 2023.Turaco: Complexity-Guided Data Sampling for Training Neural Surrogates of Programs 280:5
+L211@P4: 100 101 102
+L212@P4: Number of Path Samples
+L213@P4: 10−3
+L214@P4: 10−2
+L215@P4: 10−1
+L216@P4: Error
+L217@P4: Sample Efficiencies of Paths
+L218@P4: Daytime
+L219@P4: Twilight
+L220@P4: Nighttime
+L221@P4: (a) Per-path surrogate errors (log-log plot).
+L222@P4: 101 102 103
+L223@P4: Total Dataset Size
+L224@P4: 10−3
+L225@P4: 10−2
+L226@P4: 10−1
+L227@P4: Error
+L228@P4: Surrogate Error
+L229@P4: Frequency Sampling
+L230@P4: Complexity Sampling
+L231@P4: (b) Stratified surrogate errors (log-log plot). Our approach decreases the error by 15%.
+L232@P4: Fig. 2. Per-path surrogate errors (left) and combined errors (right) for the example.
+L233@P4: require more samples to learn to a given error than traces that are less complex. Figure 2a presents the
+L234@P4: error as a function of the training dataset size of surrogates of each trace trained in isolation, showing
+L235@P4: that indeed the quadratic daytime path the has the highest error, followed by twilight then nighttime.
+L236@P4: Complexity-guided sampling. Our objective is to find the number of data points to sample from each
+L237@P4: path to minimize the expectation of error of a surrogate of the overall program, given a data distribution and a data budget. To accomplish this, our approach leverages the complexity of each path and
+L238@P4: the frequency of each path in the data distribution, prioritizing sampling paths that are more complex
+L239@P4: (requiring more samples to learn) and that are more frequent (and thus more important to learn).
+L240@P4: First our approach determines the sample complexity of each trace along each path, the number
+L241@P4: of samples required to learn a surrogate of the trace (in isolation) to a given error. Our approach
+L242@P4: extends the sample complexity results of Agarwala et al. [2021], who give an upper bound on the
+L243@P4: number of samples required to learn a neural network approximation of a given analytic function.
+L244@P4: Using this bound (as implemented by our Turaco analysis described in Section 4), our approach
+L245@P4: determines that the twilight path takes 1.4× as many samples to train a surrogate to a given error
+L246@P4: as the nighttime path, and the daytime path requires 3.7× as many samples.
+L247@P4: Then given a distribution with the frequency of each path, our approach determines the complexityguided sampling rates for each path. In this example we assume that the data has a uniform
+L248@P4: distribution over inputs between −1 and 1, resulting in path frequencies for the nighttime path
+L249@P4: (sunPosition < 0) of 50%, the twilight path (0 < sunPosition < 0.1) of 10%, and the daytime path
+L250@P4: (0.1 < sunPosition) of 40%. With this, our approach determines that the nighttime path should
+L251@P4: be sampled at 36.9% of the data budget (undersampling relative to its frequency because it is simple
+L252@P4: to learn), the twilight path at 14.0%, and the daytime path at 49.1% (oversampling relative to its
+L253@P4: frequency because it is complex to learn).
+L254@P4: Stratified surrogates. The class of surrogate model for which we derive the above approach is that
+L255@P4: of a stratified neural surrogate – a set of disjoint neural networks which are applied based on which
+L256@P4: path the inputs induce in the program. Concretely, this means that we train one surrogate per path,
+L257@P4: and pick which to apply for each input at evaluation time. For this example program, picking which
+L258@P4: surrogate to apply just requires comparing sunPosition against constant threshold values.
+L259@P4-5: Proc. ACM Program. Lang., Vol. 7, No. OOPSLA2, Article 280. Publication date: October 2023.280:6 Alex Renda, Yi Ding, and Michael Carbin
+L260@P5: Results. Figure 2b presents the error as a function of the training dataset size of stratified surrogates of the entire program for a baseline of sampling according to path frequency alone and
+L261@P5: for complexity-guided sampling. Figure 2b shows that the complexity-guided sampling approach
+L262@P5: results in lower error than sampling according to path frequency alone. For datasets of total size
+L263@P5: below 70 samples, the surrogate trained with complexity-guided sampling has a geometric mean
+L264@P5: decrease in error of 27.5%. For datasets of total size above 70 samples, the surrogate trained with
+L265@P5: complexity-guided sampling has a geometric mean decrease in error of 5.5%. Across the entire range
+L266@P5: of dataset sizes evaluated in this plot, the surrogate trained with complexity-guided sampling has a
+L267@P5: geometric mean decrease in error of 15%. In sum, our approach results in a surrogate that produces a
+L268@P5: more accurate luminance calculation, and therefore a better final output from the graphics program,
+L269@P5: than a surrogate trained using frequency-based path sampling.
+L270@P5: 3 COMPLEXITY-GUIDED SAMPLING
+L271@P5: In this section we present the stratified surrogate sample allocation problem and derive our solution,
+L272@P5: complexity-guided stratified surrogate dataset selection.
+L273@P5: 3.1 The Stratified Surrogate Sample Allocation Problem
+L274@P5: Our goal is to learn a stratified surrogate,
+L275@P5: ˆ
+L276@P5: 𝑓 , of a stratified function, 𝑓 , constrained by a sample budget,𝑛,
+L277@P5: that defines the number of data samples to be used by the learning algorithm.
+L278@P5: We approach this problem through the definition of a stratified function as a piecewise function;
+L279@P5: we term each piece a stratum. We then define a stratified surrogate as a stratified function itself, with
+L280@P5: each stratum a surrogate of a corresponding stratum of the stratified function. Learning a stratified
+L281@P5: surrogate therefore requires learning a surrogate for each stratum.
+L282@P5: We assume that we have a technique for learning a surrogate of a function, 𝑓 , given a sample
+L283@P5: budget. Our precise goal is thus to partition the overall sample budget, 𝑛, into per-stratum sample
+L284@P5: budgets for each stratum of the stratified function, with the objective of minimizing the overall error
+L285@P5: of the stratified surrogate.
+L286@P5: 3.1.1 Stratified Functions and Surrogates. We define a stratified function 𝑓 as follows:
+L287@P5: 𝑓 (𝑥) ≜
+L288@P5: 
+L289@P5: 
+L290@P5: 
+L291@P5: 𝑓 1 (𝑥) if 𝑥 ∈ 𝑠1
+L292@P5: .
+L293@P5: .
+L294@P5: .
+L295@P5: 𝑓 𝑐 (𝑥) if 𝑥 ∈ 𝑠𝑐
+L296@P5: where 𝑓 and each 𝑓𝑖is a function from inputs 𝑥 : X to outputs 𝑦 : Y,𝑐 is the number of strata, {𝑠𝑖 }
+L297@P5: 𝑐
+L298@P5: 𝑖=1
+L299@P5: are strata, and where ∪𝑖𝑠𝑖 = X and ∀𝑖 ≠ 𝑗. 𝑠𝑖 ∩𝑠𝑗 = ∅. We define a stratified surrogate ˆ𝑓 as a stratified
+L300@P5: function with components ˆ𝑓 𝑖.
+L301@P5: 3.1.2 The Stratified Surrogate Sample Allocation Problem. To restate, our goal is to learn a stratified
+L302@P5: surrogate ˆ𝑓 of a stratified function 𝑓 .
+L303@P5: Formally, we define a learning algorithm, a function that learns a surrogate of a given input function,
+L304@P5: as a random function tr : (X → Y) × D × N × (Y × Y → R≥0) → (X → Y) that takes a function
+L305@P5: 𝑓 : X → Y from inputs 𝑥 : X to outputs 𝑦 : Y, a distribution 𝐷 : D over inputs 𝑥, a number
+L306@P5: of training examples 𝑛 : N, and a loss function ℓ : Y × Y → R≥0 which measures the cost of an
+L307@P5: incorrect prediction, and returns a function (representing the output surrogate) ˆ𝑓 : X → Y.
+L308@P5: We also define notation for data distributions 𝐷. Let 𝐷(𝑥) be the probability that 𝑥 is sampled
+L309@P5: from 𝐷, and ∫
+L310@P5: 𝑥 ∈𝑠𝑖
+L311@P5: 𝐷(𝑥)d𝑥 be the probability mass of all data points within 𝑠𝑖 over 𝐷 (reducing to a
+L312@P5: summation for discrete distributions). Let𝐷(𝑥 |𝑠𝑖), the distribution of𝑥 within stratum𝑠𝑖, be defined as:
+L313@P5-6: Proc. ACM Program. Lang., Vol. 7, No. OOPSLA2, Article 280. Publication date: October 2023.Turaco: Complexity-Guided Data Sampling for Training Neural Surrogates of Programs 280:7
+L314@P6: 𝐷(𝑥 |𝑠𝑖) ≜
+L315@P6: 
+L316@P6: 
+L317@P6: 
+L318@P6: 𝐷 (𝑥 )
+L319@P6: ∫
+L320@P6: 𝑥′ ∈𝑠𝑖
+L321@P6: 𝐷 (𝑥
+L322@P6: ′
+L323@P6: )d𝑥
+L324@P6: ′
+L325@P6: 𝑥 ∈ 𝑠𝑖
+L326@P6: 0 otherwise
+L327@P6: We next define a stratified learning algorithm. A stratified learning algorithm learns a stratified
+L328@P6: surrogate of a stratified function by learning each component surrogate independently (given their
+L329@P6: respective dataset budgets). We use the following notation to denote the operation of a stratified
+L330@P6: learning algorithm, where 𝑛® is a vector of sample budgets for each stratum:
+L331@P6: ˆ
+L332@P6: 𝑓 ∼ tr(𝑓 , 𝐷, 𝑛, ℓ ® ) ≜
+L333@P6: n
+L334@P6: ˆ
+L335@P6: 𝑓 𝑖 ∼ tr(𝑓 𝑖, 𝐷(𝑥 |𝑠𝑖), 𝑛®𝑖, ℓ)
+L336@P6: o
+L337@P6: We formalize stratified surrogate sample allocation with the following optimization problem:
+L338@P6: arg min
+L339@P6: 𝑛®
+L340@P6: E ˆ
+L341@P6: 𝑓 ∼tr(𝑓 ,𝐷,𝑛,ℓ ® )
+L342@P6: 
+

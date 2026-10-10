@@ -1,0 +1,21 @@
+{
+  "original_url": "https://arxiv.org/pdf/quant-ph/9802049",
+  "aliases": [],
+  "retrieved_on": "2026-10-07",
+  "segments": [
+    {
+      "url": "https://arxiv.org/pdf/quant-ph/9802049",
+      "total_browser_lines": 1037,
+      "captured_lines": 406,
+      "missing_line_ranges": [
+        [
+          406,
+          1036
+        ]
+      ],
+      "text_extraction_complete": false
+    }
+  ],
+  "review_status": "first-pass; source summary specifies reviewed scope",
+  "limitations": "Text only; original file bytes and linked assets were not downloaded. Browser extraction can omit equations and figures even with complete line coverage."
+}

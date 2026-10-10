@@ -1,0 +1,11 @@
+{
+  "retrieved_on": "2026-10-07",
+  "format": "browser-extracted-text",
+  "original_bytes_downloaded": false,
+  "url": "https://arxiv.org/abs/2112.06148",
+  "browser_total_lines": 171,
+  "captured_numbered_lines": 171,
+  "missing_line_ranges": [],
+  "complete_browser_text": true,
+  "review_scope": "First-pass reading of the captured excerpt; no full proof, figure or benchmark audit."
+}

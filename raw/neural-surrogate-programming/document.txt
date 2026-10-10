@@ -1,0 +1,157 @@
+Title/catalog label: Neural surrogate programming
+Original URL: https://arxiv.org/abs/2112.06148
+Retrieved: 2026-10-07
+Format: browser-extracted text; not original PDF/HTML bytes. Coverage is recorded in capture.json. PDF P labels are zero-based. No figures or proofs were audited.
+
+L0: cite0†Search cite1†Submit cite2†Donate†info.arxiv.org cite3†Log in L1: 
+L2: Search arXiv [Input: Search papers by title, author, abstract, or ID...] [Input] [Input]
+L3: 
+L4: Press Enter to search · cite4†Advanced search L5: 
+L6: # Computer Science > Programming Languages
+L7: 
+L8: [Submitted on 12 Dec 2021]
+L9: # Title:Programming with Neural Surrogates of Programs
+L10: 
+L11: Authors:cite5†Alex Renda , cite6†Yi Ding , cite7†Michael Carbin L12: 
+L13: View a PDF of the paper titled Programming with Neural Surrogates of Programs, by Alex Renda and 2 other authors
+L14: 
+L15: cite8†View PDF cite9†HTML (experimental) L16: > Abstract:Surrogates, models that mimic the behavior of programs, form the basis of a variety of development workflows. We study three surrogate-based design patterns, evaluating each in case studies on a large-scale CPU simulator.
+L17: > With surrogate compilation, programmers develop a surrogate that mimics the behavior of a program to deploy to end-users in place of the original program. Surrogate compilation accelerates the CPU simulator under study by $1.6\times$. With surrogate adaptation, programmers develop a surrogate of a program then retrain that surrogate on a different task. Surrogate adaptation decreases the simulator's error by up to $50\%$.
+L18: With surrogate optimization, programmers develop a surrogate of a program, optimize input parameters of the surrogate, then plug the optimized input parameters back into the original program. Surrogate optimization finds simulation parameters that decrease the simulator's error by $5\%$ compared to the error induced by expert-set parameters.
+L19: > In this paper we formalize this taxonomy of surrogate-based design patterns. We further describe the programming methodology common to all three design patterns. Our work builds a foundation for the emerging class of workflows based on programming with surrogates of programs.
+L20: Subjects:  | Programming Languages (cs.PL); Machine Learning (cs.LG); Software Engineering (cs.SE)
+L21: Cite as:  | cite10†arXiv:2112.06148 [cs.PL]
+L22:    | (or cite11†arXiv:2112.06148v1 [cs.PL] for this version)
+L23:    | cite12†https://doi.org/10.48550/arXiv.2112.06148†doi.org arXiv-issued DOI via DataCite
+L24: Journal reference:  | Onward! 2021
+L25: Related DOI (Digital Object Identifier):  | cite13†https://doi.org/10.1145/3486607.3486748†doi.org DOI(s) linking to related resources
+L26: ## Submission history
+L27: 
+L28: From: Alex Renda [cite14†view email ]
+L29: [v1] Sun, 12 Dec 2021 04:45:41 UTC (5,702 KB)
+L30: 
+L31: Full-text links:
+L32: 
+L33: ## Access Paper:
+L34: 
+L35: View a PDF of the paper titled Programming with Neural Surrogates of Programs, by Alex Renda and 2 other authors
+L36: 
+L37:   * cite8†View PDF L38:   * cite9†HTML (experimental) L39:   * cite15†TeX Source L40: 
+L41: cite16†view license†creativecommons.org L42: ### Current browse context:
+L43: 
+L44: cs.PL
+L45: 
+L46: cite17†< prev |   cite18†next > L47: 
+L48: cite19†new | cite20†recent | cite21†2021-12 L49: 
+L50: Change to browse by:
+L51: 
+L52: cite22†cs L53: cite23†cs.LG L54: cite24†cs.SE L55: 
+L56: ### References & Citations
+L57: 
+L58:   * cite25†NASA ADS†ui.adsabs.harvard.edu L59:   * cite26†Google Scholar†scholar.google.com L60:   * cite27†Semantic Scholar†api.semanticscholar.org L61: ### cite28†DBLP†dblp.uni-trier.de - CS Bibliography
+L62: 
+L63: cite29†listing†dblp.uni-trier.de | cite30†bibtex†dblp.uni-trier.de L64: 
+L65: cite31†Alex Renda†dblp.uni-trier.de L66: cite32†Yi Ding†dblp.uni-trier.de L67: cite33†Michael Carbin†dblp.uni-trier.de L68: 
+L69: [Button: export BibTeX citation] Loading...
+L70: 
+L71: ## BibTeX formatted citation
+L72: 
+L73: [Button: ×]
+L74: 
+L75: loading...
+L76: 
+L77: Data provided by:
+L78: 
+L79: ### Bookmark
+L80: 
+L81: [Input] Bibliographic Tools
+L82: # Bibliographic and Citation Tools
+L83: 
+L84: [Input] Bibliographic Explorer Toggle
+L85: 
+L86: Bibliographic Explorer (cite34†What is the Explorer?†info.arxiv.org )
+L87: 
+L88: [Input] Connected Papers Toggle
+L89: 
+L90: Connected Papers (cite35†What is Connected Papers?†www.connectedpapers.com )
+L91: 
+L92: [Input] Litmaps Toggle
+L93: 
+L94: Litmaps (cite36†What is Litmaps?†www.litmaps.co )
+L95: 
+L96: [Input] scite.ai Toggle
+L97: 
+L98: scite Smart Citations (cite37†What are Smart Citations?†www.scite.ai )
+L99: 
+L100: [Input] Code, Data, Media
+L101: # Code, Data and Media Associated with this Article
+L102: 
+L103: [Input] alphaXiv Toggle
+L104: 
+L105: alphaXiv (cite38†What is alphaXiv?†alphaxiv.org )
+L106: 
+L107: [Input] Links to Code Toggle
+L108: 
+L109: CatalyzeX Code Finder for Papers (cite39†What is CatalyzeX?†www.catalyzex.com )
+L110: 
+L111: [Input] DagsHub Toggle
+L112: 
+L113: DagsHub (cite40†What is DagsHub?†dagshub.com )
+L114: 
+L115: [Input] GotitPub Toggle
+L116: 
+L117: Gotit.pub (cite41†What is GotitPub?†gotit.pub )
+L118: 
+L119: [Input] Huggingface Toggle
+L120: 
+L121: Hugging Face (cite42†What is Huggingface?†huggingface.co )
+L122: 
+L123: [Input] ScienceCast Toggle
+L124: ScienceCast (cite43†What is ScienceCast?†sciencecast.org )
+L125: 
+L126: [Input] Demos
+L127: # Demos
+L128: 
+L129: [Input] Replicate Toggle
+L130: 
+L131: Replicate (cite44†What is Replicate?†replicate.com )
+L132: 
+L133: [Input] Spaces Toggle
+L134: 
+L135: Hugging Face Spaces (cite45†What is Spaces?†huggingface.co )
+L136: 
+L137: [Input] Spaces Toggle
+L138: 
+L139: TXYZ.AI (cite46†What is TXYZ.AI?†txyz.ai )
+L140: 
+L141: [Input] Related Papers
+L142: # Recommenders and Search Tools
+L143: 
+L144: [Input] Link to Influence Flower
+L145: 
+L146: Influence Flower (cite47†What are Influence Flowers?†influencemap.cmlab.dev )
+L147: 
+L148: [Input] Core recommender toggle
+L149: 
+L150: CORE Recommender (cite48†What is CORE?†core.ac.uk )
+L151: 
+L152:   * Author
+L153:   * Venue
+L154:   * Institution
+L155:   * Topic
+L156: 
+L157: [Input] About arXivLabs
+L158: # arXivLabs: experimental projects with community collaborators
+L159: 
+L160: arXivLabs is a framework that allows collaborators to develop and share new arXiv features directly on our website.
+L161: 
+L162: Both individuals and organizations that work with arXivLabs have embraced and accepted our values of openness, community, excellence, and user data privacy. arXiv is committed to these values and only works with partners that adhere to them.
+L163: Have an idea for a project that will add value for arXiv's community? cite49†Learn more about arXivLabs†info.arxiv.org .
+L164: 
+L165: cite50†Which authors of this paper are endorsers? | Disable MathJax (cite51†What is MathJax?†info.arxiv.org )
+L166: 
+L167: We gratefully acknowledge support from our major funders, cite52†member institutions†info.arxiv.org , , and all contributors.
+L168: cite53†About†info.arxiv.org · cite54†Help†info.arxiv.org · cite55†Contact†info.arxiv.org · cite56†Subscribe†info.arxiv.org · cite57†Copyright†info.arxiv.org · cite58†Privacy†info.arxiv.org · cite59†Accessibility†info.arxiv.org · cite60†Operational Status (opens in new tab)†status.arxiv.org L169: 
+L170: Major funding support from
+
+

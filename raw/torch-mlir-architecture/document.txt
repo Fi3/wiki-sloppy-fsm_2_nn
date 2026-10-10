@@ -1,0 +1,400 @@
+Torch-MLIR Architecture
+Supplied URL: https://github.com/llvm/torch-mlir/blob/main/docs/architecture.md
+Retrieved on: 2026-10-07
+Format: text extracted by the web browsing tool, not the original PDF/HTML bytes.
+L numbers refer to the browser extraction. PDF P numbers are zero-based.
+A complete text extraction does not imply that every figure, equation, or proof was reviewed.
+Read capture.json for captured URLs, line coverage, and missing ranges.
+
+
+=== Segment 1: https://raw.githubusercontent.com/llvm/torch-mlir/main/docs/architecture.md ===
+
+L0: # Torch-MLIR Architecture
+L1: 
+L2: ## Introduction
+L3: 
+L4: The Torch-MLIR project provides core infrastructure for bridging the PyTorch
+L5: ecosystem and the MLIR ecosystem. For example, Torch-MLIR enables PyTorch models
+L6: to be lowered to a few different MLIR dialects. Torch-MLIR does not attempt to
+L7: provide a production end-to-end flow for PyTorch programs by itself, but is a
+L8: useful component for constructing one.
+L9: ## Overview
+L10: 
+L11: Torch-MLIR has two parts, which we call the "frontend" and "backend". These two
+L12: halves interface at an abstraction layer that we call the "backend contract",
+L13: which is a subset of the `torch` dialect with certain properties appealing for
+L14: backends to lower from.
+L15: 
+L16: ![Torch-MLIR Architecture](images/architecture.png)
+L17: The frontend of Torch-MLIR is concerned with interfacing to PyTorch itself, and
+L18: then normalizing the program to the "backend contract". This part involves build
+L19: system complexity and exposure to PyTorch APIs to get the program into the MLIR
+L20: `torch` dialect. When we interface with TorchScript, we additionally have a
+L21: large amount of lowering and simplification to do within MLIR on the `torch`
+L22: dialect.
+L23: The "backend" of Torch-MLIR takes IR in the "backend contract" form and lowers
+L24: it to various target dialects of interest to the MLIR ecosystem (various
+L25: "backends"). In particular, right now we support lowering to:
+L26: 
+L27: - Linalg-on-Tensors (+ `arith`, `tensor`, etc.)
+L28: - [TOSA](https://mlir.llvm.org/docs/Dialects/TOSA/)
+L29: - [StableHLO](https://github.com/openxla/stablehlo)
+L30: The terms "frontend" and "backend" are highly overloaded in any compiler
+L31: project, but frequently in Torch-MLIR this is the meaning that they have.
+L32: Sometimes "frontend" can mean something even further up the stack, such as
+L33: something in PyTorch itself. When there is ambiguity we will refer to this as
+L34: "at the PyTorch level". Similarly, "backend" can sometimes refer to something
+L35: sitting below Linalg-on-Tensors, TOSA, or StableHLO.
+L36: ## The `torch` dialect
+L37: 
+L38: See [include/torch-mlir/Dialect/Torch/IR](https://github.com/llvm/torch-mlir/tree/main/include/torch-mlir/Dialect/Torch/IR)
+L39: 
+L40: The central MLIR abstraction in the Torch-MLIR project is the `torch` dialect.
+L41: This dialect supports progressive lowering from the raw imported PyTorch
+L42: programs that various PyTorch integration points provide, all the way down to
+L43: the backend contract.
+L44: The `torch` dialect must be versatile enough to support being imported by any
+L45: program capture mechanism in PyTorch -- this could be TorchDynamo, `torch.fx`,
+L46: LazyTensorCore, TorchScript, `torch.jit.trace`, etc. Thankfully, PyTorch is
+L47: factored such that we can handle this with one core import path, which is
+L48: through the PyTorch
+L49: "[JIT IR](https://github.com/pytorch/pytorch/blob/78c8a0d75220bdd4955415b5f81509e005af4232/torch/csrc/jit/OVERVIEW.md)",
+L50: and lives in
+L51: [torch-mlir/python/torch_mlir/jit_ir_importer](https://github.com/llvm/torch-mlir/tree/e322f6a8784009b37aa354abfa9a40a80f30877d/python/torch_mlir/dialects/torch/importer/jit_ir).
+L52: The JIT IR is a highly principled IR that faithfully models a Python subset (+
+L53: tensors, the PyTorch op registry, and a few other things). All the other PyTorch
+L54: program representations can eventually bottom-out on the JIT IR via some path
+L55: provided by PyTorch. The `torch` dialect is almost entirely in 1:1
+L56: correspondence with the JIT IR -- this allows the importer to be extremely small
+L57: (the core is
+L58: [under 500 lines of code](https://github.com/llvm/torch-mlir/blob/e322f6a8784009b37aa354abfa9a40a80f30877d/python/torch_mlir/dialects/torch/importer/jit_ir/csrc/node_importer.cpp)).
+L59: ### Ops
+L60: 
+L61: See [TorchOps.td](https://github.com/llvm/torch-mlir/blob/114f48e96c578ee76a6f83b3aa4aa229a8d5b76e/include/torch-mlir/Dialect/Torch/IR/TorchOps.td#L1)
+L62: The ops in the `torch` dialect are almost entirely generated based on the
+L63: PyTorch JIT IR operator registry via the script
+L64: [torch_ods_gen.py](https://github.com/llvm/torch-mlir/blob/e322f6a8784009b37aa354abfa9a40a80f30877d/python/torch_mlir/jit_ir_importer/build_tools/torch_ods_gen.py#L1) (invoked via [update_torch_ods.sh](https://github.com/llvm/torch-mlir/blob/main/build_tools/update_torch_ods.sh)).
+L65: This script queries the registry and generates MLIR
+L66: [ODS](https://mlir.llvm.org/docs/OpDefinitions/) in
+L67: [GeneratedTorchOps.td](https://github.com/llvm/torch-mlir/blob/e322f6a8784009b37aa354abfa9a40a80f30877d/include/torch-mlir/Dialect/Torch/IR/GeneratedTorchOps.td#L1). We have a guide for [adding a new op end-to-end](https://github.com/llvm/torch-mlir/wiki/Torch-ops-E2E-implementation).
+L68: There are also some manually implemented ops in the following categories (see
+L69: [TorchOps.td](https://github.com/llvm/torch-mlir/blob/e322f6a8784009b37aa354abfa9a40a80f30877d/include/torch-mlir/Dialect/Torch/IR/TorchOps.td#L1)):
+L70: - Ops used for modeling PyTorch IValue object graphs (e.g. `torch.nn_module`,
+L71:   `torch.class_type`).
+L72: - `torch.global_slot` and related ops which are used to model an incremental
+L73:   lowering of the IValue object graphs.
+L74: - Ops that are supported in the JIT interpreter directly, and so don't have a
+L75:   corresponding op in the registry (e.g. `torch.prim.If`,
+L76:   `torch.prim.ListConstruct`, `torch.constant.*`)
+L77: - `torch.operator` which is used to represent ops from the registry which
+L78:   haven't been generated by `torch_ods_gen.py`.
+L79: ### Types
+L80: 
+L81: See [TorchTypes.td](https://github.com/llvm/torch-mlir/blob/e322f6a8784009b37aa354abfa9a40a80f30877d/include/torch-mlir/Dialect/Torch/IR/TorchTypes.td#L1)
+L82: The `torch` dialect has a complete set of types modeling the PyTorch type
+L83: system, which itself is a strongly typed subset of the Python type system (+
+L84: tensors). These types are almost all 1:1 with the corresponding
+L85: [PyTorch types](https://github.com/pytorch/pytorch/blob/c54d18dbc7bb2f9fdd83c5de529702e5a02295c3/aten/src/ATen/core/jit_type.h#L1).
+L86: The one exception where a significant amount of design work has been done in
+L87: Torch-MLIR is the handling of tensors. Torch-MLIR's tensor types allow
+L88: progressive lowering from raw imported IR which maybe be missing shapes, dtypes,
+L89: and value semantics, into the backend contract which provides those. Torch-MLIR
+L90: has two tensor types `ValueTensorType` (`!torch.vtensor`) and
+L91: `NonValueTensorType` (`!torch.tensor`) sharing most of their definition in
+L92: [TorchTypes.td](https://github.com/llvm/torch-mlir/blob/e322f6a8784009b37aa354abfa9a40a80f30877d/include/torch-mlir/Dialect/Torch/IR/TorchTypes.td#L58).
+L93: The `NonValueTensorType` models a `torch.Tensor` including mutation, aliasing,
+L94: etc. while the `ValueTensorType` has value semantics. That is, `ValueTensorType`
+L95: is immutable and non-aliased. These types have a common C++ base class
+L96: [`BaseTensorType`](https://github.com/llvm/torch-mlir/blob/e322f6a8784009b37aa354abfa9a40a80f30877d/include/torch-mlir/Dialect/Torch/IR/TorchTypes.h#L40)
+L97: which permits abstracting across them. Both `ValueTensorType` and
+L98: `NonValueTensorType` have an optional list of optional sizes and an optional
+L99: dtype.
+L100: ## The "backend contract"
+L101: 
+L102: See [satisfiesBackendContract](https://github.com/llvm/torch-mlir/blob/114f48e96c578ee76a6f83b3aa4aa229a8d5b76e/lib/Dialect/Torch/Transforms/LowerToBackendContract.cpp#L151)
+L103: 
+L104: The backend contract is a normalized form of the `torch` dialect with a set of
+L105: properties that make it easy to lower into various forms such as
+L106: Linalg-on-Tensors, TOSA, StableHLO, or other forms that we don't provide out of
+L107: the box. The primary guarantees that we provide Torch-MLIR's backends are:
+L108: - All tensors have been converted to value semantics.
+L109: - All tensors have at least a known number of dimensions (i.e. rank), and
+L110:   ideally also have a precise size for each dimension.
+L111: - All tensors have a known dtype.
+L112: - Certain ops have been decomposed to make them easier to handle (this is
+L113:   configurable).
+L114: See the extensive comments in the function `satisfiesBackendContract` (and its
+L115: callees) in the `LowerToBackendContract` pass for an extended rationale for
+L116: these decisions, and a precise definition of the backend contract.
+L117: ## The Frontends
+L118: 
+L119: Torch-MLIR provides 2 main frontends:
+L120: 
+L121: - LazyTensorCore - a frontend that is based around intercepting PyTorch
+L122:   dispatcher calls and creating a graph that is lazily evaluated on demand.
+L123: - TorchScript - a frontend based around importing TorchScript functions or
+L124:   modules. Such modules or functions can be obtained via `torch.jit.script`,
+L125:   `torch.jit.trace`, or a few other methods in the PyTorch ecosystem.
+L126: 
+L127: Internally these share a lot of the core import code.
+L128: ### LazyTensorCore
+L129: 
+L130: Docs: https://github.com/llvm/torch-mlir/blob/main/docs/ltc_backend.md
+L131: 
+L132: LazyTensorCore (LTC) is a program capture method provided by PyTorch that does
+L133: device-level tracing. This low-level interception point sits below gradient
+L134: calculations, and is thus a good choice for training flows. The downside of LTC
+L135: is that it depends on having the whole PyTorch runtime available, so cannot be
+L136: used for ahead-of-time compilation or capturing standalone program artifacts.
+L137: From an implementation perspective, the JIT IR that is produced by
+L138: LazyTensorCore has already had a number of transformations performed on it, in
+L139: particular, after importing from JIT IR to MLIR, the backend contract is
+L140: trivially satisfied. So the Torch-MLIR implementation complexity for
+L141: LazyTensorCore is restricted to build system and PyTorch integration, rather
+L142: than actual MLIR compiler passes.
+L143: ### TorchScript (`torch.jit.script`)
+L144: 
+L145: [TorchScript](https://pytorch.org/docs/stable/jit.html) is a strict Python
+L146: subset which is modeled faithfully in the JIT IR. Additionally, TorchScript can
+L147: represent a full `torch.nn.Module` object graph (hierarchy). This results in a
+L148: significant amount of work needing to be done by the frontend to lower it to the
+L149: backend contract:
+L150: - The `torch.nn.Module` hierarchy must be lowered to the backend contract, which
+L151:   does not allow any program state.
+L152: - The program must be converted to value semantics (functionalized).
+L153: - Shapes and dtypes must be inferred.
+L154: - Many "Python-isms" must be simplified away, such as list appends, string
+L155:   operations, etc.
+L156: Because TorchScript does not naturally give shapes or dtypes, we usually require
+L157: the user to annotate a set of expected shapes and dtypes of any arguments. We then propagate those throughout the program.
+L158: `torch.jit.trace` produces JIT IR with shapes and dtypes already, but no value
+L159: semantics. And often users want to erase the shapes in the trace to allow
+L160: dynamic shapes for the trace. Additionally, the Python-level data structures and
+L161: APIs are very parallel between `torch.jit.script` and `torch.jit.trace`, so we
+L162: consider both of those as the same from the perspective of the responsibilities
+L163: of the compiler. Both are accessed via the `torch_mlir.torchscript.compile` Python API.
+L164: ### Modeling the `torch.nn.Module` object (`IValue`) hierarchy for TorchScript
+L165: PyTorch consistently models a subset of Python objects with its concept of
+L166: [`IValue`](https://github.com/pytorch/pytorch/blob/1ee9eb52b612f5fb4b63bbda832e44c8902edb64/aten/src/ATen/core/ivalue.h#L171)
+L167: (interpreter value). These are used throughout PyTorch to represent Python
+L168: values. When one `torch.jit.script`'s a `torch.nn.Module`, the result is
+L169: actually an `IValue` that represents the module, with a hierarchy of children
+L170: `IValue`'s. Strictly speaking, JIT IR `torch::jit::Graph`'s are only used to
+L171: represent the bodies of methods on the modules. So in addition to importing the
+L172: JIT IR, we also need to import the `IValue`'s. This happens inside [ivalue_importer.cpp](https://github.com/llvm/torch-mlir/blob/fde390c7669e29362b18388448ef2b188713383f/python/torch_mlir/jit_ir_importer/csrc/ivalue_importer.cpp#L1).
+L173: Most of the IValue modeling can reuse `torch` dialect ops that already exist
+L174: otherwise, such as `torch.constant.int` to represent an int in the object graph.
+L175: However, special IR constructs are needed for modeling the `torch.nn.Module`'s
+L176: themselves.
+L177: 
+L178: An example is:
+L179: ```mlir
+L180: torch.class_type @c {
+L181:   torch.attr "b" : !torch.bool
+L182:   torch.attr "i" : !torch.int
+L183:   torch.attr "f" : !torch.float
+L184:   torch.attr "t" : !torch.tensor
+L185:   torch.method "get_tensor", @get_tensor
+L186: }
+L187: func.func private @get_tensor(%arg0: !torch.nn.Module<"c">) -> !torch.tensor {
+L188:   %2 = torch.prim.GetAttr %arg0["t"] : !torch.nn.Module<"c"> -> !torch.tensor
+L189:   return %2 : !torch.tensor
+L190: }
+L191: %true = torch.constant.bool true
+L192: %int3 = torch.constant.int 3
+L193: %float4.250000e01 = torch.constant.float 4.250000e+01
+L194: %0 = torch.tensor.literal(dense<1.000000e+00> : tensor<1xf32>) : !torch.tensor
+L195: %1 = torch.nn_module {
+L196:   torch.slot "b", %true : !torch.bool
+L197:   torch.slot "i", %int3 : !torch.int
+L198:   torch.slot "f", %float4.250000e01 : !torch.float
+L199:   torch.slot "t", %0 : !torch.tensor
+L200: } : !torch.nn.Module<"c">
+L201: ```
+L202: 
+L203: See the documentation for the ops for more information on the semantics of this
+L204: form.
+L205: ### Lowering TorchScript to the backend contract
+L206: 
+L207: The `torchscript-module-to-torch-backend-pipeline` contains the set of simplifications used convert TorchScript to the backend contract. At a high level, it consists of the following transformations:
+L208: 1. GlobalizeObjectGraph: This takes the `IValue` object graph and converts it
+L209:    into a flat list of globals (see `torch.global_slot` and related ops).
+L210: 1. LowerToBackendContract: This pass iteratively applies a simplification
+L211:    pipeline until the backend contract is reached. The simplification pipeline consists of:
+L212:    - Standard canonicalization.
+L213:    - Shape and Dtype refinement. See [abstract_interp_lib.md](https://github.com/llvm/torch-mlir/blob/main/docs/abstract_interp_lib.md) for detail
+L214:    - Decomposing ops into more primitive ops. See `DecomposeComplexOps`.
+L215: ### Layering of the PyTorch Dependency
+L216: 
+L217: One of the core principles of our Torch-MLIR <-> PyTorch interop is that
+L218: anything that links against PyTorch must interact with MLIR through
+L219: [the Torch-MLIR C API](https://github.com/llvm/torch-mlir/tree/main/include/torch-mlir-c).
+L220: This bypasses a number of very complex dependency and shared library issues.
+L221: Additionally, we maintain the invariant that the core MLIR compiler code (in
+L222: `lib/` and `include/`) never has a build dependency on PyTorch itself. This
+L223: strict isolation avoids a number of complex dependency issues and ensures that
+L224: `torch-mlir-opt` and similar debugging tools always provide the excellent
+L225: development and debugging experience that MLIR developers expect. Sometimes,
+L226: certain highly stable enums and related logic must be shared with upstream
+L227: PyTorch, and for those we copy code from PyTorch into
+L228: [TorchUpstream.h](https://github.com/llvm/torch-mlir/blob/fde390c7669e29362b18388448ef2b188713383f/include/torch-mlir/Dialect/Torch/Utils/TorchUpstream.h#L13).
+L229: ## The Backends
+L230: 
+L231: Torch-MLIR provides 3 built-in backends, which take the backend contract IR and
+L232: lower it to the requirements of each backend. The 3 backends are:
+L233: 
+L234: - [`linalg`](https://mlir.llvm.org/docs/Dialects/Linalg/) on tensors (+ `arith`,
+L235:   `tensor`, etc.)
+L236: - [TOSA](https://mlir.llvm.org/docs/Dialects/TOSA/)
+L237: - [StableHLO](https://github.com/openxla/stablehlo)
+L238: ### The Linalg Backend (Linalg-on-Tensors)
+L239: 
+L240: Code: https://github.com/llvm/torch-mlir/tree/main/lib/Conversion/TorchToLinalg
+L241: 
+L242: The Linalg-on-Tensors backend was the first backend that we added, and it is
+L243: still the most complete. It fully supports dynamic shapes (known number of
+L244: dimensions but arbitrary dynamic dimension sizes). Since linalg was originally
+L245: designed as a dialect for transformations, it can be too low-level for certain
+L246: consumers.
+L247: ### The TOSA Backend
+L248: 
+L249: Code: https://github.com/llvm/torch-mlir/tree/main/lib/Conversion/TorchToTosa
+L250: The TOSA backend was the second backend that we added. It remains preferred by
+L251: many users (especially "hardware" or "hardware-adjacent" folks). Some of its characteristics are:
+L252: - It is tied to a [spec](https://www.mlplatform.org/tosa/tosa_spec.html) with a
+L253:   really clear "ISA-like" expository style that resonates with a lot of folks
+L254: - The coarse-grained named-op approach is a good match for the many compilers
+L255:   that are designed that way.
+L256: - It has really good support for quantization / integer data types.
+L257: - It has clear versioning/stability guarantees on the op semantics.
+L258: - It is extremely solid with static shapes (and many of its users only care
+L259:   about static shapes, so that's fine).
+L260: ### The StableHLO Backend
+L261: 
+L262: Code: https://github.com/llvm/torch-mlir/tree/main/lib/Conversion/TorchToStablehlo
+L263: The StableHLO backend was the third backend that we added, and it offers a
+L264: reasonable blend of the benefits of the other two.
+L265: - It is a coarse-grained named-op approach.
+L266: - It has a pretty clear spec for most of the ops (with a bit of mental
+L267:   translation and hoping that StableHLO is the same as HLO):
+L268:   https://www.tensorflow.org/xla/operation_semantics
+L269: - It functionally supports dynamic shapes (though not as coherent and consistent
+L270:   as Linalg-on-Tensors, and the dynamic shape support falls outside the
+L271:   wonderful HLO docs above).
+L272: - It appears to be pretty tied to HLO (which is highly mature) so most of the op
+L273:   surface area doesn't change too much.
+L274: - It has a different set of principles than TOSA which tend to make it more
+L275:   expressive at the cost of having a larger abstraction gap from hardware. For
+L276:   example, TOSA limits (for highly considered reasons) the number of dimensions
+L277:   that certain operators can handle to 1D-4D, when from a purely algebraic
+L278:   perspective there isn't a good reason to not be more general. Similarly, more
+L279:   general forms of reduction and scatter also fall into StableHLO nicely while
+L280:   TOSA's principles tend to bias it away from that.
+L281: ### Backend Implementation
+L282: All the backends are implemented using the MLIR [Dialect Conversion
+L283: infrastructure](https://mlir.llvm.org/docs/DialectConversion/). This involves
+L284: converting the `torch` dialect types to other types, so we closely follow the
+L285: principles from the "Type Conversions the Not-So-Hard Way" talk
+L286: ([slides](https://drive.google.com/file/d/1FVbzCXxZzS9LBLuvpPNLWJD-XDkt54ky/view?usp=sharing),
+L287: [recording](https://drive.google.com/file/d/1VfVajitgf8ZPnd-HRkJvaJiFLhBsluXN/view?usp=sharing)).
+L288: We follow the standard `{include,lib}/Conversion/TorchTo*` convention used in
+L289: MLIR for conversion passes.
+L290: For type conversion, we provide
+L291: [BackendTypeConversion.cpp](https://github.com/llvm/torch-mlir/blob/57681f794764a34c34e2be7f07f7dfbcafa683c1/lib/Dialect/TorchConversion/Transforms/BackendTypeConversion.cpp#L1)
+L292: and
+L293: [BackendTypeConversionPasses.cpp](https://github.com/llvm/torch-mlir/blob/57681f794764a34c34e2be7f07f7dfbcafa683c1/lib/Dialect/TorchConversion/Transforms/BackendTypeConversionPasses.cpp#L1)
+L294: which provide a default conversion from `torch` dialect types to the builtin
+L295: `tensor` type and scalar integer/float types. These are not the right choice for
+L296: all backends, but can be copied and adapted by backends. These files closely
+L297: follow the "Type Conversions the Not-So-Hard Way" talk.
+L298: ## Testing
+L299: 
+L300: See
+L301: [development.md](https://github.com/llvm/torch-mlir/blob/9c8b96272057f4f8210de5842b6952228434cfa2/development.md#testing)
+L302: for more details on running tests.
+L303: 
+L304: Torch-MLIR has two types of tests:
+L305: 1. End-to-end execution tests. These compile and run a program and check the
+L306:    result against the expected output from execution on native Torch. These use
+L307:    a homegrown testing framework (see
+L308:    [framework.py](https://github.com/llvm/torch-mlir/blob/7d4a0d0e2b65c7ce8de19993f3b10ad5344fe32b/python/torch_mlir_e2e_test/torchscript/framework.py#L6))
+L309:    and the test suite lives at `python/torch_mlir_e2e_test/test_suite`.
+L310: 2. Compiler and Python API unit tests. These use LLVM's `lit` testing framework.
+L311:    For example, these might involve using `torch-mlir-opt` to run a pass and
+L312:    check the output with `FileCheck`. `lit` is flexible enough to unit test
+L313:    various Python pieces, importers, and LTC this way as well.
+L314: ### Why so much end-to-end testing?
+L315: 
+L316: Torch-MLIR places a heavy emphasis on end-to-end testing for the following reasons:
+L317: 
+L318: Reason 1: Even if a compiler pass produces the output IR that the author
+L319: expected, that output IR may not correctly implement the semantics of the op.
+L320: This is especially true for complex, often-poorly-specified deep learning
+L321: operators that Torch-MLIR is mainly concerned with. It is critical to run these
+L322: against the source of truth to ensure correct implementation.
+L323: Reason 2: There are many patterns in Torch-MLIR's backends that really just
+L324: expand one op into other ops without any real logic. When we started Torch-MLIR,
+L325: we were very religious about always having `.mlir` unit tests even for these
+L326: "macro expansion" patterns, but we found that these tests 1) Never caught a bug
+L327: 2) Interfered with refactoring / caused spurious extra work (changing op syntax,
+L328: etc.). There is not much point to having a bunch of tests like this, which are
+L329: basically just rewriting the builder calls in a different syntax:
+L330: ```
+L331: // MyPass.cpp
+L332: b.create<FooOp>(...)
+L333: b.create<BarOp>(...)
+L334: 
+L335: // test.mlir
+L336: // CHECK: foo
+L337: // CHECK: bar
+L338: ```
+L339: 
+L340: Such a test is simply checking that the implementation of an op is the way it
+L341: is. There is no way to change the implementation while having the test pass. So
+L342: the test is fully redundant with the implementation.
+L343: Because of this, many Torch-MLIR patches adding support for new ops have no
+L344: `.mlir` unit tests, and only include end-to-end test(s). We generally make sure
+L345: that our end-to-end tests are as targeted as possible. As a result, when
+L346: debugging end-to-end test failures, the resulting reproducers (which our test
+L347: framework automatically produces for failures) are usually already fully reduced
+L348: test cases.
+L349: ### Do's and Don'ts for unit vs end-to-end testing.
+L350: 
+L351: DO use an [end-to-end test](adding_an_e2e_test.md) if you are implementing a
+L352: new op or extending the support for an existing op.
+L353: 
+L354: DO use a unit test if your lowering for an op has multiple cases / logic. This
+L355: also helps future maintainers of the lowering to see in one place all the
+L356: different edge cases of the op that you had to handle. (these can be easily
+L357: reduced out of all the end-to-end tests you added).
+L358: DON'T use a unit test if your lowering pattern could be described as a trivial
+L359: "macro expansion" of one op into another op or set of ops. That is, if you feel
+L360: like your unit test is just rewriting `b.create<...>(...)` into `CHECK: ...`
+L361: then it is probably not a useful unit test.
+L362: 
+L363: With the exceptions above, all changes should include appropriate unit tests, as
+L364: is standard in the LLVM and MLIR community. This includes full coverage of all
+L365: canonicalizations, pretty printing, passes, errors, and diagnostics.
+L366: ### The RefBackend (Reference Backend)
+L367: 
+L368: In order to run end-to-end tests, Torch-MLIR needs an end-to-end flow.
+L369: Thankfully, upstream MLIR has just enough pieces to precariously put one
+L370: together that is enough for testing.
+L371: The RefBackend consists of a few minor
+L372: [C++ passes](https://github.com/llvm/torch-mlir/blob/114f48e96c578ee76a6f83b3aa4aa229a8d5b76e/include/torch-mlir/RefBackend/Passes.td#L1)
+L373: filling in some corners missing upstream and
+L374: [Python glue logic](https://github.com/llvm/torch-mlir/blob/114f48e96c578ee76a6f83b3aa4aa229a8d5b76e/python/torch_mlir_e2e_test/linalg_on_tensors_bakends/refbackend.py#L1)
+L375: to pull together upstream functionality into a working system.
+L376: The RefBackend accepts Linalg-on-Tensors as input. It mainly just bufferizes the
+L377: ops and lowers them to loops. Note that TOSA and StableHLO (via MHLO) support
+L378: lowering to Linalg-on-Tensors, so all our end-to-end testing bottoms out on
+L379: RefBackend.
+L380: The RefBackend is absolutely not suitable for any production use case. It leaks
+L381: memory, doesn't support any error handling, performs no optimizations, and
+L382: probably a bunch of other horrible things. We are patiently awaiting for the
+L383: upstream MLIR community to produce a viable end-to-end flow with better
+L384: characteristics.
+L385: ### Presentations and Talks
+L386: 
+L387: * 2021-10-07: MLIR ODM: Introduction to Torch-MLIR. ([recording](https://www.youtube.com/watch?v=QbNkex-gizs) and [slides](https://docs.google.com/presentation/d/1ZhzfE4EK6XV7AdQTYicrsE_OYjkER_yiB0vBeszRfzY/edit#slide=id.gf56404f79c_1_55))
+L388: * 2022-08-20: Overview of Torch-MLIR passes. ([recording](https://www.youtube.com/watch?v=ZpwlVxsD9_U) and [slides](https://drive.google.com/file/d/1ZSlk1HGttRuVhJSxtP6spWt_hxClit2T/view))

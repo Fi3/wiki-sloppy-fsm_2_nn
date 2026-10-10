@@ -1,0 +1,494 @@
+Connecting Weighted Automata and Recurrent Neural Networks through Spectral Learning
+Supplied URL: https://proceedings.mlr.press/v89/rabusseau19a.html
+Retrieved on: 2026-10-07
+Format: text extracted by the web browsing tool, not the original PDF/HTML bytes.
+L numbers refer to the browser extraction. PDF P numbers are zero-based.
+A complete text extraction does not imply that every figure, equation, or proof was reviewed.
+Read capture.json for captured URLs, line coverage, and missing ranges.
+
+
+=== Segment 1: https://proceedings.mlr.press/v89/rabusseau19a.html ===
+
+L0: Proceedings of Machine Learning Research
+L1: 
+L2: [Input]
+L3: 
+L4: cite0†Volume 89 cite1†JMLR†www.jmlr.org cite2†DMLR†data.mlr.press cite3†TMLR†jmlr.org cite4†MLOSS†www.jmlr.org cite5†FAQ cite6†Submission Format
+L5: 
+L6: [cite7†edit†github.com ]
+L7: 
+L8: # Connecting Weighted Automata and Recurrent Neural Networks through Spectral Learning
+L9: 
+L10: Guillaume Rabusseau, Tianyu Li, Doina Precup
+L11: 
+L12: Proceedings of the Twenty-Second International Conference on Artificial Intelligence and Statistics, PMLR 89:1630-1639, 2019.
+L13: #### Abstract
+L14: In this paper, we unravel a fundamental connection between weighted finite automata (WFAs) and second-order recurrent neural networks (2-RNNs): in the case of sequences of discrete symbols, WFAs and 2-RNNs with linear activation functions are expressively equivalent. Motivated by this result, we build upon a recent extension of the spectral learning algorithm to vector-valued WFAs and propose the first provable learning algorithm for linear 2-RNNs defined over sequences of continuous input vectors.
+L15: This algorithm relies on estimating low rank sub-blocks of the so-called Hankel tensor, from which the parameters of a linear 2-RNN can be provably recovered. The performances of the proposed method are assessed in a simulation study.
+L16: #### Cite this Paper
+L17: 
+L18: * * *
+L19: 
+L20: BibTeX
+L21: `@InProceedings{pmlr-v89-rabusseau19a, title = {Connecting Weighted Automata and Recurrent Neural Networks through Spectral Learning}, author = {Rabusseau, Guillaume and Li, Tianyu and Precup, Doina}, booktitle = {Proceedings of the Twenty-Second International Conference on Artificial Intelligence and Statistics}, pages = {1630--1639}, year = {2019}, editor = {Chaudhuri, Kamalika and Sugiyama, Masashi}, volume = {89}, series = {Proceedings of Machine Learning Research}, month = {16--18 Apr}, publisher = {PMLR}, pdf = {http://proceedings.mlr.press/v89/rabusseau19a/rabusseau19a.pdf}, url = {https://proceedings.mlr.press/v89/rabusseau19a.html}, abstract = {In this paper, we unravel a fundamental connection between weighted finite automata (WFAs) and second-order recurrent neural networks (2-RNNs): in the case of sequences of discrete symbols, WFAs and 2-RNNs with linear activation functions are expressively equivalent.
+L22: Motivated by this result, we build upon a recent extension of the spectral learning algorithm to vector-valued WFAs and propose the first provable learning algorithm for linear 2-RNNs defined over sequences of continuous input vectors. This algorithm relies on estimating low rank sub-blocks of the so-called Hankel tensor, from which the parameters of a linear 2-RNN can be provably recovered. The performances of the proposed method are assessed in a simulation study.} } `
+L23: [Button: Copy to Clipboard] [Button: Download]
+L24: 
+L25: Endnote
+L26: `%0 Conference Paper %T Connecting Weighted Automata and Recurrent Neural Networks through Spectral Learning %A Guillaume Rabusseau %A Tianyu Li %A Doina Precup %B Proceedings of the Twenty-Second International Conference on Artificial Intelligence and Statistics %C Proceedings of Machine Learning Research %D 2019 %E Kamalika Chaudhuri %E Masashi Sugiyama %F pmlr-v89-rabusseau19a %I PMLR %P 1630--1639 %U https://proceedings.mlr.press/v89/rabusseau19a.html %V 89 %X In this paper, we unravel a fundamental connection between weighted finite automata (WFAs) and second-order recurrent neural networks (2-RNNs): in the case of sequences of discrete symbols, WFAs and 2-RNNs with linear activation functions are expressively equivalent.
+L27: Motivated by this result, we build upon a recent extension of the spectral learning algorithm to vector-valued WFAs and propose the first provable learning algorithm for linear 2-RNNs defined over sequences of continuous input vectors. This algorithm relies on estimating low rank sub-blocks of the so-called Hankel tensor, from which the parameters of a linear 2-RNN can be provably recovered. The performances of the proposed method are assessed in a simulation study. `
+L28: [Button: Copy to Clipboard] [Button: Download]
+L29: 
+L30: APA
+L31: 
+L32: `Rabusseau, G., Li, T. & Precup, D.. (2019). Connecting Weighted Automata and Recurrent Neural Networks through Spectral Learning. Proceedings of the Twenty-Second International Conference on Artificial Intelligence and Statistics, in Proceedings of Machine Learning Research 89:1630-1639 Available from https://proceedings.mlr.press/v89/rabusseau19a.html. `
+L33: 
+L34: [Button: Copy to Clipboard] [Button: Download]
+L35: 
+L36: * * *
+L37: #### Related Material
+L38: 
+L39:   * cite8†Download PDF
+L40:   * cite9†Supplementary PDF
+L41: 
+L42: This site last compiled Sun, 04 Oct 2026 21:00:07 +0000
+L43: 
+L44: cite10†Github Account†github.com
+L45: 
+L46: Copyright © cite11†The authors and PMLR 2026.cite12† MLResearchPress†twitter.com
+
+=== Segment 2: https://proceedings.mlr.press/v89/rabusseau19a/rabusseau19a.pdf ===
+
+L0@P0: Connecting Weighted Automata and Recurrent Neural Networks
+L1@P0: through Spectral Learning
+L2@P0: Guillaume Rabusseau∗† Tianyu Li∗‡ Doina Precup∗‡
+L3@P0: grabus@iro.umontreal.ca tianyu.li@mail.mcgill.ca dprecup@cs.mcgill.ca
+L4@P0: Abstract
+L5@P0: In this paper, we unravel a fundamental connection between weighted finite automata (WFAs) and second-order recurrent
+L6@P0: neural networks (2-RNNs): in the case of
+L7@P0: sequences of discrete symbols, WFAs and 2-
+L8@P0: RNNs with linear activation functions are expressively equivalent. Motivated by this result, we build upon a recent extension of the
+L9@P0: spectral learning algorithm to vector-valued
+L10@P0: WFAs and propose the first provable learning algorithm for linear 2-RNNs defined over
+L11@P0: sequences of continuous input vectors. This
+L12@P0: algorithm relies on estimating low rank subblocks of the so-called Hankel tensor, from
+L13@P0: which the parameters of a linear 2-RNN can
+L14@P0: be provably recovered. The performances of
+L15@P0: the proposed method are assessed in a simulation study.
+L16@P0: 1 Introduction
+L17@P0: Many tasks in natural language processing, computational biology, reinforcement learning, and time series
+L18@P0: analysis rely on learning with sequential data, i.e. estimating functions defined over sequences of observations
+L19@P0: from training data. Weighted finite automata (WFAs)
+L20@P0: and recurrent neural networks (RNNs) are two powerful and flexible classes of models which can efficiently
+L21@P0: represent such functions. On the one hand, WFAs are
+L22@P0: tractable, they encompass a wide range of machine
+L23@P0: learning models (they can for example compute any
+L24@P0: probability distribution defined by a hidden Markov
+L25@P0: model (HMM) [12] and can model the transition and observation behavior of partially observable Markov decision processes [43]) and they offer appealing theoretical
+L26@P0: Proceedings of the 22nd International Conference on Artificial Intelligence and Statistics (AISTATS) 2019, Naha,
+L27@P0: Okinawa, Japan. PMLR: Volume 89. Copyright 2019 by
+L28@P0: the author(s).
+L29@P0: guarantees. In particular, the so-called spectral methods for learning HMMs [22], WFAs [4, 5] and related
+L30@P0: models [18, 7], provide an alternative to ExpectationMaximization based algorithms that is both computationally efficient and consistent. On the other hand,
+L31@P0: RNNs are remarkably expressive models — they can
+L32@P0: represent any computable function [41] — and they
+L33@P0: have successfully tackled many practical problems in
+L34@P0: speech and audio recognition [19, 31, 15], but their
+L35@P0: theoretical analysis is difficult. Even though recent
+L36@P0: work provides interesting results on their expressive
+L37@P0: power [24, 48] as well as alternative training algorithms
+L38@P0: coming with learning guarantees [40], the theoretical
+L39@P0: understanding of RNNs is still limited.
+L40@P0: In this work, we bridge a gap between these two
+L41@P0: classes of models by unraveling a fundamental connection between WFAs and second-order RNNs (2-RNNs):
+L42@P0: when considering input sequences of discrete symbols,
+L43@P0: 2-RNNs with linear activation functions and WFAs are
+L44@P0: one and the same, i.e. they are expressively equivalent
+L45@P0: and there exists a one-to-one mapping between the two
+L46@P0: classes (moreover, this mapping conserves model sizes).
+L47@P0: While connections between finite state machines (e.g.
+L48@P0: deterministic finite automata) and recurrent neural
+L49@P0: networks have been noticed and investigated in the
+L50@P0: past (see e.g. [16, 32]), to the best of our knowledge
+L51@P0: this is the first time that such a rigorous equivalence
+L52@P0: between linear 2-RNNs and weighted automata is explicitly formalized. More precisely, we pinpoint exactly
+L53@P0: the class of recurrent neural architectures to which
+L54@P0: weighted automata are equivalent, namely second-order
+L55@P0: RNNs with linear activation functions. This result naturally leads to the observation that linear 2-RNNs are a
+L56@P0: natural generalization of WFAs (which take sequences
+L57@P0: of discrete observations as inputs) to sequences of continuous vectors, and raises the question of whether the
+L58@P0: spectral learning algorithm for WFAs can be extended
+L59@P0: to linear 2-RNNs. The second contribution of this paper
+L60@P0: is to show that the answer is in the positive: building
+L61@P0: upon the spectral learning algorithm for vector-valued
+L62@P0: WFAs introduced recently in [37], we propose the first
+L63@P0: ∗ Mila † Université de Montréal ‡ McGill UniversityConnecting Weighted Automata and Recurrent Neural Networks through Spectral Learning
+L64@P1: provable learning algorithm for second-order RNNs with
+L65@P1: linear activation functions. Our learning algorithm relies on estimating sub-blocks of the so-called Hankel
+L66@P1: tensor, from which the parameters of a 2-linear RNN
+L67@P1: can be recovered using basic linear algebra operations.
+L68@P1: One of the key technical difficulties in designing this
+L69@P1: algorithm resides in estimating these sub-blocks from
+L70@P1: training data where the inputs are sequences of continuous vectors. We leverage multilinear properties of
+L71@P1: linear 2-RNNs and the fact that the Hankel sub-blocks
+L72@P1: can be reshaped into higher-order tensors of low tensor train rank (a result we believe is of independent
+L73@P1: interest) to perform this estimation efficiently using
+L74@P1: matrix sensing and tensor recovery techniques. As a
+L75@P1: proof of concept, we validate our theoretical findings
+L76@P1: in a simulation study on toy examples where we experimentally compare different recovery methods and
+L77@P1: investigate the robustness of our algorithm to noise and
+L78@P1: rank mis-specification. We also show that refining the
+L79@P1: estimator returned by our algorithm using stochastic
+L80@P1: gradient descent can lead to significant improvements.
+L81@P1: Summary of contributions. We formalize a strict
+L82@P1: equivalence between weighted automata and secondorder RNNs with linear activation functions (Section 3),
+L83@P1: showing that linear 2-RNNs can be seen as a natural extension of (vector-valued) weighted automata
+L84@P1: for input sequences of continuous vectors. We then
+L85@P1: propose a consistent learning algorithm for linear 2-
+L86@P1: RNNs (Section 4). The relevance of our contributions
+L87@P1: can be seen from two perspectives. First, while learning feed-forward neural networks with linear activation functions is a trivial task (it reduces to linear or
+L88@P1: reduced-rank regression), this is not at all the case
+L89@P1: for recurrent architectures with linear activation functions; to the best of our knowledge, our algorithm is
+L90@P1: the first consistent learning algorithm for the class of
+L91@P1: functions computed by linear second-order recurrent
+L92@P1: networks. Second, from the perspective of learning
+L93@P1: weighted automata, we propose a natural extension of
+L94@P1: WFAs to continuous inputs and our learning algorithm
+L95@P1: addresses the long-standing limitation of the spectral
+L96@P1: learning method to discrete inputs.
+L97@P1: Related work. Combining the spectral learning
+L98@P1: algorithm for WFAs with matrix completion techniques (a problem which is closely related to matrix
+L99@P1: sensing) has been theoretically investigated in [6]. An
+L100@P1: extension of probabilistic transducers to continuous
+L101@P1: inputs (along with a spectral learning algorithm) has
+L102@P1: been proposed in [39]. The connections between tensors
+L103@P1: and RNNs have been previously leveraged to study the
+L104@P1: expressive power of RNNs in [24] and to achieve model
+L105@P1: compression in [48, 47, 44]. Exploring relationships
+L106@P1: between RNNs and automata has recently received a
+L107@P1: renewed interest [34, 9, 29]. In particular, such connections have been explored for interpretability purposes [45, 3] and the ability of RNNs to learn classes
+L108@P1: of formal languages has been investigated in [2]. Connections between the tensor train decomposition and
+L109@P1: WFAs have been previously noticed in [10, 11, 36]. The
+L110@P1: predictive state RNN model introduced in [13] is closely
+L111@P1: related to 2-RNNs and the authors propose to use the
+L112@P1: spectral learning algorithm for predictive state representations to initialize a gradient based algorithm; their
+L113@P1: approach however comes without theoretical guarantees.
+L114@P1: Lastly, a provable algorithm for RNNs relying on the
+L115@P1: tensor method of moments has been proposed in [40]
+L116@P1: but it is limited to first-order RNNs with quadratic
+L117@P1: activation functions (which do not encompass linear
+L118@P1: 2-RNNs).
+L119@P1: The proofs of the results given in the paper can be found
+L120@P1: in the supplementary material.
+L121@P1: 2 Preliminaries
+L122@P1: In this section, we first present basic notions of tensor algebra before introducing second-order recurrent
+L123@P1: neural network, weighted finite automata and the spectral learning algorithm. We start by introducing some
+L124@P1: notation. For any integer k we use [k] to denote the
+L125@P1: set of integers from 1 to k. We use dle to denote the
+L126@P1: smallest integer greater or equal to l. For any set S,
+L127@P1: we denote by S
+L128@P1: ∗ =
+L129@P1: S
+L130@P1: k∈N S
+L131@P1: k
+L132@P1: the set of all finite-length
+L133@P1: sequences of elements of S (in particular, Σ
+L134@P1: ∗ will denote the set of strings on a finite alphabet Σ). We
+L135@P1: use lower case bold letters for vectors (e.g. v ∈ R
+L136@P1: d1 ),
+L137@P1: upper case bold letters for matrices (e.g. M ∈ R
+L138@P1: d1×d2 )
+L139@P1: and bold calligraphic letters for higher order tensors
+L140@P1: (e.g. T ∈ R
+L141@P1: d1×d2×d3 ). We use ei to denote the ith
+L142@P1: canonical basis vector of R
+L143@P1: d
+L144@P1: (where the dimension d
+L145@P1: will always appear clearly from context). The d × d
+L146@P1: identity matrix will be written as Id. The ith row (resp.
+L147@P1: column) of a matrix M will be denoted by Mi,: (resp.
+L148@P1: M:,i). This notation is extended to slices of a tensor in
+L149@P1: the straightforward way. If v ∈ R
+L150@P1: d1 and v0 ∈ Rd2
+L151@P1: , we
+L152@P1: use v ⊗ v
+L153@P1: 0 ∈ Rd1·d2 to denote the Kronecker product
+L154@P1: between vectors, and its straightforward extension to
+L155@P1: matrices and tensors. Given a matrix M ∈ R
+L156@P1: d1×d2
+L157@P1: ,
+L158@P1: we use vec(M) ∈ R
+L159@P1: d1·d2 to denote the column vector
+L160@P1: obtained by concatenating the columns of M. The
+L161@P1: inverse of M is denoted by M−1, its Moore-Penrose
+L162@P1: pseudo-inverse by M†, and the transpose of its inverse
+L163@P1: by M−>; the Frobenius norm is denoted by kMkF and
+L164@P1: the nuclear norm by kMk∗.
+L165@P1: Tensors. We first recall basic definitions of tensor
+L166@P1: algebra; more details can be found in [27]. A tensor
+L167@P1: T ∈ R
+L168@P1: d1×···×dp can simply be seen as a multidimensional array (T i1,··· ,ip
+L169@P1: : in ∈ [dn], n ∈ [p]). TheGuillaume Rabusseau, Tianyu Li, Doina Precup
+L170@P2: mode-n fibers of T are the vectors obtained by fixing
+L171@P2: all indices except the nth one, e.g. T :,i2,··· ,ip ∈ R
+L172@P2: d1
+L173@P2: .
+L174@P2: The nth mode matricization of T is the matrix having
+L175@P2: the mode-n fibers of T for columns and is denoted by
+L176@P2: T (n) ∈ R
+L177@P2: dn×d1···dn−1dn+1···dp . The vectorization of a
+L178@P2: tensor is defined by vec(T ) = vec(T (1)). In the following T always denotes a tensor of size d1 × · · · × dp.
+L179@P2: The mode-n matrix product of the tensor T and a
+L180@P2: matrix X ∈ R
+L181@P2: m×dn is a tensor denoted by T ×n X. It
+L182@P2: is of size d1 × · · · × dn−1 × m × dn+1 × · · · × dp and is
+L183@P2: defined by the relation Y = T ×n X ⇔ Y(n) = XT (n).
+L184@P2: The mode-n vector product of the tensor T and a vector
+L185@P2: v ∈ R
+L186@P2: dn is a tensor defined by T •n v = T ×n v> ∈
+L187@P2: R
+L188@P2: d1×···×dn−1×dn+1×···×dp . It is easy to check that the
+L189@P2: n-mode product satisfies (T ×n A) ×n B = T ×n BA
+L190@P2: where we assume compatible dimensions of the tensor
+L191@P2: T and the matrices A and B.
+L192@P2: Given strictly positive integers
+L193@P2: P
+L194@P2: n1, · · · , nk satisfying
+L195@P2: i
+L196@P2: ni = p, we use the notation (T )
+L197@P2: hhn1,n2,··· ,nkii to
+L198@P2: denote the kth order tensor obtained by reshaping T
+L199@P2: into a tensor1 of size (
+L200@P2: Qn1
+L201@P2: i1=1 di1
+L202@P2: ) × (
+L203@P2: Qn2
+L204@P2: i2=1 dn1+i2
+L205@P2: ) ×
+L206@P2: · · · × (
+L207@P2: Qnk
+L208@P2: ik=1 dn1+···+nk−1+ik
+L209@P2: ). In particular we have
+L210@P2: (T )
+L211@P2: hhpii = vec(T ) and (T )hh1,p−1ii = T (1).
+L212@P2: A rank R tensor train (TT) decomposition [33] of
+L213@P2: a tensor T ∈ R
+L214@P2: d1×···×dp consists in factorizing T
+L215@P2: into the product of p core tensors G1 ∈ R
+L216@P2: d1×R,G2 ∈
+L217@P2: R
+L218@P2: R×d2×R, · · · ,Gp−1 ∈ RR×dp−1×R,Gp ∈ RR×dp , and
+L219@P2: is defined2 by
+L220@P2: T i1,··· ,ip = (G1)i1,:(G2):,i2,:· · ·(Gp−1):,ip−1,:(Gp):,ip
+L221@P2: for all indices i1 ∈ [d1], · · · , ip ∈ [dp]; we will use the
+L222@P2: notation T = JG1, · · · ,GpK to denote such a decomposition. A tensor network representation of this decomposition is shown in Figure 1. While the problem of
+L223@P2: finding the best approximation of TT-rank R of a given
+L224@P2: tensor is NP-hard [20], a quasi-optimal SVD based
+L225@P2: compression algorithm (TT-SVD) has been proposed
+L226@P2: in [33]. It is worth mentioning that the TT decomposition is invariant under change of basis: for any invertible matrix M and any core tensors G1,G2, · · · ,Gp,
+L227@P2: we have JG1, · · · ,GpK = JG1 ×2 M−>,G2 ×1 M ×3
+L228@P2: M−>, · · · ,Gp−1 ×1 M ×3 M−>,Gp ×1 MK.
+L229@P2: Second-order RNNs. A second-order recurrent
+L230@P2: neural network (2-RNN) [17, 35, 28]
+L231@P2: 3 with n hidden
+L232@P2: units can be defined as a tuple M = (h0, A, Ω) where
+L233@P2: 1Note that the specific ordering used to perform matricization, vectorization and such a reshaping is not relevant
+L234@P2: as long as it is consistent across all operations.
+L235@P2: 2The classical definition of the TT-decomposition allows
+L236@P2: the rank R to be different for each mode, but this definition
+L237@P2: is sufficient for the purpose of this paper.
+L238@P2: 3Second-order reccurrent architectures have also been
+L239@P2: successfully used more recently, see e.g. [42] and [46].
+L240@P2: T = G1 G2 G3 G4 1
+L241@P2: d1 2
+L242@P2: d2
+L243@P2: 3
+L244@P2: d3
+L245@P2: 4
+L246@P2: d4 1
+L247@P2: d1
+L248@P2: 1 R 2
+L249@P2: 2
+L250@P2: d2
+L251@P2: 1 R 3
+L252@P2: 2
+L253@P2: d3
+L254@P2: 1 R 3
+L255@P2: 2
+L256@P2: d4
+L257@P2: Figure 1: Tensor network representation of a rank R
+L258@P2: tensor train decomposition (nodes represent tensors and
+L259@P2: an edge between two nodes represents a contraction
+L260@P2: between the corresponding modes of the two tensors).
+L261@P2: h0 ∈ R
+L262@P2: n is the initial state, A ∈ Rn×d×n is the
+L263@P2: transition tensor, and Ω ∈ R
+L264@P2: p×n is the output matrix, with d and p being the input and output dimensions respectively. A 2-RNN maps any sequence
+L265@P2: of inputs x1, · · · , xk ∈ R
+L266@P2: d
+L267@P2: to a sequence of outputs
+L268@P2: y1, · · · , yk ∈ R
+L269@P2: p defined for any t = 1, · · · , k by
+L270@P2: yt = z2(Ωht) with ht = z1(A •1 xt •2 ht−1) (1)
+L271@P2: where z1 : R
+L272@P2: n → Rn and z2 : Rp → Rp are activation
+L273@P2: functions. Alternatively, one can think of a 2-RNN
+L274@P2: as computing a function fM : (R
+L275@P2: d
+L276@P2: )
+L277@P2: ∗ → Rp mapping
+L278@P2: each input sequence x1, · · · , xk to the corresponding
+L279@P2: final output yk. While z1 and z2 are usually non-linear
+L280@P2: component-wise functions, we consider in this paper
+L281@P2: the case where both z1 and z2 are the identity, and
+L282@P2: we refer to the resulting model as a linear 2-RNN. For
+L283@P2: a linear 2-RNN M, the function fM is multilinear in
+L284@P2: the sense that, for any integer l, its restriction to the
+L285@P2: domain (R
+L286@P2: d
+L287@P2: )
+L288@P2: l
+L289@P2: is multilinear. Another useful observation
+L290@P2: is that linear 2-RNNs are invariant under change of
+L291@P2: basis: for any invertible matrix P, the linear 2-RNN
+L292@P2: M˜ = (P−>h0, A×1 P×3 P−>, PΩ) is such that fM˜ =
+L293@P2: fM. A linear 2-RNN M with n states is called minimal
+L294@P2: if its number of hidden units is minimal (i.e. any linear
+L295@P2: 2-RNN computing fM has at least n hidden units).
+L296@P2: Weighted automata and spectral learning.
+L297@P2: Vector-valued weighted finite automaton (vv-WFA) have
+L298@P2: been introduced in [37] as a natural generalization
+L299@P2: of weighted automata from scalar-valued functions to
+L300@P2: vector-valued ones. A p-dimensional vv-WFA with n
+L301@P2: states is a tuple A = (α, {Aσ}σ∈Σ, Ω) where α ∈ R
+L302@P2: n
+L303@P2: is the initial weights vector, Ω ∈ R
+L304@P2: p×n is the matrix of
+L305@P2: final weights, and Aσ ∈ R
+L306@P2: n×n is the transition matrix
+L307@P2: for each symbol σ in a finite alphabet Σ. A vv-WFA
+L308@P2: A computes a function fA : Σ∗ → R
+L309@P2: p defined by
+L310@P2: fA(x) = Ω(Ax1Ax2· · · Axk)
+L311@P2: >α
+L312@P2: for each word x = x1x2 · · · xk ∈ Σ
+L313@P2: ∗
+L314@P2: . We call a vv-WFA
+L315@P2: minimal if its number of states is minimal. Given a
+L316@P2: function f : Σ∗ → R
+L317@P2: p we denote by rank(f) the number
+L318@P2: of states of a minimal vv-WFA computing f (which is
+L319@P2: set to ∞ if f cannot be computed by a vv-WFA).
+L320@P2: The spectral learning algorithm for vv-WFAs relies on
+L321@P2: the following fundamental theorem relating the rankConnecting Weighted Automata and Recurrent Neural Networks through Spectral Learning
+L322@P3: of a function f : Σ∗ → R
+L323@P3: d
+L324@P3: to its Hankel tensor H ∈
+L325@P3: R
+L326@P3: Σ
+L327@P3: ∗×Σ∗×p
+L328@P3: , which is defined by Hu,v,: = f(uv) for all
+L329@P3: u, v ∈ Σ
+L330@P3: ∗
+L331@P3: .
+L332@P3: Theorem 1 ([37]). Let f : Σ∗ → R
+L333@P3: d and let H be its
+L334@P3: Hankel tensor. Then rank(f) = rank(H(1)).
+L335@P3: The vv-WFA learning algorithm leverages the fact that
+L336@P3: the proof of this theorem is constructive: one can
+L337@P3: recover a vv-WFA computing f from any low rank
+L338@P3: factorization of H(1). In practice, a finite sub-block
+L339@P3: HP,S ∈ R
+L340@P3: P×S×p of the Hankel tensor is used to recover
+L341@P3: the vv-WFA, where P, S ⊂ Σ
+L342@P3: ∗ are finite sets of prefixes
+L343@P3: and suffixes forming a complete basis for f, i.e. such
+L344@P3: that rank((HP,S )(1)) = rank(H(1)). More details can
+L345@P3: be found in [37].
+L346@P3: 3 A Fundamental Relation between
+L347@P3: WFAs and Linear 2-RNNs
+L348@P3: We start by unraveling a fundamental connection between vv-WFAs and linear 2-RNNs: vv-WFAs and
+L349@P3: linear 2-RNNs are expressively equivalent for representing functions defined over sequences of discrete symbols.
+L350@P3: Moreover, both models have the same capacity in the
+L351@P3: sense that there is a direct correspondence between
+L352@P3: the hidden units of a linear 2-RNN and the states of a
+L353@P3: vv-WFA computing the same function. More formally,
+L354@P3: we have the following theorem.
+L355@P3: Theorem 2. Any function that can be computed by
+L356@P3: a vv-WFA with n states can be computed by a linear
+L357@P3: 2-RNN with n hidden units. Conversely, any function
+L358@P3: that can be computed by a linear 2-RNN with n hidden
+L359@P3: units on sequences of one-hot vectors (i.e. canonical
+L360@P3: basis vectors) can be computed by a WFA with n states.
+L361@P3: More precisely, the WFA A = (α, {Aσ}σ∈Σ, Ω) with
+L362@P3: n states and the linear 2-RNN M = (α, A, Ω) with n
+L363@P3: hidden units, where A ∈ R
+L364@P3: n×Σ×n is defined by A:,σ,: =
+L365@P3: Aσfor all σ ∈ Σ, are such that fA(σ1σ2 · · · σk) =
+L366@P3: fM(x1, x2, · · · , xk) for all sequences of input symbols
+L367@P3: σ1, · · · , σk ∈ Σ, where for each i ∈ [k] the input vector
+L368@P3: xi ∈ R
+L369@P3: Σ is the one-hot encoding of the symbol σi.
+L370@P3: This result first implies that linear 2-RNNs defined over
+L371@P3: sequence of discrete symbols (using one-hot encoding)
+L372@P3: can be provably learned using the spectral learning algorithm for WFAs/vv-WFAs; indeed, these algorithms
+L373@P3: have been proved to return consistent estimators. Let
+L374@P3: us stress again that, contrary to the case of feed-forward
+L375@P3: architectures, learning recurrent networks with linear
+L376@P3: activation functions is not a trivial task. Furthermore,
+L377@P3: Theorem 2 reveals that linear 2-RNNs are a natural generalization of classical weighted automata to functions
+L378@P3: defined over sequences of continuous vectors (instead
+L379@P3: of discrete symbols). This spontaneously raises the
+L380@P3: question of whether the spectral learning algorithms
+L381@P3: for WFAs and vv-WFAs can be extended to the general
+L382@P3: setting of linear 2-RNNs; we show that the answer is
+L383@P3: in the positive in the next section.
+L384@P3: 4 Spectral Learning of Linear 2-RNNs
+L385@P3: In this section, we extend the learning algorithm for vvWFAs to linear 2-RNNs, thus at the same time addressing the limitation of the spectral learning algorithm
+L386@P3: to discrete inputs and providing the first consistent
+L387@P3: learning algorithm for linear second-order RNNs.
+L388@P3: 4.1 Recovering 2-RNNs from Hankel Tensors
+L389@P3: We first present an identifiability result showing how
+L390@P3: one can recover a linear 2-RNN computing a function
+L391@P3: f : (R
+L392@P3: d
+L393@P3: )
+L394@P3: ∗ → Rp
+L395@P3: from observable tensors extracted from
+L396@P3: some Hankel tensor associated with f. Intuitively, we
+L397@P3: obtain this result by reducing the problem to the one
+L398@P3: of learning a vv-WFA. This is done by considering
+L399@P3: the restriction of f to canonical basis vectors; loosely
+L400@P3: speaking, since the domain of this restricted function
+L401@P3: is isomorphic to [d]
+L402@P3: ∗
+L403@P3: , this allows us to fall back onto
+L404@P3: the setting of sequences of discrete symbols.
+L405@P3: Given a function f : (R
+L406@P3: d
+L407@P3: )
+L408@P3: ∗ → Rp
+L409@P3: , we define its Hankel
+L410@P3: tensor Hf ∈ R
+L411@P3: [d]
+L412@P3: ∗×[d]∗×p by
+L413@P3: (Hf )i1···is,j1···jt,: = f(ei1, · · · , eis, ej1, · · · , ejt),
+L414@P3: for all i1, · · · , is, j1, · · · , jt ∈ [d], which is infinite
+L415@P3: in two of its modes. It is easy to see that Hf is
+L416@P3: also the Hankel tensor associated with the function
+L417@P3: ˜f : [d]
+L418@P3: ∗ → Rp mapping any sequence i1i2 · · ·ik ∈ [d]∗
+L419@P3: to f(ei1, · · · , eik). Moreover, in the special case where
+L420@P3: f can be computed by a linear 2-RNN, one can use
+L421@P3: the multilinearity of f to show that f(x1, · · · , xk) =
+L422@P3: Pd
+L423@P3: i1,··· ,ik=1(x1)i1
+L424@P3: · · ·(xl)ik
+L425@P3: ˜f(i1 · · ·ik), giving us some
+L426@P3: intuition on how one could learn f by learning a
+L427@P3: vv-WFA computing ˜f using the spectral learning algorithm. That is, given a large enough sub-block
+L428@P3: HP,S ∈ R
+L429@P3: P×S×p of Hf for some prefix and suffix sets
+L430@P3: P, S ⊆ [d]
+L431@P3: ∗
+L432@P3: , one should be able to recover a vv-WFA

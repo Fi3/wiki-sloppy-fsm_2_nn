@@ -1,0 +1,28 @@
+{
+  "original_url": "https://proceedings.iclr.cc/paper_files/paper/2025/hash/f67852b3910e3aba21c951849b4531a6-Abstract-Conference.html",
+  "aliases": [],
+  "retrieved_on": "2026-10-07",
+  "segments": [
+    {
+      "url": "https://proceedings.iclr.cc/paper_files/paper/2025/hash/f67852b3910e3aba21c951849b4531a6-Abstract-Conference.html",
+      "total_browser_lines": 20,
+      "captured_lines": 20,
+      "missing_line_ranges": [],
+      "text_extraction_complete": true
+    },
+    {
+      "url": "https://proceedings.iclr.cc/paper_files/paper/2025/file/f67852b3910e3aba21c951849b4531a6-Paper-Conference.pdf",
+      "total_browser_lines": 5500,
+      "captured_lines": 501,
+      "missing_line_ranges": [
+        [
+          501,
+          5499
+        ]
+      ],
+      "text_extraction_complete": false
+    }
+  ],
+  "review_status": "first-pass; source summary specifies reviewed scope",
+  "limitations": "Text only; original file bytes and linked assets were not downloaded. Browser extraction can omit equations and figures even with complete line coverage."
+}

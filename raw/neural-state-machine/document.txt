@@ -1,0 +1,125 @@
+Learning by Abstraction: The Neural State Machine
+Supplied URL: https://arxiv.org/pdf/1907.03950
+Retrieved on: 2026-10-07
+Format: text extracted by the web browsing tool, not the original PDF/HTML bytes.
+L numbers refer to the browser extraction. PDF P numbers are zero-based.
+A complete text extraction does not imply that every figure, equation, or proof was reviewed.
+Read capture.json for captured URLs, line coverage, and missing ranges.
+
+
+=== Segment 1: https://arxiv.org/pdf/1907.03950 ===
+
+L0@P0: Learning by Abstraction: The Neural State Machine
+L1@P0: Drew A. Hudson
+L2@P0: Stanford University
+L3@P0: 353 Serra Mall, Stanford, CA 94305
+L4@P0: dorarad@cs.stanford.edu
+L5@P0: Christopher D. Manning
+L6@P0: Stanford University
+L7@P0: 353 Serra Mall, Stanford, CA 94305
+L8@P0: manning@cs.stanford.edu
+L9@P0: Abstract
+L10@P0: We introduce the Neural State Machine, seeking to bridge the gap between the
+L11@P0: neural and symbolic views of AI and integrate their complementary strengths for
+L12@P0: the task of visual reasoning. Given an image, we first predict a probabilistic graph
+L13@P0: that represents its underlying semantics and serves as a structured world model.
+L14@P0: Then, we perform sequential reasoning over the graph, iteratively traversing its
+L15@P0: nodes to answer a given question or draw a new inference. In contrast to most
+L16@P0: neural architectures that are designed to closely interact with the raw sensory
+L17@P0: data, our model operates instead in an abstract latent space, by transforming both
+L18@P0: the visual and linguistic modalities into semantic concept-based representations,
+L19@P0: thereby achieving enhanced transparency and modularity. We evaluate our model
+L20@P0: on VQA-CP and GQA, two recent VQA datasets that involve compositionality,
+L21@P0: multi-step inference and diverse reasoning skills, achieving state-of-the-art results
+L22@P0: in both cases. We provide further experiments that illustrate the model’s strong
+L23@P0: generalization capacity across multiple dimensions, including novel compositions
+L24@P0: of concepts, changes in the answer distribution, and unseen linguistic structures,
+L25@P0: demonstrating the qualities and efficacy of our approach.
+L26@P0: 1 Introduction
+L27@P0: Language is one of the most marvelous feats of the human mind. The emergence of a compositional
+L28@P0: system of symbols that can distill and convey from rich sensory experiences to creative new ideas has
+L29@P0: been a major turning point in the evolution of intelligence, and made a profound impact on the nature
+L30@P0: of human cognition [19, 78, 13]. According to Jerry Fodor’s Language of Thought hypothesis [22, 72],
+L31@P0: thinking itself posses a language-like compositional structure, where elementary concepts combine in
+L32@P0: systematic ways to create compound new ideas or thoughts, allowing us to make “infinite use of finite
+L33@P0: means” [18] and fostering human’s remarkable capacities of abstraction and generalization [51].
+L34@P0: Indeed, humans are particularly adept at making abstractions of various kinds: We make analogies
+L35@P0: and form concepts to generalize from given instances to unseen examples [70]; we see things in
+L36@P0: context, and build compositional world models to represent objects and understand their interactions
+L37@P0: and subtle relations, turning raw sensory signals into high-level semantic knowledge [64]; and we
+L38@P0: deductively draw inferences via conceptual rules and statements to proceed from known facts to novel
+L39@P0: conclusions [32, 40]. Not only are humans capable of learning, but we are also talented at reasoning.
+L40@P0: Ideas about compositionality, abstraction and reasoning greatly inspired the classical views of
+L41@P0: artificial intelligence [74, 65], but have lately been overshadowed by the astounding success of deep
+L42@P0: learning over a wide spectrum of real-world tasks [33, 63, 82]. Yet, even though neural networks
+L43@P0: are undoubtedly powerful, flexible and robust, recent work has repeatedly demonstrated their flaws,
+L44@P0: showing how they struggle to generalize in a systematic manner [50], overly adhere to superficial and
+L45@P0: potentially misleading statistical associations instead of learning true causal relations [1, 42], strongly
+L46@P0: depend on large amounts of data and supervision [25, 51], and sometimes behave in surprising and
+L47@P0: 33rd Conference on Neural Information Processing Systems (NeurIPS 2019), Vancouver, Canada.
+L48@P0: arXiv:1907.03950v4 [cs.AI] 25 Nov 2019Figure 1: The Neural State Machine is a graph network that simulates the computation of an automaton. For the
+L49@P1: task of VQA, the model constructs a probabilistic scene graph to capture the semantics of a given image, which
+L50@P1: it then treats as a state machine, traversing its states as guided by the question to perform sequential reasoning.
+L51@P1: worrisome ways [26, 20]. The sheer size and statistical nature of these models that support robustness
+L52@P1: and versatility are also what hinder their interpretability, modularity, and soundness.
+L53@P1: Motivated to alleviate these deficiencies and bring the neural and symbolic approaches more closely
+L54@P1: together, we propose the Neural State Machine, a differentiable graph-based model that simulates
+L55@P1: the operation of an automaton, and explore it in the domain of visual reasoning and compositional
+L56@P1: question answering. Essentially, we proceed through two stages: modeling and inference. Starting
+L57@P1: from an image, we first generate a probabilistic scene graph [43, 49] that captures its underlying
+L58@P1: semantic knowledge in a compact form. Nodes correspond to objects and consist of structured
+L59@P1: representations of their properties, and edges depict both their spatial and semantic relations. Once
+L60@P1: we have the graph, we then treat it as a state machine and simulate an iterative computation over
+L61@P1: it, aiming to answer questions or draw inferences. We translate a given natural language question
+L62@P1: into a series of soft instructions, and feed them one-at-a-time into the machine to perform sequential
+L63@P1: reasoning, using attention to traverse its states and compute the answer.
+L64@P1: Drawing inspiration from Bengio’s consciousness prior [12], we further define a set of semantic
+L65@P1: embedded concepts that describe different entities and aspects of the domain, such as various kinds
+L66@P1: of objects, attributes and relations. These concepts are used as the vocabulary that underlies both the
+L67@P1: scene graphs derived from the image as well as the reasoning instructions obtained from the question,
+L68@P1: effectively allowing both modalities to “speak the same language”. Whereas neural networks typically
+L69@P1: interact directly with raw observations and dense features, our approach encourages the model to
+L70@P1: reason instead in a semantic and factorized abstract space, which enables the disentanglement of
+L71@P1: structure from content and improves its modularity.
+L72@P1: We demonstrate the value and performance of the Neural State Machine on two recent Visual Question
+L73@P1: Answering (VQA) datasets: GQA [41] which focuses on real-world visual reasoning and multi-step
+L74@P1: question answering, as well as VQA-CP [3], a recent split of the popular VQA dataset [2, 27] that
+L75@P1: has been designed particularly to evaluate generalization. We achieve state-of-the-art results on
+L76@P1: both tasks under single-model settings, substantiating the robustness and efficiency of our approach
+L77@P1: in answering challenging compositional questions. We then construct new splits leveraging the
+L78@P1: associated structured representations provided by GQA and conduct further experiments that provide
+L79@P1: significant evidence for the model’s strong generalization skills across multiple dimensions, such
+L80@P1: as novel compositions of concepts and unseen linguistic structures, validating its versatility under
+L81@P1: changing conditions.
+L82@P1: Our model ties together two important qualities: abstraction and compositionality, with the respective
+L83@P1: key innovations of representing meaning as a structured attention distribution over an internal vocabulary of disentangled concepts, and capturing sequential reasoning as the iterative computation
+L84@P1: of a differentiable state machine over a semantic graph. We hope that creating such neural form
+L85@P1: of a classical model of computation will encourage and support the integration of the connectionist and symbolic methodologies in AI, opening the door to enhanced modularity, versatility, and
+L86@P1: generalization.
+L87@P1: 2Figure 2: Question examples along with answers predicted by the NSM. The questions involve diverse reasoning
+L88@P2: skills such as multi-step inference, relational and spatial reasoning, logic and comparisons.
+L89@P2: 2 Related work
+L90@P2: Our model connects to multiple lines of research, including works about compositionality [14, 38],
+L91@P2: concept acquisition [36, 81], and neural computation [28, 62, 7]. Several works have explored the
+L92@P2: discovery and use of visual concepts in the contexts of reinforcement or unsupervised learning
+L93@P2: [35, 17] as well as in classical computer vision [21, 77]. Others have argued for the importance
+L94@P2: of incorporating strong inductive biases into neural architectures [14, 10, 6, 8], and indeed, there
+L95@P2: is a growing body of research that seeks to introduce different forms of structural priors inspired
+L96@P2: by computer architectures [29, 80, 40] or theory of computation [4, 23], aiming to bridge the gap
+L97@P2: between the symbolic and neural paradigms.
+L98@P2: We explore our model in the context of VQA, a challenging multimodal task that has gained substantial
+L99@P2: attention in recent years [27, 79, 40]. Prior work commonly relied on dense visual features produced
+L100@P2: by either CNNs [83, 86] or object detectors [5], with a few recent models that use the relationships
+L101@P2: among objects to augment those features with contextual information from each object’s surroundings
+L102@P2: [52, 75, 66]. We move further in this direction, performing iterative reasoning over inferred scene
+L103@P2: graphs, and in contrast to prior models, incorporate higher-level semantic concepts to represent both
+L104@P2: the visual and linguistic modalities in a shared and sparser manner that facilitates their interaction.
+L105@P2: Closest to the NSM is a model called MAC [40] we have developed in prior work, a recurrent network
+L106@P2: that applies attention-based operations to perform sequential reasoning. In fact, our new model
+L107@P2: follows the high-level structure proposed by MAC, where the new decoder (section 3.3) is analogous
+L108@P2: to the control unit, and the model simulation (section 3.4) is parallel to the read-write operation.
+L109@P2: At the same time, the Neural State Machine differs from MAC in two crucial respects: First, we
+L110@P2: reason over graph structures rather than directly over spatial maps of visual features, traversing the
+L111@P2: graph by successively shifting attention across its nodes and edges. Second, key to our model is the
+L112@P2: notion of semantic concepts that are used to express knowledge about both the visual and linguistic
+L113@P2: modalities, instead of working directly with the raw observational features. As our findings suggest,

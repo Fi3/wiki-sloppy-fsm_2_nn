@@ -1,0 +1,121 @@
+P vs NP
+Supplied URL: https://www.claymath.org/millennium/p-vs-np/
+Retrieved on: 2026-10-07
+Format: text extracted by the web browsing tool, not the original PDF/HTML bytes.
+L numbers refer to the browser extraction. PDF P numbers are zero-based.
+A complete text extraction does not imply that every figure, equation, or proof was reviewed.
+Read capture.json for captured URLs, line coverage, and missing ranges.
+
+
+=== Segment 1: https://www.claymath.org/millennium/p-vs-np/ ===
+
+L0: ## Search Clay Mathematics Institute
+L1: 
+L2: [Input: Type here to search]
+L3: 
+L4: [Input]
+L5: 
+L6:   * cite0†About
+L7: 
+L8: About
+L9: 
+L10:     * cite0†About
+L11:     * cite1†History
+L12:     * cite2†Principal Activities
+L13:     * cite3†Who’s Who
+L14:     * cite4†CMI Logo
+L15:     * cite5†Policies
+L16: 
+L17:   * cite6†Programs & Awards
+L18: 
+L19: Programs & Awards
+L20: 
+L21:     * cite6†Programs & Awards
+L22:     * cite7†Funded programs
+L23:     * cite8†Fellowship Nominations
+L24:     * cite9†Clay Research Award
+L25:     * cite10†Dissemination Award
+L26: 
+L27:   * cite11†People
+L28:   * cite12†The Millennium Prize Problems
+L29: 
+L30: The Millennium Prize Problems
+L31:     * cite12†The Millennium Prize Problems
+L32:     * cite13†Rules for the Millennium Prize Problems
+L33:     * cite14†Birch and Swinnerton-Dyer Conjecture
+L34:     * cite15†Hodge Conjecture
+L35:     * cite16†Navier-Stokes Equation
+L36:     * cite17†P vs NP
+L37:     * cite18†Poincaré Conjecture
+L38:     * cite19†Riemann Hypothesis
+L39:     * cite20†Yang-Mills & the Mass Gap
+L40: 
+L41:   * cite21†Online resources
+L42: 
+L43: Online resources
+L44: 
+L45:     * cite21†Online resources
+L46:     * cite22†Books
+L47:     * cite23†Video Library
+L48:     * cite24†Lecture notes
+L49:     * cite25†Collections
+L50: 
+L51: Collections
+L52:       * cite25†Collections
+L53:       * cite26†Euclid’s Elements
+L54:       * cite27†Ada Lovelace’s Mathematical Papers
+L55:       * cite28†Collected Works of James G. Arthur
+L56:       * cite29†Klein Protokolle
+L57:       * cite30†Notes of the talks at the I.M.Gelfand Seminar
+L58:       * cite31†Quillen Notebooks
+L59:       * cite32†Riemann’s 1859 Manuscript
+L60: 
+L61:   * cite33†Events
+L62:   * cite34†News
+L63: 
+L64: cite35†Home — cite12†Millennium Problems —
+L65: 
+L66: Unsolved
+L67: # P vs NP
+L68: 
+L69: If it is easy to check that a solution to a problem is correct, is it also easy to solve the problem? This is the essence of the P vs NP question. Typical of the NP problems is that of the Hamiltonian Path Problem: given N cities to visit, how can one do this without visiting a city twice? If you give me a solution, I can easily check that it is correct. But I cannot so easily find a solution.
+L70: 
+L71:   * Overview
+L72:   * Advanced
+L73: Suppose that you are organizing housing accommodations for a group of four hundred university students. Space is limited and only one hundred of the students will receive places in the dormitory. To complicate matters, the Dean has provided you with a list of pairs of incompatible students, and requested that no pair from this list appear in your final choice.
+L74: This is an example of what computer scientists call an NP-problem, since it is easy to check if a given choice of one hundred students proposed by a coworker is satisfactory (i.e., no pair taken from your coworker’s list also appears on the list from the Dean’s office), however the task of generating such a list from scratch seems to be so hard as to be completely impractical.
+L75: Indeed, the total number of ways of choosing one hundred students from the four hundred applicants is greater than the number of atoms in the known universe! Thus no future civilization could ever hope to build a supercomputer capable of solving the problem by brute force; that is, by checking every possible combination of 100 students. However, this apparent difficulty may only reflect the lack of ingenuity of your programmer.
+L76: In fact, one of the outstanding problems in computer science is determining whether questions exist whose answer can be quickly checked, but which require an impossibly long time to solve by any direct procedure. Problems like the one listed above certainly seem to be of this kind, but so far no one has managed to prove that any of them really are so hard as they appear, i.e., that there really is no feasible way to generate an answer with the help of a computer.
+L77: Stephen Cook and Leonid Levin formulated the P (i.e., easy to find) versus NP (i.e., easy to check) problem independently in 1971.
+L78: Image credit: on the left, Stephen Cook by cite36†Jiří Janíček†commons.wikimedia.org (cropped).   cite37†CC BY-SA 3.0†creativecommons.org
+L79: 
+L80: cite38†Image
+L81: 
+L82: cite23†Watch more Clay Lectures
+L83: ## Further resources
+L84: Suppose that you are organizing housing accommodations for a group of four hundred university students. Space is limited and only one hundred of the students will receive places in the dormitory. To complicate matters, the Dean has provided you with a list of pairs of incompatible students, and requested that no pair from this list appear in your final choice.
+L85: This is an example of what computer scientists call an NP-problem, since it is easy to check if a given choice of one hundred students proposed by a coworker is satisfactory (i.e., no pair taken from your coworker’s list also appears on the list from the Dean’s office), however the task of generating such a list from scratch seems to be so hard as to be completely impractical.
+L86: Indeed, the total number of ways of choosing one hundred students from the four hundred applicants is greater than the number of atoms in the known universe! Thus no future civilization could ever hope to build a supercomputer capable of solving the problem by brute force; that is, by checking every possible combination of 100 students. However, this apparent difficulty may only reflect the lack of ingenuity of your programmer.
+L87: In fact, one of the outstanding problems in computer science is determining whether questions exist whose answer can be quickly checked, but which require an impossibly long time to solve by any direct procedure. Problems like the one listed above certainly seem to be of this kind, but so far no one has managed to prove that any of them really are so hard as they appear, i.e., that there really is no feasible way to generate an answer with the help of a computer.
+L88: Stephen Cook and Leonid Levin formulated the P (i.e., easy to find) versus NP (i.e., easy to check) problem independently in 1971.
+L89: Image credit: on the left, Stephen Cook by cite36†Jiří Janíček†commons.wikimedia.org (cropped).   cite37†CC BY-SA 3.0†creativecommons.org
+L90: 
+L91: cite38†Image
+L92: ## Related videos
+L93: 
+L94: cite39†Vijaya Ramachandran (Austin) P versus NP 28 March 2001 Read more cite40†Lance Fortnow (GaTech) A personal view of the P versus NP problem 02 October 2013 Read more
+L95: 
+L96: ## Further resources
+L97: 
+L98: cite41†Official Problem Description by Stephen Cook
+L99: 
+L100: Rules for the Millennium Prize
+L101: 
+L102: cite13†Read the rules
+L103: 
+L104:   * cite42†Privacy Policy
+L105:   * cite43†Contact CMI
+L106: 
+L107: © 2026 Clay Mathematics Institute
+L108: 
+L109: Site by cite44†One†oneltd.co.uk

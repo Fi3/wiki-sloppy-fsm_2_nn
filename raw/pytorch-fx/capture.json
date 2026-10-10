@@ -1,0 +1,33 @@
+{
+  "original_url": "https://docs.pytorch.org/docs/stable/fx.html",
+  "aliases": [],
+  "retrieved_on": "2026-10-07",
+  "segments": [
+    {
+      "url": "https://docs.pytorch.org/docs/2.14/fx.html",
+      "total_browser_lines": 6993,
+      "captured_lines": 1113,
+      "missing_line_ranges": [
+        [
+          647,
+          3625
+        ],
+        [
+          3633,
+          3644
+        ],
+        [
+          3867,
+          3936
+        ],
+        [
+          4174,
+          6992
+        ]
+      ],
+      "text_extraction_complete": false
+    }
+  ],
+  "review_status": "first-pass; source summary specifies reviewed scope",
+  "limitations": "Text only; original file bytes and linked assets were not downloaded. Browser extraction can omit equations and figures even with complete line coverage."
+}

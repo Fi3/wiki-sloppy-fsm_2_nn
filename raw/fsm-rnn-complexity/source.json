@@ -1,0 +1,10 @@
+{
+  "title": "Bounds on the Complexity of Recurrent Neural Network Implementations of Finite State Machines",
+  "document": "raw/fsm-rnn-complexity/document.txt",
+  "original_filename": "web-extracted-text",
+  "url": "https://proceedings.neurips.cc/paper/1993/file/afda332245e2af431fb7b672a68b659d-Paper.pdf",
+  "imported_at": "2026-10-07T09:53:03+00:00",
+  "sha256": "ce080409f0dd87b0fe67b90a5e23826683afa6e2c645afd73e53a4ebef71b9e6",
+  "capture_format": "browser-extracted-text",
+  "retrieved_on": "2026-10-07"
+}

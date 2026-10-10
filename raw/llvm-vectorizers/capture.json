@@ -1,0 +1,16 @@
+{
+  "original_url": "https://llvm.org/docs/Vectorizers.html",
+  "aliases": [],
+  "retrieved_on": "2026-10-07",
+  "segments": [
+    {
+      "url": "https://llvm.org/docs/Vectorizers.html",
+      "total_browser_lines": 593,
+      "captured_lines": 593,
+      "missing_line_ranges": [],
+      "text_extraction_complete": true
+    }
+  ],
+  "review_status": "first-pass; source summary specifies reviewed scope",
+  "limitations": "Text only; original file bytes and linked assets were not downloaded. Browser extraction can omit equations and figures even with complete line coverage."
+}

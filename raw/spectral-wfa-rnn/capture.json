@@ -1,0 +1,28 @@
+{
+  "original_url": "https://proceedings.mlr.press/v89/rabusseau19a.html",
+  "aliases": [],
+  "retrieved_on": "2026-10-07",
+  "segments": [
+    {
+      "url": "https://proceedings.mlr.press/v89/rabusseau19a.html",
+      "total_browser_lines": 47,
+      "captured_lines": 47,
+      "missing_line_ranges": [],
+      "text_extraction_complete": true
+    },
+    {
+      "url": "https://proceedings.mlr.press/v89/rabusseau19a/rabusseau19a.pdf",
+      "total_browser_lines": 1290,
+      "captured_lines": 433,
+      "missing_line_ranges": [
+        [
+          433,
+          1289
+        ]
+      ],
+      "text_extraction_complete": false
+    }
+  ],
+  "review_status": "first-pass; source summary specifies reviewed scope",
+  "limitations": "Text only; original file bytes and linked assets were not downloaded. Browser extraction can omit equations and figures even with complete line coverage."
+}

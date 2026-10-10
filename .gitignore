@@ -1,0 +1,12 @@
+__pycache__/
+*.py[cod]
+.DS_Store
+.obsidian/workspace*.json
+
+# Local agent configuration and credentials do not belong in the wiki repository.
+/.agents/
+/.codex/
+/.aws/
+
+# Portable Git snapshots are exported separately from the committed files.
+/rsm-2-nn.bundle

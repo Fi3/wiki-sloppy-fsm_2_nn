@@ -1,0 +1,707 @@
+Title: The P versus NP Problem — Official Problem Description
+Retrieved: 2026-10-09
+Format: browser-extracted text, not original PDF/HTML bytes. P page labels are zero-based. Coverage and review limits are recorded in capture.json.
+
+=== Segment 1: https://www.claymath.org/wp-content/uploads/2022/06/pvsnp.pdf ===
+
+L0@P0: THE P VERSUS NP PROBLEM
+L1@P0: STEPHEN COOK
+L2@P0: 1. Statement of the Problem
+L3@P0: The P versus NP problem is to determine whether every language accepted
+L4@P0: by some nondeterministic algorithm in polynomial time is also accepted by some
+L5@P0: (deterministic) algorithm in polynomial time. To define the problem precisely it
+L6@P0: is necessary to give a formal model of a computer. The standard computer model
+L7@P0: in computability theory is the Turing machine, introduced by Alan Turing in 1936
+L8@P0: [37]. Although the model was introduced before physical computers were built, it
+L9@P0: nevertheless continues to be accepted as the proper computer model for the purpose
+L10@P0: of defining the notion of computable function.
+L11@P0: Informally the class P is the class of decision problems solvable by some algorithm
+L12@P0: within a number of steps bounded by some fixed polynomial in the length of the
+L13@P0: input. Turing was not concerned with the efficiency of his machines, rather his
+L14@P0: concern was whether they can simulate arbitrary algorithms given sufficient time. It
+L15@P0: turns out, however, Turing machines can generally simulate more efficient computer
+L16@P0: models (for example, machines equipped with many tapes or an unbounded random
+L17@P0: access memory) by at most squaring or cubing the computation time. Thus P is a
+L18@P0: robust class and has equivalent definitions over a large class of computer models.
+L19@P0: Here we follow standard practice and define the class P in terms of Turing machines.
+L20@P0: Formally the elements of the class P are languages. Let Σ be a finite alphabet
+L21@P0: (that is, a finite nonempty set) with at least two elements, and let Σ∗ be the set
+L22@P0: of finite strings over Σ. Then a language over Σ is a subset L of Σ∗. Each Turing
+L23@P0: machine M has an associated input alphabet Σ. For each string w in Σ∗there is
+L24@P0: a computation associated with M with input w. (The notions of Turing machine
+L25@P0: and computation are defined formally in the appendix.) We say that M accepts w
+L26@P0: if this computation terminates in the accepting state. Note that M fails to accept
+L27@P0: w either if this computation ends in the rejecting state, or if the computation fails
+L28@P0: to terminate. The language accepted by M, denoted L(M), has associated alphabet
+L29@P0: Σ and is defined by
+L30@P0: L(M) = {w ∈ Σ
+L31@P0: ∗
+L32@P0: | M accepts w}.
+L33@P0: We denote by tM(w) the number of steps in the computation of M on input w (see
+L34@P0: the appendix). If this computation never halts, then tM(w) = ∞. For n ∈ N we
+L35@P0: denote by TM(n) the worst case run time of M; that is,
+L36@P0: TM(n) = max{tM(w) | w ∈ Σ
+L37@P0: n
+L38@P0: },
+L39@P0: where Σn is the set of all strings over Σ of length n. We say that M runs in
+L40@P0: polynomial time if there exists k such that for all n, TM(n) ≤ n
+L41@P0: k + k. Now we
+L42@P0-1: 12 STEPHEN COOK
+L43@P1: define the class P of languages by
+L44@P1: P = {L | L = L(M) for some Turing machine M that runs
+L45@P1: in polynomial time}.
+L46@P1: The notation NP stands for “nondeterministic polynomial time”, since originally
+L47@P1: NP was defined in terms of nondeterministic machines (that is, machines that
+L48@P1: have more than one possible move from a given configuration). However, now it is
+L49@P1: customary to give an equivalent definition using the notion of a checking relation,
+L50@P1: which is simply a binary relation R ⊆ Σ
+L51@P1: ∗ × Σ∗
+L52@P1: 1
+L53@P1: for some finite alphabets Σ and Σ1.
+L54@P1: We associate with each such relation R a language LR over Σ ∪ Σ1 ∪ {#} defined
+L55@P1: by
+L56@P1: LR = {w#y | R(w, y)}
+L57@P1: where the symbol # is not in Σ. We say that R is polynomial-time iff LR ∈ P.
+L58@P1: Now we define the class NP of languages by the condition that a language L
+L59@P1: over Σ is in NP iff there is k ∈ N and a polynomial-time checking relation R such
+L60@P1: that for all w ∈ Σ
+L61@P1: ∗
+L62@P1: ,
+L63@P1: w ∈ L ⇐⇒ ∃y(|y| ≤ |w|
+L64@P1: k
+L65@P1: and R(w, y)),
+L66@P1: where |w| and |y| denote the lengths of w and y, respectively.
+L67@P1: Problem Statement. Does P = NP?
+L68@P1: It is easy to see that the answer is independent of the size of the alphabet Σ (we
+L69@P1: assume |Σ| ≥ 2), since strings over an alphabet of any fixed size can be efficiently
+L70@P1: coded by strings over a binary alphabet. (For |Σ| = 1 the problem is still open,
+L71@P1: although it is possible that P = NP in this case but not in the general case.)
+L72@P1: It is trivial to show that P ⊆ NP, since for each language L over Σ, if L ∈ P
+L73@P1: then we can define the polynomial-time checking relation R ⊆ Σ
+L74@P1: ∗ ∪ Σ∗ by
+L75@P1: R(w, y) ⇐⇒ w ∈ L
+L76@P1: for all w, y ∈ Σ
+L77@P1: ∗
+L78@P1: .
+L79@P1: Here are two simple examples, using decimal notation to code natural numbers:
+L80@P1: The set of perfect squares is in P, since Newton’s method can be used to efficiently
+L81@P1: approximate square roots. The set of composite numbers is in NP, where (denoting
+L82@P1: the decimal notation for a natural number c by c) the associated polynomial time
+L83@P1: checking relation R is given by
+L84@P1: (1) R(a, b) ⇐⇒ 1 < b < a and b|a.
+L85@P1: (Recently it was shown that in fact the set of composite numbers is also in P [1],
+L86@P1: answering a longstanding open question.)
+L87@P1: 2. History and Importance
+L88@P1: The importance of the P vs NP question stems from the successful theories of
+L89@P1: NP-completeness and complexity-based cryptography, as well as the potentially
+L90@P1: stunning practical consequences of a constructive proof of P = NP.
+L91@P1: The theory of NP-completeness has its roots in computability theory, which
+L92@P1: originated in the work of Turing, Church, G¨odel, and others in the 1930s. The
+L93@P1: computability precursors of the classes P and NP are the classes of decidable and
+L94@P1: c.e. (computably enumerable) languages, respectively. We say that a language L is
+L95@P1-2: c.e. (or semi-decidable) iff L = L(M) for some Turing machine M. We say that LTHE P VERSUS NP PROBLEM 3
+L96@P2: is decidable iff L = L(M) for some Turing machine M that satisfies the condition
+L97@P2: that M halts on all input strings w. There is an equivalent definition of c.e. that
+L98@P2: brings out its analogy with NP, namely L is c.e. iff there is a computable “checking
+L99@P2: relation” R(x, y) such that L = {x | ∃yR(x, y)}.
+L100@P2: Using the notation hMi to denote a string describing a Turing machine M, we
+L101@P2: define the Halting Problem HP as follows:
+L102@P2: HP = {hMi | M is a Turing machine that halts on input hMi}.
+L103@P2: Turing used a simple diagonal argument to show that HP is not decidable. On the
+L104@P2: other hand, it is not hard to show that HP is c.e.
+L105@P2: Of central importance in computability theory is the notion of reducibility, which
+L106@P2: Turing defined roughly as follows: A language L1 is Turing reducible to a language
+L107@P2: L2 iff there is an oracle Turing machine M that accepts L1, where M is allowed to
+L108@P2: make membership queries of the form x ∈ L2, which are correctly answered by an
+L109@P2: “oracle” for L2. Later, the more restricted notion of many-one reducibility (≤m)
+L110@P2: was introduced and defined as follows.
+L111@P2: Definition 1. Suppose that Liis a language over Σi, i = 1, 2. Then L1 ≤m L2 iff
+L112@P2: there is a (total) computable function f : Σ∗
+L113@P2: 1 → Σ
+L114@P2: ∗
+L115@P2: 2
+L116@P2: such that x ∈ L1 ⇐⇒ f(x) ∈ L2,
+L117@P2: for all x ∈ Σ
+L118@P2: ∗
+L119@P2: 1
+L120@P2: .
+L121@P2: It is easy to see that if L1 ≤m L2 and L2 is decidable, then L1 is decidable.
+L122@P2: This fact provides an important tool for showing undecidability; for example, if
+L123@P2: HP ≤m L, then L is undecidable.
+L124@P2: The notion of NP-complete is based on the following notion from computability
+L125@P2: theory:
+L126@P2: Definition 2. A language L is c.e.-complete iff L is c.e., and L
+L127@P2: 0 ≤m L for every
+L128@P2: c.e. language L
+L129@P2: 0
+L130@P2: .
+L131@P2: It is easy to show that HP is c.e.-complete. It turns out that most “natural”
+L132@P2: undecidable c.e. languages are, in fact, c.e.-complete. Since ≤m is transitive, to
+L133@P2: show that a c.e. language L is c.e.-complete it suffices to show that HP ≤m L.
+L134@P2: The notion of polynomial-time computation was introduced in the 1960s by Cobham [8] and Edmonds [13] as part of the early development of computational complexity theory (although earlier von Neumann [38], in 1953, distinguished between
+L135@P2: polynomial-time and exponential-time algorithms). Edmonds called polynomialtime algorithms “good algorithms” and linked them to tractable algorithms.
+L136@P2: It has now become standard in complexity theory to identify polynomial-time
+L137@P2: with feasible, and here we digress to discuss this point. It is of course not literally
+L138@P2: true that every polynomial-time algorithm can be feasibly executed on small inputs;
+L139@P2: for example, a computer program requiring n
+L140@P2: 100 steps could never be executed on
+L141@P2: an input even as small as n = 10. Here is a more defensible statement (see [10]):
+L142@P2: Feasibility Thesis. A natural problem has a feasible algorithm iff it has a polynomial-time algorithm.
+L143@P2: Examples of natural problems that have both feasible and polynomial-time algorithms abound: Integer arithmetic, linear algebra, network flow, linear programming, many graph problems (connectivity, shortest path, minimum spanning tree,
+L144@P2: bipartite matching), etc. On the other hand, the deep results of Robertson and
+L145@P2-3: Seymour [29] provide a potential source of counterexamples to the thesis: They4 STEPHEN COOK
+L146@P3: prove that every minor-closed family of graphs can be recognized in polynomial
+L147@P3: time (in fact, in time O(n
+L148@P3: 3
+L149@P3: )), but the algorithms supplied by their method have
+L150@P3: such huge constants that they are not feasible. However, each potential counterexample can be removed by finding a feasible algorithm for it. For example, a feasible
+L151@P3: recognition algorithm is known for the class of planar graphs, but none is currently
+L152@P3: known for the class of graphs embeddable in R
+L153@P3: 3 with no two cycles linked. (Both
+L154@P3: examples are minor-closed families.) Of course the words “natural” and “feasible”in
+L155@P3: the thesis above should be explained; generally we do not consider a class with a
+L156@P3: parameter as natural, such as the set of graphs embeddable on a surface of genus
+L157@P3: k, k > 1.
+L158@P3: We mention two concerns related to the “only if” direction of the thesis. The
+L159@P3: first comes from randomized algorithms. We discuss at the end of Section 3 the
+L160@P3: possibility that a source of random bits might be used to greatly reduce the recognition time required for some language. Note, however, that it is not clear whether
+L161@P3: a truly random source exists in nature. The second concern comes from quantum computers. This computer model incorporates the idea of superposition of
+L162@P3: states from quantum mechanics and allows a potential exponential speed-up of
+L163@P3: some computations over Turing machines. For example, Shor [32] has shown that
+L164@P3: some quantum computer algorithm is able to factor integers in polynomial time,
+L165@P3: but no polynomial-time integer-factoring algorithm is known for Turing machines.
+L166@P3: Physicists have so far been unable to build a quantum computer that can handle
+L167@P3: more than a half-dozen bits, so this threat to the feasibility thesis is hypothetical
+L168@P3: at present.
+L169@P3: Returning to the historical treatment of complexity theory, in 1971 the present
+L170@P3: author [9] introduced a notion of NP-completeness as a polynomial-time analog of
+L171@P3: c.e.-completeness, except that the reduction used was a polynomial-time analog of
+L172@P3: Turing reducibility rather than of many-one reducibility. The main results in [9] are
+L173@P3: that several natural problems, including Satisfiability and 3-SAT (defined below)
+L174@P3: and subgraph isomorphism are NP-complete. A year later Karp [21] used these
+L175@P3: completeness results to show that 20 other natural problems are NP-complete,
+L176@P3: thus forcefully demonstrating the importance of the subject. Karp also introduced
+L177@P3: the now standard notation P and NP and redefined NP-completeness using the
+L178@P3: polynomial-time analog of many-one reducibility, a definition that has become standard. Meanwhile Levin [23], independently of Cook and Karp, defined the notion
+L179@P3: of “universal search problem”, similar to the NP-complete problem, and gave six
+L180@P3: examples, including Satisfiability.
+L181@P3: The standard definitions concerning NP-completeness are close analogs of Definitions 1 and 2 above.
+L182@P3: Definition 3. Suppose that Liis a language over Σi, i = 1, 2. Then L1 ≤p L2 (L1
+L183@P3: is p-reducible to L2) iff there is a polynomial-time computable function f : Σ∗
+L184@P3: 1 → Σ
+L185@P3: ∗
+L186@P3: 2
+L187@P3: such that x ∈ L1 ⇐⇒ f(x) ∈ L2, for all x ∈ Σ
+L188@P3: ∗
+L189@P3: 1
+L190@P3: .
+L191@P3: Definition 4. A language L is NP-complete iff L is in NP, and L
+L192@P3: 0 ≤p L for every
+L193@P3: language L
+L194@P3: 0
+L195@P3: in NP.
+L196@P3: The following proposition is easy to prove: Part (b) uses the transitivity of ≤p,
+L197@P3: and part (c) follows from part (a).
+L198@P3: Proposition 1. (a) If L1 ≤p L2 and L2 ∈ P, then L1 ∈ P.
+L199@P3-4: (b) If L1 is NP-complete, L2 ∈ NP, and L1 ≤p L2, then L2 is NP-complete.THE P VERSUS NP PROBLEM 5
+L200@P4: (c) If L is NP-complete and L ∈ P, then P=NP.
+L201@P4: Notice that parts (a) and (b) have close analogs in computability theory. The
+L202@P4: analog of part (c) is simply that if L is c.e.-complete then L is undecidable. Part
+L203@P4: (b) is the basic method for showing new problems are NP-complete, and part (c)
+L204@P4: explains why it is probably a waste of time looking for a polynomial-time algorithm
+L205@P4: for an NP-complete problem.
+L206@P4: In practice, a member of NP is expressed as a decision problem, and the corresponding language is understood to mean the set of strings coding YES instances
+L207@P4: to the decision problem using standard coding methods. Thus the problem Satisfiability is: Given a propositional formula F, determine whether F is satisfiable. To
+L208@P4: show that this is in NP, we define the polynomial-time checking relation R(x, y),
+L209@P4: which holds iff x codes a propositional formula F and y codes a truth assignment
+L210@P4: to the variables of F that makes F true. This problem was shown in [9] to be
+L211@P4: NP-complete essentially by showing that, for each polynomial-time Turing machine M that recognizes a checking relation R(x, y) for an NP language L, there is
+L212@P4: a polynomial-time algorithm that takes as input a string x and produces a propositional formula Fx (describing the computation of M on input (x, y), with variables
+L213@P4: representing the unknown string y) such that Fx is satisfiable iff M accepts the
+L214@P4: input (x, y) for some y with |y| ≤ |x|
+L215@P4: O(1)
+L216@P4: .
+L217@P4: An important special case of Satisfiability is 3-SAT, which was also shown to be
+L218@P4: NP-complete in [9]. Instances of 3-SAT are restricted to formulas in conjunctive
+L219@P4: normal form with three literals per clause. For example, the formula
+L220@P4: (2) (P ∨ Q ∨ R) ∧ (P¯ ∨ Q ∨ R¯) ∧ (P ∨ Q¯ ∨ S) ∧ (P¯ ∨ R¯ ∨ S¯)
+L221@P4: is a YES instance to 3-SAT since the truth assignment τ satisfies the formula, where
+L222@P4: τ (P) = τ (Q) = T rue and τ (R) = τ (S) = F alse.
+L223@P4: Many hundreds of NP-complete problems have been identified, including SubsetSum (given a set of positive integers presented in decimal notation, and a target
+L224@P4: T, is there a subset summing to T?), many graph problems (given a graph G, does
+L225@P4: G have a Hamiltonian cycle? Does G have a clique consisting of half of the vertices?
+L226@P4: Can the vertices of G be colored with three colors with distinct colors for adjacent
+L227@P4: vertices?). These problems give rise to many scheduling and routing problems with
+L228@P4: industrial importance. The book [15] provides an excellent reference to the subject,
+L229@P4: with 300 NP-complete problems listed in the appendix.
+L230@P4: Associated with each decision problem in NP there is a search problem, which
+L231@P4: is, given a string x, find a string y satisfying the checking relation R(x, y) for the
+L232@P4: problem (or determine that x is a NO instance to the problem). Such a y is said to
+L233@P4: be a certificate for x. In the case of an NP-complete problem it is easy to see that
+L234@P4: the search problem can be efficiently reduced to the corresponding decision problem.
+L235@P4: In fact, if P = NP, then the associated search problem for every NP problem has
+L236@P4: a polynomial-time algorithm. For example, an algorithm for the decision problem
+L237@P4: Satisfiability can be used to find a truth assignment τ satisfying a given satisfiable
+L238@P4: formula F by, for each variable P in F in turn, setting P to True in F or False in
+L239@P4: F, whichever case keeps F satisfiable.
+L240@P4: The set of complements of NP languages is denoted coNP. The complement of
+L241@P4: an NP-complete language is thought not to be in NP; otherwise NP = coNP.
+L242@P4: The set TAUT of tautologies (propositional formulas true under all assignments) is
+L243@P4-5: the standard example of a coNP-complete language. The conjecture NP 6= coNP6 STEPHEN COOK
+L244@P5: is equivalent to the assertion that no formal proof system (suitably defined) for
+L245@P5: tautologies has short (polynomial-bounded) proofs for all tautologies [12]. This fact
+L246@P5: has motivated the development of a rich theory of propositional proof complexity
+L247@P5: [22], one of whose goals is to prove superpolynomial lower bounds on the lengths
+L248@P5: of proofs for standard propositional proof systems.
+L249@P5: There are interesting examples of NP problems not known to be either in P
+L250@P5: or NP-complete. One example is the graph isomorphism problem: Given two
+L251@P5: undirected graphs, determine whether they are isomorphic.
+L252@P5: Another example, until recently, was the set of composite numbers. As mentioned in the first section, this set is in NP, with checking relation (1), but it is
+L253@P5: now known also to be in P [1]. However, the search problem associated with the
+L254@P5: checking relation (1) is equivalent to the problem of integer factoring and is thought
+L255@P5: unlikely to be solvable in polynomial time. In fact, an efficient factoring algorithm
+L256@P5: would break the RSA public key encryption scheme [28] commonly used to allow
+L257@P5: (presumably) secure financial transactions over the Internet.
+L258@P5: There is an NP decision problem with complexity equivalent to that of integer
+L259@P5: factoring, namely
+L260@P5: Lfact = {ha, bi | ∃d(1 < d < a and d|b)}.
+L261@P5: Given an integer b > 1, the smallest prime divisor of b can be found with about
+L262@P5: log2b queries to Lfact, using binary search. It is easy to see that the complement of
+L263@P5: Lfact is also in NP: a certificate showing ha, bi is not in Lfact could be the complete
+L264@P5: prime decomposition of b. Thus Lfact is a good example of a problem in NP that
+L265@P5: seems unlikely to be either in P or NP-complete.
+L266@P5: Computational complexity theory plays an important role in modern cryptography [16]. The security of the Internet, including most financial transactions,
+L267@P5: depends on complexity-theoretic assumptions such as the difficulty of integer factoring or of breaking DES (the Data Encryption Standard). If P = NP, these
+L268@P5: assumptions are all false. Specifically, an algorithm solving 3-SAT in n
+L269@P5: 2
+L270@P5: steps
+L271@P5: could be used to factor 200-digit numbers in a few minutes.
+L272@P5: Although a practical algorithm for solving an NP-complete problem (showing P
+L273@P5: = NP) would have devastating consequences for cryptography, it would also have
+L274@P5: stunning practical consequences of a more positive nature, and not just because of
+L275@P5: the efficient solutions to the many NP-hard problems important to industry. For
+L276@P5: example, it would transform mathematics by allowing a computer to find a formal
+L277@P5: proof of any theorem that has a proof of reasonable length, since formal proofs can
+L278@P5: easily be recognized in polynomial time. Such theorems may well include all of the
+L279@P5: CMI prize problems. Although the formal proofs may not be initially intelligible
+L280@P5: to humans, the problem of finding intelligible proofs would be reduced to that
+L281@P5: of finding a recognition algorithm for intelligible proofs. Similar remarks apply
+L282@P5: to diverse creative human endeavors, such as designing airplane wings, creating
+L283@P5: physical theories, or even composing music. The question in each case is to what
+L284@P5: extent an efficient algorithm for recognizing a good result can be found. This is a
+L285@P5: fundamental problem in artificial intelligence, and one whose solution itself would
+L286@P5: be aided by the NP-solver by allowing easy testing of recognition theories.
+L287@P5: Even if P 6= NP it may still happen that every NP problem is susceptible
+L288@P5: to a polynomial-time algorithm that works on “most” inputs. This could render
+L289@P5: cryptography impossible and bring about most of the benefits of a world in which
+L290@P5-6: P = NP. This also motivates Levin’s theory [24], [18] of average case completeness,THE P VERSUS NP PROBLEM 7
+L291@P6: in which the P = NP question is replaced by the question of whether every NP
+L292@P6: problem with any reasonable probability distribution on its inputs can be solved in
+L293@P6: polynomial time on average.
+L294@P6: In [34] Smale lists the P vs NP question as problem 3 of mathematical problems
+L295@P6: for the next century. However, Smale is interested not only in the classical version
+L296@P6: of the question, but also in a version expressed in terms of the field of complex
+L297@P6: numbers. Here Turing machines must be replaced by a machine model that is
+L298@P6: capable of doing exact arithmetic and zero tests on arbitrary complex numbers.
+L299@P6: The P vs NP question is replaced by a question related to Hilbert’s Nullstellensatz:
+L300@P6: Is there a polynomial-time algorithm that, given a set of k multivariate polynomials
+L301@P6: over C, determines whether they have a common zero? See [4] for a development
+L302@P6: of complexity theory in this setting.
+L303@P6: The books by Papadimitriou [25] and Sipser [33] provide good introductions to
+L304@P6: mainstream complexity theory.
+L305@P6: 3. The Conjecture and Attempts to Prove It
+L306@P6: Most complexity theorists believe that P 6= NP. Perhaps this can be partly
+L307@P6: explained by the potentially stunning consequences of P = NP mentioned above,
+L308@P6: but there are better reasons. We explain these by considering the two possibilities
+L309@P6: in turn: P = NP and P 6= NP.
+L310@P6: Suppose first that P = NP and consider how one might prove it. The obvious way is to exhibit a polynomial-time algorithm for 3-SAT or one of the other
+L311@P6: thousand or so known NP-complete problems, and, indeed, many false proofs have
+L312@P6: been presented in this form. There is a standard toolkit available [7] for devising
+L313@P6: polynomial-time algorithms, including the greedy method, dynamic programming,
+L314@P6: reduction to linear programming, etc. These are the subjects of a course on algorithms, typical in undergraduate computer science curriculums. Because of their
+L315@P6: importance in industry, a vast number of programmers and engineers have attempted to find efficient algorithms for NP-complete problems over the past 30
+L316@P6: years, without success. There is a similar strong motivation for breaking the cryptographic schemes that assume P 6= NP for their security.
+L317@P6: Of course, it is possible that some nonconstructive argument, such as the Robertson–Seymour proofs mentioned earlier in conjunction with the Feasibility Thesis,
+L318@P6: could show that P = NP without yielding any feasible algorithm for the standard
+L319@P6: NP-complete problems. At present, however, the best proven upper bound on
+L320@P6: an algorithm for solving 3-SAT is approximately 1.5
+L321@P6: n, where n is the number of
+L322@P6: variables in the input formula.
+L323@P6: Suppose, on the other hand, that P 6= NP, and consider how one might prove it.
+L324@P6: There are two general methods that have been tried: diagonalization with reduction
+L325@P6: and Boolean circuit lower bounds.
+L326@P6: The method of diagonalization with reduction has been used very successfully
+L327@P6: in computability theory to prove a host of problems undecidable, beginning with
+L328@P6: the Halting Problem. It has also been used successfully in complexity theory to
+L329@P6: prove super-exponential lower bounds for very hard decidable problems. For example, Presburger arithmetic, the first-order theory of integers under addition, is a
+L330@P6: decidable theory for which Fischer and Rabin [14] proved that any Turing machine
+L331@P6: deciding the theory must use at least 22
+L332@P6: cn steps in the worst case, for some c > 0.
+L333@P6-7: In general, lower bounds using diagonalization and reduction relativize; that is,8 STEPHEN COOK
+L334@P7: they continue to apply in a setting in which both the problem instance and the
+L335@P7: solving Turing machine can make membership queries to an arbitrary oracle set
+L336@P7: A. However, in [3] it was shown that there is an oracle set A relative to which P
+L337@P7: = NP, suggesting that diagonalization with reduction cannot be used to separate
+L338@P7: these two classes. (There are nonrelativizing results in complexity theory, as will
+L339@P7: be mentioned below.) It is interesting to note that relative to a generic oracle, P
+L340@P7: 6= NP [5, 11].
+L341@P7: A Boolean circuit is a finite acyclic graph in which each non-input node, or gate,
+L342@P7: is labelled with a Boolean connective; typically from {AND, OR, NOT}. The input
+L343@P7: nodes are labeled with variables x1, ..., xn, and for each assignment of 0 or 1 to each
+L344@P7: variable, the circuit computes a bit value at each gate, including the output gate,
+L345@P7: in the obvious way. It is not hard to see that if L is a language over {0, 1} that
+L346@P7: is in P, then there is a polynomial-size family of Boolean circuits hBni such that
+L347@P7: Bn has n inputs, and for each bit string w of length n, when w is applied to the
+L348@P7: n input nodes of Bn, then the output bit of Bn is 1 iff w ∈ L. In this case we say
+L349@P7: that hBni computes L.
+L350@P7: Thus to prove P 6= NP it suffices to prove a super-polynomial lower bound on the
+L351@P7: size of any family of Boolean circuits solving some specific NP-complete problem,
+L352@P7: such as 3-SAT. Back in 1949 Shannon [31] proved that for almost all Boolean
+L353@P7: functions f : {0, 1}
+L354@P7: n → {0, 1}, any Boolean circuit computing f requires at least
+L355@P7: 2
+L356@P7: n/n gates. Unfortunately, his counting argument gives no clue as to how to prove
+
+=== Segment 2: https://www.claymath.org/wp-content/uploads/2022/06/pvsnp.pdf ===
+
+L223@P4: Many hundreds of NP-complete problems have been identified, including SubsetSum (given a set of positive integers presented in decimal notation, and a target
+L224@P4: T, is there a subset summing to T?), many graph problems (given a graph G, does
+L228@P4: industrial importance. The book [15] provides an excellent reference to the subject,
+L229@P4: with 300 NP-complete problems listed in the appendix.
+L230@P4: Associated with each decision problem in NP there is a search problem, which
+L231@P4: is, given a string x, find a string y satisfying the checking relation R(x, y) for the
+L232@P4: problem (or determine that x is a NO instance to the problem). Such a y is said to
+L233@P4: be a certificate for x. In the case of an NP-complete problem it is easy to see that
+L234@P4: the search problem can be efficiently reduced to the corresponding decision problem.
+L235@P4: In fact, if P = NP, then the associated search problem for every NP problem has
+L236@P4: a polynomial-time algorithm. For example, an algorithm for the decision problem
+L237@P4: Satisfiability can be used to find a truth assignment τ satisfying a given satisfiable
+L238@P4: formula F by, for each variable P in F in turn, setting P to True in F or False in
+L239@P4: F, whichever case keeps F satisfiable.
+L240@P4: The set of complements of NP languages is denoted coNP. The complement of
+L241@P4: an NP-complete language is thought not to be in NP; otherwise NP = coNP.
+L242@P4: The set TAUT of tautologies (propositional formulas true under all assignments) is
+L243@P4-5: the standard example of a coNP-complete language. The conjecture NP 6= coNP6 STEPHEN COOK
+L244@P5: is equivalent to the assertion that no formal proof system (suitably defined) for
+L245@P5: tautologies has short (polynomial-bounded) proofs for all tautologies [12]. This fact
+L246@P5: has motivated the development of a rich theory of propositional proof complexity
+L247@P5: [22], one of whose goals is to prove superpolynomial lower bounds on the lengths
+L248@P5: of proofs for standard propositional proof systems.
+L249@P5: There are interesting examples of NP problems not known to be either in P
+L250@P5: or NP-complete. One example is the graph isomorphism problem: Given two
+L251@P5: undirected graphs, determine whether they are isomorphic.
+L252@P5: Another example, until recently, was the set of composite numbers. As mentioned in the first section, this set is in NP, with checking relation (1), but it is
+L253@P5: now known also to be in P [1]. However, the search problem associated with the
+L254@P5: checking relation (1) is equivalent to the problem of integer factoring and is thought
+L255@P5: unlikely to be solvable in polynomial time. In fact, an efficient factoring algorithm
+L256@P5: would break the RSA public key encryption scheme [28] commonly used to allow
+L257@P5: (presumably) secure financial transactions over the Internet.
+L258@P5: There is an NP decision problem with complexity equivalent to that of integer
+L259@P5: factoring, namely
+L260@P5: Lfact = {ha, bi | ∃d(1 < d < a and d|b)}.
+L261@P5: Given an integer b > 1, the smallest prime divisor of b can be found with about
+L262@P5: log2b queries to Lfact, using binary search. It is easy to see that the complement of
+L263@P5: Lfact is also in NP: a certificate showing ha, bi is not in Lfact could be the complete
+L264@P5: prime decomposition of b. Thus Lfact is a good example of a problem in NP that
+L265@P5: seems unlikely to be either in P or NP-complete.
+L266@P5: Computational complexity theory plays an important role in modern cryptography [16]. The security of the Internet, including most financial transactions,
+L267@P5: depends on complexity-theoretic assumptions such as the difficulty of integer factoring or of breaking DES (the Data Encryption Standard). If P = NP, these
+L268@P5: assumptions are all false. Specifically, an algorithm solving 3-SAT in n
+L269@P5: 2
+L270@P5: steps
+L271@P5: could be used to factor 200-digit numbers in a few minutes.
+L272@P5: Although a practical algorithm for solving an NP-complete problem (showing P
+L273@P5: = NP) would have devastating consequences for cryptography, it would also have
+L274@P5: stunning practical consequences of a more positive nature, and not just because of
+L275@P5: the efficient solutions to the many NP-hard problems important to industry. For
+L276@P5: example, it would transform mathematics by allowing a computer to find a formal
+L277@P5: proof of any theorem that has a proof of reasonable length, since formal proofs can
+L278@P5: easily be recognized in polynomial time. Such theorems may well include all of the
+L279@P5: CMI prize problems. Although the formal proofs may not be initially intelligible
+L280@P5: to humans, the problem of finding intelligible proofs would be reduced to that
+L281@P5: of finding a recognition algorithm for intelligible proofs. Similar remarks apply
+L282@P5: to diverse creative human endeavors, such as designing airplane wings, creating
+L283@P5: physical theories, or even composing music. The question in each case is to what
+L284@P5: extent an efficient algorithm for recognizing a good result can be found. This is a
+L285@P5: fundamental problem in artificial intelligence, and one whose solution itself would
+L286@P5: be aided by the NP-solver by allowing easy testing of recognition theories.
+L287@P5: Even if P 6= NP it may still happen that every NP problem is susceptible
+L288@P5: to a polynomial-time algorithm that works on “most” inputs. This could render
+L289@P5: cryptography impossible and bring about most of the benefits of a world in which
+L290@P5-6: P = NP. This also motivates Levin’s theory [24], [18] of average case completeness,THE P VERSUS NP PROBLEM 7
+L291@P6: in which the P = NP question is replaced by the question of whether every NP
+L292@P6: problem with any reasonable probability distribution on its inputs can be solved in
+L293@P6: polynomial time on average.
+L294@P6: In [34] Smale lists the P vs NP question as problem 3 of mathematical problems
+L295@P6: for the next century. However, Smale is interested not only in the classical version
+L296@P6: of the question, but also in a version expressed in terms of the field of complex
+L297@P6: numbers. Here Turing machines must be replaced by a machine model that is
+L298@P6: capable of doing exact arithmetic and zero tests on arbitrary complex numbers.
+L299@P6: The P vs NP question is replaced by a question related to Hilbert’s Nullstellensatz:
+L300@P6: Is there a polynomial-time algorithm that, given a set of k multivariate polynomials
+L301@P6: over C, determines whether they have a common zero? See [4] for a development
+L302@P6: of complexity theory in this setting.
+L303@P6: The books by Papadimitriou [25] and Sipser [33] provide good introductions to
+L304@P6: mainstream complexity theory.
+L305@P6: 3. The Conjecture and Attempts to Prove It
+L306@P6: Most complexity theorists believe that P 6= NP. Perhaps this can be partly
+L307@P6: explained by the potentially stunning consequences of P = NP mentioned above,
+L308@P6: but there are better reasons. We explain these by considering the two possibilities
+L309@P6: in turn: P = NP and P 6= NP.
+L310@P6: Suppose first that P = NP and consider how one might prove it. The obvious way is to exhibit a polynomial-time algorithm for 3-SAT or one of the other
+L311@P6: thousand or so known NP-complete problems, and, indeed, many false proofs have
+L312@P6: been presented in this form. There is a standard toolkit available [7] for devising
+L313@P6: polynomial-time algorithms, including the greedy method, dynamic programming,
+L314@P6: reduction to linear programming, etc. These are the subjects of a course on algorithms, typical in undergraduate computer science curriculums. Because of their
+L315@P6: importance in industry, a vast number of programmers and engineers have attempted to find efficient algorithms for NP-complete problems over the past 30
+L316@P6: years, without success. There is a similar strong motivation for breaking the cryptographic schemes that assume P 6= NP for their security.
+L317@P6: Of course, it is possible that some nonconstructive argument, such as the Robertson–Seymour proofs mentioned earlier in conjunction with the Feasibility Thesis,
+L318@P6: could show that P = NP without yielding any feasible algorithm for the standard
+L319@P6: NP-complete problems. At present, however, the best proven upper bound on
+L320@P6: an algorithm for solving 3-SAT is approximately 1.5
+L321@P6: n, where n is the number of
+L322@P6: variables in the input formula.
+L323@P6: Suppose, on the other hand, that P 6= NP, and consider how one might prove it.
+L324@P6: There are two general methods that have been tried: diagonalization with reduction
+L325@P6: and Boolean circuit lower bounds.
+L326@P6: The method of diagonalization with reduction has been used very successfully
+L327@P6: in computability theory to prove a host of problems undecidable, beginning with
+L328@P6: the Halting Problem. It has also been used successfully in complexity theory to
+L329@P6: prove super-exponential lower bounds for very hard decidable problems. For example, Presburger arithmetic, the first-order theory of integers under addition, is a
+L330@P6: decidable theory for which Fischer and Rabin [14] proved that any Turing machine
+L331@P6: deciding the theory must use at least 22
+L332@P6: cn steps in the worst case, for some c > 0.
+L333@P6-7: In general, lower bounds using diagonalization and reduction relativize; that is,8 STEPHEN COOK
+L334@P7: they continue to apply in a setting in which both the problem instance and the
+L335@P7: solving Turing machine can make membership queries to an arbitrary oracle set
+L336@P7: A. However, in [3] it was shown that there is an oracle set A relative to which P
+L337@P7: = NP, suggesting that diagonalization with reduction cannot be used to separate
+L338@P7: these two classes. (There are nonrelativizing results in complexity theory, as will
+L339@P7: be mentioned below.) It is interesting to note that relative to a generic oracle, P
+L340@P7: 6= NP [5, 11].
+L341@P7: A Boolean circuit is a finite acyclic graph in which each non-input node, or gate,
+L342@P7: is labelled with a Boolean connective; typically from {AND, OR, NOT}. The input
+L343@P7: nodes are labeled with variables x1, ..., xn, and for each assignment of 0 or 1 to each
+L344@P7: variable, the circuit computes a bit value at each gate, including the output gate,
+L345@P7: in the obvious way. It is not hard to see that if L is a language over {0, 1} that
+L346@P7: is in P, then there is a polynomial-size family of Boolean circuits hBni such that
+L347@P7: Bn has n inputs, and for each bit string w of length n, when w is applied to the
+L348@P7: n input nodes of Bn, then the output bit of Bn is 1 iff w ∈ L. In this case we say
+L349@P7: that hBni computes L.
+L350@P7: Thus to prove P 6= NP it suffices to prove a super-polynomial lower bound on the
+L351@P7: size of any family of Boolean circuits solving some specific NP-complete problem,
+L352@P7: such as 3-SAT. Back in 1949 Shannon [31] proved that for almost all Boolean
+L353@P7: functions f : {0, 1}
+L354@P7: n → {0, 1}, any Boolean circuit computing f requires at least
+L355@P7: 2
+L356@P7: n/n gates. Unfortunately, his counting argument gives no clue as to how to prove
+L357@P7: lower bounds for problems in NP. Exponential lower bounds for NP problems have
+L358@P7: been proved for restricted circuit models, including monotone circuits [26], [2] and
+L359@P7: bounded depth circuits with unbounded fan-in gates [17], [35] (see [6]). However,
+L360@P7: all attempts to find even super-linear lower bounds for unrestricted Boolean circuits
+L361@P7: for “explicitly given” Boolean functions have met with total failure; the best such
+L362@P7: lower bound proved so far is about 4n. Razborov and Rudich [27] explain this
+L363@P7: failure by pointing out that all methods used so far can be classified as “natural
+L364@P7: proofs”, and natural proofs for general circuit lower bounds are doomed to failure,
+L365@P7: assuming a certain complexity-theoretic conjecture asserting that strong pseudorandom number generators exist. Since such generators have been constructed
+L366@P7: assuming the hardness of integer factorization, we can infer the surprising result
+L367@P7: that a natural proof for a general circuit lower bound would give rise to a more
+L368@P7: efficient factoring algorithm than is currently known.
+L369@P7: The failure of complexity theory to prove interesting lower bounds on a general
+L370@P7: model of computation is much more pervasive than the failure to prove P 6= NP.
+L371@P7: It is consistent with present knowledge that not only could Satisfiability have a
+L372@P7: polynomial-time algorithm, it could have a linear time algorithm on a multitape
+L373@P7: Turing machine. The same applies for all 21 problems mentioned in Karp’s original
+L374@P7: paper [21]. There are complexity class separations that we know exist but cannot
+L375@P7: prove. For example, consider the sequence of complexity class inclusions
+L376@P7: LOGSPACE ⊆ P⊆ NP⊆ PSPACE .
+L377@P7: A simple diagonal argument shows that the first is a proper subset of the last, but
+L378@P7: we cannot prove any particular adjacent inclusion is proper.
+L379@P7: As another example, let LINEAR-SIZE be the class of languages over {0, 1}
+L380@P7: that can be computed by a family hBni of Boolean circuits of size O(n). It is not
+L381@P7: known whether either P or NP is a subset of LINEAR-SIZE, although Kannan
+L382@P7-8: [20] proved that there are languages in the polynomial hierarchy (a generalization ofTHE P VERSUS NP PROBLEM 9
+L383@P8: NP) not in LINEAR-SIZE. Since if P = NP, the polynomial hierarchy collapses
+L384@P8: to P, we have
+L385@P8: Proposition 2. If P ⊆ LINEAR-SIZE, then P 6= NP.
+L386@P8: This proposition could be interpreted as a method of proving P 6= NP, but a
+L387@P8: more usual belief is that the hypothesis is false.
+L388@P8: A fundamental question in complexity theory is whether a source of random bits
+L389@P8: can be used to speed up substantially the recognition of some languages, provided
+L390@P8: one is willing to accept a small probability of error. The class BPP consists of all
+L391@P8: languages L that can be recognized by a randomized polynomial-time algorithm,
+L392@P8: with at most an exponentially small error probability on every input. Of course
+L393@P8: P ⊆ BPP, but it is not known whether the inclusion is proper. The set of prime
+L394@P8: numbers is in BPP [36], but it is not known to be in P. A reason for thinking that
+L395@P8: BPP = P is that randomized algorithms are often successfully executed using a
+L396@P8: deterministic pseudo-random number generator as a source of “random” bits.
+L397@P8: There is an indirect but intriguing connection between the two questions P =
+L398@P8: BPP and P = NP. Let E be the class of languages recognizable in exponential
+L399@P8: time; that is the class of languages L such that L = L(M) for some Turing machine
+L400@P8: M with TM(n) = O(2cn) for some c > 0. Let A be the assertion that some language
+L401@P8: in E requires exponential circuit complexity. That is,
+L402@P8: Assertion A. There is L ∈ E and  > 0 such that, for every circuit family hBni
+L403@P8: computing L and for all sufficiently large n, Bn has at least 2
+L404@P8: n gates.
+L405@P8: Proposition 3. If A then BPP = P. If not A then P 6= NP.
+L406@P8: The first implication is a lovely theorem by Impagliazzo and Wigderson [19] and
+L407@P8: the second is an intriguing observation by V. Kabanets that strengthens Proposition 2. In fact, Kabanets concludes P 6= NP from a weaker assumption than not
+L408@P8: A; namely that every language in E can be computed by a Boolean circuit family
+L409@P8: hBni such that for at least one n, Bn has fewer gates than the maximum needed to
+L410@P8: compute any Boolean function f : {0, 1}
+L411@P8: n → {0, 1}. But there is no consensus on
+L412@P8: whether this hypothesis is true.
+L413@P8: We should point out that Proposition 3 relativizes, and, in particular, relative
+L414@P8: to any PSPACE-complete oracle Assertion A holds and BPP = P = NP. Thus
+L415@P8: a nonrelativizing construction will be needed if one is to prove P 6= NP by giving
+L416@P8: small circuits for languages in E. Nonrelativizing constructions have been used successfully before, for example in showing IP (Interactive Polynomial time) contains
+L417@P8: all of PSPSACE [30]. In this and other such constructions a key technique is to
+L418@P8: represent Boolean functions by multivariate polynomials over finite fields.
+L419@P8: Appendix: Definition of Turing Machine
+L420@P8: A Turing machine M consists of a finite state control (i.e., a finite program)
+L421@P8: attached to a read/write head moving on an infinite tape. The tape is divided into
+L422@P8: squares, each capable of storing one symbol from a finite alphabet Γ that includes
+L423@P8: the blank symbol b. Each machine M has a specified input alphabet Σ, which is a
+L424@P8: subset of Γ, not including the blank symbol b. At each step in a computation, M is
+L425@P8: in some state q in a specified finite set Q of possible states. Initially, a finite input
+L426@P8: string over Σ is written on adjacent squares of the tape, all other squares are blank
+L427@P8-9: (contain b), the head scans the left-most symbol of the input string, and M is in10 STEPHEN COOK
+L428@P9: the initial state q0. At each step M is in some state q and the head is scanning a
+L429@P9: tape square containing some tape symbol s, and the action performed depends on
+L430@P9: the pair (q, s) and is specified by the machine’s transition function (or program) δ.
+L431@P9: The action consists of printing a symbol on the scanned square, moving the head
+L432@P9: left or right one square, and assuming a new state.
+L433@P9: Formally, a Turing machine M is a tuple hΣ, Γ, Q, δi, where Σ, Γ, Q are finite
+L434@P9: nonempty sets with Σ ⊆ Γ and b ∈ Γ − Σ. The state set Q contains three special
+L435@P9: states q0, qaccept, qreject. The transition function δ satisfies
+L436@P9: δ : (Q − {qaccept, qreject}) × Γ → Q × Γ × {−1, 1}.
+L437@P9: If δ(q, s) = (q
+L438@P9: 0
+L439@P9: , s0, h), the interpretation is that, if M is in state q scanning the
+L440@P9: symbol s, then q
+L441@P9: 0
+L442@P9: is the new state, s
+L443@P9: 0
+L444@P9: is the symbol printed, and the tape head
+L445@P9: moves left or right one square depending on whether h is −1 or 1.
+L446@P9: We assume that the sets Q and Γ are disjoint.
+L447@P9: A configuration of M is a string xqy with x, y ∈ Γ
+L448@P9: ∗
+L449@P9: , y not the empty string, and
+L450@P9: q ∈ Q.
+L451@P9: The interpretation of the configuration xqy is that M is in state q with xy on
+L452@P9: its tape, with its head scanning the left-most symbol of y.
+L453@P9: If C and C
+L454@P9: 0 are configurations, then C
+L455@P9: M→ C
+L456@P9: 0
+L457@P9: if C = xqsy and δ(q, s) = (q
+L458@P9: 0
+L459@P9: , s0, h)
+L460@P9: and one of the following holds:
+L461@P9: C
+L462@P9: 0 = xs0
+L463@P9: q
+L464@P9: 0y and h = 1 and y is nonempty.
+L465@P9: C
+L466@P9: 0 = xs0
+L467@P9: q
+L468@P9: 0
+L469@P9: b and h = 1 and y is empty.
+L470@P9: C
+L471@P9: 0 = x0
+L472@P9: q
+L473@P9: 0as0y and h = −1 and x = x0a for some a ∈ Γ.
+L474@P9: C
+L475@P9: 0 = q0
+L476@P9: bs0y and h = −1 and x is empty.
+L477@P9: A configuration xqy is halting if q ∈ {qaccept, qreject}. Note that for each nonhalting configuration C there is a unique configuration C
+L478@P9: 0
+L479@P9: such that C
+L480@P9: M→ C
+L481@P9: 0
+L482@P9: .
+L483@P9: The computation of M on input w ∈ Σ
+L484@P9: ∗
+L485@P9: is the unique sequence C0, C1, ... of
+L486@P9: configurations such that C0 = q0w (or C0 = q0b if w is empty) and Ci
+L487@P9: M→ Ci+1 for
+L488@P9: each i with Ci+1 in the computation, and either the sequence is infinite or it ends in
+L489@P9: a halting configuration. If the computation is finite, then the number of steps is one
+L490@P9: less than the number of configurations; otherwise the number of steps is infinite.
+L491@P9: We say that M accepts w iff the computation is finite and the final configuration
+L492@P9: contains the state qaccept.
+L493@P9: Acknowledgments
+L494@P9: My thanks to Avi Wigderson and Hugh Woodin for many helpful suggestions
+L495@P9: for improving an earlier version of this paper.
+L496@P9: References
+L497@P9: [1] M. Agrawal, N. Kayal, and N. Saxena, Primes is in P, Ann. Math. 160 (2004), 781–793.
+L498@P9: [2] N. Alon and R.B. Boppana, The monotone circuit complexity of boolean functions, Combinatorica 7 (1987), 1–22.
+L499@P9: [3] T. Baker, J. Gill, and R. Solovay, Relativizations of the P =? NP question, SICOMP: SIAM
+L500@P9: Journal on Computing, 1975.
+L501@P9: [4] L. Blum, F. Cucker, M. Shub, and S. Smale, Complexity and Real Computation, SpringerVerlag, New York, 1998.
+L502@P9: [5] M. Blum and R. Impagliazzo, Generic oracles and oracle classes, in Proceedings of the
+L503@P9: 28th Annual Symposium on Foundations of Computer Science, A.K. Chandra, ed., IEEE
+L504@P9-10: Computer Society Press, Los Angeles, 1987, 118–126.THE P VERSUS NP PROBLEM 11
+L505@P10: [6] R.B. Boppana and M. Sipser, The complexity of finite functions, Handbook of Theoretical
+L506@P10: Computer Science, Volume A: Algorithms and Complexity, J. Van Leeuwen, ed., Elsevier and
+L507@P10: The MIT Press, Cambridge, MA, 1990, 759–804.
+L508@P10: [7] T. Cormen, C. Leiserson, R. Rivest, and C. Stein, Introduction to Algorithms, 2nd edition,
+L509@P10: McGraw Hill, New York, 2001.
+L510@P10: [8] A. Cobham, The intrinsic computational difficulty of functions, in Proceedings of the 1964
+L511@P10: International Congress for Logic, Methodology, and Philosophy of Science, Y. Bar-Hille, ed.,
+L512@P10: Elsevier/North-Holland, Amsterdam, 1964, 24–30.
+L513@P10: [9] S. Cook, The complexity of theorem-proving procedures, in Conference Record of Third Annual ACM Symposium on Theory of Computing, ACM, New York, 1971, 151–158.
+L514@P10: [10] S. Cook, Computational complexity of higher type functions, in Proceedings of the International Congress of Mathematicians, Kyoto, Japan, Springer-Verlag, Berlin, 1991, 55–69.
+L515@P10: [11] S. Cook, R. Impagliazzo, and T. Yamakami, A tight relationship between generic oracles and
+L516@P10: type-2 complexity theory, Information and Computation 137 (1997), 159–170.
+L517@P10: [12] S. Cook and R. Reckhow, The relative efficiency of propositional proof systems, J. Symbolic
+L518@P10: Logic 44 (1979), 36–50.
+L519@P10: [13] J. Edmonds, Minimum partition of a matroid into independent subsets, J. Res. Nat. Bur.
+L520@P10: Standards Sect. B 69 (1965), 67–72.
+L521@P10: [14] M.J. Fischer and M.O. Rabin, Super-exponential complexity of Presburger arithmetic, in
+L522@P10: Complexity of Computation 7, AMS, Providence, RI, 1974, 27–41.
+L523@P10: [15] M.R. Garey and D.S. Johnson, Computers and Intractability, a Guide to the Theory of NPCompleteness, W.H. Freeman and Co., San Francisco, 1979.
+L524@P10: [16] O. Goldreich, The Foundations of Cryptography — Volume 1, Cambridge University Press,
+L525@P10: Cambridge, UK, 2000.
+L526@P10: [17] J. Hastad, Almost optimal lower bounds for small depth circuits, in Randomness and Computation, Advances in Computing Research 5, JAI Press Inc., Greenwich, CT, 1989, 143–170.
+L527@P10: [18] R. Impagliazzo, A personal view of average-case complexity, in 10th IEEE Annual Conference
+L528@P10: on Structure in Complexity Theory, IEEE Computer Society Press, Washington, DC, 1995,
+L529@P10: 134–147.
+L530@P10: [19] R. Impagliazzo and A. Wigderson, P = BPP if E requires exponential circuits: Derandomizing
+L531@P10: the XOR lemma, in ACM Symposium on Theory of Computing (STOC), ACM, New York,
+L532@P10: 1997, 220–229.
+L533@P10: [20] R. Kannan, Circuit-size lower bounds and non-reducibility to sparse sets, Information and
+L534@P10: Control 55 (1982), 40–56..
+L535@P10: [21] R.M. Karp, Reducibility among combinatorial problems, in Complexity of Computer Computations, R. E. Miller and J. W. Thatcher, eds., Plenum Press, New York, 1972, 85–103.
+L536@P10: [22] J. Krajicek, Bounded Arithmetic, Propositional Logic, and Complexity Theory, Cambridge
+L537@P10: University Press, Cambridge, 1995.
+L538@P10: [23] L. Levin, Universal search problems (in Russian), Problemy Peredachi Informatsii 9 (1973),
+L539@P10: 265–266. English translation in B. A. Trakhtenbrot, A survey of Russian approaches to Perebor (brute-force search) algorithms, Annals of the History of Computing 6 (1984), 384-400.
+L540@P10: [24] L. Levin, Average case complete problems, SIAM J. Computing 15 (1986), 285–286.
+L541@P10: [25] C. Papadimitriou, Computational Complexity, Addison-Wesley, Reading, MA, 1994.
+L542@P10: [26] A.A. Razborov, Lower bounds on the monotone complexity of some boolean functions, Soviet
+L543@P10: Math. Dokl. 31 (1985), 354–357.
+L544@P10: [27] A.A. Razborov and S. Rudich, Natural proofs, Journal of Computer and System Sciences 55
+L545@P10: (1997), 24–35.
+L546@P10: [28] R.L. Rivest, A. Shamir, and L. Adleman, A method for obtaining digital signatures and
+L547@P10: public-key cryptosystems, Comm. ACM 21 (1978), 120–126.
+L548@P10: [29] N. Robertson and P.D. Seymour, Graph minors i-xiii, Journal of Combinatorial Theory B,
+L549@P10: 1983–1995.
+L550@P10: [30] A. Shamir, IP = PSPACE, J.A.C.M. 39 (1992), 869–977.
+L551@P10: [31] C. Shannon, The synthesis of two-terminal switching circuits, Bell System Technical Journal
+L552@P10: 28 (1949), 59–98.
+L553@P10: [32] P. Shor, Polynomial-time algorithms for prime factorization and discrete logarithms on a
+L554@P10: quantum computer, SIAM J. Computing 26 (1997), 1484–1509.
+L555@P10-11: [33] M. Sipser, Introduction to the Theory of Computation, PWS Publ., Boston, 1997.12 STEPHEN COOK
+L556@P11: [34] S. Smale, Mathematical problems for the next century, Math. Intelligencer 20, no. 2, 1998,
+L557@P11: 7–15.
+L558@P11: [35] R. Smolensky, Algebraic methods in the theory of lower bounds for boolean circuit complexity,
+L559@P11: in ACM Symposium on Theory of Computing (STOC) 19, ACM, New York, 1987, 77-82.
+L560@P11: [36] R. Solovay and V. Strassen, A fast Monte-Carlo test for primality, SIAM Journal on Computing 6 (1977), 84–85.
+L561@P11: [37] A. Turing, On computable numbers with an application to the entscheidnungsproblem, Proc.
+L562@P11: London Math. Soc. 42 (1936), 230–265.
+L563@P11: [38] J. von Neumann, A certain zero-sum two-person game equivalent to the optimal assignment
+L564@P11: problem, in Contributions to the Theory of Games II, H.W. Kahn and A.W. Tucker, eds.
+L565@P11: Princeton Univ. Press, Princeton, NJ, 1953, 5–12.
+

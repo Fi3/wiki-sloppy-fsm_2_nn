@@ -1,0 +1,204 @@
+TENSORIZE: Fast Synthesis of Tensor Programs from Legacy Code using Symbolic Tracing, Sketching and Solving
+Supplied URL: https://www.pure.ed.ac.uk/ws/portalfiles/portal/493345271/BrauckmannEtalCGO2025TENSORIZEFastSynthesisofTensorPrograms.pdf
+Retrieved on: 2026-10-07
+Format: text extracted by the web browsing tool, not the original PDF/HTML bytes.
+L numbers refer to the browser extraction. PDF P numbers are zero-based.
+A complete text extraction does not imply that every figure, equation, or proof was reviewed.
+Read capture.json for captured URLs, line coverage, and missing ranges.
+
+
+=== Segment 1: https://www.research.ed.ac.uk/en/publications/tensorize-fast-synthesis-of-tensor-programs-from-legacy-code-usin/ ===
+
+L0: cite0†Skip to main navigation cite1†Skip to search cite2†Skip to main content
+L1: 
+L2: cite3†University of Edinburgh Research Explorer Home
+L3: 
+L4:   * cite4†Help & FAQ   Link opens in a new tab†library.ed.ac.uk
+L5: 
+L6: Search content at University of Edinburgh Research Explorer [Input: Search...]
+L7: # TENSORIZE: Fast synthesis of Tensor programs from legacy code using symbolic tracing, sketching and solving
+L8: 
+L9:   * Alexander Brauckmann
+L10:   * , Luc Jaulmes
+L11:   * , José W. de Souza Magalhães
+L12:   * , cite5†Elizabeth Polgreen
+L13:   * , cite6†Michael F. P. O'Boyle
+L14: 
+L15:   * cite7†School of Informatics
+L16:   * cite8†Institute for Computing Systems Architecture
+L17:   * cite9†Foundations of Computation
+L18:   * cite10†Laboratory for Foundations of Computer Science
+L19:   * cite11†Computer Systems
+L20: Research output: Chapter in Book/Report/Conference proceeding › Conference contribution
+L21: ## Abstract
+L22: Tensor domain specific languages (DSLs) achieve substantial performance due to high-level compiler optimization and hardware acceleration. However, to achieve such performance for existing applications requires the programmer to manual rewrite their legacy code in evolving Tensor DSLs. Prior efforts to automate this translation face significant scalability issues which greatly reduces their applicability to real-world code.
+L23: This paper presents TENSORIZE, a novel MLIR-based compiler approach to automatically lift legacy code to high level Tensor DSLs using program synthesis. TENSORIZE uses a symbolic trace of the legacy program as a specification and automatically selects sketches from the target Tensor DSLs to drive the program synthesis. It uses an algebraic solver to rapidly simplify the specification, resulting in a fast, automatic approach that is correct by design.
+L24: We evaluate TENSORIZE on several legacy code benchmarks and compare against state-of-the-art techniques. Tensorize is able to lift more code than prior schemes, is an order of magnitude faster in synthesis time, and guarantees correctness by construction.
+L25: Original language  | English
+L26: Title of host publication  | CGO '25
+L27: Subtitle of host publication  | Proceedings of the 23rd ACM/IEEE International Symposium on Code Generation and Optimization
+L28: Place of Publication  | New York, NY, USA
+L29: Publisher  | cite12†Association for Computing Machinery (ACM)
+L30: Pages  | 15-30
+L31: Number of pages  | 16
+L32: ISBN (Electronic)  | 9798400712753
+L33: DOIs  |
+L34:   * cite13†https://doi.org/10.1145/3696443.3708956†doi.org
+L35: Publication status  | Published - 1 Mar 2025
+L36: Event  | cite12†The International Symposium on Code Generation and Optimization (CGO) 2025 - The Westin Las Vegas Hotel & Spa, Las Vegas, United States
+L37: Duration: 1 Mar 2025 → 5 Mar 2025
+L38: Conference number: 23
+L39: cite14†https://2025.cgo.org/†2025.cgo.org
+L40: ### Publication series
+L41: 
+L42: Name  | Proceedings of the CGO
+L43: Publisher  | Association for Computing Machinery (ACM)
+L44: ISSN (Print)  | 2164-2397
+L45: ISSN (Electronic)  | 2643-2854
+L46: 
+L47: ### Symposium
+L48: 
+L49: Symposium  | The International Symposium on Code Generation and Optimization (CGO) 2025
+L50: Abbreviated title  | CGO 2025
+L51: Country/Territory  | United States
+L52: City  | Las Vegas
+L53: Period  | 1/03/25 → 5/03/25
+L54: Internet address  |
+L55: 
+L56:   * cite14†https://2025.cgo.org/†2025.cgo.org
+L57: ## Keywords / Materials (for Non-textual outputs)
+L58: 
+L59:   * program synthesis
+L60:   * tensor compilers
+L61:   * lifting
+L62: 
+L63: ## Access to Document
+L64: 
+L65:   * cite13†10.1145/3696443.3708956†doi.org Licence: cite15†Creative Commons: Attribution (CC-BY)†creativecommons.org
+L66: 
+L67:   * cite16†BrauckmannEtalCGO2025TENSORIZEFastSynthesisofTensorPrograms Accepted author manuscript, 953 KB Licence: cite15†Creative Commons: Attribution (CC-BY)†creativecommons.org
+L68: ## Fingerprint
+L69: 
+L70: Dive into the research topics of 'TENSORIZE: Fast synthesis of Tensor programs from legacy code using symbolic tracing, sketching and solving'. Together they form a unique fingerprint.
+L71: 
+L72: cite17†View full fingerprint
+L73: ## Cite this
+L74: 
+L75:   * APA
+L76:   * Author
+L77:   * BIBTEX
+L78:   * Harvard
+L79:   * Standard
+L80:   * RIS
+L81:   * Vancouver
+L82: Brauckmann, A., Jaulmes, L., de Souza Magalhães, J. W.cite5†, Polgreen, E. cite6†, & O'Boyle, M. F. P. (2025). cite18†TENSORIZE: Fast synthesis of Tensor programs from legacy code using symbolic tracing, sketching and solving . In CGO '25: Proceedings of the 23rd ACM/IEEE International Symposium on Code Generation and Optimization (pp. 15-30). (Proceedings of the CGO). Association for Computing Machinery (ACM). cite13†https://doi.org/10.1145/3696443.3708956†doi.org
+L83: Brauckmann, Alexander ; Jaulmes, Luc ; de Souza Magalhães, José W. et al. / cite18†TENSORIZE : Fast synthesis of Tensor programs from legacy code using symbolic tracing, sketching and solving . CGO '25: Proceedings of the 23rd ACM/IEEE International Symposium on Code Generation and Optimization. New York, NY, USA : Association for Computing Machinery (ACM), 2025. pp. 15-30 (Proceedings of the CGO).
+L84: 
+L85: @inproceedings{57c9f20655284a0698559c8ebfc66a5d,
+L86: title = "TENSORIZE: Fast synthesis of Tensor programs from legacy code using symbolic tracing, sketching and solving",
+L87: abstract = "Tensor domain specific languages (DSLs) achieve substantial performance due to high-level compiler optimization and hardware acceleration. However, to achieve such performance for existing applications requires the programmer to manual rewrite their legacy code in evolving Tensor DSLs. Prior efforts to automate this translation face significant scalability issues which greatly reduces their applicability to real-world code.
+L88: This paper presents TENSORIZE, a novel MLIR-based compiler approach to automatically lift legacy code to high level Tensor DSLs using program synthesis. TENSORIZE uses a symbolic trace of the legacy program as a specification and automatically selects sketches from the target Tensor DSLs to drive the program synthesis. It uses an algebraic solver to rapidly simplify the specification, resulting in a fast, automatic approach that is correct by design.
+L89: We evaluate TENSORIZE on several legacy code benchmarks and compare against state-of-the-art techniques. Tensorize is able to lift more code than prior schemes, is an order of magnitude faster in synthesis time, and guarantees correctness by construction.",
+L90: keywords = "program synthesis, tensor compilers, lifting",
+L91: 
+L92: author = "Alexander Brauckmann and Luc Jaulmes and \{de Souza Magalh{\~a}es\}, \{Jos{\'e} W.\} and Elizabeth Polgreen and O'Boyle, \{Michael F. P.\}",
+L93: 
+L94: year = "2025",
+L95: 
+L96: month = mar,
+L97: 
+L98: day = "1",
+L99: 
+L100: doi = "10.1145/3696443.3708956",
+L101: 
+L102: language = "English",
+L103: 
+L104: series = "Proceedings of the CGO",
+L105: 
+L106: publisher = "Association for Computing Machinery (ACM)",
+L107: 
+L108: pages = "15--30",
+L109: 
+L110: booktitle = "CGO '25",
+L111: 
+L112: address = "United States",
+L113: note = "The International Symposium on Code Generation and Optimization (CGO) 2025, CGO 2025 ; Conference date: 01-03-2025 Through 05-03-2025",
+L114: 
+L115: url = "https://2025.cgo.org/",
+L116: 
+L117: }
+L118: Brauckmann, A, Jaulmes, L, de Souza Magalhães, JWcite5†, Polgreen, E cite6†& O'Boyle, MFP 2025, cite18†TENSORIZE: Fast synthesis of Tensor programs from legacy code using symbolic tracing, sketching and solving . in CGO '25: Proceedings of the 23rd ACM/IEEE International Symposium on Code Generation and Optimization. Proceedings of the CGO, Association for Computing Machinery (ACM), New York, NY, USA, pp.
+L119: 15-30, The International Symposium on Code Generation and Optimization (CGO) 2025, Las Vegas, Nevada, United States, 1/03/25. cite13†https://doi.org/10.1145/3696443.3708956†doi.org
+L120: cite18†TENSORIZE: Fast synthesis of Tensor programs from legacy code using symbolic tracing, sketching and solving. / Brauckmann, Alexander; Jaulmes, Luc; de Souza Magalhães, José W. et al.
+L121: CGO '25: Proceedings of the 23rd ACM/IEEE International Symposium on Code Generation and Optimization. New York, NY, USA: Association for Computing Machinery (ACM), 2025. p. 15-30 (Proceedings of the CGO).
+L122: 
+L123: Research output: Chapter in Book/Report/Conference proceeding › Conference contribution
+L124: 
+L125: TY - GEN
+L126: 
+L127: T1 - TENSORIZE
+L128: T2 - The International Symposium on Code Generation and Optimization (CGO) 2025
+L129: 
+L130: AU - Brauckmann, Alexander
+L131: 
+L132: AU - Jaulmes, Luc
+L133: 
+L134: AU - de Souza Magalhães, José W.
+L135: 
+L136: AU - Polgreen, Elizabeth
+L137: 
+L138: AU - O'Boyle, Michael F. P.
+L139: 
+L140: N1 - Conference code: 23
+L141: 
+L142: PY - 2025/3/1
+L143: 
+L144: Y1 - 2025/3/1
+L145: N2 - Tensor domain specific languages (DSLs) achieve substantial performance due to high-level compiler optimization and hardware acceleration. However, to achieve such performance for existing applications requires the programmer to manual rewrite their legacy code in evolving Tensor DSLs. Prior efforts to automate this translation face significant scalability issues which greatly reduces their applicability to real-world code.
+L146: This paper presents TENSORIZE, a novel MLIR-based compiler approach to automatically lift legacy code to high level Tensor DSLs using program synthesis. TENSORIZE uses a symbolic trace of the legacy program as a specification and automatically selects sketches from the target Tensor DSLs to drive the program synthesis. It uses an algebraic solver to rapidly simplify the specification, resulting in a fast, automatic approach that is correct by design.
+L147: We evaluate TENSORIZE on several legacy code benchmarks and compare against state-of-the-art techniques. Tensorize is able to lift more code than prior schemes, is an order of magnitude faster in synthesis time, and guarantees correctness by construction.
+L148: AB - Tensor domain specific languages (DSLs) achieve substantial performance due to high-level compiler optimization and hardware acceleration. However, to achieve such performance for existing applications requires the programmer to manual rewrite their legacy code in evolving Tensor DSLs. Prior efforts to automate this translation face significant scalability issues which greatly reduces their applicability to real-world code.
+L149: This paper presents TENSORIZE, a novel MLIR-based compiler approach to automatically lift legacy code to high level Tensor DSLs using program synthesis. TENSORIZE uses a symbolic trace of the legacy program as a specification and automatically selects sketches from the target Tensor DSLs to drive the program synthesis. It uses an algebraic solver to rapidly simplify the specification, resulting in a fast, automatic approach that is correct by design.
+L150: We evaluate TENSORIZE on several legacy code benchmarks and compare against state-of-the-art techniques. Tensorize is able to lift more code than prior schemes, is an order of magnitude faster in synthesis time, and guarantees correctness by construction.
+L151: KW - program synthesis
+L152: 
+L153: KW - tensor compilers
+L154: 
+L155: KW - lifting
+L156: 
+L157: U2 - 10.1145/3696443.3708956
+L158: 
+L159: DO - 10.1145/3696443.3708956
+L160: 
+L161: M3 - Conference contribution
+L162: 
+L163: T3 - Proceedings of the CGO
+L164: 
+L165: SP - 15
+L166: 
+L167: EP - 30
+L168: 
+L169: BT - CGO '25
+L170: 
+L171: PB - Association for Computing Machinery (ACM)
+L172: 
+L173: CY - New York, NY, USA
+L174: 
+L175: Y2 - 1 March 2025 through 5 March 2025
+L176: 
+L177: ER -
+L178: Brauckmann A, Jaulmes L, de Souza Magalhães JWcite5†, Polgreen E cite6†, O'Boyle MFP . cite18†TENSORIZE: Fast synthesis of Tensor programs from legacy code using symbolic tracing, sketching and solving . In CGO '25: Proceedings of the 23rd ACM/IEEE International Symposium on Code Generation and Optimization. New York, NY, USA: Association for Computing Machinery (ACM). 2025. p. 15-30. (Proceedings of the CGO). doi: 10.1145/3696443.3708956
+L179: 
+L180: cite19†Image: University of Edinburgh Research Explorer Logo
+L181: Powered by cite20†Pure Link opens in a new tab†www.elsevier.com , cite21†Scopus Link opens in a new tab†www.scopus.com & cite22†Elsevier Fingerprint Engine™ Link opens in a new tab†www.elsevier.com
+L182: 
+L183: All content on this site: Copyright © 2026 University of Edinburgh Research Explorer, its licensors, and contributors. All rights are reserved, including those for text and data mining, AI training, and similar technologies. For all open access content, the relevant licensing terms apply
+L184: We use cookies to help provide and enhance our service and tailor content. By continuing you agree to the cite23†use of cookies
+L185: 
+L186: cite24†University of Edinburgh Research Explorer data protection policy   Link opens in a new tab†www.ed.ac.uk
+L187: 
+L188: cite25†About web accessibility   Link opens in a new tab†library.ed.ac.uk
+L189: 
+L190: cite26†Report vulnerability   Link opens in a new tab†elsevier.responsibledisclosure.com
+L191: 
+L192: cite27†Contact us

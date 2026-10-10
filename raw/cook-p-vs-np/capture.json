@@ -1,0 +1,15 @@
+{
+  "retrieved_on": "2026-10-09",
+  "format": "browser-extracted-text",
+  "original_bytes_downloaded": false,
+  "review_scope": "Stephen Cook's official problem description, linked by Clay Mathematics Institute. Reviewed definitions in section 1, NP-completeness implications in section 2 and circuit lower bounds in section 3; appendix/references captured for context. No independent proof audit.",
+  "segments": [
+    {
+      "url": "https://www.claymath.org/wp-content/uploads/2022/06/pvsnp.pdf",
+      "browser_total_lines": 566,
+      "captured_numbered_lines": 566,
+      "missing_line_ranges": [],
+      "complete_browser_text": true
+    }
+  ]
+}

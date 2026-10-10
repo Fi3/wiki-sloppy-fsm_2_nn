@@ -1,0 +1,776 @@
+torch.export IR Specification
+Supplied URL: https://docs.pytorch.org/docs/main/user_guide/torch_compiler/export/ir_spec.html
+Retrieved on: 2026-10-07
+Format: text extracted by the web browsing tool, not the original PDF/HTML bytes.
+L numbers refer to the browser extraction. PDF P numbers are zero-based.
+A complete text extraction does not imply that every figure, equation, or proof was reviewed.
+Read capture.json for captured URLs, line coverage, and missing ranges.
+
+
+=== Segment 1: https://docs.pytorch.org/docs/main/user_guide/torch_compiler/export/ir_spec.html ===
+
+L0: cite0†iframe†www.googletagmanager.com cite1†Image†www.facebook.com
+L1: 
+L2: Back to top [Input] [Input]
+L3: 
+L4: [Input: Search the docs ...] `Ctrl`+`K`
+L5:   *     * cite2†PyTorch Main Components
+L6:     * cite3†torch.compiler
+L7:     * cite4†torch.export
+L8:     * cite5†Developer Notes
+L9:     * cite6†Accelerator Integration
+L10:   *     * cite7†torch
+L11:     * cite8†torch.nn
+L12:     * cite9†torch.nn.functional
+L13:     * cite10†torch.Tensor
+L14:     * cite11†Tensor Attributes
+L15:     * cite12†Tensor Views
+L16:     * cite13†Automatic Mixed Precision package - torch.amp
+L17:     * cite14†Automatic differentiation package - torch.autograd
+L18:     * cite15†torch.library
+L19:     * cite16†torch.accelerator
+L20:     * cite17†torch.cpu
+L21:     * cite18†torch.cuda
+L22:     * cite19†Understanding CUDA Memory Usage
+L23:     * cite20†torch.mps
+L24:     * cite21†torch.xpu
+L25:     * cite22†torch.mtia
+L26:     * cite23†torch.mtia.memory
+L27:     * cite24†torch.mtia.mtia_graph
+L28:     * cite25†Meta device
+L29:     * cite26†torch.backends
+L30:     * cite4†torch.export
+L31:     * cite27†Distributed communication package - torch.distributed
+L32:     * cite28†torch.distributed.tensor
+L33:     * cite29†Generic Join Context Manager
+L34:     * cite30†Torch Distributed Elastic
+L35:     * cite31†FullyShardedDataParallel
+L36:     * cite32†torch.distributed.fsdp.fully_shard
+L37:     * cite33†Tensor Parallelism - torch.distributed.tensor.parallel
+L38:     * cite34†Distributed Optimizers
+L39:     * cite35†Pipeline Parallelism
+L40:     * cite36†PyTorch Symmetric Memory
+L41:     * cite37†Distributed Checkpoint - torch.distributed.checkpoint
+L42:     * cite38†Probability distributions - torch.distributions
+L43:     * cite39†torch.compiler API reference
+L44:     * cite40†torch.fft
+L45:     * cite41†torch.foreach
+L46:     * cite42†torch.func
+L47:     * cite43†torch.futures
+L48:     * cite44†torch.fx
+L49:     * cite45†torch.fx.experimental
+L50:     * cite46†torch.hub
+L51:     * cite47†torch.linalg
+L52:     * cite48†torch.monitor
+L53:     * cite49†torch.signal
+L54:     * cite50†torch.special
+L55:     * cite51†torch.overrides
+L56:     * cite52†torch.nativert
+L57:     * cite53†torch.package
+L58:     * cite54†torch.profiler
+L59:     * cite55†torch.nn.init
+L60:     * cite56†torch.nn.attention
+L61:     * cite57†torch.onnx
+L62:     * cite58†torch.optim
+L63:     * cite59†Complex Numbers
+L64:     * cite60†DDP Communication Hooks
+L65:     * cite61†Quantization
+L66:     * cite62†Distributed RPC Framework
+L67:     * cite63†torch.random
+L68:     * cite64†torch.masked
+L69:     * cite65†torch.nested
+L70:     * cite66†torch.Size
+L71:     * cite67†torch.sparse
+L72:     * cite68†torch.Storage
+L73:     * cite69†torch.testing
+L74:     * cite70†torch.utils
+L75:     * cite71†Benchmark Utils - torch.utils.benchmark
+L76:     * cite72†torch.utils.checkpoint
+L77:     * cite73†torch.utils.cpp_extension
+L78:     * cite74†torch.utils.data
+L79:     * cite75†torch.utils.deterministic
+L80:     * cite76†JIT Utils - torch.utils.jit
+L81:     * cite77†torch.utils.dlpack
+L82:     * cite78†torch.utils.mobile_optimizer
+L83:     * cite79†torch.utils.model_zoo
+L84:     * cite80†torch.utils.tensorboard
+L85:     * cite81†torch.utils.module_tracker
+L86:     * cite82†Type Info
+L87:     * cite83†torch.config
+L88:     * cite84†torch.__future__
+L89:     * cite85†torch._logging
+L90:     * cite86†Torch Environment Variables
+L91:   *     * cite87†Automatic Mixed Precision examples
+L92:     * cite88†Autograd mechanics
+L93:     * cite89†Broadcasting semantics
+L94:     * cite90†CPU threading and TorchScript inference
+L95:     * cite91†CUDA semantics
+L96:     * cite92†PyTorch Custom Operators Landing Page
+L97:     * cite93†Distributed Data Parallel
+L98:     * cite94†Extending PyTorch
+L99:     * cite95†Extending torch.func with autograd.Function
+L100:     * cite96†Frequently Asked Questions
+L101:     * cite97†Getting Started on Intel GPU
+L102:     * cite98†Gradcheck mechanics
+L103:     * cite99†HIP (ROCm) semantics
+L104:     * cite100†Features for large-scale deployments
+L105:     * cite101†LibTorch Stable ABI
+L106:     * cite102†LocalTensor Tutorial: Single-Process SPMD Debugging
+L107:     * cite103†MKLDNN backend
+L108:     * cite104†Modules
+L109:     * cite105†MPS backend
+L110:     * cite106†Multiprocessing best practices
+L111:     * cite107†Numerical accuracy
+L112:     * cite108†Out Notes
+L113:     * cite109†Reproducibility
+L114:     * cite110†Serialization semantics
+L115:     * cite111†TensorIterator (Python)
+L116:     * cite112†Windows FAQ
+L117:   *     * cite113†PyTorch Governance | Build + CI
+L118:     * cite114†PyTorch Contribution Guide
+L119:     * cite115†PyTorch Design Philosophy
+L120:     * cite116†PyTorch Governance | Mechanics
+L121:     * cite117†PyTorch Governance | Maintainer Guide
+L122:     * cite118†PyTorch Governance | Maintainers
+L123:     * cite119†viable/strict CI Jobs
+L124:   *     * cite2†PyTorch Main Components
+L125:     * cite3†torch.compiler
+L126:     * cite4†torch.export
+L127:     * cite5†Developer Notes
+L128:     * cite6†Accelerator Integration
+L129:   *     * cite7†torch
+L130:     * cite8†torch.nn
+L131:     * cite9†torch.nn.functional
+L132:     * cite10†torch.Tensor
+L133:     * cite11†Tensor Attributes
+L134:     * cite12†Tensor Views
+L135:     * cite13†Automatic Mixed Precision package - torch.amp
+L136:     * cite14†Automatic differentiation package - torch.autograd
+L137:     * cite15†torch.library
+L138:     * cite16†torch.accelerator
+L139:     * cite17†torch.cpu
+L140:     * cite18†torch.cuda
+L141:     * cite19†Understanding CUDA Memory Usage
+L142:     * cite20†torch.mps
+L143:     * cite21†torch.xpu
+L144:     * cite22†torch.mtia
+L145:     * cite23†torch.mtia.memory
+L146:     * cite24†torch.mtia.mtia_graph
+L147:     * cite25†Meta device
+L148:     * cite26†torch.backends
+L149:     * cite4†torch.export
+L150:     * cite27†Distributed communication package - torch.distributed
+L151:     * cite28†torch.distributed.tensor
+L152:     * cite29†Generic Join Context Manager
+L153:     * cite30†Torch Distributed Elastic
+L154:     * cite31†FullyShardedDataParallel
+L155:     * cite32†torch.distributed.fsdp.fully_shard
+L156:     * cite33†Tensor Parallelism - torch.distributed.tensor.parallel
+L157:     * cite34†Distributed Optimizers
+L158:     * cite35†Pipeline Parallelism
+L159:     * cite36†PyTorch Symmetric Memory
+L160:     * cite37†Distributed Checkpoint - torch.distributed.checkpoint
+L161:     * cite38†Probability distributions - torch.distributions
+L162:     * cite39†torch.compiler API reference
+L163:     * cite40†torch.fft
+L164:     * cite41†torch.foreach
+L165:     * cite42†torch.func
+L166:     * cite43†torch.futures
+L167:     * cite44†torch.fx
+L168:     * cite45†torch.fx.experimental
+L169:     * cite46†torch.hub
+L170:     * cite47†torch.linalg
+L171:     * cite48†torch.monitor
+L172:     * cite49†torch.signal
+L173:     * cite50†torch.special
+L174:     * cite51†torch.overrides
+L175:     * cite52†torch.nativert
+L176:     * cite53†torch.package
+L177:     * cite54†torch.profiler
+L178:     * cite55†torch.nn.init
+L179:     * cite56†torch.nn.attention
+L180:     * cite57†torch.onnx
+L181:     * cite58†torch.optim
+L182:     * cite59†Complex Numbers
+L183:     * cite60†DDP Communication Hooks
+L184:     * cite61†Quantization
+L185:     * cite62†Distributed RPC Framework
+L186:     * cite63†torch.random
+L187:     * cite64†torch.masked
+L188:     * cite65†torch.nested
+L189:     * cite66†torch.Size
+L190:     * cite67†torch.sparse
+L191:     * cite68†torch.Storage
+L192:     * cite69†torch.testing
+L193:     * cite70†torch.utils
+L194:     * cite71†Benchmark Utils - torch.utils.benchmark
+L195:     * cite72†torch.utils.checkpoint
+L196:     * cite73†torch.utils.cpp_extension
+L197:     * cite74†torch.utils.data
+L198:     * cite75†torch.utils.deterministic
+L199:     * cite76†JIT Utils - torch.utils.jit
+L200:     * cite77†torch.utils.dlpack
+L201:     * cite78†torch.utils.mobile_optimizer
+L202:     * cite79†torch.utils.model_zoo
+L203:     * cite80†torch.utils.tensorboard
+L204:     * cite81†torch.utils.module_tracker
+L205:     * cite82†Type Info
+L206:     * cite83†torch.config
+L207:     * cite84†torch.__future__
+L208:     * cite85†torch._logging
+L209:     * cite86†Torch Environment Variables
+L210:   *     * cite87†Automatic Mixed Precision examples
+L211:     * cite88†Autograd mechanics
+L212:     * cite89†Broadcasting semantics
+L213:     * cite90†CPU threading and TorchScript inference
+L214:     * cite91†CUDA semantics
+L215:     * cite92†PyTorch Custom Operators Landing Page
+L216:     * cite93†Distributed Data Parallel
+L217:     * cite94†Extending PyTorch
+L218:     * cite95†Extending torch.func with autograd.Function
+L219:     * cite96†Frequently Asked Questions
+L220:     * cite97†Getting Started on Intel GPU
+L221:     * cite98†Gradcheck mechanics
+L222:     * cite99†HIP (ROCm) semantics
+L223:     * cite100†Features for large-scale deployments
+L224:     * cite101†LibTorch Stable ABI
+L225:     * cite102†LocalTensor Tutorial: Single-Process SPMD Debugging
+L226:     * cite103†MKLDNN backend
+L227:     * cite104†Modules
+L228:     * cite105†MPS backend
+L229:     * cite106†Multiprocessing best practices
+L230:     * cite107†Numerical accuracy
+L231:     * cite108†Out Notes
+L232:     * cite109†Reproducibility
+L233:     * cite110†Serialization semantics
+L234:     * cite111†TensorIterator (Python)
+L235:     * cite112†Windows FAQ
+L236:   *     * cite113†PyTorch Governance | Build + CI
+L237:     * cite114†PyTorch Contribution Guide
+L238:     * cite115†PyTorch Design Philosophy
+L239:     * cite116†PyTorch Governance | Mechanics
+L240:     * cite117†PyTorch Governance | Maintainer Guide
+L241:     * cite118†PyTorch Governance | Maintainers
+L242:     * cite119†viable/strict CI Jobs
+L243: Section Navigation
+L244: 
+L245: Introduction
+L246: 
+L247:   * cite120†PyTorch Overview
+L248:   * cite121†Get Started†pytorch.org
+L249:   * cite122†Learn the Basics
+L250: 
+L251: Core Concepts
+L252: 
+L253:   * cite2†PyTorch Main Components
+L254: 
+L255: Torch Compile
+L256:   * cite3†Torch.compile
+L257:     * cite123†Getting Started
+L258:     * cite124†Core Concepts
+L259:       * cite125†torch.compile Programming Model
+L260:         * cite126†Dynamo Core Concepts
+L261:         * cite127†Working with Graph Breaks
+L262:         * cite128†Non-strict Tracing Programming Model
+L263:         * cite129†Dealing with Recompilations
+L264:         * cite130†Reducing Compile Time
+L265:         * cite131†Reducing Guard Overhead
+L266:         * cite132†tlparse / TORCH_TRACE
+L267:         * cite133†Reporting Issues
+L268:       * cite134†Dynamo Overview
+L269:       * cite135†PyTorch 2.0 NNModule Support
+L270:       * cite136†`torch.compile` has different autograd semantics
+L271:     * cite137†Performance
+L272:       * cite138†PyTorch 2.0 Performance Dashboard
+L273:       * cite139†TorchInductor GPU Profiling
+L274:       * cite140†Profiling to understand torch.compile performance
+L275:       * cite141†CUDAGraph Trees
+L276:     * cite142†Advanced
+L277:       * cite143†Dynamo Deep-Dive
+L278:       * cite144†Writing Graph Transformations on ATen IR
+L279:       * cite145†Fake tensor
+L280:       * cite146†Custom Backends
+L281:       * cite147†Dynamic Shapes
+L282:         * cite148†Dynamic Shapes Core Concepts
+L283:         * cite149†Troubleshooting Dynamic Shapes
+L284:         * cite150†Advanced Options to Control Dynamic Behavior
+L285:         * cite151†Beyond the Basics
+L286:       * cite152†Ahead-of-Time Compilation with torch.compile
+L287:       * cite153†Complex Number Support in `torch.compile`
+L288:     * cite154†Troubleshooting FAQs
+L289:       * cite132†tlparse / TORCH_TRACE
+L290:       * cite133†Reporting Issues
+L291:       * cite155†torch.compile Troubleshooting
+L292:       * cite156†Frequently Asked Questions
+L293:     * cite157†Reference/API
+L294:       * cite39†torch.compiler API reference
+L295:         * cite158†torch.compiler.compile
+L296:         * cite159†torch.compiler.reset
+L297:         * cite160†torch.compiler.nonstrict_trace
+L298:         * cite161†torch.compiler.allow_in_graph
+L299:         * cite162†torch.compiler.substitute_in_graph
+L300:         * cite163†torch.compiler.assume_constant_result
+L301:         * cite164†torch.compiler.list_backends
+L302:         * cite165†torch.compiler.disable
+L303:         * cite166†torch.compiler.set_default_backend
+L304:         * cite167†torch.compiler.get_default_backend
+L305:         * cite168†torch.compiler.set_stance
+L306:         * cite169†torch.compiler.set_enable_guard_collectives
+L307:         * cite170†torch.compiler.cudagraph_mark_step_begin
+L308:         * cite171†torch.compiler.cudagraph_mark_warmup_incomplete
+L309:         * cite172†torch.compiler.is_compiling
+L310:         * cite173†torch.compiler.is_dynamo_compiling
+L311:         * cite174†torch.compiler.is_exporting
+L312:         * cite175†torch.compiler.keep_portable_guards_unsafe
+L313:         * cite176†torch.compiler.skip_guard_on_inbuilt_nn_modules_unsafe
+L314:         * cite177†torch.compiler.skip_guard_on_all_nn_modules_unsafe
+L315:         * cite178†torch.compiler.keep_tensor_guards_unsafe
+L316:         * cite179†torch.compiler.skip_guard_on_globals_unsafe
+L317:         * cite180†torch.compiler.skip_all_guards_unsafe
+L318:         * cite181†torch.compiler.nested_compile_region
+L319:         * cite182†torch.compiler.load_cache_artifacts
+L320:         * cite183†torch.compiler.load_compiled_function
+L321:         * cite184†torch.compiler.save_cache_artifacts
+L322:         * cite185†torch.compiler.wrap_numpy
+L323:       * cite186†torch.compiler.config
+L324:       * cite187†TorchDynamo APIs for fine-grained tracing
+L325:       * cite188†TorchInductor and AOTInductor Provenance Tracking
+L326:   * cite4†Torch.export
+L327:     * cite189†torch.export API Reference
+L328:     * cite190†torch.export Programming Model
+L329:     * cite191†torch.export IR Specification
+L330:     * cite192†PT2 Archive Spec
+L331:     * cite193†Draft Export
+L332:     * cite194†Joint with descriptors
+L333:     * cite195†Control Flow Operators
+L334:       * cite196†Control Flow - Cond
+L335:       * cite197†Control Flow - Switch
+L336:       * cite198†Control Flow - While Loop
+L337:       * cite199†Control Flow - Scan
+L338:       * cite200†Control Flow - Associative Scan
+L339:       * cite201†Control Flow - Map
+L340:     * cite202†ExportDB
+L341:       * cite203†torch.escape-hatch
+L342:       * cite204†torch.cond
+L343:       * cite205†torch.dynamic-shape
+L344:       * cite206†python.closure
+L345:       * cite207†torch.dynamic-value
+L346:       * cite208†python.data-structure
+L347:       * cite209†python.assert
+L348:       * cite210†python.control-flow
+L349:       * cite211†torch.map
+L350:       * cite212†python.builtin
+L351:       * cite213†python.object-model
+L352:       * cite214†python.context-manager
+L353:       * cite215†torch.operator
+L354:       * cite216†torch.mutation
+L355:     * cite217†AOTInductor: Ahead-Of-Time Compilation for Torch.Export-ed Models
+L356:       * cite85†torch._logging
+L357:         * cite218†torch._logging.set_logs
+L358:       * cite219†AOTInductor Minifier
+L359:       * cite220†AOTInductor Debugging Guide
+L360:     * cite221†IRs
+L361:     * cite147†Dynamic Shapes
+L362:       * cite148†Dynamic Shapes Core Concepts
+L363:       * cite149†Troubleshooting Dynamic Shapes
+L364:         * cite222†Debugging with `tlparse` and `TORCH_LOGS=dynamic`
+L365:         * cite223†Troubleshooting GuardOnDataDependentSymNode Errors
+L366:       * cite150†Advanced Options to Control Dynamic Behavior
+L367:       * cite151†Beyond the Basics
+L368:         * cite224†The Zero-One Specialization Problem
+L369:         * cite225†Backed vs Unbacked Symints
+L370:     * cite145†Fake tensor
+L371:     * cite144†Writing Graph Transformations on ATen IR
+L372: Developer Notes
+L373:   * cite5†Developer Notes
+L374:     * cite87†Automatic Mixed Precision examples
+L375:     * cite88†Autograd mechanics
+L376:     * cite89†Broadcasting semantics
+L377:     * cite90†CPU threading and TorchScript inference
+L378:     * cite91†CUDA semantics
+L379:     * cite92†PyTorch Custom Operators Landing Page
+L380:     * cite93†Distributed Data Parallel
+L381:     * cite94†Extending PyTorch
+L382:     * cite95†Extending torch.func with autograd.Function
+L383:     * cite96†Frequently Asked Questions
+L384:     * cite97†Getting Started on Intel GPU
+L385:     * cite98†Gradcheck mechanics
+L386:     * cite99†HIP (ROCm) semantics
+L387:     * cite100†Features for large-scale deployments
+L388:     * cite101†LibTorch Stable ABI
+L389:     * cite102†LocalTensor Tutorial: Single-Process SPMD Debugging
+L390:     * cite103†MKLDNN backend
+L391:     * cite104†Modules
+L392:     * cite105†MPS backend
+L393:     * cite106†Multiprocessing best practices
+L394:     * cite107†Numerical accuracy
+L395:     * cite108†Out Notes
+L396:     * cite109†Reproducibility
+L397:     * cite110†Serialization semantics
+L398:     * cite111†TensorIterator (Python)
+L399:     * cite112†Windows FAQ
+L400: Accelerator Integration
+L401: 
+L402:   * cite6†Accelerator Integration
+L403:     * cite226†Device Management
+L404:     * cite227†Accelerator Hooks
+L405:     * cite228†Guard
+L406:     * cite229†Autoload Mechanism
+L407:     * cite230†Operator Registration
+L408:     * cite231†Automatic Mixed Precision
+L409:     * cite232†Profiler Integration
+L410:     * cite233†Distributed Training Integration
+L411:     * cite234†CI Integration
+L412: # torch.export IR Specificationcite235†#
+L413: 
+L414: Created On: Oct 05, 2023 | Last Updated On: Dec 09, 2025
+L415: 
+L416: Export IR is an intermediate representation (IR) for compilers, which bears similarities to cite236†MLIR†mlir.llvm.org and TorchScript. It is specifically designed to express the semantics of PyTorch programs. Export IR primarily represents computation in a streamlined list of operations, with limited support for dynamism such as control flows.
+L417: To create an Export IR graph, a frontend can be used that soundly captures a PyTorch program via a trace-specializing mechanism. The resulting Export IR can then be optimized and executed by a backend. This can be done today through cite237†`torch.export.export()` .
+L418: 
+L419: The key concepts that will be covered in this document include:
+L420: 
+L421:   * ExportedProgram: the data structure containing the Export IR program
+L422: 
+L423:   * Graph: which consists of a list of nodes.
+L424:   * Nodes: which represents operations, control flow, and metadata stored on this node.
+L425: 
+L426:   * Values are produced and consumed by nodes.
+L427: 
+L428:   * Types are associated with values and nodes.
+L429: 
+L430:   * The size and memory layout of values are also defined.
+L431: ## Assumptionscite238†#
+L432: 
+L433: This doc assumes that the audience is sufficiently familiar with PyTorch, specifically with cite239†`torch.fx` and its related toolings. Thus it will stop describing contents present in cite239†`torch.fx` documentation and paper.
+L434: ## What is Export IRcite240†#
+L435: 
+L436: Export IR is a graph-based intermediate representation IR of PyTorch programs. Export IR is realized on top of cite241†`torch.fx.Graph` . In other words, all Export IR graphs are also valid FX graphs, and if interpreted using standard FX semantics, Export IR can be interpreted soundly. One implication is that an exported graph can be converted to a valid Python program via standard FX codegen.
+L437: This documentation will primarily focus on highlighting areas where Export IR differs from FX in terms of its strictness, while skipping parts where it shares similarities with FX.
+L438: ## ExportedProgramcite242†#
+L439: 
+L440: The top-level Export IR construct is an cite243†`torch.export.ExportedProgram` class. It bundles the computational graph of a PyTorch model (which is usually a cite244†`torch.nn.Module` ) with the parameters or weights that this model consumes.
+L441: 
+L442: Some notable attributes of the cite243†`torch.export.ExportedProgram` class are:
+L443:   * `graph_module` (cite245†`torch.fx.GraphModule` ): Data structure containing the flattened computational graph of the PyTorch model. The graph can be directly accessed through `ExportedProgram.graph`.
+L444:   * `graph_signature` (`torch.export.ExportGraphSignature`): The graph signature, which specifies the parameters and buffer names used and mutated within the graph. Instead of storing parameters and buffers as attributes of the graph, they are lifted as inputs to the graph. The graph_signature is utilized to keep track of additional information on these parameters and buffers.
+L445: 
+L446:   * `state_dict` (`Dict[str, Union[torch.Tensor, torch.nn.Parameter]]`): Data structure containing the parameters and buffers.
+L447:   * `range_constraints` (`Dict[sympy.Symbol, RangeConstraint]`): For programs that are exported with data dependent behavior, the metadata on each node will contain symbolic shapes (which look like `s0`, `i0`). This attribute maps the symbolic shapes to their lower/upper ranges.
+L448: ## Graphcite246†#
+L449: 
+L450: An Export IR Graph is a PyTorch program represented in the form of a DAG (directed acyclic graph). Each node in this graph represents a particular computation or operation, and edges of this graph consist of references between nodes.
+L451: 
+L452: We can view Graph having this schema:
+L453: 
+L454:     class Graph:
+L455:       nodes: List[Node]
+L456: 
+L457: 
+L458: In practice, Export IR’s graph is realized as cite241†`torch.fx.Graph` Python class.
+L459: An Export IR graph contains the following nodes (Nodes will be described in more details in the next section):
+L460: 
+L461:   * 0 or more nodes of op type `placeholder`
+L462: 
+L463:   * 0 or more nodes of op type `call_function`
+L464: 
+L465:   * exactly 1 node of op type `output`
+L466: 
+L467: Collorary: The smallest valid Graph will be of one node. i.e. nodes is never empty.
+L468: Definition: The set of `placeholder` nodes of a Graph represents the inputs of the Graph of GraphModule. The `output` node of a Graph represents the outputs of the Graph of GraphModule.
+L469: Example:
+L470: 
+L471:     import torch
+L472:     from torch import nn
+L473: 
+L474:     class MyModule(nn.Module):
+L475: 
+L476:         def forward(self, x, y):
+L477:           return x + y
+L478: 
+L479:     example_args = (torch.randn(1), torch.randn(1))
+L480:     mod = torch.export.export(MyModule(), example_args)
+L481:     print(mod.graph)
+L482: 
+L483: 
+L484:     graph():
+L485:       %x : [num_users=1] = placeholder[target=x]
+L486:       %y : [num_users=1] = placeholder[target=y]
+L487:       %add : [num_users=1] = call_function[target=torch.ops.aten.add.Tensor](args = (%x, %y), kwargs = {})
+L488:       return (add,)
+L489: The above is the textual representation of a Graph, with each line being a node.
+L490: ## Nodecite247†#
+L491: 
+L492: A Node represents a particular computation or operation and is represented in Python using the cite248†`torch.fx.Node` class. Edges between nodes are represented as direct references to other nodes via the `args` property of the Node class. Using the same FX machinery, we can represent the following operations that a computational graph typically needs, such as operator calls, placeholders (aka inputs), conditionals, and loops.
+L493: The Node has the following schema:
+L494: 
+L495:     class Node:
+L496:       name: str # name of node
+L497:       op_name: str  # type of operation
+L498: 
+L499:       # interpretation of the fields below depends on op_name
+L500:       target: [str|Callable]
+L501:       args: List[object]
+L502:       kwargs: Dict[str, object]
+L503:       meta: Dict[str, object]
+L504: 
+L505: 
+L506: FX Text Format
+L507: As in the example above, notice that each line has this format:
+L508: 
+L509:     %<name>:[...] = <op_name>[target=<target>](args = (%arg1, %arg2, arg3, arg4, …)), kwargs = {"keyword": arg5})
+L510: 
+L511: 
+L512: This format captures everything present in the Node class, with the exception of `meta`, in a compact format.
+L513: 
+L514: Concretely:
+L515: 
+L516:   * <name> is the name of the node as it would appear in `node.name`.
+L517:   * <op_name> is the `node.op` field, which must be one of these: `<call_function>`, `<placeholder>`, `<get_attr>`, or `<output>`.
+L518: 
+L519:   * <target> is the target of the node as `node.target`. The meaning of this field depends on `op_name`.
+L520: 
+L521:   * args1, … args 4… are what is listed in the `node.args` tuple. If a value in the list is an cite248†`torch.fx.Node` , then it will be especially indicated with a leading %.
+L522: For example, a call to the add operator would appear as:
+L523: 
+L524:     %add1 = call_function[target = torch.op.aten.add.Tensor](args = (%x, %y), kwargs = {})
+L525: 
+L526: 
+L527: Where `%x`, `%y` are two other Nodes that have names x and y. Worth noting that the string `torch.op.aten.add.Tensor` represents the callable object that is actually stored in the target field, not merely its string name.
+L528: 
+L529: The final line of this text format is:
+L530: 
+L531:     return [add]
+L532: which is a Node with `op_name = output`, indicating that we are returning this one element.
+L533: ### call_functioncite249†#
+L534: 
+L535: A `call_function` node represents a call to an operator.
+L536: 
+L537: Definitions
+L538: 
+L539:   * Functional: We say a callable is “functional” if it satisfies all the following requirements:
+L540: 
+L541:     * Non-mutating: The operator does not mutate the value of its input (for tensors, this includes both metadata and data).
+L542: 
+L543:     * No side effects: The operator does not mutate states that are visible from outside, like changing values of module parameters.
+L544:   * Operator: is a functional callable with a predefined schema. Examples of such operators include functional ATen operators.
+L545: 
+L546: Representation in FX
+L547: 
+L548:     %name = call_function[target = operator](args = (%x, %y, …), kwargs = {})
+L549: 
+L550: 
+L551: Differences from vanilla FX call_function
+L552: 
+L553:   1. In FX graph, a call_function can refer to any callable, in Export IR, we restrict it to only a select subset of ATen operators, custom operators, and control flow operators.
+L554:   2. In Export IR, constant arguments will be embedded within the graph.
+L555: 
+L556:   3. In FX graph, a get_attr node can represent reading any attribute stored in the graph module. However, in Export IR this is restricted to reading only submodules as all parameters/buffers will be passed in as inputs to the graph module.
+L557: #### Metadatacite250†#
+L558: 
+L559: `Node.meta` is a dict attached to every FX node. However, the FX spec does not specify what metadata can or will be there. Export IR provides a stronger contract, specifically all `call_function` nodes will guarantee having and only having the following metadata fields:
+L560:   * `node.meta["stack_trace"]` is a string containing the Python stack trace referencing the original Python source code. An example stack trace looks like:
+L561: 
+L562:     File "my_module.py", line 19, in forward
+L563:     return x + dummy_helper(y)
+L564:     File "helper_utility.py", line 89, in dummy_helper
+L565:     return y + 1
+L566: 
+L567: 
+L568:   * `node.meta["val"]` describes the output of running the operation. It can be of type `<symint>`, `<FakeTensor>`, a `List[Union[FakeTensor, SymInt]]`, or `None`.
+L569:   * `node.meta["nn_module_stack"]` describes the “stacktrace” of the cite244†`torch.nn.Module` from which the node came, if it was from a cite244†`torch.nn.Module` call. For example, if a node containing the `addmm` op called from a cite251†`torch.nn.Linear` module inside of a cite252†`torch.nn.Sequential` module, the `nn_module_stack` would look something like:
+L570: 
+L571:     {'self_linear': ('self.linear', <class 'torch.nn.Linear'>), 'self_sequential': ('self.sequential', <class 'torch.nn.Sequential'>)}
+L572:   * `node.meta["source_fn_stack"]` contains the torch function or the leaf cite244†`torch.nn.Module` class this node was called from before decomposition. For example, a node containing the `addmm` op from a cite251†`torch.nn.Linear` module call would contain cite251†`torch.nn.Linear` in their `source_fn`, and a node containing the `addmm` op from a `torch.nn.functional.Linear` module call would contain `torch.nn.functional.Linear` in their `source_fn`.
+L573: ### placeholdercite253†#
+L574: 
+L575: Placeholder represents an input to a graph. Its semantics are exactly the same as in FX. Placeholder nodes must be the first N nodes in the nodes list of a graph. N can be zero.
+L576: 
+L577: Representation in FX
+L578: 
+L579:     %name = placeholder[target = name](args = ())
+L580: 
+L581: 
+L582: The target field is a string which is the name of input.
+L583: 
+L584: `args`, if non-empty, should be of size 1 representing the default value of this input.
+L585: 
+L586: Metadata
+L587: Placeholder nodes also have `meta[‘val’]`, like `call_function` nodes. The `val` field in this case represents the input shape/dtype that the graph is expected to receive for this input parameter.
+L588: ### outputcite254†#
+L589: 
+L590: An output call represents a return statement in a function; it thus terminates the current graph. There is one and only one output node, and it will always be the last node of the graph.
+L591: 
+L592: Representation in FX
+L593: 
+L594:     output[](args = (%something, …))
+L595: 
+L596: 
+L597: This has the exact semantics as in cite239†`torch.fx` . `args` represents the node to be returned.
+L598: 
+L599: Metadata
+L600: 
+L601: Output node has the same metadata as `call_function` nodes.
+L602: ### get_attrcite255†#
+L603: 
+L604: `get_attr` nodes represent reading a submodule from the encapsulating cite245†`torch.fx.GraphModule` . Unlike a vanilla FX graph from cite256†`torch.fx.symbolic_trace()` in which `get_attr` nodes are used to read attributes such as parameters and buffers from the top-level cite245†`torch.fx.GraphModule` , parameters and buffers are passed in as inputs to the graph module, and stored in the top-level cite243†`torch.export.ExportedProgram` .
+L605: Representation in FX
+L606: 
+L607:     %name = get_attr[target = name](args = ())
+L608: 
+L609: 
+L610: Example
+L611: 
+L612: Consider the following model:
+L613: 
+L614:     from functorch.experimental.control_flow import cond
+L615: 
+L616:     def true_fn(x):
+L617:         return x.sin()
+L618: 
+L619:     def false_fn(x):
+L620:         return x.cos()
+L621: 
+L622:     def f(x, y):
+L623:         return cond(y, true_fn, false_fn, [x])
+L624: Graph:
+L625: 
+L626:     graph():
+L627:         %x_1 : [num_users=1] = placeholder[target=x_1]
+L628:         %y_1 : [num_users=1] = placeholder[target=y_1]
+L629:         %true_graph_0 : [num_users=1] = get_attr[target=true_graph_0]
+L630:         %false_graph_0 : [num_users=1] = get_attr[target=false_graph_0]
+L631:         %conditional : [num_users=1] = call_function[target=torch.ops.higher_order.cond](args = (%y_1, %true_graph_0, %false_graph_0, [%x_1]), kwargs = {})
+L632:         return conditional
+L633: The line, `%true_graph_0 : [num_users=1] = get_attr[target=true_graph_0]`, reads the submodule `true_graph_0` which contains the `sin` operator.
+L634: ## Referencescite257†#
+L635: 
+L636: ### SymIntcite258†#
+L637: 
+L638: A SymInt is an object that can either be a literal integer or a symbol that represents an Integer (represented in Python by `sympy.Symbol` class). When SymInt is a symbol, it describes a variable of type integer that is unknown to the graph at compile time, that is, its value is only known at runtime.
+L639: ### FakeTensorcite259†#
+L640: 
+L641: A FakeTensor is an object that contains the metadata of a tensor. It can be viewed as having the following metadata.
+L642: 
+L643:     class FakeTensor:
+L644:       size: List[SymInt]
+L645:       dtype: torch.dtype
+L646:       device: torch.device
+L647:       dim_order: List[int]  # This doesn't exist yet
+L648: The size field of FakeTensor is a list of integers or SymInts. If SymInts are present, this means this tensor has a dynamic shape. If integers are present, it is assumed that the tensor will have that exact static shape. The rank of the TensorMeta is never dynamic. The dtype field represents the dtype of the output of that node. There are no implicit type promotions in Edge IR. There are no strides in FakeTensor.
+L649: 
+L650: In other words:
+L651:   * If the operator in node.target returns a Tensor, then `node.meta['val']` is a FakeTensor describing that tensor.
+L652: 
+L653:   * If the operator in node.target returns an n-tuple of Tensors, then `node.meta['val']` is an n-tuple of FakeTensors describing each tensor.
+L654: 
+L655:   * If the operator in node.target returns an int/float/scalar that is known at compile time, then `node.meta['val']` is None.
+L656:   * If the operator in node.target returns an int/float/scalar that is not known at compile time, then `node.meta['val']` is of type SymInt.
+L657: 
+L658: For example:
+L659: 
+L660:   * `aten::add` returns a Tensor; so its spec will be a FakeTensor with dtype and size of the tensor returned by this operator.
+L661: 
+L662:   * `aten::sym_size` returns an integer; so its val will be a SymInt because its value is only available at runtime.
+L663:   * `max_pool2d_with_indexes` returns a tuple of (Tensor, Tensor); so the spec will also be a 2-tuple of FakeTensor objects, the first TensorMeta describes the first element of the return value etc.
+L664: 
+L665: Python code:
+L666: 
+L667:     def add_one(x):
+L668:       return torch.ops.aten(x, 1)
+L669: 
+L670: 
+L671: Graph:
+L672: 
+L673:     graph():
+L674:       %ph_0 : [#users=1] = placeholder[target=ph_0]
+L675:       %add_tensor : [#users=1] = call_function[target=torch.ops.aten.add.Tensor](args = (%ph_0, 1), kwargs = {})
+L676:       return [add_tensor]
+L677: FakeTensor:
+L678: 
+L679:     FakeTensor(dtype=torch.int, size=[2,], device=CPU)
+L680: ### Pytree-able Typescite260†#
+L681: 
+L682: We define a type “Pytree-able”, if it is either a leaf type or a container type that contains other Pytree-able types.
+L683: 
+L684: Note:
+L685: 
+L686: > The concept of pytree is the same as the one documented cite261†here†jax.readthedocs.io for JAX:
+L687: 
+L688: The following types are defined as leaf type:
+L689: Type  | Definition
+L690: --- | ---
+L691: Tensor  | cite262†`torch.Tensor`
+L692: Scalar  | Any numerical types from Python, including integral types, floating point types, and zero dimensional tensors.
+L693: int  | Python int (bound as int64_t in C++)
+L694: float  | Python float (bound as double in C++)
+L695: bool  | Python bool
+L696: str  | Python string
+L697: ScalarType  | cite263†`torch.dtype`
+L698: Layout  | cite264†`torch.layout`
+L699: MemoryFormat  | cite265†`torch.memory_format`
+L700: Device  | cite266†`torch.device`
+L701: 
+L702: The following types are defined as container type:
+L703: Type  | Definition
+L704: --- | ---
+L705: Tuple  | Python tuple
+L706: List  | Python list
+L707: Dict  | Python dict with Scalar keys
+L708: NamedTuple  | Python namedtuple
+L709: Dataclass  | Must be registered through cite267†register_dataclass†github.com
+L710: Custom class  | Any custom class defined with cite268†_register_pytree_node†github.com
+L711: 
+L712: Rate this Page
+L713: 
+L714: ★ ★ ★ ★ ★
+L715: 
+L716: [Button: Send Feedback ]
+L717: 
+L718: cite190†previous torch.export Programming Model cite192†next PT2 Archive Spec
+L719: Built with the cite269†PyData Sphinx Theme†pydata-sphinx-theme.readthedocs.io 0.15.4.
+L720: 
+L721: On this page
+L722: 
+L723: cite270†Edit on GitHub†github.com
+L724: 
+L725: cite271†Show Source
+L726: 
+L727: PyTorch Libraries
+L728: 
+L729:   * cite272†ExecuTorch
+L730:   * cite273†Helion
+L731:   * cite274†torchao
+L732:   * cite275†kineto†github.com
+L733:   * cite276†torchtitan†github.com
+L734:   * cite277†TorchRL
+L735:   * cite278†torchvision
+L736:   * cite279†torchaudio
+L737:   * cite280†tensordict
+L738:   * cite281†PyTorch on XLA Devices
+L739: ## Docs
+L740: 
+L741: Access comprehensive developer documentation for PyTorch
+L742: 
+L743: cite282†View Docs
+L744: 
+L745: ## Tutorials
+L746: 
+L747: Get in-depth tutorials for beginners and advanced developers
+L748: 
+L749: cite283†View Tutorials
+L750: ## Resources
+L751: 
+L752: Find development resources and get your questions answered
+L753: 
+L754: cite284†View Resources†pytorch.org
+L755: 
+L756: Stay in touch for updates, event info, and the latest news
+L757: 
+L758: By submitting this form, I consent to receive marketing emails from the LF and its projects regarding their events, training, research, developments, and related announcements. I understand that I can unsubscribe at any time using the links in the footers of the emails I receive. cite285†Privacy Policy†www.linuxfoundation.org .
+L759: © PyTorch. Copyright © The Linux Foundation®. All rights reserved. The Linux Foundation has registered trademarks and uses trademarks. For more information, including terms of use, privacy policy, and trademark usage, please see our cite286†Policies†www.linuxfoundation.org page. cite287†Trademark Usage†www.linuxfoundation.org . cite288†Privacy Policy†www.linuxfoundation.org .
+L760: 
+L761: © Copyright PyTorch Contributors.
+L762: 
+L763: Created using cite289†Sphinx†www.sphinx-doc.org 7.2.6.
+L764: Built with the cite269†PyData Sphinx Theme†pydata-sphinx-theme.readthedocs.io 0.15.4.

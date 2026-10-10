@@ -1,0 +1,306 @@
+Bounds on the Complexity of Recurrent Neural Network Implementations of Finite State Machines
+Supplied URL: https://proceedings.neurips.cc/paper/1993/file/afda332245e2af431fb7b672a68b659d-Paper.pdf
+Retrieved on: 2026-10-07
+Format: text extracted by the web browsing tool, not the original PDF/HTML bytes.
+L numbers refer to the browser extraction. PDF P numbers are zero-based.
+A complete text extraction does not imply that every figure, equation, or proof was reviewed.
+Read capture.json for captured URLs, line coverage, and missing ranges.
+
+
+=== Segment 1: https://proceedings.neurips.cc/paper/1993/file/afda332245e2af431fb7b672a68b659d-Paper.pdf ===
+
+L0@P0: Bounds on the complexity of recurrent
+L1@P0: neural network implementations of finite
+L2@P0: state machines
+L3@P0: Bill G. Horne
+L4@P0: NEC Research Institute
+L5@P0: 4 Independence Way
+L6@P0: Princeton, NJ 08540
+L7@P0: Don R. Hush
+L8@P0: EECE Department
+L9@P0: University of New Mexico
+L10@P0: Albuquerque, NM 87131
+L11@P0: Abstract
+L12@P0: In this paper the efficiency of recurrent neural network implementations of m-state finite state machines will be explored. Specifically,
+L13@P0: it will be shown that the node complexity for the unrestricted case
+L14@P0: can be bounded above by 0 ( fo) . It will also be shown that the
+L15@P0: node complexity is 0 (y'm log m) when the weights and thresholds
+L16@P0: are restricted to the set {-I, I}, and 0 (m) when the fan-in is restricted to two. Matching lower bounds will be provided for each
+L17@P0: of these upper bounds assuming that the state of the FSM can be
+L18@P0: encoded in a subset of the nodes of size rlog m 1.
+L19@P0: 1 Introduction
+L20@P0: The topic of this paper is understanding how efficiently neural networks scale to
+L21@P0: large problems. Although there are many ways to measure efficiency, we shall be
+L22@P0: concerned with node complexity, which as its name implies, is a calculation of the
+L23@P0: required number of nodes. Node complexity is a useful measure of efficiency since
+L24@P0: the amount of resources required to implement or even simulate a recurrent neural
+L25@P0: network is typically related to the number of nodes. Node complexity can also
+L26@P0: be related to the efficiency of learning algorithms for these networks and perhaps
+L27@P0: to their generalization ability as well. We shall focus on the node complexity of
+L28@P0: recurrent neural network implementations of finite state machines (FSMs) when
+L29@P0: the nodes of the network are restricted to threshold logic units.
+L30@P0: 359 360 Home and Hush
+L31@P1: In the 1960s it was shown that recurrent neural networks are capable of implementing arbitrary FSMs. The first result in this area was due to Minsky [7], who
+L32@P1: showed that m-state FSMs can be implemented in a fully connected recurrent neural network. Although circuit complexity was not the focus of his investigation it
+L33@P1: turns out that his construction, yields 0 (m) nodes. This construction was also
+L34@P1: guaranteed to use weight values limited to the set {I, 2}. Since a recurrent neural
+L35@P1: network with k hard-limiting nodes is capable of representing as many as 2k states,
+L36@P1: one might wonder if an m-state FSM could be implemented by a network with
+L37@P1: log m nodes. However, it was shown in [1] that the node complexity for a standard
+L38@P1: fully connected network is n ((m log m)1/3). They were also able to improve upon
+L39@P1: Minsky's result by providing a construction which is guaranteed to yield no more
+L40@P1: than 0 (m3/ 4 ) nodes. In the same paper lower bounds on node complexity were investigated as the network was subject to restrictions on the possible range of weight
+L41@P1: values and the fan-in and fan-out of the nodes in the network. Their investigation
+L42@P1: was limited to fully connected recurrent neural networks and they discovered that
+L43@P1: the node complexity for the case where the weights are restricted to a finite size set
+L44@P1: is n (y'm log m) . Alternatively, if the nodes in the network were restricted to have a
+L45@P1: constant fan-in then the node complexity becomes n (m) . However, they left open
+L46@P1: the question of how tight these bounds are and if they apply to variations on the
+L47@P1: basic architecture. Other recent work includes investigation of the node complexity
+L48@P1: for networks with continuous valued nonlinearities [14]. However, it can also be
+L49@P1: shown that when continuous nonlinearities are used, recurrent neural networks are
+L50@P1: far more powerful than FSMs; in fact, they are Turing equivalent [13].
+L51@P1: In this paper we improve the upper bound on the node complexity for the unrestricted case to 0 (yIm). We also provide upper bounds that match the lower
+L52@P1: bounds above for various restrictions. Specifically, we show that a node complexity
+L53@P1: of 0 ( y'm log m) can be achieved if the weights are restricted to the set {-I, I} , and
+L54@P1: that the node complexity is 0 (m) for the case when the fan-in of each node in the
+L55@P1: network is restricted to two. Finally, we explore the possibility that implementing
+L56@P1: finite state machines in more complex models might yield a lower node complexity.
+L57@P1: Specifically, we explore the node complexity of a general recurrent neural network
+L58@P1: topology, that is capable of simulating a variety of popular recurrent neural network architectures. Except for the unrestricted case, we will show that the node
+L59@P1: complexity is no different for this architecture than for the fully connected case if
+L60@P1: the number of feedback variables is limited to rlog m 1, i.e. if the state of the FSM
+L61@P1: is encoded optimally in a subset of the nodes. We leave it as an open question if a
+L62@P1: sparser encoding can lead to a more efficient implementation.
+L63@P1: 2 Background
+L64@P1: 2.1 Finite State Machines
+L65@P1: FSMs may be defined in several ways. In this paper we shall be concerned with
+L66@P1: Mealy machines, although our approach can easily be extended to other formulations
+L67@P1: to yield equivalent results. Bounds on the Complexity of Recurrent Neural Network Implementations 361
+L68@P2: Definition 1 A Mealy machine is a quintuple M = (Q, qo, E, d, <1», where Q is a
+L69@P2: finite set of states; qo is the initial state; E is the input alphabet; d is the output
+L70@P2: alphabet; and <I> : Q x E - Q x d is the combined transition and output function.
+L71@P2: o
+L72@P2: Throughout this paper both the input and output alphabets will be binary (i.e. E =
+L73@P2: d = {a, I}). In general, the number of states, m = IQI, may be arbitrary. Since any
+L74@P2: element of Q can be encoded as a binary vector whose minimum length is pog m 1 ,
+L75@P2: the function <I> can be implemented as a boolean logic function of the form
+L76@P2: <I> : {a, l}pogm1+l _ {a, l}pogm1+l . (1)
+L77@P2: The number, N M , of different minimal FSMs with m states will be used to determine
+L78@P2: lower bounds on the number of gates required to implement an arbitrary FSM in a
+L79@P2: recurrent neural network. It can easily be shown that (2m)m :S NM [5]. However,
+L80@P2: it will be convenient to reexpress N M in terms of n = flog m 1 + 1 as follows
+L81@P2: (2)
+L82@P2: 2.2 Recurrent Neural Networks
+L83@P2: The fundamental processing unit in the models we wish to consider is the perceptron,
+L84@P2: which is a biased, linearly weighted sum of its inputs followed by a hard-limiting
+L85@P2: nonlinearity whose output is zero if its input is negative and one otherwise. The
+L86@P2: fan-in of the perceptron is defined to be the number of non-zero weights. When the
+L87@P2: values of Xi are binary (as they are in this paper) , the perceptron is often referred
+L88@P2: to as a threshold logic unit (TL U).
+L89@P2: A count of the number of different partially specified threshold logic functions, which
+L90@P2: are threshold logic functions whose values are only defined over v vertices of the
+L91@P2: unit hypercube, will be needed to develop lower bounds on the node complexity
+L92@P2: required to implement an arbitrary logic function . It has been shown that this
+L93@P2: number, denoted L~, is [15]
+L94@P2: 2vn
+L95@P2: L~:S -,-.
+L96@P2: n.
+L97@P2: (3)
+L98@P2: As pointed out in [10], many of the most popular discrete-time recurrent neural
+L99@P2: network models can be implemented as a feedforward network whose outputs are
+L100@P2: fed back recurrently through a set of unit time delays. In the most generic version of
+L101@P2: this architecture, the feed forward section is lower triangular, meaning the [th node is
+L102@P2: the only node in layer I and receives input from all nodes in previous layers (including
+L103@P2: the input layer). A lower triangular network of k threshold logic elements is the
+L104@P2: most general topology possible for a feedforward network since all other feedforward
+L105@P2: networks can be viewed as a special case of this network with the appropriate weights
+L106@P2: set equal to zero. The most direct implementation of this model is the architecture
+L107@P2: proposed in [11]. However, many recurrent neural network architectures can be cast
+L108@P2: into this framework. For example, fully connected networks [3] fit this model when
+L109@P2: the the feedforward network is simply a single layer of nodes. Even models which
+L110@P2: appear very different [2, 9] can be cast into this framework. 362 Home and Hush
+L111@P3: 3 The unrestricted case
+L112@P3: The unrestricted case is the most general, and thus explores the inherent power of
+L113@P3: recurrent neural networks. The unrestricted case is also important because it serves
+L114@P3: as a baseline from which one can evaluate the effect of various restrictions on the
+L115@P3: node complexity.
+L116@P3: In order to derive an upper bound on the node complexity of recurrent neural
+L117@P3: network implementations of FSMs we shall utilize the following lemma, due to
+L118@P3: Lupanov [6]. The proof of this lemma involves a construction that is extremely
+L119@P3: complex and beyond the scope of this paper.
+L120@P3: Lemma 1 (Lupanov, 1973) Arbitrary boolean logic functions with x inputs and
+L121@P3: y outputs can be implemented in a network of perceptrons with a node complexity
+L122@P3: of
+L123@P3: o ( J x ~~:g y) . o
+L124@P3: Theorem 1 Multilayer recurrent neural networks can implement FSMs having m
+L125@P3: states with a node complexity of 0 (.Jffi) . 0
+L126@P3: Proof: Since an m-state FSM can be implemented in a recurrent neural network
+L127@P3: in which the multilayer network performs a mapping of the form in equation (1),
+L128@P3: then using n = m = flog m 1 + 1, and applying Lemma 1 gives an upper bound of
+L129@P3: O(.Jffi). Q.E.D.
+L130@P3: Theorem 2 Multilayer recurrent neural networks can implement FSMs having m
+L131@P3: states with a node complexity of n (fo) if the number of unit time delays is flog m 1.
+L132@P3: o
+L133@P3: Proof: In order to prove the theorem we derive an expression for the maximum
+L134@P3: number of functions that a k-node recurrent neural network can compute and compare that against the minimum number of finite state machines. Then we solve for
+L135@P3: k in terms of the number of states of the FSM.
+L136@P3: Specifically, we wish to manipulate the inequality
+L137@P3: 2(n-l)2 n - 2 < n! ( k - 1 ) krr-l 2n(n+i~+1 - n - 1 . (n + z)! ,=0
+L138@P3: (a) (b)
+L139@P3: where the left hand side is given in equation (2), (a) represents the total number of
+L140@P3: ways to choose the outputs and feedback variables of the network, and (b) represents the total number of logic functions computable by the feed forward section of
+L141@P3: the network, which is lower triangular. Part (a) is found by simple combinatorial
+L142@P3: arguments and noting that the last node in the network must be used as either
+L143@P3: an output or feedback node. Part (b) is obtained by the following argument: If
+L144@P3: the state is optimally encoded in flog m 1 nodes, then only flog m 1 variables need Bounds on the Complexity of Recurrent Neural Network Implementations 363
+L145@P4: to be fed back. Together with the external input this gives n = rlog m 1 + 1 local
+L146@P4: inputs to the feedforward network. Repeated application of (3) with v = 2n yields
+L147@P4: expression (b).
+L148@P4: Following a series of algebraic manipulations it can easily be shown that there exists
+L149@P4: a constant c such that
+L150@P4: n2n < ck2n.
+L151@P4: Since n = flog ml + 1 it follows that k = f2 (fo). Q.E.D.
+L152@P4: 4 Restriction on weights and thresholds
+L153@P4: All threshold logic functions can be implemented with perceptrons whose weight
+L154@P4: and threshold values are integers. It is well known that there are threshold logic
+L155@P4: functions of n variables that require a perceptron with weights whose maximum
+L156@P4: magnitude is f2(2n) and O( nn/2) [8]. This implies that if a perceptron is to be
+L157@P4: implemented digitally, the number of bits required to represent each weight and
+L158@P4: threshold in the worst case will be a super linear function of the fan-in. This is
+L159@P4: generally undesirable ; it would be far better to require only a logarithmic number
+L160@P4: of bits per weight, or even better, a constant number of bits per weight. We will be
+L161@P4: primarily be interested in the most extreme case where the weights are limited to
+L162@P4: values from the set {-I, I}.
+L163@P4: In order to derive the node complexity for networks with weight restrictions, we
+L164@P4: shall utilize the following lemma, proved in [4].
+L165@P4: Lemma 2 Arbitrary boolean logic functions with x inputs and y outputs can be
+L166@P4: implemented in a network ofperceptrons whose weights and thresholds are restricted
+L167@P4: to the set {-I, I} with a node complexity of e (Jy2x ) . 0
+L168@P4: This lemma is not difficult to prove , however it is beyond the scope of this paper.
+L169@P4: The basic idea involves using a decomposition of logic functions proposed in [12].
+L170@P4: Specifically, a boolean function f may always be decomposed into a disjunction of
+L171@P4: 2r terms of the form XIX2. ' . Xr fi(Xr +1 , .. . , x n ) , one for each conjunction of the
+L172@P4: first r variables, where Xj represents either a complemented or uncomplemented
+L173@P4: version of the input variable Xj and each Ii is a logic function of the last n - r
+L174@P4: variables. This expression can be implemented directly in a neural network. With
+L175@P4: negligible number of additional nodes, the construction can be implemented in such
+L176@P4: a way that all weights are either -lor 1. Finally, the variable r is optimized to
+L177@P4: yield the minimum number of nodes in the network.
+L178@P4: Theorem 3 Multilayer recurrent neural networks that have nodes whose weights
+L179@P4: and thresholds are restricted to the set {-I, I} can implement FSMs having m
+L180@P4: states with a node complexity of 0 (Jm log m) . 0
+L181@P4: Proof: Since an m-state FSM can be implemented in a recurrent neural network
+L182@P4: in which the multilayer network performs a mapping of the form in equation (1),
+L183@P4: then using n = m = flog m 1 + 1, and applying Lemma 2 gives an upper bound of
+L184@P4: o (Jmlogm) . Q.E.D. 364 Home and Hush
+L185@P5: Theorem 4 Multilayer recurrent neural networks that have nodes whose weights
+L186@P5: and thresholds are restricted to a set of size IWI can implement FSMs having m
+L187@P5: states with a node complexity of n ( if the number of unit time delays is
+L188@P5: flogml. 0
+L189@P5: Proof: The proof is similar to the proof of Theorem 2 which gave a lower bound
+L190@P5: for the node complexity required in an arbitrary network of threshold logic units.
+L191@P5: Here, the inequality we wish to manipulate is given by
+L192@P5: )
+L193@P5: k-l
+L194@P5: k - 1 II IWln+i+1. n-I
+L195@P5: i=O
+L196@P5: (a) (b)
+L197@P5: where the left hand side and (a) are computed as before and (b) represents the
+L198@P5: maximum number of ways to configure the nodes in the network when there are
+L199@P5: only IWI choices for each weight and threshold. Following a series of algebraic
+L200@P5: manipulations it can be shown that there exists a constant c such that
+L201@P5: n2n ::; ck2 log IWI.
+L202@P5: Since n = pog m 1 + 1 it follows that k = n ( mlogm)
+L203@P5: loglWI . Q.E.D.
+L204@P5: Clearly, for W = {-I, I} this lower bound matches the upper bound in Theorem 3.
+L205@P5: 5 Restriction on fan-in
+L206@P5: A limit on the fan-in of a perceptron is another important practical restriction.
+L207@P5: In the networks discussed so far each node has an unlimited fan-in. In fact, in
+L208@P5: the constructions described above, many nodes receive inputs from a polynomial
+L209@P5: number of nodes (in terms of m) in a previous layer. In practice it is not possible
+L210@P5: to build devices that have such a large connectivity. Restricting the fan-in to 2, is
+L211@P5: the most severe restriction, and will be of primary interest in this paper.
+L212@P5: Once again, in order to derive the node complexity for restricted fan-in, we shall
+L213@P5: utilize the following lemma, proved in [4].
+L214@P5: Lemma 3 Arbitrary boolean logic functions with x inputs and y outputs can be
+L215@P5: implemented in a network of perceptrons restricted to fan-in 2 with a node complexityof
+L216@P5: ( y2X )
+L217@P5: e x + logy .
+L218@P5: o
+L219@P5: This proof of this lemma is very similar to the proof of Lemma 2. Here Shannon's
+L220@P5: decomposition is used with r = 2 to recursively decompose the logic function into
+L221@P5: a set of trees, until each tree has depth d. Then, all possible functions of the last
+L222@P5: n - d variables are implemented in an inverted tree-like structure, which feeds into
+L223@P5: the bottom of the trees. Finally, d is optimized to yield the minimum number of
+L224@P5: nodes. Bounds on the Complexity of Recurrent Neural Network Implementations 365
+L225@P6: Theorem 5 Multilayer recurrent neural networks that have nodes whose fan-in is
+L226@P6: restricted to two can implement FSMs having m states with a node complexity of
+L227@P6: Oem) 0
+L228@P6: Proof: Since an m-state FSM can be implemented in a recurrent neural network
+L229@P6: in which the multilayer network performs a mapping of the form in equation (1),
+L230@P6: then using n = m = rlog m 1 + 1, and applying Lemma 3 gives an upper bound of
+L231@P6: o (m). Q.E.D.
+L232@P6: Theorem 6 Multilayer recurrent neural networks that have nodes whose fan-in is
+L233@P6: restricted to two can implement FSMs having m states with a node complexity of
+L234@P6: n (m) if the number of unit time delays is rlog m 1. 0
+L235@P6: Proof: Once again the proof is similar to Theorem 2, which gave a lower bound
+L236@P6: for the node complexity required in an arbitrary network of threshold logic units.
+L237@P6: Here, the inequality we need to solve for is given by
+L238@P6: 2(n-1)2'-' :s n! ( ~:= ~ ) D. 14 ( n t i )
+L239@P6: ,----_V~----A~----_V~----~
+L240@P6: (a) (b)
+L241@P6: where the left hand side and (a) are computed as before and (b) represents the maximum number of ways to configure the nodes in the network. The term ( n t i )
+L242@P6: is used since a node in the ith layer has n + i possible inputs from which two are
+L243@P6: chosen. The constant 14 represents the fourteen possible threshold logic functions
+L244@P6: of two variables. Following a series of algebraic manipulations it can be shown that
+L245@P6: there exists a constant c such that
+L246@P6: n2n ~ ck logk
+L247@P6: Since n = rlog m 1 + 1 it follows that k = n (m) .
+L248@P6: 6 Summary
+L249@P6: Q.E.D.
+L250@P6: In summary, we provide new bounds on the node complexity of implementing FSMs
+L251@P6: with recurrent neural networks. These upper bounds match lower bounds developed in [1] for fully connected recurrent networks when the size of the weight set
+L252@P6: or the fan-in of each node is finite. Although one might speculate that more complex networks might yield more efficient constructions, we showed that these lower
+L253@P6: bounds do not change for restrictions on weights or fan-in, at least when the state
+L254@P6: of the FSM is encoded optimally in a subset of flog m 1 nodes. When the network
+L255@P6: is unrestricted, this lower bound matches our upper bound. We leave it as an open
+L256@P6: question if a sparser encoding of the state variables can lead to a more efficient
+L257@P6: implementation.
+L258@P6: One interesting aspect of this study is that there is really not much difference
+L259@P6: in efficiency when the network is totally unrestricted and when there are severe
+L260@P6: restrictions placed on the weights. Assuming that our bounds are tight, then there 366 Home and Hush
+L261@P7: is only a y'log m penalty for restricting the weights to either -1 or 1. To get some
+L262@P7: idea for how marginal this difference is consider that for a finite state machine with
+L263@P7: m = 18 x 1018 states, y'log m is only eight!
+L264@P7: A more detailed version of this paper can be found in [5].
+L265@P7: References
+L266@P7: [1] N. Alon, A.K. Dewdney, and T.J. Ott. Efficient simulation of finite automata
+L267@P7: by neural nets. JACM, 38(2):495-514, 1991.
+L268@P7: [2] A.D. Back and A.C. Tsoi. FIR and I1R synapses, a new neural network architecture for time series modeling. Neural Computation, 3(3):375-385, 1991.
+L269@P7: [3] J.J. Hopfield. Neural networks and physical systems with emergent collective
+L270@P7: computational abilities. Proc. Nat. Acad. Sci., 79:2554-2558, 1982.
+L271@P7: [4] B.G. Horne and D.R. Hush. On the node complexity of neural networks. Technical Report EECE 93-003, Dept. EECE, U. New Mexico, 1993.
+L272@P7: [5] B.G. Horne and D.R. Hush. Bounds on the complexity of recurrent neural
+L273@P7: network implementations of finite state machines. Technical Report EECE
+L274@P7: 94-001, Dept. EECE, U. New Mexico, 1994.
+L275@P7: [6] O.B. Lupanov. The synthesis of circuits from threshold elements. Problemy
+L276@P7: Kibernetiki, 26:109-140, 1973.
+L277@P7: [7] M. Minsky. Computation: Finite and infinite machines. Prentice-Hall, 1967.
+L278@P7: [8] S. Muroga. Threshold Logic and Its Applications. Wiley, 1971.
+L279@P7: [9] K.S. Narendra and K. Parthasarathy. Identification and control of dynamical
+L280@P7: systems using neural networks. IEEE Trans. on Neural Networks, 1:4-27, 1990.
+L281@P7: [10] O. Nerrand et al. Neural networks and nonlinear adaptive filtering: Unifying
+L282@P7: concepts and new algorithms. Neural Computation, 5(2):165-199, 1993.
+L283@P7: [11] A.J. Robinson and F. Fallside. Static and dynamic error propagation networks
+L284@P7: with application to speech coding. In D.Z. Anderson, editor, Neural Information Processing Systems, pages 632-641, 1988.
+L285@P7: [12] C. Shannon. The synthesis of two-terminal switching circuits. Bell Sys. Tech.
+L286@P7: 1., 28:59-98, 1949.
+L287@P7: [13] H. Siegelmann and E.D. Sontag. Neural networks are universal computing
+L288@P7: devices. Technical Report SYCON-91-08, Rutgers Ctr. for Sys. and Cont.,
+L289@P7: 1991.
+L290@P7: [14] H.T. Siegelmann, E.D. Sontag, and C.L. Giles. The complexity of language
+L291@P7: recognition by neural networks. In Proc. IFIP 12th World Compo Cong., pages
+L292@P7: 329-335, 1992.
+L293@P7: [15] R.O. Winder. Bounds on threshold gate realizability. IEEE Trans. on Elect.
+L294@P7: Comp., EC-12:561-564, 1963.

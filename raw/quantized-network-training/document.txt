@@ -1,0 +1,269 @@
+Tractability via Low Dimensionality: The Parameterized Complexity of Training Quantized Neural Networks
+Supplied URL: https://proceedings.iclr.cc/paper_files/paper/2026/file/bf1b3f86d67feecdc22c1abea2c6127c-Paper-Conference.pdf
+Retrieved on: 2026-10-07
+Format: text extracted by the web browsing tool, not the original PDF/HTML bytes.
+L numbers refer to the browser extraction. PDF P numbers are zero-based.
+A complete text extraction does not imply that every figure, equation, or proof was reviewed.
+Read capture.json for captured URLs, line coverage, and missing ranges.
+
+
+=== Segment 1: https://proceedings.iclr.cc/paper_files/paper/2026/file/bf1b3f86d67feecdc22c1abea2c6127c-Paper-Conference.pdf ===
+
+L0@P0: Published as a conference paper at ICLR 2026
+L1@P0: TRACTABILITY VIA LOW DIMENSIONALITY:
+L2@P0: THE PARAMETERIZED COMPLEXITY OF
+L3@P0: TRAINING QUANTIZED NEURAL NETWORKS
+L4@P0: Robert Ganian
+L5@P0: Algorithms and Complexity Group, TU Wien, Vienna, Austria test
+L6@P0: rganian@gmail.com
+L7@P0: Frank Sommer
+L8@P0: Institute of Computer Science, Friedrich Schiller University Jena, Germany
+L9@P0: frank.sommer@uni-jena.de
+L10@P0: Manuel Sorge
+L11@P0: Algorithms and Complexity Group, TU Wien, Vienna, Austria
+L12@P0: manuel.sorge@ac.tuwien.ac.at
+L13@P0: ABSTRACT
+L14@P0: The training of neural networks has been extensively studied from both algorithmic and complexity-theoretic perspectives, yet recent results in this direction almost exclusively concern real-valued networks. In contrast, advances in machine
+L15@P0: learning practice highlight the benefits of quantization, where network parameters and data are restricted to finite integer domains, yielding significant improvements in speed and energy efficiency. Motivated by this gap, we initiate a systematic complexity-theoretic study of ReLU Neural Network Training in the full
+L16@P0: quantization mode. We establish strong lower bounds by showing that hardness
+L17@P0: already arises in the binary setting and under highly restrictive structural assumptions on the architecture, thereby excluding parameterized tractability for natural
+L18@P0: measures such as depth and width. On the positive side, we identify nontrivial
+L19@P0: fixed-parameter tractable cases when parameterizing by input dimensionality in
+L20@P0: combination with width and either output dimensionality or error bound, and further strengthen these results by replacing width with the more general treewidth.
+L21@P0: 1 INTRODUCTION
+L22@P0: A crucial task tied to the use of neural networks is their training. On a high level, this training task
+L23@P0: can be characterized as follows: given a neural network architecture G and a data set D of inputoutput pairs, compute weights and biases of G which minimize the error achieved by the network
+L24@P0: on D. While we have powerful heuristics for solving this problem (Sze et al., 2017; Li et al., 2022),
+L25@P0: it also exhibits highly interesting behavior on the complexity-theoretical level and has been studied
+L26@P0: from this perspective in a series of recent foundational papers (Dey et al., 2020; Abrahamsen et al.,
+L27@P0: 2021; Goel et al., 2021; Boob et al., 2022; Froese & Hertrich, 2023; Bertschinger et al., 2023; Brand
+L28@P0: et al., 2023). A detailed discussion of the state of the art is deferred to the end of this section;
+L29@P0: nevertheless, it will be useful to note that for a crisper complexity analysis one typically considers
+L30@P0: the equivalent decision formulation of the problem—i.e., where the input also includes an error
+L31@P0: bound ℓ and the algorithm is allowed to output “no” if such an error bound cannot be achieved by
+L32@P0: any combination of weights and biases.1
+L33@P0: 1Technically, in decision problems one is not required to output the weights and biases for positive instances;
+L34@P0: however, every algorithm obtained or mentioned in this article is constructive and capable of doing so. We note
+L35@P0: that the optimization task can be reduced to the decision formulation via a trivial search routine on ℓ.
+L36@P0: 1Published as a conference paper at ICLR 2026
+L37@P1: A common feature of all the above-mentioned complexity-theoretical works targeting the above
+L38@P1: NEURAL NETWORK TRAINING (NNT) problem is that they assume the numbers occurring in the
+L39@P1: network to be reals. This is a natural perspective that matches the classical formalization of neural
+L40@P1: networks. However, a series of recent advances have shown that one can significantly improve speed
+L41@P1: and energy efficiency by quantizing the neural network, i.e., forcing the numbers to lie in a specified
+L42@P1: domain of integers (Kilic et al., 2022). For example, Wang et al. (2025) recently showed that one can
+L43@P1: achieve accuracy results comparable to the real-valued setting when quantizing to 4 bits, i.e., with a
+L44@P1: domain size of 16; see also the preceding works of Yang et al. (2020) and Lin et al. (2022). Other
+L45@P1: works have also considered even stronger degrees of quantization, such as using binary domains (Lin
+L46@P1: et al., 2017; Zhu et al., 2019; Liu et al., 2020). In fact, several different methods have been developed
+L47@P1: to obtain high-quality quantized neural networks such as fully-quantized training (Zhou et al., 2016),
+L48@P1: mixed-precision training (Micikevicius et al., 2018), post-training quantization (Banner et al., 2019),
+L49@P1: and quantization-aware training (Jacob et al., 2018).
+L50@P1: Yet, the recent developments outlined above are not at all reflected in our understanding of the
+L51@P1: underlying foundational problem: neither the complexity-theoretic lower bounds (Dey et al., 2020;
+L52@P1: Abrahamsen et al., 2021; Goel et al., 2021; Froese & Hertrich, 2023; Bertschinger et al., 2023), nor
+L53@P1: the algorithms underpinning our upper bounds for solving the training problem (Arora et al., 2018;
+L54@P1: Boob et al., 2022; Brand et al., 2023) can be translated into the quantized setting. We note that
+L55@P1: this does not seem to be merely the case of a missing “bridge” that would allow one to translate
+L56@P1: knowledge from one setting to the other—the training problem in the real-valued setting is ∃Rcomplete (Abrahamsen et al., 2021; Bertschinger et al., 2023) but with quantization it is easily seen
+L57@P1: to lie in NP (see Section 2), pointing to a fundamental difference between the two settings. Until
+L58@P1: now, we lacked any complexity-theoretic study targeting NNT in the fully quantized setting.
+L59@P1: The aim of this article is to fill the aforementioned gap by developing a comprehensive understanding
+L60@P1: of QUANTIZED RELU-NNT (see Section 2 for formal details and a discussion of the error bound):
+L61@P1: d-QUANTIZED RELU-ACTIVATED NEURAL NETWORK TRAINING (d-QNNT)
+L62@P1: Input: An architecture G with α input and ω output nodes, a multiset D of d-quantized data
+L63@P1: points, and an error bound ℓ.
+L64@P1: Output: A d-quantized neural network G¯ over G such that the error of D on G¯ is at most ℓ,
+L65@P1: or a correct conclusion that no such network exists.
+L66@P1: We remark that here we focus on the ReLU activation function, as it is widely used in practice and
+L67@P1: has been the target of almost all foundational studies of non-quantized NNT to date (Dey et al., 2020;
+L68@P1: Abrahamsen et al., 2021; Goel et al., 2021; Boob et al., 2022; Froese & Hertrich, 2023; Bertschinger
+L69@P1: et al., 2023; Brand et al., 2023). Our results include not only lower bounds, but also the identification
+L70@P1: of tractable cases via the development of theoretical algorithms. All our lower bounds apply already
+L71@P1: to the simplest binary quantization, while our tractability results hold for arbitrary choices of the
+L72@P1: quantization constant d.
+L73@P1: In order to construct a more detailed complexity map of d-QNNT, we perform our analysis also taking into account the parameterized complexity paradigm (Cygan et al., 2015; Downey & Fellows,
+L74@P1: 2013) which associates problem instances with a suitably defined parameter, i.e., a numerical measure that captures various aspects of the instance. In the classical perspective, one would typically
+L75@P1: ask whether restricting the parameter k to a constant allows us to solve instances in time polynomial
+L76@P1: w.r.t. the input size n. By contrast, the most desirable notion of tractability in the more refined parameterized paradigm is fixed-parameter tractability (FPT), meaning that the problem can be solved
+L77@P1: in time f(k) · n
+L78@P1: O(1) for some computable function f. To exclude inclusion in FPT, one can either
+L79@P1: show that the problem is W[1]- or W[2]-hard (which still allows for the existence of algorithms
+L80@P1: running in time, e.g., n
+L81@P1: O(k)
+L82@P1: ), or NP-hard for a fixed value of k.
+L83@P1: Contributions. For convenience, Figure 1 provides a mindmap of results that is intended to complement the description of our contributions.
+L84@P1: Well-studied properties of the architecture G that might, at first glance, seem as natural choices for
+L85@P1: parameters are its depth (the number of hidden layers) and width (the size of the largest hidden
+L86@P1: layer)—a direction which we explore in our first set of contributions.
+L87@P1: 2Published as a conference paper at ICLR 2026
+L88@P2: parameter
+L89@P2: FPT W[2]-hard NP-hard reference
+L90@P2: tw + α + ℓ
+L91@P2: Theorem 6
+L92@P2: tw + α + ω
+L93@P2: Theorem 5
+L94@P2: α + ℓ + depth
+L95@P2: Theorem 4
+L96@P2: α + width + depth
+L97@P2: Theorem 3
+L98@P2: ω +ℓ+width+depth
+L99@P2: Theorem 1
+L100@P2: ℓ + ∆
+L101@P2: Theorem 2
+L102@P2: Figure 1: Overview of our results for d-QNNT. A combined parameter p consisting of single parameters p1, p2, p3 has an edge to a lower combined parameter q if dropping one of the single
+L103@P2: parameters pi yields hardness. We use ∆ to denote the maximum degree of any neuron. Our main
+L104@P2: open question concerns the complexity w.r.t. α + ω—see the Technical Overview and Section 5.
+L105@P2: As a baseline result, we exclude any notion of parameterized tractability w.r.t. these two measures
+L106@P2: even when combined with the error bound ℓ and the output dimensionality ω. In particular, in
+L107@P2: Theorem 1 we show that 2-QNNT remains NP-hard even when restricted to instances where ℓ = 0,
+L108@P2: there is only a single output node and no hidden layer—a result which shows that even training very
+L109@P2: simple quantized architectures is computationally intractable and forms a counterpart to the wellknown intractability of training a single neuron in the non-quantized setting (Goel et al., 2021; Dey
+L110@P2: et al., 2020). Naturally, the reduction underlying Theorem 1 relies on the single output neuron having
+L111@P2: large indegree—however, in our second Theorem 2 we establish the NP-hardness of 2-QNNT even
+L112@P2: on constant-degree architectures with a single hidden layer and ℓ = 0. This latter result can be seen
+L113@P2: as a constant-degree counterpart to the ∃R-hardness of training shallow non-quantized networks to
+L114@P2: optimality (Abrahamsen et al., 2021).
+L115@P2: While the above lower bounds paint a negative picture of the complexity of d-QNNT, there is a
+L116@P2: silver lining: both reductions inherently require the input dimensionality α to be large. As our
+L117@P2: second set of contributions, we show that parameterizing by α enables fixed-parameter neural
+L118@P2: network training in the quantized setting—but only when combined with additional restrictions. In
+L119@P2: particular, our results imply that for every fixed d, d-QNNT is fixed-parameter tractable w.r.t. the
+L120@P2: combined parameterizations:
+L121@P2: 1. input dimensionality α, the width of G and output dimensionality ω (Corollary 2);
+L122@P2: 2. input dimensionality α, the width of G and the error bound ℓ (Corollary 1).
+L123@P2: The above results naturally lead to the question of whether all of the parameters are required to
+L124@P2: achieve fixed-parameter tractability—in other words, could any of the parameters be dropped from
+L125@P2: the statement? For α, we already know that this is not the case: Theorem 1 rules out polynomial-time
+L126@P2: algorithms even if the width, ω and ℓ are small constants.
+L127@P2: Given the fact that both positive results rely on parameterizing by the width and α, it would be
+L128@P2: tempting to think that d-QNNT is fixed-parameter tractable w.r.t. α and the width alone—i.e., that
+L129@P2: the third parameter can be dropped in both statements. As our third contribution, in Theorem 3
+L130@P2: we rule this out by establishing the W[2]-hardness of 2-QNNT w.r.t. α even on networks with no
+L131@P2: hidden layer. This means that neither ω, nor ℓ can be dropped from our algorithmic upper bounds.
+L132@P2: The above considerations leave the width as the only possible “weak point” in Corollaries 1 and 2.
+L133@P2: As our fourth contribution, we show that—at least if one wishes to preserve both positive results—
+L134@P2: it is neither possible to drop the width, nor replace it with the depth of G. In particular, our Theorem 4
+L135@P2: shows that 2-QNNT is NP-hard even when α = 2, there is a single hidden layer and ℓ = 0.
+L136@P2: While the width cannot be dropped or replaced by depth, as our final fifth contribution we show
+L137@P2: that Corollaries 1 and 2 can be strengthened: in particular, we prove that the results hold even if
+L138@P2: one replaces the width of architecture G with its treewidth tw(G) (Robertson & Seymour, 1984).
+L139@P2: The latter is a well-established measure of the tree-likeness of a graph; on architectures with hidden
+L140@P2: neurons it never exceeds the width, but can be arbitrarily smaller. For example, an architecture
+L141@P2: consisting of layers whose width alternates between small and large will have large width, but small
+L142@P2: treewidth. Thus, while non-trivial to prove, the following two results supersede and directly imply
+L143@P2: Corollaries 1 and 2:
+L144@P2: 1
+L145@P2: ⋆
+L146@P2: . d-QNNT is fixed-parameter tractable w.r.t. α + tw(G) + ω (Theorem 5);
+L147@P2: 3Published as a conference paper at ICLR 2026
+L148@P3: 2
+L149@P3: ⋆
+L150@P3: . d-QNNT is fixed-parameter tractable w.r.t. α + tw(G) + ℓ (Theorem 6).
+L151@P3: Technical Overview. To obtain our lower bounds, we develop targeted reductions from a variety
+L152@P3: of problems, including BOOLEAN SATISFIABILITY, HITTING SET, and SET COVER. While each
+L153@P3: of the reductions is distinct, the constructed architectures are often very dense and have simple graph
+L154@P3: structures. In other words, our results show that the difficulty of training in the quantized setting does
+L155@P3: not stem from the complexity of the architecture, but rather from the presence of high-dimensional
+L156@P3: data on the input or output. In fact, the main open question arising from our work is whether the converse is true: can we efficiently solve instances of d-QNNT with possibly complicated architectures,
+L157@P3: but constant input and output data dimensionality (i.e., α + ω)?
+L158@P3: For our positive results—specifically, Theorems 5 and 6—the main technical difficulty is that the
+L159@P3: trained n-node networks could contain hidden neurons with Θ(n) incoming arcs from the preceding layer that have non-zero weights. Indeed, it is not difficult to construct instances with
+L160@P3: such solutions—and yet the dynamic programming techniques that form the cornerstone of most
+L161@P3: treewidth-based algorithms are incapable of efficiently searching for them. To deal with this issue,
+L162@P3: we make a detour and first establish a structural insight that we believe is of independent interest:
+L163@P3: every YES-instance of d-QNNT admits at least one solution where the number of activated arcs entering any node is upper-bounded by a function of the parameters. This is formalized in Lemma 1,
+L164@P3: and relies on an involved proof that builds on Steinitz’ Lemma.
+L165@P3: Full proofs and details deferred to the Full version, which can be found in the supplemental material,
+L166@P3: are marked with (⋆).
+L167@P3: Related Work. Beyond the related articles mentioned in the second paragraph, several of the earlier works in the field also studied (the complexity of) NNT in the partially quantized setting (Judd,
+L168@P3: 1988; Blum & Rivest, 1992; Parberry, 1992; Courbariaux et al., 2015; Zhu et al., 2017) or with
+L169@P3: different activation functions (Judd, 1990; Schmitt, 2004; Doron-Arad, 2025). In particular, the
+L170@P3: NP-hardness of 2-QNNT can be inferred from the reduction in the seminal work of Judd (1990,
+L171@P3: Theorem 24) on training Boolean neural networks with AND and OR gates, and separately also
+L172@P3: from the reduction in Schmitt (2004, Theorem 7) using linear threshold activation functions. However, our Theorems 1 to 4 obtain lower bounds in conjunction with additional restrictions on the
+L173@P3: inputs that are required for our parameterized lower bounds. Crucially, we are aware of neither
+L174@P3: any in-depth multivariate complexity analysis in this setting, nor any works directly targeting the
+L175@P3: complexity of quantized neural network training with ReLU activation functions. (⋆)
+L176@P3: 2 PRELIMINARIES
+L177@P3: For an integer d ≥ 1, we define the d-quantized integer domain Zd as {z ∈ Z | −⌊ d−1
+L178@P3: 2
+L179@P3: ⌋ ≤ z ≤
+L180@P3: ⌈
+L181@P3: d−1
+L182@P3: 2
+L183@P3: ⌉}, that is, Z2 = {0, 1}, Z3 = {−1, 0, 1}, Z4 = {−1, 0, 1, 2} and so forth2. The d-domain
+L184@P3: ReLU activation function ReLUd : Zd → Zd is the restriction of the well-known rectified linear unit
+L185@P3: to Zd—that is, all negative values are mapped to 0 while on positive values ReLUd is the identity
+L186@P3: except that inputs outside of Zd become max Zd.
+L187@P3: We say that a network architecture is a directed acyclic graph (a DAG) G whose vertex sets are
+L188@P3: partitioned into layers, where layer 0 consists solely of sources, and such that an arc ab may only go
+L189@P3: from a vertex in layer i (for i ∈ N) to a vertex in layer i + 1 and all sinks lie in the same layer. We
+L190@P3: will refer to the sources and sinks the input and output neurons of G, respectively, while all other
+L191@P3: nodes of G are referred to as hidden neurons. We assume that the sources are equipped with a fixed
+L192@P3: ordering, and the same also for the sinks. The maximum size of a layer with only hidden neurons is
+L193@P3: called the width of G, while we refer to the number of layers as the depth of G.
+L194@P3: Let us fix a d-quantized integer domain Zd. A neural network G¯ over an architecture G is a tuple
+L195@P3: (G, weight, bias) where the weight function weight assigns each arc of G a weight from Zd,
+L196@P3: and the bias function bias assigns each non-source node of G a bias from Zd. Let the number
+L197@P3: 2Our model matches, e.g., the so-called “E1M2” format of the 4-bit floating point standard FP4. Other
+L198@P3: low-bit number encodings have also been considered in the quantized setting (Wang et al., 2025), but we focus
+L199@P3: our exposition on this theoretically cleanest model. While we do not formally prove this, all obtained results
+L200@P3: seem to readily carry over to different low-bit number encodings with only minor modifications to the proofs.
+L201@P3: 4Published as a conference paper at ICLR 2026
+L202@P4: of input and output neurons of G be α and ω, respectively. The evaluation of an input data vector
+L203@P4: ⃗x ∈ (Zd)
+L204@P4: α is a mapping f which assigns each node of G a value (or activation) computed as follows:
+L205@P4: • The i-th input neuron receives the value ⃗x[i];
+L206@P4: • For each neuron v ∈ V (G) with predecessors z1, . . . , zq, we set its value as3
+L207@P4: ReLUd
+L208@P4: 
+L209@P4: (
+L210@P4: P
+L211@P4: i∈[q]
+L212@P4: f(zi) · weight(ziv)) − bias(v)
+L213@P4: 
+L214@P4: .
+L215@P4: The input to ReLUd above is sometimes called the pre-activation value. Given a data point p ∈ D,
+L216@P4: we say that a neuron q is active in G¯ if in the evaluation of p, the neuron q receives a positive
+L217@P4: activation; otherwise, it is inactive. We denote the restriction of f to the output nodes, represented
+L218@P4: as a vector of integers in (Zd)
+L219@P4: ω ordered by the output neurons, as the output of the neural network
+L220@P4: on ⃗x. In the training setting, we will be dealing with d-quantized data points from (Zd)
+L221@P4: α × (Zd)ω.
+L222@P4: The error of a multiset of such data points is equal to the number of misaligned data points, i.e.,
+L223@P4: the number of pairs (⃗x, ⃗y) in the multiset such that the output of (G, weight, bias) on ⃗x differs
+L224@P4: from ⃗y. With these definitions in place, we study d-QNNT as formalized in Section 1.
+L225@P4: d-QNNT is in NP (a certificate consists of a linear number of integers from Zd), which contrasts
+L226@P4: the ∃R-completeness of the training problem in the non-quantized setting. In the non-quantized
+L227@P4: setting, one typically uses a wide variety of loss functions tailored to real-valued errors such as
+L228@P4: ℓ
+L229@P4: 2
+L230@P4: 2
+L231@P4: (Brand et al., 2023)—here, we focus on a simple error count (as also used, e.g., by Judd (1990))
+L232@P4: in order to facilitate a cleaner analysis. The majority of our proofs could nevertheless be directly
+L233@P4: and straightforwardly translated to other loss functions (this is easiest to see for Theorems 1, 2, 4, 5).
+L234@P4: Treewidth. A tree decomposition T of an undirected graph G (or the underlying undirected graph
+L235@P4: of a directed graph) is a pair (T, χ), where T is a tree and χ is a function that assigns each tree
+L236@P4: node t a set χ(t) ⊆ V (G) of vertices such that the following conditions hold: (P1) for every edge
+L237@P4: e ∈ E(G) there is a tree node t such that e ⊆ χ(t); and (P2) for every vertex v ∈ V (G), the set
+L238@P4: of tree nodes t with v ∈ χ(t) induces a non-empty subtree of T. The sets χ(t) are called bags
+L239@P4: of the decomposition T , and χ(t) is the bag associated with the tree node t. The width of a tree
+L240@P4: decomposition (T, χ) is the size of a largest bag minus 1. The treewidth of a graph G, denoted by
+L241@P4: tw(G), is the minimum width over all tree decompositions of G.
+L242@P4: A detailed treatment of parameterized complexity and treewidth is provided in the appendix (⋆).
+L243@P4: 3 LOWER BOUNDS FOR d-QNNT
+L244@P4: In this section, we show that 2-QNNT remains intractable in highly restrictive settings. First, in
+L245@P4: Theorem 1, we establish NP-hardness even if the architecture has no hidden neuron, only one output neuron, and for training without error. Note that Theorem 1 implies NP-hardness even when the
+L246@P4: combined parameter width + depth + ℓ + ω is upper-bounded by a constant. Naturally, the corresponding reduction requires the output neurons to have an arbitrarily large degree. One could hence
+L247@P4: hope that architectures with constant maximum degree can be trained efficiently. In Theorem 2, we
+L248@P4: show that this is not possible by establishing NP-hardness for this setting.
+L249@P4: In both the reductions that underlie Theorems 1 and 2 the number of input neurons is large and in
+L250@P4: particular not upper-bounded by a function of the parameters. Hence, one could hope that a small or
+L251@P4: even constant number of inputs allows for efficient training. We show that this is not the case either.
+L252@P4: First, in Theorem 3, we provide W[2]-hardness for α even if there is no hidden layer. Second, in
+L253@P4: Theorem 4, we show that 2-QNNT remains NP-hard even if there are only 2 inputs and 1 hidden
+L254@P4: layer. Altogether, these results yield the lower bounds depicted in Figure 1.
+L255@P4: Theorem 1 (⋆). 2-QNNT is NP-hard even when restricted to instances where ℓ = 0 and architectures with a single output neuron and no hidden neuron.
+L256@P4: Proof Sketch. We provide a reduction from the NP-hard EXACT SET COVER problem (Karp, 1972)
+L257@P4: where the input consists of a universe U, and a family F of subsets over U. The goal is to find a

@@ -1,0 +1,394 @@
+Title/catalog label: Parrot neural acceleration
+Original URL: https://www.cs.cornell.edu/~asampson/media/papers/npu-micro2012.pdf
+Retrieved: 2026-10-07
+Format: browser-extracted text; not original PDF/HTML bytes. Coverage is recorded in capture.json. PDF P labels are zero-based. No figures or proofs were audited.
+
+L0@P0: Appears in the Proceedings of the 45th Annual IEEE/ACM International Symposium on Microarchitecture, 2012
+L1@P0: Neural Acceleration for General-Purpose Approximate Programs
+L2@P0: Hadi Esmaeilzadeh Adrian Sampson Luis Ceze Doug Burger∗
+L3@P0: University of Washington ∗Microsoft Research
+L4@P0: {hadianeh,asampson,luisceze}@cs.washington.edu dburger@microsoft.com
+L5@P0: Abstract
+L6@P0: This paper describes a learning-based approach to the acceleration
+L7@P0: of approximate programs. We describe the Parrot transformation,
+L8@P0: a program transformation that selects and trains a neural network
+L9@P0: to mimic a region of imperative code. After the learning phase, the
+L10@P0: compiler replaces the original code with an invocation of a low-power
+L11@P0: accelerator called a neural processing unit (NPU). The NPU is tightly
+L12@P0: coupled to the processor pipeline to accelerate small code regions.
+L13@P0: Since neural networks produce inherently approximate results, we
+L14@P0: define a programming model that allows programmers to identify
+L15@P0: approximable code regions—code that can produce imprecise but
+L16@P0: acceptable results. Offloading approximable code regions to NPUs
+L17@P0: is faster and more energy efficient than executing the original code.
+L18@P0: For a set of diverse applications, NPU acceleration provides wholeapplication speedup of 2.3× and energy savings of 3.0× on average
+L19@P0: with quality loss of at most 9.6%.
+L20@P0: 1. Introduction
+L21@P0: Energy efficiency is a primary concern in computer systems. The cessation of Dennard scaling has limited recent improvements in transistor speed and energy efficiency, resulting in slowed general-purpose
+L22@P0: processor improvements. Consequently, architectural innovation has
+L23@P0: become crucial to achieve performance and efficiency gains [10].
+L24@P0: However, there is a well-known tension between efficiency and
+L25@P0: programmability. Recent work has quantified three orders of magnitude of difference in efficiency between general-purpose processors
+L26@P0: and ASICs [21, 36]. Since designing ASICs for the massive base of
+L27@P0: quickly changing, general-purpose applications is currently infeasible,
+L28@P0: practitioners are increasingly turning to programmable accelerators
+L29@P0: such as GPUs and FPGAs. Programmable accelerators provide an
+L30@P0: intermediate point between the efficiency of ASICs and the generality of conventional processors, gaining significant efficiency for
+L31@P0: restricted domains of applications.
+L32@P0: Programmable accelerators exploit some characteristic of an application domain to achieve efficiency gains at the cost of generality.
+L33@P0: For instance, FPGAs exploit copious, fine-grained, and irregular parallelism but perform poorly when complex and frequent accesses
+L34@P0: to memory are required. GPUs exploit many threads and SIMDstyle parallelism but lose efficiency when threads diverge. Emerging accelerators, such as BERET [19], Conservation Cores and QsCores [47, 48], or DySER [18], map regions of general-purpose code
+L35@P0: to specialized hardware units by leveraging either small, frequentlyreused code idioms (BERET and DySER) or larger code regions
+L36@P0: amenable to hardware synthesis (Conservation Cores). Whether an
+L37@P0: application can use an accelerator effectively depends on the degree
+L38@P0: to which it exhibits the accelerator’s required characteristics.
+L39@P0: Tolerance to approximation is one such program characteristic that
+L40@P0: is growing increasingly important. Many modern applications—such
+L41@P0: as image rendering, signal processing, augmented reality, data mining,
+L42@P0: robotics, and speech recognition—can tolerate inexact computation
+L43@P0: in substantial portions of their execution [7,14,28,41]. This tolerance
+L44@P0: can be leveraged for substantial performance and energy gains.
+L45@P0: This paper introduces a new class of programmable accelerators
+L46@P0: that exploit approximation for better performance and energy efficiency. The key idea is to learn how an original region of approximable code behaves and replace the original code with an efficient
+L47@P0: computation of the learned model. This approach contrasts with previous work on approximate computation that extends conventional
+L48@P0: microarchitectures to support selective approximate execution, incurring instruction bookkeeping overheads [1, 8, 11, 29], or requires
+L49@P0: vastly different programming paradigms [4, 24, 26, 32]. Like emerging flexible accelerators [18, 19, 47, 48], our technique automatically
+L50@P0: offloads code segments from programs written in mainstream languages; but unlike prior work, it leverages changes in the semantics
+L51@P0: of the offloaded code.
+L52@P0: We have identified three challenges that must be solved to realize
+L53@P0: effective trainable accelerators:
+L54@P0: 1. A learning algorithm is required that can accurately and efficiently mimic imperative code. We find that neural networks can
+L55@P0: approximate various regions of imperative code and propose the
+L56@P0: Parrot transformation, which exploits this finding (Section 2).
+L57@P0: 2. A language and compilation framework should be developed
+L58@P0: to transform regions of imperative code to neural network evaluations. To this end, we define a programming model and implement
+L59@P0: a compilation workflow to realize the Parrot transformation (Sections 3 and 4). The Parrot transformation starts from regions of
+L60@P0: approximable imperative code identified by the programmer, collects training data, explores the topology space of neural networks,
+L61@P0: trains them to mimic the regions, and finally replaces the original
+L62@P0: regions of code with trained neural networks.
+L63@P0: 3. An architectural interface is necessary to call a neural processing unit (NPU) in place of the original code regions. The NPU
+L64@P0: we designed is tightly integrated with a speculative out-of-order
+L65@P0: core. The low-overhead interface enables acceleration even when
+L66@P0: fine-grained regions of code are transformed. The core communicates both the neural configurations and run-time invocations to
+L67@P0: the NPU through extensions to the ISA (Sections 5 and 6).
+L68@P0: Rather than contributing a new design for neural network implementation, this paper presents a new technique for harnessing hardware
+L69@P0: neural networks in general-purpose computations. We show that using neural networks to replace regions of imperative code is feasible
+L70@P0: and profitable by experimenting with a variety of applications, including FFT, gaming, clustering, and vision algorithms (Section 7). These
+L71@P0: applications do not belong to the class of modeling and prediction
+L72@P0: that typically use neural networks. For each application, we identify a
+L73@P0: single approximable function that dominates the program’s execution
+L74@P0: time. NPU acceleration provides 2.3× average whole-application
+L75@P0: speedup and 3.0× average energy savings for these benchmarks with
+L76@P0: average accuracy greater than 90% in all cases. Continuing work
+L77@P0: on NPU acceleration will provide a new class of accelerators—with
+L78@P0: implementation potential in both analog and digital domains—for
+L79@P0-1: emerging approximate applications.Imperative
+L80@P1: Source
+L81@P1: Code
+L82@P1: Annotated
+L83@P1: Source
+L84@P1: Programmer Code
+L85@P1: Input
+L86@P1: Data
+L87@P1: Processor
+L88@P1: Training
+L89@P1: Inputs Trainer
+L90@P1: (Topology &
+L91@P1: Synaptic
+L92@P1: Weights)
+L93@P1: Trained
+L94@P1: Neural
+L95@P1: Network
+L96@P1: Code
+L97@P1: Generator
+L98@P1: Instrumented
+L99@P1: CPU Binary
+L100@P1: NPU Config
+L101@P1: Core
+L102@P1: NPU
+L103@P1: Programming Code Observation Training Code Generation Execution
+L104@P1: Compilation
+L105@P1: Figure 1: The Parrot transformation at a glance: from annotated code to accelerated execution on an NPU-augmented core.
+L106@P1: 2. Overview
+L107@P1: The Parrot transformation is an algorithmic transformation that converts regions of imperative code to neural networks. Because neural
+L108@P1: networks expose considerable parallelism and can be efficiently accelerated using dedicated hardware, the Parrot transformation can
+L109@P1: yield significant performance and energy improvements. The transformation uses a training-based approach to produce a neural network
+L110@P1: that approximates the behavior of candidate code. A transformed
+L111@P1: program runs primarily on the main core and invokes an auxiliary
+L112@P1: hardware structure, the neural processing unit (NPU), to perform
+L113@P1: neural evaluation instead of executing the replaced code. Figure 1
+L114@P1: shows an overview of our proposed approach, which has three key
+L115@P1: phases: programming, in which the programmer marks code regions
+L116@P1: to be transformed; compilation, in which the compiler selects and
+L117@P1: trains a suitable neural network and replaces the original code with a
+L118@P1: neural network invocation; and execution.
+L119@P1: Programming. During development, the programmer explicitly
+L120@P1: annotates functions that are amenable to approximate execution and
+L121@P1: therefore candidates for the Parrot transformation. Because tolerance of approximation is a semantic property, it is the programmer’s
+L122@P1: responsibility to select code whose approximate execution would
+L123@P1: not compromise the overall reliability of the application. This is
+L124@P1: common practice in the approximate computing literature [8, 11, 41].
+L125@P1: We discuss our programming model in detail in Section 3.
+L126@P1: Compilation. Once the source code is annotated, as shown in Figure 1, the compiler applies the Parrot transformation in three steps:
+L127@P1: (1) code observation; (2) neural network selection and training; and
+L128@P1: (3) binary generation. Section 4 details these steps.
+L129@P1: In the code observation step, the compiler observes the behavior of
+L130@P1: the candidate code region by logging its inputs and outputs. This step
+L131@P1: is similar to profiling. The compiler instruments the program with
+L132@P1: probes on the inputs and outputs of the candidate functions. Then,
+L133@P1: the instrumented program is run using representative input sets such
+L134@P1: as those from a test suite. The probes log the inputs and outputs of
+L135@P1: the candidate functions. The logged input–output pairs constitute the
+L136@P1: training and validation data for the next step.
+L137@P1: The compiler uses the collected input–output data to configure
+L138@P1: and train a neural network that mimics the candidate region. The
+L139@P1: compiler must discover the topology of the neural network as well
+L140@P1: as its synaptic weights. It uses the backpropagation algorithm [40]
+L141@P1: coupled with a topology search (see Section 4.2) to configure and
+L142@P1: train the neural network.
+L143@P1: The final step of the Parrot transformation is code generation. The
+L144@P1: compiler first generates a configuration for the NPU that implements
+L145@P1: the trained neural network. Then, the compiler replaces each call to
+L146@P1: the original function with a series of special instructions that invoke
+L147@P1: the NPU, sending the inputs and receiving the computed outputs.
+L148@P1: The NPU configuration and invocation is performed through ISA
+L149@P1: extensions that are added to the core.
+L150@P1: Execution. During deployment, the transformed program begins
+L151@P1: execution on the main core and configures the NPU. Throughout
+L152@P1: execution, the NPU is invoked to perform a neural network evaluation
+L153@P1: in lieu of executing the original code region. The NPU is integrated as
+L154@P1: a tightly-coupled accelerator in the processor pipeline. Invoking the
+L155@P1: NPU is faster and more energy-efficient than executing the original
+L156@P1: code region, so the program as a whole is accelerated.
+L157@P1: Many NPU implementations are feasible, from all-software to
+L158@P1: specialized analog circuits. Because the Parrot transformation’s effectiveness rests on the efficiency of neural network evaluation, it is
+L159@P1: essential that invoking the NPU be fast and low-power. Therefore,
+L160@P1: we describe a high-performance hardware NPU design based on a
+L161@P1: digital neural network ASIC (Section 6) and architecture support to
+L162@P1: facilitate low-latency NPU invocations (Section 5).
+L163@P1: A key insight in this paper is that it is possible to automatically
+L164@P1: discover and train neural networks that effectively approximate imperative code from diverse application domains. These diverse applications do not belong to the class of modeling and prediction
+L165@P1: applications that typically use neural networks. The Parrot transformation enables a novel use of hardware neural networks to accelerate
+L166@P1: many approximate applications.
+L167@P1: 3. Programming Model
+L168@P1: The Parrot transformation starts with the programmer identifying
+L169@P1: candidate code regions. These candidate regions need to comply with
+L170@P1: certain criteria to be suitable for the transformation. This section
+L171@P1: discusses these criteria as well as the concrete language interface
+L172@P1: exposed to the programmer. After the candidate regions are identified,
+L173@P1: the Parrot transformation is fully automated.
+L174@P1: 3.1. Code Region Criteria
+L175@P1: Candidate code for the Parrot transformation must satisfy three criteria: it must be frequently executed (i.e., a “hot” function); it must
+L176@P1: tolerate imprecision in its computation; and it must have well-defined
+L177@P1: inputs and outputs.
+L178@P1: Hot code. Like any acceleration technique, the Parrot transformation should replace hot code. The Parrot transformation can be
+L179@P1: applied to a wide range of code from small functions to entire algorithms. The code region can contain function calls, loops, and
+L180@P1-2: complex control flow whose cost can be elided by the Parrot transformation. When applied to smaller regions of code, the overhead of1 f l o a t sobel [ [PARROT] ] ( f l o a t [ 3 ] [ 3 ] p ) {
+L181@P2: f l o a t x , y , r ;
+L182@P2: 3 x = ( p [ 0 ] [ 0 ] + 2 ∗ p [ 0 ] [ 1 ] + p [ 0 ] [ 2 ] ) ;
+L183@P2: x = ( p [ 2 ] [ 0 ] + 2 ∗ p [ 2 ] [ 1 ] + p [ 2 ] [ 2 ] ) ;
+L184@P2: 5 y = ( p [ 0 ] [ 2 ] + 2 ∗ p [ 1 ] [ 2 ] + p [ 2 ] [ 2 ] ) ;
+L185@P2: y = ( p [ 0 ] [ 0 ] + 2 ∗ p [ 1 ] [ 1 ] + p [ 2 ] [ 0 ] ) ;
+L186@P2: 7 r = s q r t ( x ∗ x + y ∗ y ) ;
+L187@P2: i f ( r >= 0.7071 ) r = 0.7070;
+L188@P2: 9 re tu rn r ;
+L189@P2: }
+L190@P2: void edgeDetection ( Image& srcImg , Image& dstImg ) {
+L191@P2: 2 f l o a t [ 3 ] [ 3 ] p ; f l o a t p i x e l ;
+L192@P2: fo r ( i n t y = 0; y < s rcImg . h e i g ht ; ++y )
+L193@P2: 4 fo r ( i n t x = 0; x < s rcImg . w idth ; ++x )
+L194@P2: s rcImg . toG rayeScale ( x , y ) ;
+L195@P2: 6 fo r ( i n t y = 0; y < s rcImg . h e i g ht ; ++y )
+L196@P2: fo r ( i n t x = 0; x < sc rImg . w idth ; ++x ) {
+L197@P2: 8 p = s rcImg . build3x3Window ( x , y ) ;
+L198@P2: p i x e l = sobel ( p ) ;
+L199@P2: 10 dstImg . s e t P i x e l ( x , y , p i x e l ) ;
+L200@P2: }
+L201@P2: 12 }
+L202@P2: (a) Original implementation of the Sobel filter
+L203@P2: p[0][0]
+L204@P2: p[1][0]
+L205@P2: p[2][0]
+L206@P2: p[0][1]
+L207@P2: p[1][1]
+L208@P2: p[2][1]
+L209@P2: p[0][2]
+L210@P2: p[1][2]
+L211@P2: p[2][2]
+L212@P2: ...
+L213@P2: r
+L214@P2: Input Layer Hidden Layer Output Layer
+L215@P2: (b) The sobel function transformed to a 9 → 8 → 1 NN
+L216@P2: void edgeDetection ( Image& srcImg , Image& dstImg ) {
+L217@P2: 2 f l o a t [ 3 ] [ 3 ] p ; f l o a t p i x e l ;
+L218@P2: fo r ( i n t y = 0; y < s rcImg . h e i g ht ; ++y )
+L219@P2: 4 fo r ( i n t x = 0; x < s rcImg . w idth ; ++x )
+L220@P2: s rcImg . toG rayeScale ( x , y ) ;
+L221@P2: 6 fo r ( i n t y = 0; y < s rcImg . h e i g ht ; ++y )
+L222@P2: fo r ( i n t x = 0; x < sc rImg . w idth ; ++x ) {
+L223@P2: 8 p = s rcImg . build3x3Window ( x , y ) ;
+L224@P2: NPU_SEND( p [ 0 ] [ 0 ] ) ; NPU_SEND( p [ 0 ] [ 1 ] ) ; NPU_SEND( p [ 0 ] [ 2 ] ) ;
+L225@P2: 10 NPU_SEND( p [ 1 ] [ 0 ] ) ; NPU_SEND( p [ 1 ] [ 1 ] ) ; NPU_SEND( p [ 1 ] [ 2 ] ) ;
+L226@P2: NPU_SEND( p [ 2 ] [ 0 ] ) ; NPU_SEND( p [ 2 ] [ 1 ] ) ; NPU_SEND( p [ 2 ] [ 2 ] ) ;
+L227@P2: 12 NPU_RECEIVE( p i x e l ) ;
+L228@P2: dstImg . s e t P i x e l ( x , y , p i x e l ) ;
+L229@P2: 14 }
+L230@P2: }
+L231@P2: (c) parrot transformed code; an NPU invocation replaces the function call
+L232@P2: Figure 2: Three stages in the transformation of an edge detection algorithm using the Sobel filter.
+L233@P2: NPU invocation needs to be low to make the transformation profitable.
+L234@P2: A traditional performance profiler can reveal hot code.
+L235@P2: For example, edge detection is a widely applicable image processing computation. Many implementations of edge detection use the
+L236@P2: Sobel filter, a 3×3 matrix convolution that approximates the image’s
+L237@P2: intensity gradient. As the bottom box in Figure 2a shows, the local
+L238@P2: Sobel filter computation (the sobel function) is executed many times
+L239@P2: during edge detection, so the convolution is a hot function in the
+L240@P2: overall algorithm and a good candidate for the Parrot transformation.
+L241@P2: Approximability. Code regions identified for the Parrot transformation will behave approximately during execution. Therefore, programs must incorporate application-level tolerance of imprecision.
+L242@P2: This requires the programmer to ensure that imprecise results from
+L243@P2: candidate regions will not cause catastrophic failures. As prior work
+L244@P2: on approximate programming [2, 8, 29, 41, 43] has shown, it is not
+L245@P2: difficult to deem regions approximable.
+L246@P2: Beyond determining that a code region may safely produce imprecise results, the programmer need not reason about the mapping
+L247@P2: between the code and a neural network. While neural networks are
+L248@P2: more precise for some functions than they are for others, we find that
+L249@P2: they can accurately mimic many functions from real programs (see
+L250@P2: Section 7). Intuitively, however, they are less likely to effectively
+L251@P2: approximate chaotic functions, in which even large training sets can
+L252@P2: fail to capture enough of the function’s behavior to generalize to
+L253@P2: new inputs. However, the efficacy of neural network approximation
+L254@P2: can be assessed empirically. The programmer should annotate all
+L255@P2: approximate code; the compiler can then assess the accuracy of a
+L256@P2: trained neural network in replacing each function and select only
+L257@P2: those functions for which neural networks are a good match.
+L258@P2: In the Sobel filter example, parts of the code that process the pixels
+L259@P2: can be approximated. The code region that computes pixel addresses
+L260@P2: and builds the window for the sobel function (line 8 in the bottom box
+L261@P2: of Figure 2a) needs to be precise to avoid memory access violations.
+L262@P2: However, the sobel function, which estimates the intensity gradient of
+L263@P2: a pixel, is fundamentally approximate. Thus, approximate execution
+L264@P2: of this function will not result in catastrophic failure and, moreover,
+L265@P2: is unlikely to cause major degradation of the overall edge detection
+L266@P2: quality. These properties make the sobel function a suitable candidate
+L267@P2: region for approximate execution.
+L268@P2: Well-defined inputs and outputs. The Parrot transformation replaces a region of code with a neural network that has a fixed number
+L269@P2: of inputs and outputs. Therefore, it imposes two restrictions on the
+L270@P2: code regions that can feasibly be replaced. First, the inputs to and
+L271@P2: outputs from the candidate region must be of a fixed size known at
+L272@P2: compile time. For example, the code may not dynamically write an
+L273@P2: unbounded amount of data to a variable-length array. Second, the
+L274@P2: code must be pure: it must not read any data other than its inputs nor
+L275@P2: affect any state other than its outputs (e.g., via a system call). These
+L276@P2: two criteria can be checked statically.
+L277@P2: The sobel function in Figure 2a complies with these requirements.
+L278@P2: It takes nine statically identifiable floating-point numbers as input,
+L279@P2: produces a single output, and has no side effects.
+L280@P2: 3.2. Annotation
+L281@P2: In this work, we apply the Parrot transformation to entire functions.
+L282@P2: To identify candidate functions, the programmer marks them with
+L283@P2: an annotation (e.g., using C++11 [[annotation]] syntax as shown in
+L284@P2: Figure 2a). The programmer is responsible for ensuring that the
+L285@P2: function has no side effects, reads only its arguments, and writes only
+L286@P2: its return value. Each argument type and the return type must have a
+L287@P2: fixed size. If any of these types is a pointer type, it must point to a
+L288@P2: fixed-size value; this referenced value is then considered the neural
+L289@P2: network input or output rather than the pointer itself. If the function
+L290@P2: needs to return multiple values, it can return a fixed-size array or a C
+L291@P2: struct. After the programmer annotates the candidate functions, the
+L292@P2: Parrot transformation is completely automatic and transparent: no
+L293@P2: further programmer intervention is necessary.
+L294@P2: Other annotation approaches. Our current system depends on explicit programmer annotations at the granularity of functions. While
+L295@P2: we find that explicit function annotations are straightforward to apply
+L296@P2: (see Section 7), static analysis techniques could be used to further
+L297@P2-3: simplify the annotation process. For example, in an approximationaware programming language such as EnerJ [41], the programmeruses type qualifiers to specify which data is non-critical and may be
+L298@P3: approximated. In such a system, the Parrot transformation can be
+L299@P3: automatically applied to any block of code that only affects approximate data. That is, the candidate regions for the Parrot transformation
+L300@P3: would be implicitly defined.
+L301@P3: Like prior work on approximate computing, we acknowledge
+L302@P3: that some programmer guidance is essential when identifying errortolerant code [2, 8, 11, 29, 41]. Tolerance to approximation is an
+L303@P3: inherently application-specific property. Fortunately, language-level
+L304@P3: techniques like EnerJ demonstrate that the necessary code annotations
+L305@P3: can be intuitive and straightforward for programmers to apply.
+L306@P3: 4. Compilation Workflow
+L307@P3: Once the program has been annotated, the compilation workflow
+L308@P3: implements the Parrot transformation in three steps: observation,
+L309@P3: training, and instrumented binary generation.
+L310@P3: 4.1. Code Observation
+L311@P3: In the first phase, the compiler collects input–output pairs for the
+L312@P3: target code that reflect real program executions. This in-context
+L313@P3: observation allows the compiler to train the neural network on a
+L314@P3: realistic data set. The compiler produces an instrumented binary for
+L315@P3: the source program that includes probes on the input and output of the
+L316@P3: annotated function. Each time the candidate function executes, the
+L317@P3: probes record its inputs and outputs. The program is run repeatedly
+L318@P3: using test inputs. The output of this phase is a training data set: each
+L319@P3: input–output pair represents a sample for the training algorithm. The
+L320@P3: system also measures the minimum and maximum value for each
+L321@P3: input and output; the NPU normalizes values using these ranges
+L322@P3: during execution.
+L323@P3: The observation phase resembles the profiling runs used in profileguided compilation. Specifically, it requires representative test inputs
+L324@P3: for the application. The inputs may be part of an existing test suite or
+L325@P3: randomly generated. In many cases, a small number of application
+L326@P3: test inputs are sufficient to train a neural network because the candidate function is executed many times in a single application run. In
+L327@P3: our edge detection example, the sobel function runs for every pixel in
+L328@P3: the input image. So, as Section 7 details, training sobel on a single
+L329@P3: 512×512 test image provides 262144 training data points and results
+L330@P3: in acceptable accuracy when computing on unseen images.
+L331@P3: Although we do not explore it in this paper, automatic input generation could help cover the space of possible inputs and thereby achieve
+L332@P3: a more accurate trained neural network. In particular, the compiler
+L333@P3: could synthesize new inputs by interpolating values between existing
+L334@P3: test cases.
+L335@P3: 4.2. Training
+L336@P3: The compiler uses the training data to produce a neural network that
+L337@P3: replaces the original function. There are a variety of types of artificial
+L338@P3: neural networks in the literature, but we narrow the search space to
+L339@P3: multilayer perceptrons (MLPs) due to their broad applicability.
+L340@P3: The compiler uses the backpropagation algorithm [40] to train the
+L341@P3: neural network. Backpropagation is a gradient descent algorithm
+L342@P3: that iteratively adjusts the weights of the neural network according to
+L343@P3: each input–output pair. The learning rate, a value between 0 and 1, is
+L344@P3: the step size of the gradient descent and identifies how much a single
+L345@P3: example affects the weights. Since backpropagation on MLPs is not
+L346@P3: convex and the compilation procedure is automatic, we choose a small
+L347@P3: learning rate of 0.01. Larger steps can cause oscillation in the training
+L348@P3: and prevent convergence. One complete pass over the training data
+L349@P3: is called an epoch. Since the learning rate is small, the epoch count
+L350@P3: should be large enough to ensure convergence. Empirically, we
+L351@P3: find that 5000 epochs achieve a good balance of generalization and
+L352@P3: accuracy. Larger epoch counts can cause overtraining and adversely
+L353@P3: affect the generalization ability of the network while smaller epoch
+L354@P3: counts may result in poor accuracy.
+L355@P3: Neural network topology selection. In addition to running backpropagation, this phase selects a network topology that balances between accuracy and efficiency. An MLP consists of a fully-connected
+L356@P3: set of neurons organized into layers: the input layer, any number of
+L357@P3: “hidden” layers, and the output layer (see Figure 2b). A larger, more
+L358@P3: complex network offers better accuracy potential but is likely to be
+L359@P3: slower and less power-efficient than a small, simple neural network.
+L360@P3: To choose the topology, we use a simple search algorithm guided
+L361@P3: by the mean squared error of the neural network when tested on an
+L362@P3: unseen subset of the observed data. The error evaluation uses a typical
+L363@P3: cross-validation approach: the compiler partitions the data collected
+L364@P3: during observation into a training set, 70% of the observed data, and
+L365@P3: a test set, the remaining 30%. The topology search algorithm trains
+L366@P3: many different neural network topologies using the training set and
+L367@P3: chooses the one with the highest accuracy on the test set and the
+L368@P3: lowest latency on the NPU (prioritizing accuracy).
+L369@P3: The space of possible topologies is large, so we restrict the search
+L370@P3: to neural networks with at most two hidden layers. We also limit
+L371@P3: the number of neurons per hidden layer to powers of two up to
+L372@P3: 32. (The numbers of neurons in the input and output layers are
+L373@P3: predetermined based on the number of inputs and outputs in the
+L374@P3: candidate function.) These choices limit the search space to 30
+L375@P3: possible topologies. The maximum number of hidden layers and
+L376@P3: maximum neurons per hidden layer are compilation options and
+L377@P3: can be specified by the user. Although the candidate topologies
+L378@P3: can be trained in parallel, enlarging the search space increases the
+L379@P3: compilation time.
+L380@P3: The output from this phase consists of a neural network topology—
+L381@P3: specifying the number of layers and the number of neurons in each
+L382@P3: layer—along with the weight for each neuron and the normalization
+L383@P3: range for each input and output. Figure 2b shows the three-layer
+L384@P3: MLP that replaces the sobel function. Each neuron in the network
+L385@P3: performs a weighted sum on its inputs and then applies a sigmoid
+L386@P3: function to the result of weighted sum.
+
+

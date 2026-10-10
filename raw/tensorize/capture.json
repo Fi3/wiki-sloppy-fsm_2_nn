@@ -1,0 +1,16 @@
+{
+  "original_url": "https://www.pure.ed.ac.uk/ws/portalfiles/portal/493345271/BrauckmannEtalCGO2025TENSORIZEFastSynthesisofTensorPrograms.pdf",
+  "aliases": [],
+  "retrieved_on": "2026-10-07",
+  "segments": [
+    {
+      "url": "https://www.research.ed.ac.uk/en/publications/tensorize-fast-synthesis-of-tensor-programs-from-legacy-code-usin/",
+      "total_browser_lines": 193,
+      "captured_lines": 193,
+      "missing_line_ranges": [],
+      "text_extraction_complete": true
+    }
+  ],
+  "review_status": "first-pass; source summary specifies reviewed scope",
+  "limitations": "Text only; original file bytes and linked assets were not downloaded. Browser extraction can omit equations and figures even with complete line coverage."
+}

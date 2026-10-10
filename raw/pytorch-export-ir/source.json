@@ -1,0 +1,10 @@
+{
+  "title": "torch.export IR Specification",
+  "document": "raw/pytorch-export-ir/document.txt",
+  "original_filename": "web-extracted-text",
+  "url": "https://docs.pytorch.org/docs/main/user_guide/torch_compiler/export/ir_spec.html",
+  "imported_at": "2026-10-07T09:53:03+00:00",
+  "sha256": "bec4ae40c86c5ad0bda2dd3d253a5e2456d69dfb69aa62c7ffd235a796bdd903",
+  "capture_format": "browser-extracted-text",
+  "retrieved_on": "2026-10-07"
+}

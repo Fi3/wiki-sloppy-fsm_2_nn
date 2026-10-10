@@ -1,0 +1,16 @@
+{
+  "original_url": "https://docs.pytorch.org/docs/stable/torch.compiler.html",
+  "aliases": [],
+  "retrieved_on": "2026-10-07",
+  "segments": [
+    {
+      "url": "https://docs.pytorch.org/docs/2.14/user_guide/torch_compiler/torch.compiler.html",
+      "total_browser_lines": 505,
+      "captured_lines": 505,
+      "missing_line_ranges": [],
+      "text_extraction_complete": true
+    }
+  ],
+  "review_status": "first-pass; source summary specifies reviewed scope",
+  "limitations": "Text only; original file bytes and linked assets were not downloaded. Browser extraction can omit equations and figures even with complete line coverage."
+}

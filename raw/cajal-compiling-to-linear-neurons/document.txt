@@ -1,0 +1,243 @@
+Title/catalog label: Cajal compiling to linear neurons
+Original URL: https://arxiv.org/abs/2511.13769
+Retrieved: 2026-10-07
+Format: browser-extracted text; not original PDF/HTML bytes. Coverage is recorded in capture.json. PDF P labels are zero-based. No figures or proofs were audited.
+
+L0: cite0†Search cite1†Submit cite2†Donate†info.arxiv.org cite3†Log in L1: 
+L2: Search arXiv [Input: Search papers by title, author, abstract, or ID...] [Input] [Input]
+L3: 
+L4: Press Enter to search · cite4†Advanced search L5: 
+L6: # Computer Science > Machine Learning
+L7: 
+L8: [Submitted on 14 Nov 2025]
+L9: # Title:Compiling to linear neurons
+L10: 
+L11: Authors:cite5†Joey Velez-Ginorio , cite6†Nada Amin , cite7†Konrad Kording , cite8†Steve Zdancewic L12: 
+L13: View a PDF of the paper titled Compiling to linear neurons, by Joey Velez-Ginorio and 3 other authors
+L14: 
+L15: cite9†View PDF L16: > Abstract:We don't program neural networks directly. Instead, we rely on an indirect style where learning algorithms, like gradient descent, determine a neural network's function by learning from data. This indirect style is often a virtue; it empowers us to solve problems that were previously impossible. But it lacks discrete structure. We can't compile most algorithms into a neural network -- even if these algorithms could help the network learn.
+L17: This limitation occurs because discrete algorithms are not obviously differentiable, making them incompatible with the gradient-based learning algorithms that determine a neural network's function. To address this, we introduce $\textsf{Cajal}$: a typed, higher-order and linear programming language intended to be a minimal vehicle for exploring a direct style of programming neural networks.
+L18: We prove $\textsf{Cajal}$ programs compile to linear neurons, allowing discrete algorithms to be expressed in a differentiable form compatible with gradient-based learning. With our implementation of $\textsf{Cajal}$, we conduct several experiments where we link these linear neurons against other neural networks to determine part of their function prior to learning. Linking with these neurons allows networks to learn faster, with greater data-efficiency, and in a way that's easier to debug.
+L19: A key lesson is that linear programming languages provide a path towards directly programming neural networks, enabling a rich interplay between learning and the discrete structures of ordinary programming.
+L20: Subjects:  | Machine Learning (cs.LG); Programming Languages (cs.PL)
+L21: Cite as:  | cite10†arXiv:2511.13769 [cs.LG]
+L22:    | (or cite11†arXiv:2511.13769v1 [cs.LG] for this version)
+L23:    | cite12†https://doi.org/10.48550/arXiv.2511.13769†doi.org arXiv-issued DOI via DataCite
+L24: ## Submission history
+L25: 
+L26: From: Joey Velez-Ginorio [cite13†view email ]
+L27: [v1] Fri, 14 Nov 2025 22:19:50 UTC (2,498 KB)
+L28: 
+L29: Full-text links:
+L30: 
+L31: ## Access Paper:
+L32: 
+L33: View a PDF of the paper titled Compiling to linear neurons, by Joey Velez-Ginorio and 3 other authors
+L34: 
+L35:   * cite9†View PDF L36:   * cite14†TeX Source L37: 
+L38: cite15†view license†creativecommons.org L39: 
+L40: ### Current browse context:
+L41: 
+L42: cs.LG
+L43: 
+L44: cite16†< prev |   cite17†next > L45: 
+L46: cite18†new | cite19†recent | cite20†2025-11 L47: 
+L48: Change to browse by:
+L49: 
+L50: cite21†cs L51: cite22†cs.PL L52: ### References & Citations
+L53: 
+L54:   * cite23†NASA ADS†ui.adsabs.harvard.edu L55:   * cite24†Google Scholar†scholar.google.com L56:   * cite25†Semantic Scholar†api.semanticscholar.org L57: 
+L58: [Button: export BibTeX citation] Loading...
+L59: 
+L60: ## BibTeX formatted citation
+L61: 
+L62: [Button: ×]
+L63: 
+L64: loading...
+L65: 
+L66: Data provided by:
+L67: 
+L68: ### Bookmark
+L69: 
+L70: [Input] Bibliographic Tools
+L71: # Bibliographic and Citation Tools
+L72: 
+L73: [Input] Bibliographic Explorer Toggle
+L74: 
+L75: Bibliographic Explorer (cite26†What is the Explorer?†info.arxiv.org )
+L76: 
+L77: [Input] Connected Papers Toggle
+L78: 
+L79: Connected Papers (cite27†What is Connected Papers?†www.connectedpapers.com )
+L80: 
+L81: [Input] Litmaps Toggle
+L82: 
+L83: Litmaps (cite28†What is Litmaps?†www.litmaps.co )
+L84: 
+L85: [Input] scite.ai Toggle
+L86: 
+L87: scite Smart Citations (cite29†What are Smart Citations?†www.scite.ai )
+L88: 
+L89: [Input] Code, Data, Media
+L90: # Code, Data and Media Associated with this Article
+L91: 
+L92: [Input] alphaXiv Toggle
+L93: 
+L94: alphaXiv (cite30†What is alphaXiv?†alphaxiv.org )
+L95: 
+L96: [Input] Links to Code Toggle
+L97: 
+L98: CatalyzeX Code Finder for Papers (cite31†What is CatalyzeX?†www.catalyzex.com )
+L99: 
+L100: [Input] DagsHub Toggle
+L101: 
+L102: DagsHub (cite32†What is DagsHub?†dagshub.com )
+L103: 
+L104: [Input] GotitPub Toggle
+L105: 
+L106: Gotit.pub (cite33†What is GotitPub?†gotit.pub )
+L107: 
+L108: [Input] Huggingface Toggle
+L109: 
+L110: Hugging Face (cite34†What is Huggingface?†huggingface.co )
+L111: 
+L112: [Input] ScienceCast Toggle
+L113: ScienceCast (cite35†What is ScienceCast?†sciencecast.org )
+L114: 
+L115: [Input] Demos
+L116: # Demos
+L117: 
+L118: [Input] Replicate Toggle
+L119: 
+L120: Replicate (cite36†What is Replicate?†replicate.com )
+L121: 
+L122: [Input] Spaces Toggle
+L123: 
+L124: Hugging Face Spaces (cite37†What is Spaces?†huggingface.co )
+L125: 
+L126: [Input] Spaces Toggle
+L127: 
+L128: TXYZ.AI (cite38†What is TXYZ.AI?†txyz.ai )
+L129: 
+L130: [Input] Related Papers
+L131: # Recommenders and Search Tools
+L132: 
+L133: [Input] Link to Influence Flower
+L134: 
+L135: Influence Flower (cite39†What are Influence Flowers?†influencemap.cmlab.dev )
+L136: 
+L137: [Input] Core recommender toggle
+L138: 
+L139: CORE Recommender (cite40†What is CORE?†core.ac.uk )
+L140: 
+L141: [Input] IArxiv recommender toggle
+L142: 
+L143: IArxiv Recommender (cite41†What is IArxiv?†iarxiv.org )
+L144: 
+L145:   * Author
+L146:   * Venue
+L147:   * Institution
+L148:   * Topic
+L149: 
+L150: [Input] About arXivLabs
+L151: # arXivLabs: experimental projects with community collaborators
+L152: 
+L153: arXivLabs is a framework that allows collaborators to develop and share new arXiv features directly on our website.
+L154: 
+L155: Both individuals and organizations that work with arXivLabs have embraced and accepted our values of openness, community, excellence, and user data privacy. arXiv is committed to these values and only works with partners that adhere to them.
+L156: Have an idea for a project that will add value for arXiv's community? cite42†Learn more about arXivLabs†info.arxiv.org .
+L157: 
+L158: cite43†Which authors of this paper are endorsers? | Disable MathJax (cite44†What is MathJax?†info.arxiv.org )
+L159: 
+L160: We gratefully acknowledge support from our major funders, cite45†member institutions†info.arxiv.org , , and all contributors.
+L161: cite46†About†info.arxiv.org · cite47†Help†info.arxiv.org · cite48†Contact†info.arxiv.org · cite49†Subscribe†info.arxiv.org · cite50†Copyright†info.arxiv.org · cite51†Privacy†info.arxiv.org · cite52†Accessibility†info.arxiv.org · cite53†Operational Status (opens in new tab)†status.arxiv.org L162: 
+L163: Major funding support from
+
+=== Publisher bibliographic excerpt surfaced in web search ===
+Compiling to Linear Neurons | Proceedings of the ACM on Programming Languages (https://doi.org/10.1145/3776677)
+citeturn63search0 [wordlim: 200] Published: 9 months ago; Crawled: last month; To generate our predictions we just run the original program and observe what it does and doesn’t evaluate to. ... However, it is not easy to use induction to conclude the compiler preserves the behavior of $No alternative text available$, which is the only way we can determine anything about the compiled neurons \overrightarrow{v}. ... To directly program a neural network, Cajal(⊸, 𝟚) must compile to linear neurons that specify the conditional while linking against neurons that can convert images of any number into an image of a one. ... The direct model (Fig. 3b) is three 3-layer neural networks in parallel, which are wired together according to the conditional compiling rule in Fig. ... These hidden layer neurons connect to an output layer of 2 neurons, where each neuron represents a distinct classification (✓ or ✘). ... An extended version of this paper with appendices is available at https://arxiv.org/pdf/2511.13769 ... MP4 File - Compiling to Linear Neurons
+
+# Compiling to Linear Neurons
+
+Authors: Joey Velez-Ginorio
+
+Image
+
+Joey Velez-Ginorio
+
+University of Pennsylvania, Philadelphia, USA
+
+https://orcid.org/0009-0004-6451-5107
+
+View Profile
+
+, Nada Amin
+
+Image
+
+Nada Amin
+
+Harvard University, Cambridge, USA
+
+https://orcid.org/0000-0002-0830-7248
+
+View Profile
+
+, Konrad Kording
+
+Image
+
+Konrad Kording
+
+University of Pennsylvania, Philadelphia, USA
+
+https://orcid.org/0000-0001-8408-4499
+
+View Profile
+
+, Steve Zdancewic
+
+Image
+
+Steve Zdancewic
+
+University of Pennsylvania, Philadelphia, USA
+
+https://orcid.org/0000-0002-3516-1512
+
+View Profile
+
+Authors Info & Claims
+
+Proceedings of the ACM on Programming Languages, Volume 10, Issue POPL
+
+Article No.: 35, Pages 1010 - 1035
+
+https://doi.org/10.1145/3776677
+
+Published: 08 January 2026 Publication History
+
+Additional metrics (Premium feature)
+
+1 citation 708 Downloads
+
+To get citation alerts, you must have Premium access.
+
+Learn moreSign in
+
+To use the Save to Binder feature, you must have Premium access.
+
+Learn moreSign in
+
+[Input]
+
+PDF/eReader
+
+[Button: Abstract]AI Summary
+
+To view this AI-generated summary, you must have Premium access.
+
+Learn moreSign in
+
+
+

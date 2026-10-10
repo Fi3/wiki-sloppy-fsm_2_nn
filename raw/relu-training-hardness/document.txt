@@ -1,0 +1,310 @@
+Tight Hardness Results for Training Depth-2 ReLU Networks
+Supplied URL: https://drops.dagstuhl.de/entities/document/10.4230/LIPIcs.ITCS.2021.22
+Retrieved on: 2026-10-07
+Format: text extracted by the web browsing tool, not the original PDF/HTML bytes.
+L numbers refer to the browser extraction. PDF P numbers are zero-based.
+A complete text extraction does not imply that every figure, equation, or proof was reviewed.
+Read capture.json for captured URLs, line coverage, and missing ranges.
+
+
+=== Segment 1: https://drops.dagstuhl.de/entities/document/10.4230/LIPIcs.ITCS.2021.22 ===
+
+L0:   * cite0†Dagstuhl Publishing
+L1:     * cite1†Dagstuhl Publishing†www.dagstuhl.de cite2†Dagstuhl Publishing Team†www.dagstuhl.de
+L2:     *     * cite3†Publication Ethics
+L3:     * cite4†GenAI Statement
+L4:     *     * cite5†About DROPS
+L5:     * cite2†Contact†www.dagstuhl.de
+L6:   * cite0†Series
+L7:     * cite6†LIPIcs – Leibniz International Proceedings in Informatics
+L8:     * cite7†OASIcs – Open Access Series in Informatics
+L9:     * cite8†Dagstuhl Follow-Ups
+L10:     * cite9†Schloss Dagstuhl Jahresbericht
+L11:     *     * cite10†Discontinued Series
+L12:   * cite0†Journals
+L13:     * cite11†DARTS – Dagstuhl Artifacts Series
+L14:     * cite12†Dagstuhl Reports
+L15:     * cite13†Dagstuhl Manifestos
+L16:     * cite14†LITES – Leibniz Transactions on Embedded Systems
+L17:     * cite15†TGDK – Transactions on Graph Data and Knowledge
+L18:   * cite0†Conferences
+L19:     * cite16†AFT
+L20:     * cite17†AIB
+L21:     * cite18†AofA
+L22:     * cite19†APPROX
+L23:     * cite20†ATMOS
+L24:     * cite21†CALCO
+L25:     * cite22†CCC
+L26:     * cite23†CONCUR
+L27:     * cite24†COSIT
+L28:     * cite25†CP
+L29:     * cite26†CPM
+L30:     * cite27†CSL
+L31:     * cite28†DISC
+L32:     * cite29†DITAM
+L33:     * cite30†DNA
+L34:     * cite31†ECOOP
+L35:     * cite32†ECRTS
+L36:     * cite33†ESA
+L37:     * cite34†FAB
+L38:     * cite35†FMBC
+L39:     * cite36†FORC
+L40:     * cite37†FSCD
+L41:     * cite38†FSTTCS
+L42:     * cite39†FUN
+L43:     * cite40†GD
+L44:     * cite41†GIScience
+L45:     * cite42†ICALP
+L46:     * cite43†ICDT
+L47:     * cite44†ICPEC
+L48:     * cite45†IPEC
+L49:     * cite46†iPMVM
+L50:     * cite47†ISAAC
+L51:     * cite48†ITC
+L52:     * cite49†ITCS
+L53:     * cite50†ITP
+L54:     * cite51†LDK
+L55:     * cite52†MFCS
+L56:     * cite53†Microservices
+L57:     * cite54†NG-RES
+L58:     * cite55†OPODIS
+L59:     * cite56†PARMA
+L60:     * cite57†RANDOM
+L61:     * cite58†SAND
+L62:     * cite59†SAT
+L63:     * cite60†SEA
+L64:     * cite61†SLATE
+L65:     * cite62†SNAPL
+L66:     * cite63†SoCG
+L67:     * cite64†STACS
+L68:     * cite65†SWAT
+L69:     * cite66†TIME
+L70:     * cite67†Tokenomics
+L71:     * cite68†TQC
+L72:     * cite69†TYPES
+L73:     * cite70†WABI
+L74:     * cite71†WCET
+L75: 
+L76:   * cite0†Artifacts
+L77:     * cite72†Supplementary Materials (Software, Datasets, ...)
+L78:     * cite73†dblp Artifacts
+L79:     *     * cite11†DARTS (Evaluated Artifacts)
+L80: 
+L81: Document cite74†Image: Open Access Logo
+L82: 
+L83: [Input]
+L84: `https://doi.org/10.4230/LIPIcs.ITCS.2021.22`
+L85: 
+L86:   * cite75†Export XML
+L87:   * cite76†Export ACM-XML
+L88:   * cite77†Export DOAJ-XML
+L89:   * cite78†Export Schema.org
+L90:   * cite79†Export BibTeX
+L91: 
+L92: * * *
+L93: # Tight Hardness Results for Training Depth-2 ReLU Networks
+L94: ### Authors cite80†Surbhi Goel , cite81†Adam Klivans , cite82†Pasin Manurangsi , cite83†Daniel Reichman
+L95: 
+L96: * * *
+L97: 
+L98:   * Part of: Volume: cite84†12th Innovations in Theoretical Computer Science Conference (ITCS 2021)
+L99: Part of: Series: cite6†Leibniz International Proceedings in Informatics (LIPIcs)
+L100: Part of: Conference: cite49†Innovations in Theoretical Computer Science Conference (ITCS)
+L101:   * License:   cite85†Creative Commons Attribution 3.0 Unported license†creativecommons.org
+L102:   * Publication Date: 2021-02-04
+L103: 
+L104: * * *
+L105: 
+L106: cite86†PDF
+L107: ## File
+L108: 
+L109: cite86†PDF LIPIcs.ITCS.2021.22.pdf
+L110: 
+L111:   * Filesize: 0.54 MB
+L112:   * 14 pages
+L113: 
+L114: ## Document Identifiers
+L115: 
+L116:   * DOI: cite87†10.4230/LIPIcs.ITCS.2021.22†doi.org
+L117:   * URN: cite88†urn:nbn:de:0030-drops-135611†nbn-resolving.org
+L118: 
+L119: ## Subject Classification
+L120: 
+L121: ##### ACM Subject Classification
+L122: 
+L123:   * Theory of computation → Machine learning theory
+L124:   * Theory of computation → Problems, reductions and completeness
+L125: 
+L126: ##### Keywords
+L127: 
+L128:   * ReLU
+L129:   * Learning Algorithm
+L130:   * Running Time Lower Bound
+L131: ## Metrics
+L132: 
+L133:   * cite0†Access Statistics
+L134:   * Total Accesses (updated on a weekly basis)
+L135: 
+L136: 0
+L137: 
+L138: Document
+L139: 
+L140: 0
+L141: 
+L142: Metadata
+L143: 
+L144: ##
+L145: ## Abstract
+L146:     We prove several hardness results for training depth-2 neural networks with the ReLU activation function; these networks are simply weighted sums (that may include negative coefficients) of ReLUs. Our goal is to output a depth-2 neural network that minimizes the square loss with respect to a given training set. We prove that this problem is NP-hard already for a network with a single ReLU.
+L147: We also prove NP-hardness for outputting a weighted sum of k ReLUs minimizing the squared error (for k > 1) even in the realizable setting (i.e., when the labels are consistent with an unknown depth-2 ReLU network). We are also able to obtain lower bounds on the running time in terms of the desired additive error ε.
+L148: To obtain our lower bounds, we use the Gap Exponential Time Hypothesis (Gap-ETH) as well as a new hypothesis regarding the hardness of approximating the well known Densest κ-Subgraph problem in subexponential time (these hypotheses are used separately in proving different lower bounds). For example, we prove that under reasonable hardness assumptions, any proper learning algorithm for finding the best fitting ReLU must run in time exponential in 1/ε².
+L149: Together with a previous work regarding improperly learning a ReLU [Surbhi Goel et al., 2017], this implies the first separation between proper and improper algorithms for learning a ReLU. We also study the problem of properly learning a depth-2 network of ReLUs with bounded weights giving new (worst-case) upper bounds on the running time needed to learn such networks both in the realizable and agnostic settings.
+L150: Our upper bounds on the running time essentially matches our lower bounds in terms of the dependency on ε.
+L151: ## Cite As Get BibTex
+L152: 
+L153: Surbhi Goel, Adam Klivans, Pasin Manurangsi, and Daniel Reichman. Tight Hardness Results for Training Depth-2 ReLU Networks. In 12th Innovations in Theoretical Computer Science Conference (ITCS 2021). Leibniz International Proceedings in Informatics (LIPIcs), Volume 185, pp. 22:1-22:14, Schloss Dagstuhl – Leibniz-Zentrum für Informatik (2021) cite87†https://doi.org/10.4230/LIPIcs.ITCS.2021.22†doi.org
+L154: ##### BibTex
+L155: 
+L156:     @InProceedings{goel_et_al:LIPIcs.ITCS.2021.22,
+L157:       author =	{Goel, Surbhi and Klivans, Adam and Manurangsi, Pasin and Reichman, Daniel},
+L158:       title =	{{Tight Hardness Results for Training Depth-2 ReLU Networks}},
+L159:       booktitle =	{12th Innovations in Theoretical Computer Science Conference (ITCS 2021)},
+L160:       pages =	{22:1--22:14},
+L161:       series =	{Leibniz International Proceedings in Informatics (LIPIcs)},
+L162:       ISBN =	{978-3-95977-177-1},
+L163:       ISSN =	{1868-8969},
+L164:       year =	{2021},
+L165:       volume =	{185},
+L166:       editor =	{Lee, James R.},
+L167:       publisher =	{Schloss Dagstuhl -- Leibniz-Zentrum f{\"u}r Informatik},
+L168:       address =	{Dagstuhl, Germany},
+L169:       URL =		{https://drops.dagstuhl.de/entities/document/10.4230/LIPIcs.ITCS.2021.22},
+L170:       URN =		{urn:nbn:de:0030-drops-135611},
+L171:       doi =		{10.4230/LIPIcs.ITCS.2021.22},
+L172:       annote =	{Keywords: ReLU, Learning Algorithm, Running Time Lower Bound}
+L173:     }
+L174: @InProceedings{goel_et_al:LIPIcs.ITCS.2021.22, author = {Goel, Surbhi and Klivans, Adam and Manurangsi, Pasin and Reichman, Daniel}, title = {{Tight Hardness Results for Training Depth-2 ReLU Networks}}, booktitle = {12th Innovations in Theoretical Computer Science Conference (ITCS 2021)}, pages = {22:1--22:14}, series = {Leibniz International Proceedings in Informatics (LIPIcs)}, ISBN = {978-3-95977-177-1}, ISSN = {1868-8969}, year = {2021}, volume = {185}, editor = {Lee, James R.}, publisher = {Schloss Dagstuhl -- Leibniz-Zentrum f{\"u}r Informatik}, address = {Dagstuhl, Germany}, URL = {https://drops.dagstuhl.de/entities/document/10.4230/LIPIcs.ITCS.2021.22}, URN = {urn:nbn:de:0030-drops-135611}, doi = {10.4230/LIPIcs.ITCS.2021.22}, annote = {Keywords: ReLU, Learning Algorithm, Running Time Lower Bound} }
+L175: [Button: Close] Copy BibTex To Clipboard
+L176: ## Author Details
+L177: 
+L178: Surbhi Goel goel.surbhi@microsoft.com
+L179: 
+L180:   * Microsoft Research, New York, NY, USA
+L181: 
+L182: Adam Klivans klivans@cs.utexas.edu
+L183: 
+L184:   * The University of Texas at Austin, TX, USA
+L185: 
+L186: Pasin Manurangsi pasin@google.com
+L187: 
+L188:   * Google Research, Mountain View, CA, USA
+L189: 
+L190: Daniel Reichman dreichman@wpi.edu
+L191: 
+L192:   * Worcester Polytechnic Institute, MA, USA
+L193: 
+L194: ## Acknowledgements
+L195: 
+L196: We would like to thank Amit Daniely, Amir Globerson, Meena Jagadeesan and Cameron Musco for interesting discussions.
+L197: ## References
+L198:   1. Sarah R. Allen, Ryan O'Donnell, and David Witmer. How to refute a random CSP. In FOCS, pages 689-708, 2015. URL: cite89†https://doi.org/10.1109/FOCS.2015.48†doi.org .
+L199:   2. Zeyuan Allen-Zhu, Yuanzhi Li, and Yingyu Liang. Learning and generalization in overparameterized neural networks, going beyond two layers. In Advances in neural information processing systems, pages 6155-6166, 2019.
+L200:   3. Benny Applebaum, Boaz Barak, and David Xiao. On basing lower-bounds for learning on worst-case assumptions. In FOCS, pages 211-220, 2008. URL: cite90†https://doi.org/10.1109/FOCS.2008.35†doi.org .
+L201:   4. Raman Arora, Amitabh Basu, Poorya Mianjy, and Anirbit Mukherjee. Understanding deep neural networks with rectified linear units. In International Conference on Learning Representations, 2018. URL: cite91†https://openreview.net/forum?id=B1J_rgWRW†openreview.net .
+L202:   5. Francis Bach. Breaking the curse of dimensionality with convex neural networks. The Journal of Machine Learning Research, 18(1):629-681, 2017.
+L203:   6. Ainesh Bakshi, Rajesh Jayaram, and David P Woodruff. Learning two layer rectified neural networks in polynomial time. In Conference on Learning Theory, pages 195-268, 2019.
+L204:   7. Aditya Bhaskara, Moses Charikar, Aravindan Vijayaraghavan, Venkatesan Guruswami, and Yuan Zhou. Polynomial integrality gaps for strong SDP relaxations of densest k-subgraph. In SODA, pages 388-405, 2012.
+L205:   8. Avrim Blum and Ronald L Rivest. Training a 3-node neural network is NP-complete. In Advances in neural information processing systems, pages 494-501, 1989.
+L206:   9. Digvijay Boob, Santanu S Dey, and Guanghui Lan. Complexity of training relu neural network. arXiv preprint, 2018. URL: cite92†http://arxiv.org/abs/1809.10787†arxiv.org .
+L207:   10. Alon Brutzkus and Amir Globerson. Globally optimal gradient descent for a convnet with gaussian inputs. arXiv preprint, 2017. URL: cite93†http://arxiv.org/abs/1702.07966†arxiv.org .
+L208:   11. Parinya Chalermsook, Marek Cygan, Guy Kortsarz, Bundit Laekhanukit, Pasin Manurangsi, Danupon Nanongkai, and Luca Trevisan. From Gap-ETH to FPT-inapproximability: Clique, dominating set, and more. In FOCS, pages 743-754, 2017. URL: cite94†https://doi.org/10.1109/FOCS.2017.74†doi.org .
+L209:   12. Eden Chlamtác, Pasin Manurangsi, Dana Moshkovitz, and Aravindan Vijayaraghavan. Approximation algorithms for label cover and the log-density threshold. In SODA, pages 900-919, 2017. URL: cite95†https://doi.org/10.1137/1.9781611974782.57†doi.org .
+L210:   13. George Cybenko. Approximation by superpositions of a sigmoidal function. Mathematics of control, signals and systems, 2(4):303-314, 1989.
+L211:   14. Santanu S Dey, Guanyi Wang, and Yao Xie. An approximation algorithm for training one-node relu neural network. arXiv preprint, 2018. URL: cite96†http://arxiv.org/abs/1810.03592†arxiv.org .
+L212:   15. Ilias Diakonikolas, Daniel Kane, and Pasin Manurangsi. Nearly tight bounds for robust proper learning of halfspaces with a margin. In Advances in Neural Information Processing Systems, pages 10473-10484, 2019.
+L213:   16. Ilias Diakonikolas, Daniel M. Kane, and Pasin Manurangsi. Nearly tight bounds for robust proper learning of halfspaces with a margin. CoRR, abs/1908.11335, 2019. URL: cite97†http://arxiv.org/abs/1908.11335†arxiv.org .
+L214:   17. Irit Dinur. Mildly exponential reduction from gap 3SAT to polynomial-gap label-cover. Electronic Colloquium on Computational Complexity (ECCC), 23:128, 2016. URL: cite98†http://eccc.hpi-web.de/report/2016/128†eccc.hpi-web.de .
+L215:   18. Irit Dinur, Prahladh Harsha, and Guy Kindler. Polynomially low error PCPs with polyloglog n queries via modular composition. In STOC, pages 267-276, 2015. URL: cite99†https://doi.org/10.1145/2746539.2746630†doi.org .
+L216:   19. Simon S Du, Jason D Lee, Haochuan Li, Liwei Wang, and Xiyu Zhai. Gradient descent finds global minima of deep neural networks. arXiv preprint, 2018. URL: cite100†http://arxiv.org/abs/1811.03804†arxiv.org .
+L217:   20. Uriel Feige. A threshold of ln n for approximating set cover. J. ACM, 45(4):634-652, 1998. URL: cite101†https://doi.org/10.1145/285055.285059†doi.org .
+L218:   21. Surbhi Goel, Varun Kanade, Adam R. Klivans, and Justin Thaler. Reliably learning the relu in polynomial time. In COLT, pages 1004-1042, 2017. URL: cite102†http://proceedings.mlr.press/v65/goel17a.html†proceedings.mlr.press .
+L219:   22. Surbhi Goel, Sushrut Karmalkar, and Adam Klivans. Time/accuracy tradeoffs for learning a relu with respect to gaussian marginals. In Advances in Neural Information Processing Systems, pages 8582-8591, 2019.
+L220:   23. Kurt Hornik, Maxwell Stinchcombe, and Halbert White. Multilayer feedforward networks are universal approximators. Neural networks, 2(5):359-366, 1989.
+L221:   24. Stephen Judd. On the complexity of loading shallow neural networks. Journal of Complexity, 4:177-192, 1988.
+L222:   25. Yann LeCun, Yoshua Bengio, and Geoffrey Hinton. Deep learning. nature, 521(7553):436, 2015.
+L223:   26. Roi Livni, Shai Shalev-Shwartz, and Ohad Shamir. On the computational efficiency of training neural networks. In Advances in Neural Information Processing Systems, pages 855-863, 2014.
+L224:   27. Carsten Lund and Mihalis Yannakakis. On the hardness of approximating minimization problems. J. ACM, 41(5):960-981, 1994. URL: cite103†https://doi.org/10.1145/185675.306789†doi.org .
+L225:   28. Pasin Manurangsi. On approximating projection games. Master’s thesis, Massachusetts Institute of Technology, January 2015.
+L226:   29. Pasin Manurangsi and Prasad Raghavendra. A birthday repetition theorem and complexity of approximating dense csps. In 44th International Colloquium on Automata, Languages, and Programming, ICALP 2017, July 10-14, 2017, Warsaw, Poland, pages 78:1-78:15, 2017. URL: cite104†https://doi.org/10.4230/LIPIcs.ICALP.2017.78†doi.org .
+L227:   30. Pasin Manurangsi and Daniel Reichman. The computational complexity of training relu(s). CoRR, abs/1810.04207, 2018. URL: cite105†http://arxiv.org/abs/1810.04207†arxiv.org .
+L228:   31. Nimrod Megiddo. On the complexity of polyhedral separability. Discrete & Computational Geometry, 3(4):325-337, 1988.
+L229:   32. Xingyuan Pan and Vivek Srikumar. Expressiveness of rectifier networks. In International Conference on Machine Learning, pages 2427-2435, 2016.
+L230:   33. Erez Petrank. The hardness of approximation: Gap location. Computational Complexity, 4:133-157, 1994. URL: cite106†https://doi.org/10.1007/BF01202286†doi.org .
+L231:   34. Tim Roughgarden. Beyond the worst-case analysis of algorithms, 2020.
+L232:   35. Grant Schoenebeck. Linear level lasserre lower bounds for certain k-CSPs. In FOCS, pages 593-602, 2008. URL: cite107†https://doi.org/10.1109/FOCS.2008.74†doi.org .
+L233:   36. Rocco A Servedio and Li-Yang Tan. What circuit classes can be learned with non-trivial savings? In 8th Innovations in Theoretical Computer Science Conference (ITCS 2017). Schloss Dagstuhl-Leibniz-Zentrum fuer Informatik, 2017.
+L234:   37. Kirill Simonov, Fedor Fomin, Petr Golovach, and Fahad Panolan. Refined complexity of PCA with outliers. In International Conference on Machine Learning, pages 5818-5826, 2019.
+L235:   38. Le Song, Santosh Vempala, John Wilmes, and Bo Xie. On the complexity of learning neural networks. In Advances in Neural Information Processing Systems, pages 5514-5522, 2017.
+L236:   39. Nathan Srebro, Karthik Sridharan, and Ambuj Tewari. Smoothness, low noise and fast rates. In John D. Lafferty, Christopher K. I. Williams, John Shawe-Taylor, Richard S. Zemel, and Aron Culotta, editors, Advances in Neural Information Processing Systems 23: 24th Annual Conference on Neural Information Processing Systems 2010. Proceedings of a meeting held 6-9 December 2010, Vancouver, British Columbia, Canada, pages 2199-2207. Curran Associates, Inc., 2010.
+L237: URL: cite108†http://papers.nips.cc/paper/3894-smoothness-low-noise-and-fast-rates†papers.nips.cc .
+L238:   40. Madhur Tulsiani. CSP gaps and reductions in the lasserre hierarchy. In STOC, pages 303-312, 2009. URL: cite109†https://doi.org/10.1145/1536414.1536457†doi.org .
+L239:   41. Santosh Vempala and John Wilmes. Polynomial convergence of gradient descent for training one-hidden-layer neural networks. In Conference on Learning Theory, pages 3115-3117, 2019.
+L240:   42. Van H Vu. On the infeasibility of training neural networks with small mean-squared error. IEEE Transactions on Information Theory, 44(7):2892-2900, 1998.
+L241:   43. Chiyuan Zhang, Samy Bengio, Moritz Hardt, Benjamin Recht, and Oriol Vinyals. Understanding deep learning requires rethinking generalization. arXiv preprint, 2016. URL: cite110†http://arxiv.org/abs/1611.03530†arxiv.org .
+L242: cite0†Any Issues?
+L243: 
+L244: cite0†X
+L245: 
+L246: Feedback on the Current Page
+L247: 
+L248: [Input: Name (optional)] [Input: Email (optional)]
+L249: 
+L250: [Button: Send]
+L251: 
+L252: [Input: Enter CAPTCHA] [Input] [Button: Submit]
+L253: ### Thanks for your feedback!
+L254: 
+L255: Feedback submitted to Dagstuhl Publishing
+L256: 
+L257: [Button: OK]
+L258: 
+L259: ### Could not send message
+L260: 
+L261: Please try again later or send an E-mail (publishing@dagstuhl.de)
+L262: 
+L263: [Button: OK]
+L264: ##### About DROPS
+L265: Schloss Dagstuhl - Leibniz Center for Informatics has been operating the Dagstuhl Research Online Publication Server (short: DROPS) since 2004. DROPS enables publication of the latest research findings in a fast, uncomplicated manner, in addition to providing unimpeded, open access to them. All the requisite metadata on each publication is administered in accordance with general guidelines pertaining to online publications (cf. Dublin Core).
+L266: This enables the online publications to be authorized for citation and made accessible to a wide readership on a permanent basis. Access is free of charge for readers following the open access idea which fosters unimpeded access to scientific publications.
+L267:   * cite5†More about DROPS
+L268: ##### Instructions for Authors
+L269: 
+L270: Dagstuhl Series
+L271: 
+L272:   * cite111†LIPIcs†submission.dagstuhl.de
+L273:   * cite112†OASIcs†submission.dagstuhl.de
+L274:   * cite113†Dagstuhl Follow-Ups†submission.dagstuhl.de
+L275: 
+L276: Dagstuhl Journals
+L277: 
+L278:   * cite114†DARTS – Dagstuhl Artifacts Series†submission.dagstuhl.de
+L279:   * cite115†Dagstuhl Reports†submission.dagstuhl.de
+L280:   * cite116†Dagstuhl Manifestos†submission.dagstuhl.de
+L281:   * cite117†LITES†submission.dagstuhl.de
+L282:   * cite118†TGDK – Transactions on Graph Data and Knowledge†submission.dagstuhl.de
+L283: ##### Instructions for Editors
+L284: 
+L285: Dagstuhl Series
+L286: 
+L287:   * cite119†LIPIcs†submission.dagstuhl.de
+L288:   * cite120†OASIcs†submission.dagstuhl.de
+L289:   * cite121†Dagstuhl Follow-Ups†submission.dagstuhl.de
+L290: 
+L291: Dagstuhl Journals
+L292: 
+L293:   * cite122†DARTS – Dagstuhl Artifacts Series†submission.dagstuhl.de
+L294:   * cite123†Dagstuhl Reports†submission.dagstuhl.de
+L295:   * cite124†Dagstuhl Manifestos†submission.dagstuhl.de
+L296:   * cite125†LITES†submission.dagstuhl.de
+L297:   * cite126†TGDK – Transactions on Graph Data and Knowledge†submission.dagstuhl.de
+L298: © 2023-2026 cite127†Schloss Dagstuhl – LZI GmbH†www.dagstuhl.de cite127†Schloss Dagstuhl – LZI GmbH†www.dagstuhl.de cite5†About DROPS cite128†Imprint cite129†Privacy cite2†Contact†www.dagstuhl.de

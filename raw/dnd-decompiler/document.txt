@@ -1,0 +1,389 @@
+DnD: A Cross-Architecture Deep Neural Network Decompiler
+Supplied URL: https://wuruoyu.github.io/assets/pdf/dnd.pdf
+Retrieved on: 2026-10-07
+Format: text extracted by the web browsing tool, not the original PDF/HTML bytes.
+L numbers refer to the browser extraction. PDF P numbers are zero-based.
+A complete text extraction does not imply that every figure, equation, or proof was reviewed.
+Read capture.json for captured URLs, line coverage, and missing ranges.
+
+
+=== Segment 1: https://wuruoyu.github.io/assets/pdf/dnd.pdf ===
+
+L0@P0: DnD: A Cross-Architecture Deep Neural Network Decompiler
+L1@P0: Ruoyu Wu1, Taegyu Kim2, Dave (Jing) Tian1, Antonio Bianchi1, and Dongyan Xu1
+L2@P0: 1Purdue University, 2 The Pennsylvania State University
+L3@P0: {wu1377, daveti, antoniob, dxu}@purdue.edu, tgkim@psu.edu
+L4@P0: Abstract
+L5@P0: The usage of Deep Neural Networks (DNNs) has steadily increased in recent years. Especially when used in edge devices,
+L6@P0: dedicated DNN compilers are used to compile DNNs into
+L7@P0: binaries. Many security applications (such as DNN model extraction, white-box adversarial sample generation, and DNN
+L8@P0: model patching and hardening) are possible when a DNN
+L9@P0: model is accessible. However, these techniques cannot be applied to compiled DNNs. Unfortunately, no dedicated decompiler exists that is able to recover a high-level representation
+L10@P0: of a DNN starting from its compiled binary code.
+L11@P0: To address this issue, we propose DND, the first compilerand ISA-agnostic DNN decompiler. DND uses symbolic execution, in conjunction with a dedicated loop analysis, to lift the
+L12@P0: analyzed binary code into a novel intermediate representation,
+L13@P0: able to express the high-level mathematical DNN operations
+L14@P0: in a compiler- and ISA-agnostic way. Then, DND matches the
+L15@P0: extracted mathematical DNN operations with template mathematical DNN operations, and it recovers hyper-parameters
+L16@P0: and parameters of all the identified DNN operators, as well as
+L17@P0: the overall DNN topology. Our evaluation shows that DND
+L18@P0: can perfectly recover different DNN models, extracting them
+L19@P0: from binaries compiled by two different compilers (Glow and
+L20@P0: TVM) for three different ISAs (Thumb, AArch64, and x86-64).
+L21@P0: Moreover, DND enables extracting the DNN models used by
+L22@P0: real-world micro-controllers and attacking them using whitebox adversarial machine learning techniques.
+L23@P0: 1 Introduction
+L24@P0: Deep Neural Networks (DNNs) have become a fundamental
+L25@P0: component for a number of usage scenarios, ranging from
+L26@P0: cloud services to IoT applications [13, 38]. While the training
+L27@P0: of DNNs is usually performed on GPUs or TPUs [17], DNNs
+L28@P0: can be deployed on general purposes CPUs and MCUs in a
+L29@P0: variety of devices, such as IoT devices and embedded systems.
+L30@P0: In these cases, DNNs are typically compiled into binary code
+L31@P0: using dedicated compilers, such as TVM [7] and Glow [30],
+L32@P0: exploiting local instruction set architectures’ (ISAs) features
+L33@P0: and performance optimizations.
+L34@P0: An increasing usage of DNN compilers is in edge devices, such as micro-controllers [1, 16, 38, 44, 45] and mobile
+L35@P0: phones [53]. For instance, micro-controllers use compiled
+L36@P0: DNN binaries, like the NXP Semiconductors EdgeReady Solution [43], to perform diverse tasks such as secure face recognition, speech recognition, and voice control. A recent forecast
+L37@P0: estimates that 98% of edge devices will have intelligence features, typically powered by DNNs, by 2025 [38].
+L38@P0: While several tools are available to decompile binary code
+L39@P0: back to its original source code [5, 21, 33, 57], no existing
+L40@P0: approach can recover a high-level description of a compiled
+L41@P0: DNN. As the ability to decompile binary code has enabled
+L42@P0: several security applications (and decompilers have become
+L43@P0: part of the standard tool set of security analysts), likewise extracting DNN models from their compiled binary code enables
+L44@P0: a variety of security applications, including DNN model extraction and analysis (both manual and automatic), white-box
+L45@P0: adversarial sample generation, white-box DNN backdoor detection, and DNN model patching and hardening [6,18,50,51].
+L46@P0: Unfortunately, in all these usage scenarios, a source-level representation of the decompiled code obtained by applying traditional decompilers does not offer much help to an analyst,
+L47@P0: because such decompilers cannot capture the mathematical
+L48@P0: semantics of compiled DNN models.
+L49@P0: In this paper, we propose DND, the first compiler- and ISAagnostic deep neural network decompiler capable of extracting
+L50@P0: DNN models from compiled binaries. Specifically, working
+L51@P0: with a compiled DNN model, DND can precisely recover its
+L52@P0: parameters, hyper-parameters, and topology, and express the
+L53@P0: decompiled model in a high-level representation (as the one
+L54@P0: in Figure 1), encoded in the ONNX modeling language [9].
+L55@P0: DND is based on the three following novel techniques. First,
+L56@P0: it uses symbolic execution in conjunction with a dedicated
+L57@P0: loop analysis to capture precise mathematical formulas representing how different DNN operators process the received
+L58@P0: data. Second, DND uses a novel intermediate representation
+L59@P0: (IR) to express the high-level mathematical DNN operations in
+L60@P0: a compiler- and ISA-agnostic way. Third, DND identifies thetype and location of the DNN operators in a target binary by
+L61@P1: matching the extracted mathematical operations with template
+L62@P1: mathematical DNN operations, recovering hyper-parameters
+L63@P1: and parameters of all the identified DNN operators, as well as
+L64@P1: the overall network topology.
+L65@P1: Our evaluation shows that DND is both generic and accurate. It supports decompiling different DNN models compiled
+L66@P1: by two different compilers for three different ISAs, without
+L67@P1: requiring manual effort. Moreover, the decompiled DNN models are structurally equivalent to the original ones, and, after
+L68@P1: re-compiling the decompiled DNNs, the generated binaries
+L69@P1: classify samples exactly as the original binaries. We further
+L70@P1: demonstrate that DND can successfully decompile a DNN binary used by a real-world micro-controller, and the recovered
+L71@P1: DNN model can be used to boost adversarial attacks against
+L72@P1: the original DNN, enabling the usage of white-box attacks, in
+L73@P1: place of less efficient black-box ones.
+L74@P1: In summary, our main contributions are as follows:
+L75@P1: • We design and implement DND, the first compiler- and
+L76@P1: ISA-agnostic decompiler for compiled DNN models.
+L77@P1: DND can decompile a (stripped) DNN binary to recover
+L78@P1: the full details of the compiled DNN model and represent
+L79@P1: them using the ONNX high-level modeling language.
+L80@P1: • We design a dedicated IR to represent each DNN operator and develop a novel technique that uses symbolic
+L81@P1: execution to lift the DNN binary to IR expressions. The
+L82@P1: extracted IR expressions are then matched against template expressions to identify different operators used by
+L83@P1: a compiled DNN, recovering their hyper-parameters, parameters, and the overall network topology.
+L84@P1: • We evaluate DND on three ISAs (Thumb, AArch64, and
+L85@P1: x86-64), two DNN compilers (Glow and TVM), and three
+L86@P1: widely-used DNN models (MNIST [59], ResNet v1 [20],
+L87@P1: and MobileNets v2 [40]). The results show that DND
+L88@P1: can fully and accurately recover DNN models from the
+L89@P1: compiled binaries across different ISAs, compilers, and
+L90@P1: models. We further showcase how the extracted DNN
+L91@P1: model, decompiled by DND from a DNN binary running
+L92@P1: on a real-world micro-controller, can be used to boost
+L93@P1: adversarial attacks [6,34], enabling more effective whitebox attacks.
+L94@P1: Our artifacts are available at https://github.com/
+L95@P1: purseclab/DnD.
+L96@P1: 2 Background and Motivation
+L97@P1: 2.1 Deep Neural Networks
+L98@P1: Deep Neural Networks (DNNs) are a class of machine learning
+L99@P1: (ML) algorithms that use cascaded DNN operators for feature
+L100@P1: extraction and transformation. Figure 1 shows a snippet of
+L101@P1: ResNet v1 model [20] represented in the ONNX format [9],
+L102@P1: which is the open standard for ML interoperability developed
+L103@P1: by Linux Foundation. Terminologies used in this paper are
+L104@P1: 3, 3
+L105@P1: Relu Conv
+L106@P1: W〈16×16×3×3〉
+L107@P1: B〈16〉
+L108@P1: dilations = 1, 1
+L109@P1: group = 1
+L110@P1: kernel_shape = 3, 3
+L111@P1: pads = 1, 1, 1, 1
+L112@P1: strides = 1, 1
+L113@P1: Relu
+L114@P1: Conv
+L115@P1: W〈16×16×3×3〉
+L116@P1: B〈16〉
+L117@P1: dilations = 1, 1
+L118@P1: group = 1
+L119@P1: kernel_shape = 3, 3
+L120@P1: pads = 1, 1, 1, 1
+L121@P1: strides = 1, 1
+L122@P1: Add Relu
+L123@P1: Conv
+L124@P1: W〈32×16×1×1〉
+L125@P1: B〈32〉
+L126@P1: dilations = 1, 1
+L127@P1: group = 1
+L128@P1: kernel_shape = 1, 1
+L129@P1: pads = 0, 0, 0, 0
+L130@P1: strides = 2, 2
+L131@P1: Conv
+L132@P1: W〈32×16×3×3〉
+L133@P1: B〈32〉
+L134@P1: dilations = 1, 1
+L135@P1: group = 1
+L136@P1: kernel_shape = 3, 3
+L137@P1: pads = 0, 0, 1, 1
+L138@P1: strides = 2, 2
+L139@P1: Relu
+L140@P1: Conv
+L141@P1: W〈32×32×3×3〉
+L142@P1: B〈32〉
+L143@P1: dilations = 1, 1
+L144@P1: group = 1
+L145@P1: kernel_shape = 3, 3
+L146@P1: pads = 1, 1, 1, 1
+L147@P1: strides = 1, 1
+L148@P1: Add Relu
+L149@P1: Conv
+L150@P1: W〈64×32×1×1〉
+L151@P1: B〈64〉
+L152@P1: dilations = 1, 1
+L153@P1: group = 1
+L154@P1: kernel_shape = 1, 1
+L155@P1: pads = 0, 0, 0, 0
+L156@P1: strides = 2, 2
+L157@P1: Conv
+L158@P1: W〈64×32×3×3〉
+L159@P1: B〈64〉
+L160@P1: dilations = 1, 1
+L161@P1: group = 1
+L162@P1: kernel_shape = 3, 3
+L163@P1: pads = 0, 0, 1, 1
+L164@P1: strides = 2, 2
+L165@P1: Relu
+L166@P1: Conv
+L167@P1: W〈64×64×3×3〉
+L168@P1: B〈64〉
+L169@P1: dilations = 1, 1
+L170@P1: group = 1
+L171@P1: kernel_shape = 3, 3
+L172@P1: pads = 1, 1, 1, 1
+L173@P1: strides = 1, 1
+L174@P1: Add Relu
+L175@P1: AveragePool
+L176@P1: kernel_shape = 8, 8
+L177@P1: strides = 8, 8
+L178@P1: Reshape
+L179@P1: shape〈2〉
+L180@P1: MatMul
+L181@P1: B〈64×10〉
+L182@P1: 1 3
+L183@P1: 2
+L184@P1: Figure 1: A snippet of ResNet v1 model in the ONNX format
+L185@P1: described as follows:
+L186@P1: Training and Inference. DNNs are used in two phases: training and inference phases. The training phase feeds labeled
+L187@P1: data to a DNN and updates its parameters based on the erroneous output results. This phase is computationally heavy and
+L188@P1: generally takes a long time; thus, it is usually running on DNN
+L189@P1: accelerators (e.g., GPUs and FPGAs). During the inference
+L190@P1: phase, a trained DNN predicts the labels of input data. Since
+L191@P1: the inference phase is typically not as computationally heavy
+L192@P1: as the training phase, they usually run on CPUs, especially on
+L193@P1: edge devices [53].
+L194@P1: DNN Operators. DNN operators are the building blocks of
+L195@P1: DNNs. A DNN operator takes the output of previous operators as its input (or the input to the DNN model when there
+L196@P1: are no previous operators), and computes its output based
+L197@P1: on its operator type and its parameters. There are various
+L198@P1: types of DNN operators with different high-level semantics,
+L199@P1: as shown in Figure 1. For instance, there are feature extraction operators (e.g., Convolution), down-sampling operators
+L200@P1: (e.g., Average-pool), and activation operators (e.g., Relu).
+L201@P1: As DNN models have been advanced, new DNN operators
+L202@P1: have been introduced. There are 174 different DNN operators
+L203@P1: defined in ONNX, and this number is still growing [11].
+L204@P1: DNN Hyper-parameters and Parameters. DNN hyperparameters can be classified into two categories: (1) the algorithm hyper-parameters, which are only used during the
+L205@P1: training phase, and do not influence the inference phase. Examples of the algorithm hyper-parameters are learning rate
+L206@P1: and regularization factor. (2) the model hyper-parameters that
+L207@P1: define the network structure and how the operators function,
+L208@P1: which include the following:
+L209@P1: 1. Total number of operators and the type of each operator.
+L210@P1: 2. The DNN topology. The connections between operators
+L211@P1: can be either sequential or non-sequential. Sequential connection denotes that the operator takes only the output of
+L212@P1: the prior DNN operator as the input, while non-sequential
+L213@P1: connection includes shortcuts and branches [20, 58]. For
+L214@P1: example, shortcut connection [20] (the edges connecting
+L215@P1: the Conv2 in Figure 1) feeds one DNN operator’s output directly as the input of another DNN operator while skipping
+L216@P1: one DNN operator.
+L217@P1: 3. The attributes of each operator that define its detailed se-mantics. For example, the attributes of a Convolution
+L218@P2: (i.e., Conv) operator, as shown inside each operator in Figure 1, include the shape of kernel (i.e., filter), the pad size,
+L219@P2: and the stride size.
+L220@P2: The parameters are the variables that are learned during
+L221@P2: the training process (e.g., weights and bias).
+L222@P2: We note that model hyper-parameters and parameters are
+L223@P2: targets that DND aims to recover, unlike algorithm hyperparameters which are involved only in the training phase.
+L224@P2: 2.2 DNN Compilers
+L225@P2: Different DNN compilers exist to ease the deployment of
+L226@P2: a DNN model on various devices. These compilers include
+L227@P2: Glow [30] by Facebook, TVM [7] by Apache, XLA [14] by
+L228@P2: Google, and NNFusion [27] by Microsoft. Nowadays, they
+L229@P2: have been adopted in many real-world products, including
+L230@P2: smart edge devices. For instance, NXP Semiconductors integrate a customized Glow compiler into their SDK to support
+L231@P2: DNN model deployment on low-power microcontrollers [45].
+L232@P2: Frontend and Backend. DNN compilers commonly consist
+L233@P2: of a frontend and a backend component. The frontend transforms a DNN model into a high-level intermediate representation (IR) and performs hardware-independent optimizations,
+L234@P2: such as operator fusion [32]. Operator fusion combines the
+L235@P2: loop bodies of two adjacent operators leveraging the operator
+L236@P2: type and DNN topology, where the second operator is usually
+L237@P2: an activation operator (e.g., Relu). For instance, the Conv1
+L238@P2: and the following Relu in Figure 1 can be combined. Then,
+L239@P2: the backend transforms a high-level IR to a low-level IR and
+L240@P2: performs hardware-specific optimizations, including vectorization and loop-related optimizations (e.g., loop unrolling).
+L241@P2: Finally, the backend emits machine code from the optimized
+L242@P2: low-level IR.
+L243@P2: Compilation Scheme. Compilation generates DNN binaries
+L244@P2: (i.e., the binary programs where a compiled DNN model is
+L245@P2: embedded). We can classify the compilation schemes of DNN
+L246@P2: compilers into two categories: interpreter-based and ahead-oftime (AOT) compilation schemes [26].
+L247@P2: Interpreter-based compilers generate DNN binaries whose
+L248@P2: DNN models are configured at runtime. They usually produce
+L249@P2: two artifacts: a DNN configuration file describing the DNN
+L250@P2: model (e.g., TFLite [15]) and a runtime library that contains
+L251@P2: all the DNN operator implementations. At runtime, a generic
+L252@P2: interpreter reads the DNN configuration file, iterates through
+L253@P2: DNN operators, and invokes the corresponding DNN operator
+L254@P2: implementations [16]. This approach has two disadvantages:
+L255@P2: (1) it introduces space and time overhead because of the need
+L256@P2: to include the runtime library and parse the DNN configuration
+L257@P2: file dynamically; (2) it misses opportunities to optimize the
+L258@P2: invoked DNN operator implementations based on specific
+L259@P2: operator instances’ attributes (e.g., dimensions, padding size).
+L260@P2: On the contrary, during compilation, AOT compilers specialize the operator implementation for the specific compiled
+L261@P2: operator instance’s context, such as its attributes (e.g., kernel shape), and they use general-purpose compiler backends
+L262@P2: (e.g., LLVM, GCC) to generate a self-contained executable.
+L263@P2: For instance, in Figure 1, although the Conv1 and Conv2 are
+L264@P2: both of the same operator type (i.e., Conv), they are compiled
+L265@P2: into different binary functions with different control flows
+L266@P2: and memory access patterns, due to their different attributes
+L267@P2: (e.g., kernel shape). Thanks to the low overhead, the popular DNN compilers (e.g., Glow, TVM, XLA, and NNFusion)
+L268@P2: support AOT compilation to deploy a DNN on embedded
+L269@P2: systems [14, 45] with limited hardware resources.
+L270@P2: We note that AOT DNN compilers, such as Glow [30] and
+L271@P2: TVM [1], compile a DNN model to a binary module exposing
+L272@P2: an inference function. An application feeds the input data
+L273@P2: to this inference function and obtains the predicted label as
+L274@P2: output.
+L275@P2: 2.3 DNN Attacks
+L276@P2: Model Extraction Attacks. Model extraction attacks, which
+L277@P2: reveal a DNN’s model hyper-parameters and/or parameters,
+L278@P2: can be classified into two categories: algorithm-level extraction and architecture-level extraction attacks. The algorithmlevel approaches [46, 49, 50] conduct model extraction by repeatedly querying a black-box DNN model and then retraining
+L279@P2: a DNN using the querying results. However, such approaches
+L280@P2: require prior knowledge of a DNN’s model hyper-parameters
+L281@P2: and significant computational resources [49], prohibiting them
+L282@P2: from efficiently extracting DNN models, especially from the
+L283@P2: embedded systems. On the other end, the architecture-level
+L284@P2: approaches [3,22,29,52,58,61] leverage the architecture-level
+L285@P2: information (e.g., cache side-channel) exposed by the hardware. The architecture-level approaches, however, either only
+L286@P2: obtain a partial DNN model, or require co-locating onto the
+L287@P2: same processor chip the victim process is running on.
+L288@P2: Adversarial Attacks. Adversarial attacks, which induce a
+L289@P2: DNN to misclassify an input, can be classified into two categories: black-box attacks and white-box attacks. Black-box
+L290@P2: attacks [4, 34] first acquire a substitute model either from
+L291@P2: the DNN models with a similar task or from training with
+L292@P2: the querying data of the victim model, then generate the adversarial examples based on the substitute model. Although
+L293@P2: black-box attacks do not require attackers to have prior knowledge of the victim DNN (e.g., model hyper-parameters and
+L294@P2: parameters), they are ineffective and time-consuming. Compared with black-box attacks, white-box attacks [6, 48] are
+L295@P2: more effective and efficient [6, 34] by leveraging the prior
+L296@P2: knowledge of the victim DNN model.
+L297@P2: 2.4 Decompiler
+L298@P2: Decompilers are designed to reconstruct a high-level language
+L299@P2: representation (typically in C pseudocode) from program binaries. There are many works on C/C++ decompilers from
+L300@P2: both academia [5, 12, 19, 25, 41, 56, 57] and industry [21, 33].Despite the existing general-purpose decompilers can decompile the binary programs to (usually not easily understandable,
+L301@P3: nor fully correct) C statements, they lack the capabilities to
+L302@P3: lift the binary code of vectorized mathematical calculations
+L303@P3: into high-level DNN operators (e.g., ONNX operators [11])
+L304@P3: and recover the DNN topology. These limitations hinder their
+L305@P3: usefulness for the security analysis of DNN binaries. On the
+L306@P3: contrary, DND can decompile a DNN model embedded in the
+L307@P3: binary program and generate a high-level representation (i.e.,
+L308@P3: in the ONNX format [9]), including both the model hyperparameters and parameters of the embedded DNN model.
+L309@P3: 3 Scope
+L310@P3: In this section, we describe the input/output of DND, and the
+L311@P3: standard and realistic assumptions on which DND relies.
+L312@P3: Input. DND supports (stripped) DNN binaries (i.e., the binary programs where a compiled DNN model is embedded)
+L313@P3: compiled by the AOT compilation scheme running on CPU
+L314@P3: without hardware accelerators. This configuration is common
+L315@P3: on edge devices [53]. DND does not support DNN binaries
+L316@P3: compiled by interpreter-based compilation schemes because
+L317@P3: of the following reasons: (i) DNN binaries compiled by the
+L318@P3: interpreter-based compilation scheme usually accompany the
+L319@P3: DNN configuration files. We can easily infer DNN models
+L320@P3: from those files because they contain the information on the
+L321@P3: model hyper-parameters and parameters of the deployed DNN
+L322@P3: model. (ii) static analysis cannot extract DNN models from
+L323@P3: DNN binaries compiled by the interpreter-based compilation
+L324@P3: without the DNN configuration file because DNNs are configured dynamically. Furthermore, DND does not support the
+L325@P3: DNN binaries running on DNN accelerators because DNN accelerators have very diverse ISAs, and they are not supported
+L326@P3: by the general-purpose disassemblers. Section 9 discusses
+L327@P3: more details why DND does not support decompiling DNN
+L328@P3: binaries on accelerators.
+L329@P3: Output. DND can decompile a DNN model embedded in an
+L330@P3: input binary. The output is in the ONNX format [9] (e.g., Figure 1) including the DNN model’s model hyper-parameters
+L331@P3: and parameters. We can use this output to reveal the DNN
+L332@P3: model’s details and conduct security analysis, such as model
+L333@P3: extraction, adversarial examples discovery, and model hardening. DND does not recover the algorithm hyper-parameters
+L334@P3: (defined in Section 2.1) because they neither affect the inference process nor are recoverable from the binary.
+L335@P3: Assumptions. DND relies on the following assumptions:
+L336@P3: 1. We have access to a DNN binary (e.g., dumping DNN
+L337@P3: binaries running on an embedded system).
+L338@P3: 2. The control-flow graph (CFG) recovery is reliable. Our
+L339@P3: evaluation shows that the recovered CFGs, though imprecise, are sufficient enough for our decompilation purpose.
+L340@P3: 3. DNN compilers do not use obfuscation technique. To the
+L341@P3: best of our knowledge, we are not aware of obfuscated
+L342@P3: DNN binaries, and de-obfuscating binaries is an orthogonal
+L343@P3: direction.
+L344@P3: 4 Challenges and Solutions
+L345@P3: DNN binary decompilation imposes several unique challenges
+L346@P3: compared to C/C++ binary decompilation. We enumerate
+L347@P3: three major challenges and provide a summary of how DND
+L348@P3: addresses them.
+L349@P3: Challenge 1: Diverse Compilers and Architectures. DNN
+L350@P3: models are compiled with various DNN compilers and onto
+L351@P3: different instruction set architectures (ISAs), such as Arm
+L352@P3: Thumb, Arm AArch64, and x86-64. Each combination generates totally different binary code, regarding their control flows
+L353@P3: and data flows, as demonstrated in decompiled code samples
+L354@P3: in Appendix C. Therefore, simple pattern matching, using
+L355@P3: either binary code or decompiled code generated by generic
+L356@P3: decompilers, is not suitable to recover the DNN model hyperparameters in a generic, compiler- and ISA-agnostic way.
+L357@P3: Solution 1: We use a dedicated IR which is able to represent
+L358@P3: each DNN operator as an operator summary, including an AST
+L359@P3: of algebraic operations. DND first identifies the location of
+L360@P3: each DNN operator in a DNN binary and then uses selective
+L361@P3: symbolic execution to generate an operator summary with an
+L362@P3: AST of algebraic operations of each DNN operator, which is
+L363@P3: represented with the IR we design. Because a DNN operator
+L364@P3: has the same mathematical semantic even with different DNN
+L365@P3: compilers and ISAs, and our IR and operator summary are
+L366@P3: able to capture the mathematical semantic, DND can identify
+L367@P3: them in a compiler- and ISA-agnostic manner.
+L368@P3: Challenge 2: Vectorized Mathematical Computation and
+L369@P3: Complicated Loop Structure. DNN operators, as tensor operations, are always implemented and compiled as nested loops
+L370@P3: with vectorized mathematical computations inside the loop
+L371@P3: bodies. The existing general-purpose decompilers (e.g., HexRays) do not currently recognize vectorized mathematical
+L372@P3: computations, leading to decompiled code containing long
+L373@P3: loop bodies and excessive bitwise operations, as shown in
+L374@P3: Appendix C. Moreover, the complicated control flow and the
+L375@P3: huge loop index range of nested loops hinder the usage of
+L376@P3: symbolic execution from generating the operator summary of
+L377@P3: each DNN operator, because of the path explosion problem.

@@ -1,0 +1,282 @@
+Fool's Gold: Extracting Finite State Machines from Recurrent Network Dynamics
+Supplied URL: https://scispace.com/pdf/fool-s-gold-extracting-finite-state-machines-from-recurrent-4xbpf3yz7e.pdf
+Retrieved on: 2026-10-07
+Format: text extracted by the web browsing tool, not the original PDF/HTML bytes.
+L numbers refer to the browser extraction. PDF P numbers are zero-based.
+A complete text extraction does not imply that every figure, equation, or proof was reviewed.
+Read capture.json for captured URLs, line coverage, and missing ranges.
+
+
+=== Segment 1: https://proceedings.neurips.cc/paper_files/paper/1993/file/470e7a4f017a5476afb7eeb3f8b96f9b-Paper.pdf ===
+
+L0@P0: Fool.s Gold: Extracting Finite State Machines
+L1@P0: From Recurrent Network Dynamics
+L2@P0: John F. Kolen
+L3@P0: Laboratory for Artificial Intelligence Research
+L4@P0: Department of Computer and Information Science
+L5@P0: The Ohio State University
+L6@P0: Columbus,OH 43210
+L7@P0: kolen-j @cis.ohio-state.edu
+L8@P0: Abstract
+L9@P0: Several recurrent networks have been proposed as representations for the
+L10@P0: task of formal language learning. After training a recurrent network recognize a formal language or predict the next symbol of a sequence, the
+L11@P0: next logical step is to understand the information processing carried out
+L12@P0: by the network. Some researchers have begun to extracting finite state
+L13@P0: machines from the internal state trajectories of their recurrent networks.
+L14@P0: This paper describes how sensitivity to initial conditions and discrete
+L15@P0: measurements can trick these extraction methods to return illusory finite
+L16@P0: state descriptions.
+L17@P0: INTRODUCTION
+L18@P0: Formal language learning (Gold, 1969) has been a topic of concern for cognitive science
+L19@P0: and artificial intelligence. It is the task of inducing a computational description of a formal
+L20@P0: language from a sequence of positive and negative examples of strings in the target language. Neural information processing approaches to this problem involve the use of recurrent networks that embody the internal state mechanisms underlying automata models
+L21@P0: (Cleeremans et aI., 1989; Elman, 1990; Pollack, 1991; Giles et aI, 1992; Watrous & Kuhn,
+L22@P0: 1992). Unlike traditional automata-based approaches, learning systems relying on recurrent
+L23@P0: networks have an additional burden: we are still unsure as to what these networks are
+L24@P0: doing.Some researchers have assumed that the networks are learning to simulate finite state
+L25@P0: 501 502 Kolen
+L26@P1: machines (FSMs) in their state dynamics and have begun to extract FSMs from the networks' state transition dynamics (Cleeremans et al., 1989; Giles et al., 1992; Watrous &
+L27@P1: Kuhn, 1992). These extraction methods employ various clustering techniques to partition
+L28@P1: the internal state space of the recurrent network into a finite number of regions corresponding to the states of a finite state automaton.
+L29@P1: This assumption of finite state behavior is dangerous on two accounts. First, these extraction techniques are based on a discretization of the state space which ignores the basic definition of information processing state. Second, discretization can give rise to incomplete
+L30@P1: computational explanations of systems operating over a continuous state space.
+L31@P1: SENSITIVITY TO INITIAL CONDITIONS
+L32@P1: In this section, I will demonstrate how sensitivity to initial conditions can confuse an FSM
+L33@P1: extraction system. The basis of this claim rests upon the definition of information processing
+L34@P1: state. Information processing (lP) state is the foundation underlying automata theory. Two
+L35@P1: IP states are the same if and only if they generate the same output responses for all possible
+L36@P1: future inputs (Hopcroft & Ullman, 1979). This definition is the fulcrum for many proofs and
+L37@P1: techniques, including finite state machine minimization. Any FSM extraction technique
+L38@P1: should embrace this definition, in fact it grounds the standard FSM minimization methods
+L39@P1: and the physical system modelling of Crutchfield and Young (Crutchfield & Young, 1989).
+L40@P1: Some dynamical systems exhibit exponential divergence for nearby state vectors, yet
+L41@P1: remain confined within an attractor. This is known as sensitivity to initial conditions. If this
+L42@P1: divergent behavior is quantized, it appears as nondeterministic symbol sequences (Crutchfield & Young, 1989) even though the underlying dynamical system is completely deterministic (Figure 1).
+L43@P1: Consider a recurrent network with one output and three recurrent state units. The output
+L44@P1: unit performs a threshold at zero activation for state unit one. That is, when the activation
+L45@P1: of the first state unit of the current state is less than zero then the output is A. Otherwise,
+L46@P1: the output is B. Equation 1 presents a mathematical description. Set) is the current state of
+L47@P1: the system 0 (t) is the current output.
+L48@P1: S (t + 1) = tanh ( 0 0 2 1 . S(t)) r
+L49@P1: 2 -2 0 -J [ ~ o 0 2 -1 1
+L50@P1: (1)
+L51@P1: Figure 2 illustrates what happens when you run this network for many iterations. The point
+L52@P1: in the upper left hand state space is actually a thousand individual points all within a ball
+L53@P1: of radius 0.01. In one iteration these points migrate down to the lower corner of the state
+L54@P1: space. Notice that the ball has elongated along one dimension. After ten iterations the original ball shape is no longer visible. After seventeen, the points are beginning to spread
+L55@P1: along a two dimensional sheet within state space. And by fifty iterations, we see the network reaching the its full extent of in state space. This behavior is known as sensitivity to
+L56@P1: initial conditions and is one of three conditions which have been used to characterize chaotic dynamical systems (Devaney, 1989). In short, sensitivity to initial conditions implies Fool's Gold: Extracting Finite State Machines from Recurrent Network Dynamics 503
+L57@P2: x~4x(l-x)
+L58@P2: { : x<O.5 @A O(x) =
+L59@P2: x>O.5
+L60@P2: x~2x mod 1
+L61@P2: A 1
+L62@P2: x<-3
+L63@P2: O(x) = B
+L64@P2: 1 2 - <x<- 3 3
+L65@P2: C
+L66@P2: 2
+L67@P2: -<x 3 C A
+L68@P2: x ~ 3.68x(l-x)
+L69@P2: C x<O.5
+L70@P2: O(x) =
+L71@P2: x>O.5
+L72@P2: Figure 1: Examples of deterministic dynamical systems whose discretize trajectories
+L73@P2: appear nondeterministic.
+L74@P2: that any epsilon ball on the attractor of the dynamical will exponentially diverge, yet still
+L75@P2: be contained within the locus of the attractor. The rate of this divergence is illustrated in
+L76@P2: Figure 3 where the maximum distance between two points is plotted with respect to the
+L77@P2: number of iterations. Note the exponential growth before saturation. Saturation occurs as
+L78@P2: the point cloud envelops the attractor.
+L79@P2: No matter how small one partitions the state space, sensitivity to initial conditions will
+L80@P2: eventually force the extracted state to split into multiple trajectories independent of the
+L81@P2: future input sequence. This is characteristic of a nondeterministic state transition. Unfortunately, it is very difficult, and probably intractable, to differentiate between a nondeterministic system with a small number of states or a deterministic with large number of states. In
+L82@P2: certain cases, however, it is possible to analytically ascertain this distinction (Crutchfield &
+L83@P2: Young, 1989).
+L84@P2: THE OBSERVERS' PARADOX
+L85@P2: One response to this problem is to evoke more computationally complex models such as
+L86@P2: push-down or linear-bounded automata. Unfortunately, the act of quantization can actually
+L87@P2: introduce both complexion and complexity in the resulting symbol sequence. Pollack and
+L88@P2: I have focused on a well-hidden problems with the symbol system approach to understanding the computational powers of physical systems. This work (Kolen & Pollack, 1993; S04 Kolen
+L89@P3: 1
+L90@P3: I
+L91@P3: output=A 1
+L92@P3: Start (e<O.Ol)
+L93@P3: 1
+L94@P3: I
+L95@P3: output=A,B 1
+L96@P3: 17 iterations
+L97@P3: 1
+L98@P3: I
+L99@P3: output=B 1
+L100@P3: 1 iteration
+L101@P3: 1
+L102@P3: output=A,B 1
+L103@P3: 25 iterations
+L104@P3: 1
+L105@P3: I
+L106@P3: output=A 1
+L107@P3: 10 iterations
+L108@P3: I
+L109@P3: 1
+L110@P3: 1
+L111@P3: 50 iterations
+L112@P3: Figure 2: The state space of a recurrent network whose next state transitions are
+L113@P3: sensitive to initial conditions. The initial epsilon ball contains 1000 points. These points
+L114@P3: first straddle the output decision boundary at iteration seven.
+L115@P3: Kolen & Pollack, In press) demonstrated that computational complexity, in terms of Chomsky's hierarchy of formal languages (Chomsky, 1957; Chomsky, 1965) and Newell and
+L116@P3: Simon's physical symbol systems (Newell & Simon, 1976), is not intrinsic to physical systems. The demonstration below shows how apparently trivial changes in the partitioning of
+L117@P3: state space can produce symbol sequences from varying complexity classes.
+L118@P3: Consider a point moving in a circular orbit with a fixed rotational velocity, such as the end
+L119@P3: of a rotating rod spinning around a fixed center, or imagine watching a white dot on a spinning bicycle wheel. We measure the location of the dot by periodically sampling the location with a single decision boundary (Figure 4, left side). If the point is to the left of
+L120@P3: boundary at the time of the sample, we write down an "1". Likewise, we write down an "r"
+L121@P3: when the point is on the other side. (The probability of the point landing on the boundary
+L122@P3: is zero and can arbitrarily be assigned to either category without affecting the results
+L123@P3: below.) In the limit, we will have recorded an infinite sequence of symbols containing long
+L124@P3: sequences of r's and l's.
+L125@P3: The specific ordering of symbols observed in a long sequence of multiple rotations is Fool's Gold: Extracting Finite State Machines from Recurrent Network Dynamics 505
+L126@P4: ••••• • • ell 2.5 ......
+L127@P4: c:: .... • 0
+L128@P4: 0.. • •
+L129@P4: c:: 2 •
+L130@P4: 0
+L131@P4: 0
+L132@P4: ......
+L133@P4: ~
+L134@P4: 0 • • .0 1.5
+L135@P4: 0
+L136@P4: u
+L137@P4: c::
+L138@P4: ~ • ......
+L139@P4: ell 1 ....
+L140@P4: "1:;)
+L141@P4: 8
+L142@P4: ::s •
+L143@P4: S 0.5 • • ....
+L144@P4: ~ •
+L145@P4: ::E • ••
+L146@P4: • • • • •
+L147@P4: 10 20 30 40 50
+L148@P4: Iteration number
+L149@P4: Figure 3: Spread of initial points across the attractor as measured by maximum distance.
+L150@P4: 1 r
+L151@P4: 1 r
+L152@P4: c
+L153@P4: Figure 4: On the left, two decision regions which induce a context free language. 9 is
+L154@P4: the current angle of rotation. At the time of sampling, if the point is to the left (right) of
+L155@P4: the dividing line, an 1 (r) is generated. On the right, three decision regions which
+L156@P4: induce a context sensitive language.
+L157@P4: dependent upon the initial rotational angle of the system. However, the sequence does possess a number of recurring structural regularities, which we call sentences: a run of r's followed by a run of l's. For a fixed rotational velocity (rotations per time unit) and sampling
+L158@P4: rate, the observed system will generate sentences of the form r n1 m (n, m > 0). (The notation
+L159@P4: rn indicates a sequence of n r's.) For a fixed sampling rate, each rotational velocity specifies up to three sentences whose number of r's and l's differ by at most one. These sentences repeat in an arbitrary manner. Thus, a typical subsequence of a rotator which
+L160@P4: produces sentences r n1 n, r n1 n+l ,rn+ 11 n would look like 506 Kolen
+L161@P5: rnln+lrnlnrnln+lrn+l1nrnlnrnln+l.
+L162@P5: A language of sentences may be constructed by examining the families of sentences generated by a large collection of individuals, much like a natural language is induced from the
+L163@P5: abilities of its individual speakers. In this context, a language could be induced from a population of rotators with different rotational velocities where individuals generate sentences
+L164@P5: of the form {r"l n, r"l "+1 ,r"+ll"}, n > O. The reSUlting language can be described by a
+L165@P5: context free grammar and has unbounded dependencies; the number of 1 's is a function of
+L166@P5: the number of preceding r's. These two constraints on the language imply that the induced
+L167@P5: language is context free.
+L168@P5: To show that this complexity class assignment is an artifact of the observational mechanism, consider the mechanism which reports three disjoint regions: 1, c, and r (Figure 4,
+L169@P5: right side). Now the same rotating point will generate sequences ofthe form
+L170@P5: ... rr ... rrcc ... ccll. .. llrr ... rrcc ... ccll ... ll ....
+L171@P5: For a fixed sampling rate, each rotational velocity specifies up to seven sentences, r nc ffil k,
+L172@P5: when n, m, and k can differ no by no more than one. Again, a language of sentences may
+L173@P5: be constructed containing all sentences in which the number ofr's, c's, and l's differs by
+L174@P5: no more than one. The resulting language is context sensitive since it can be described by
+L175@P5: a context sensitive grammar and cannot be context free as it is the finite union of several
+L176@P5: context sensitive languages related to r"c"l n.
+L177@P5: CONCLUSION
+L178@P5: Using recurrent neural networks as the representation underlying the language learning task
+L179@P5: has revealed some inherent problems with the concept of this task. While formal languages
+L180@P5: have mathematical validity, looking for language induction in physical systems is questionable, especially if that system operates with continuous internal states. As I have shown,
+L181@P5: there are two major problems with the extraction of a learned automata from our models.
+L182@P5: First, sensitivity to initial conditions produces nondeterministic machines whose trajectories are specified by both the initial state of the network and the dynamics of the state transformation. The dynamics provide the shape of the eventual attractor. The initial conditions
+L183@P5: specify the allowable trajectories toward that attractor. While clustering methods work in
+L184@P5: the analysis of feed-forward networks because of neighborhood preservation (as each layer
+L185@P5: is a homeomorphism), they may fail when applied to recurrent network state space transformations. FSM construction methods which look for single transitions between regions
+L186@P5: will not help in this case because the network eventually separates initially nearby states
+L187@P5: across several FSM state regions.
+L188@P5: The second problem with the extraction of a learned automata from recurrent network is
+L189@P5: that trivial changes in observation strategies can cause one to induce behavioral descriptions from a wide range of computational complexity classes for a single system. It is the
+L190@P5: researcher's bias which determines that a dynamical system is equivalent to a finite state
+L191@P5: automata. Fool's Gold: Extracting Finite State Machines from Recurrent Network Dynamics 507
+L192@P6: One response to the first problem described above has been to remove and eliminate the
+L193@P6: sources of nondeterminism from the mechanisms. Zeng et. a1 (1993) corrected the secondorder recurrent network model by replacing the continuous internal state transformation with
+L194@P6: a discrete step function. (The continuous activation remained for training purposes.) This
+L195@P6: move was justified by their focus on regular language learning, as these languages can be recognized by finite state machines. This work is questionable on two points, however. First,
+L196@P6: tractable algorithms already exist for solving this problem (e.g. Angluin, 1987). Second, they
+L197@P6: claim that the network is self-clustering the internal states. Self-clustering occurs only at the
+L198@P6: comers of the state space hypercube because of the discrete activation function, in the same
+L199@P6: manner as a digital sequential circuit "clusters" its states. Das and Mozer (1994), on the other
+L200@P6: hand, have relocated the clustering algorithm. Their work focused on recurrent networks that
+L201@P6: perform internal clustering during training. These networks operate much like competitive
+L202@P6: learning in feed-forward networks (e.g. Rumelhart and Zipser, 1986) as the dynamics of the
+L203@P6: learning rules constrain the state representations such that stable clusters emerge.
+L204@P6: The shortcomings of finite state machine extraction must be understood with respect to the
+L205@P6: task at hand. The actual dynamics of the network may be inconsequential to the final product if one is using the recurrent network as a pathway for designing a finite state machine.
+L206@P6: In this engineering situation, the network is thrown away once the FSM is extracted. Neural
+L207@P6: network training can be viewed as an "interior" method to finding discrete solutions. It is
+L208@P6: interior in the same sense as linear programming algorithms can be classified as either edge
+L209@P6: or interior methods. The former follows the edges of the simplex, much like traditional
+L210@P6: FSM learning algorithms search the space of FSMs. Internal methods, on the other hand,
+L211@P6: explore search spaces which can embed the target spaces. Linear programming algorithms
+L212@P6: employing internal methods move through the interior of the defined simplex. Likewise,
+L213@P6: recurrent neural network learning methods swim through mechanisms with mUltiple finite
+L214@P6: state interpretations. Some researchers, specifically those discussed above, have begun to
+L215@P6: bias recurrent network learning to walk the edges (Zeng et al, 1993) or to internally cluster
+L216@P6: states (Das & Mozer, 1994).
+L217@P6: In order to understand the behavior of recurrent networks, these devices should be regarded
+L218@P6: as dynamical systems (Kolen, 1994). In particular, most common recurrent networks are
+L219@P6: actually iterated mappings, nonlinear versions of Barnsley's iterated function systems
+L220@P6: (Barnsley, 1988). While automata also fall into this class, they are a specialization of
+L221@P6: dynamical systems, namely discrete time and state systems. Unfortunately, information
+L222@P6: processing abstractions are only applicable within this domain and do not make any sense
+L223@P6: in the broader domains of continuous time or continuous space dynamical systems.
+L224@P6: Acknowledgments
+L225@P6: The research reported in this paper has been supported by Office of Naval Research grant
+L226@P6: number NOOOI4-92-J-1195. I thank all those who have made comments and suggestions for
+L227@P6: improvement of this paper, especially Greg Saunders and Lee Giles.
+L228@P6: References
+L229@P6: Angluin, D. (1987). Learning Regular Sets from Queries and Counterexamples. Information 508 Kolen
+L230@P7: and Computation, 75,87-106.
+L231@P7: Barnsley, M. (1988). Fractals Everywhere. Academic Press: San Diego, CA.
+L232@P7: Chomsky, N. (1957). Syntactic Structures. The Hague: Mounton & Co.
+L233@P7: Chomsky, N. (1965). Aspects of the Theory of Syntax. Cambridge, Mass.: MIT Press.
+L234@P7: Cleeremans, A, Servan-Schreiber, D. & McClelland, J. L. (1989). Finite state automata and
+L235@P7: simple recurrent networks. Neural Computation, 1,372-381.
+L236@P7: Crutchfield, J. & Young, K. (1989). Computation at the Onset of Chaos. In W. Zurek, (Ed.),
+L237@P7: Entropy, Complexity, and the Physics of Information. Reading: Addison-Wesely.
+L238@P7: Das, R. & Mozer, M. (1994) A Hybrid Gradient-Descent/Clustering Technique for Finite
+L239@P7: State Machine Induction. In Jack D. Cowan, Gerald Tesauro, and Joshua Alspector, (Eds.),
+L240@P7: Advances in Neural Information Processing Systems 6. Morgan Kaufman: San Francisco.
+L241@P7: Devaney, R. L. (1989). An Introduction to Chaotic Dynamical Systems. Addison-Wesley.
+L242@P7: Elman, J. (1990). Finding structure in time. Cognitive Science, 14, 179-211.
+L243@P7: Giles, C. L., Miller, C. B., Chen, D., Sun, G. Z., Chen, H. H. & C.Lee, Y. (1992). Extracting
+L244@P7: and Learning an Unknown Grammar with Recurrent Neural Networks. In John E. Moody,
+L245@P7: Steven J. Hanson & Richard P. Lippman, (Eds.), Advances in Neural Information Processing
+L246@P7: Systems 4. Morgan Kaufman.
+L247@P7: Gold, E. M. (1969). Language identification in the limit. Information and Control, 10,372-
+L248@P7: 381.
+L249@P7: Hopcroft, J. E. & Ullman, J. D. (1979). Introduction to Automata Theory, Languages, and
+L250@P7: Computation. Addison-Wesely.
+L251@P7: Kolen, J. F. (1994) Recurrent Networks: State Machines or Iterated Function Systems? In M.
+L252@P7: C. Mozer, P. Smolensky, D. S. Touretzky, J. L. Elman, & AS. Weigend (Eds.), Proceedings
+L253@P7: of the 1993 Connectionist Models Summer School. (pp. 203-210) Hillsdale, NJ: Erlbaum
+L254@P7: Associates.
+L255@P7: Kolen, J. F. & Pollack, J. B. (1993). The Apparent Computational Complexity of Physical
+L256@P7: Systems. In Proceedings of the Fifteenth Annual Conference of the Cognitive Science Society.
+L257@P7: Laurence Earlbaum.
+L258@P7: Kolen, J. F. & Pollack, J. B. (In press) The Observers' Paradox: The Apparent Computational
+L259@P7: Complexity of Physical Systems. Journal of Experimental and Theoretical Artificial Intelligence.
+L260@P7: Pollack, J. B. (1991). The Induction Of Dynamical Recognizers. Machine Learning, 7.227-
+L261@P7: 252.
+L262@P7: Newell, A. & Simon, H. A (1976). Computer science as empirical inquiry: symbols and
+L263@P7: search. Communications of the Associationfor Computing Machinery, 19, 113-126.
+L264@P7: Rumelhart, D. E., and Zipser, D. (1986). Feature Discovery by Competitive Learning. In D.
+L265@P7: E. Rumelhart, J. L. McClelland, and the PDP Research Group, (Eds.), Parallel Distributed
+L266@P7: Processing. Volume 1. 151-193. MIT Press: Cambridge, MA
+L267@P7: Watrous, R. L. & Kuhn, G. M. (1992). Induction of Finite-State Automata Using SecondOrder Recurrent Networks. In John E. Moody, Steven J. Hanson & Richard P. Lippman,
+L268@P7: (Eds.), Advances in Neural Information Processing Systems 4. Morgan Kaufman.
+L269@P7: Zeng, Z., Goodman, R. M., Smyth, P. (1993). Learning Finite State Machines With Self-Clustering Recurrent Networks. Neural Computation, 5, 976-990 PART IV
+L270@P8: NEUROSCIENCE

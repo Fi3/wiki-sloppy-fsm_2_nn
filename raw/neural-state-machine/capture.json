@@ -1,0 +1,21 @@
+{
+  "original_url": "https://arxiv.org/pdf/1907.03950",
+  "aliases": [],
+  "retrieved_on": "2026-10-07",
+  "segments": [
+    {
+      "url": "https://arxiv.org/pdf/1907.03950",
+      "total_browser_lines": 883,
+      "captured_lines": 114,
+      "missing_line_ranges": [
+        [
+          114,
+          882
+        ]
+      ],
+      "text_extraction_complete": false
+    }
+  ],
+  "review_status": "first-pass; source summary specifies reviewed scope",
+  "limitations": "Text only; original file bytes and linked assets were not downloaded. Browser extraction can omit equations and figures even with complete line coverage."
+}

@@ -1,0 +1,340 @@
+A Pseudorandom Generator from Any One-Way Function
+Supplied URL: https://www.cs.bu.edu/fac/lnd/pdf/hill.pdf
+Retrieved on: 2026-10-07
+Format: text extracted by the web browsing tool, not the original PDF/HTML bytes.
+L numbers refer to the browser extraction. PDF P numbers are zero-based.
+A complete text extraction does not imply that every figure, equation, or proof was reviewed.
+Read capture.json for captured URLs, line coverage, and missing ranges.
+
+
+=== Segment 1: https://www.cs.bu.edu/fac/lnd/pdf/hill.pdf ===
+
+L0@P0: A PSEUDORANDOM GENERATOR FROM ANY ONE-WAY
+L1@P0: FUNCTION∗
+L2@P0: JOHAN H˚ASTAD†, RUSSELL IMPAGLIAZZO‡, LEONID A. LEVIN§,
+L3@P0: AND MICHAEL LUBY¶
+L4@P0: SIAM J. COMPUT. ⃝c 1999 Society for Industrial and Applied Mathematics
+L5@P0: Vol. 28, No. 4, pp. 1364–1396
+L6@P0: Abstract. Pseudorandom generators are fundamental to many theoretical and applied aspects
+L7@P0: of computing. We show how to construct a pseudorandom generator from any one-way function.
+L8@P0: Since it is easy to construct a one-way function from a pseudorandom generator, this result shows
+L9@P0: that there is a pseudorandom generator if and only if there is a one-way function.
+L10@P0: Key words. one-way function, pseudorandom generator, cryptography, complexity theory
+L11@P0: AMS subject classifications. 68P25, 68Q25, 68Q99
+L12@P0: PII. S0097539793244708
+L13@P0: 1. Introduction. One of the basic primitives in the study of the interaction
+L14@P0: between randomness and feasible computation is a pseudorandom generator. Intuitively, a pseudorandom generator is a polynomial time-computable function g that
+L15@P0: stretches a short random string x into a long string g(x) that “looks” random to any
+L16@P0: feasible algorithm, called an adversary. The adversary tries to distinguish the string
+L17@P0: g(x) from a random string the same length as g(x). The two strings “look” the same
+L18@P0: to the adversary if the acceptance probability for both strings is essentially the same.
+L19@P0: Thus, a pseudorandom generator can be used to efficiently convert a small amount of
+L20@P0: true randomness into a much larger number of effectively random bits.
+L21@P0: The notion of randomness tests for a string evolved over time: from set-theoretic
+L22@P0: tests to enumerable [K65], recursive, and finally limited time tests. Motivated by cryptographic applications, the seminal paper [BM82] introduced the idea of a generator
+L23@P0: which produces its output in polynomial time such that its output passes a general
+L24@P0: polynomial time test. The fundamental paper [Yao82] introduced the definition of a
+L25@P0: pseudorandom generator most commonly used today and proves that this definition
+L26@P0: and the original of [BM82] are equivalent.
+L27@P0: The robust notion of a pseudorandom generator, due to [BM82], [Yao82], should
+L28@P0: be contrasted with the classical methods of generating random looking bits as described in, e.g., [Knuth97]. In studies of classical methods, the output of the generator
+L29@P0: is considered good if it passes a particular set of standard statistical tests. The linear congruential generator is an example of a classical method for generating random
+L30@P0: looking bits that pass a variety of standard statistical tests. However, [Boyar89] and
+L31@P0: [K92] show that there is a polynomial time statistical test which the output from this
+L32@P0: ∗Received by the editors February 22, 1993; accepted for publication (in revised form) August 18,
+L33@P0: 1997; published electronically April 7, 1999.
+L34@P0: http://www.siam.org/journals/sicomp/28-4/24470.html
+L35@P0: †Department of Numerical Analysis and Computer Science, Royal Institute of Technology, S100 44 Stockholm 70, Sweden (Johanh@nada.kth.se). This research was supported by the Swedish
+L36@P0: National Board for Technical Development.
+L37@P0: ‡Department of Computer Science, University of California at San Diego, La Jolla, CA 92093
+L38@P0: (Russell@cs.ucsd.edu). This research was supported by NSF grant CCR 88-13632.
+L39@P0: §Computer Science Department, Boston University, 111 Cummington St., Boston, MA 02215
+L40@P0: (Lnd@cs.bu.edu). This research was supported by NSF grants CCR-9015276 and CCR-9610455.
+L41@P0: ¶International Computer Science Institute, University of California at Berkeley, 1947 Center
+L42@P0: Street, Berkeley, CA 94704 (Luby@icsi.berkeley.edu). This research was supported by NSERC grant
+L43@P0: A8092 and NSF grants CCR-9016468 and CCR-9304722.
+L44@P0: 1364A PSEUDORANDOM GENERATOR FROM ANY ONE-WAY FUNCTION 1365
+L45@P1: generator does not pass.
+L46@P1: The distinction between the weaker requirement that the output pass some particular statistical tests and the stronger requirement that it pass all feasible tests is
+L47@P1: particularly important in the context of many applications. As pointed out by [BM82],
+L48@P1: in cryptographic applications the adversary must be assumed to be as malicious as
+L49@P1: possible, with the only restriction on tests being computation time. A pseudorandom
+L50@P1: generator can be directly used to design a private key cryptosystem secure against all
+L51@P1: such adversaries.
+L52@P1: In the context of Monte Carlo simulation applications, a typical algorithm uses
+L53@P1: long random strings, and a typical analysis shows that the algorithm produces a correct answer with high probability if the string it uses is chosen uniformly. In practice,
+L54@P1: the long random string is not chosen uniformly, as this would require more random
+L55@P1: bits than it is typically reasonable to produce (and store). Instead, a short random
+L56@P1: string is stretched into a long string using a simple generator such as a linear congruential generator, and this long string is used by the simulation algorithm. In general,
+L57@P1: it is hard to directly analyze the simulation algorithm to prove that it produces the
+L58@P1: correct answer with high probability when the string it uses is produced using such a
+L59@P1: method. A pseudorandom generator provides a generic solution to this problem. For
+L60@P1: example, [Yao82] shows how pseudorandom generators can be used to reduce the number of random bits needed for any probabilistic polynomial time algorithm and thus
+L61@P1: shows how to perform a deterministic simulation of any polynomial time probabilistic
+L62@P1: algorithm in subexponential time based on a pseudorandom generator. The results
+L63@P1: on deterministic simulation were subsequently generalized in [BH89], [BFNW96].
+L64@P1: Since the conditions are rather stringent, it is not easy to come up with a natural
+L65@P1: candidate for a pseudorandom generator. On the other hand, there seem to be a variety of natural examples of another basic primitive: the one-way function. Informally,
+L66@P1: f is one-way if it is easy to compute but hard on average to invert. If P=NP, then
+L67@P1: there are no one-way functions, and it is not even known if P ̸= NP implies there
+L68@P1: are one-way functions. However, there are many examples of functions that seem
+L69@P1: to be one-way in practice and that are conjectured to be one-way. Some examples
+L70@P1: of conjectured one-way functions are the discrete logarithm problem modulo a large
+L71@P1: randomly chosen prime (see, e.g., [DH76]), factoring a number that is the product of
+L72@P1: two large randomly chosen primes (see, e.g., [RSA78]), problems from coding theory
+L73@P1: (see, e.g., [McEl78], [GKL93]), and the subset sum problem for appropriately chosen
+L74@P1: parameters (see, e.g., [IN96]).
+L75@P1: The paper [BM82] is the first to construct a pseudorandom generator based on a
+L76@P1: one-way function. They introduce an elegant construction that shows how to construct
+L77@P1: a pseudorandom generator based on the presumed difficulty of the discrete logarithm
+L78@P1: problem. The paper [Yao82] substantially generalizes this result by showing how to
+L79@P1: construct a pseudorandom generator from any one-way permutation. (Some of the
+L80@P1: arguments needed in the proof were missing in [Yao82] and were later completed by
+L81@P1: [Levin87]. Also, [Levin87] conjectured that a much simpler construction would work
+L82@P1: for the case of one-way permutations, and this was eventually shown in [GL89].)
+L83@P1: There are several important works that have contributed to the expansion of
+L84@P1: the conditions on one-way functions under which a pseudorandom generator can be
+L85@P1: constructed. [GMT82] and [Yao82] show how to construct a pseudorandom generator
+L86@P1: based on the difficulty of factoring, and this was substantially simplified in [ACGS88].
+L87@P1: When f is a one-way permutation, the task of inverting f(x) is to find x. In the case
+L88@P1: when f is not a permutation, the natural extension of successful inversion is finding1366 J. H˚ASTAD, R. IMPAGLIAZZO, L. LEVIN, AND M. LUBY
+L89@P2: any x
+L90@P2: ′
+L91@P2: such that f(x
+L92@P2: ′
+L93@P2: ) = f(x). The paper [Levin87] introduces one-way functions
+L94@P2: which remain one-way after several iterations and shows them to be necessary and
+L95@P2: sufficient for the construction of a pseudorandom generator. The paper [GKL93]
+L96@P2: shows how to construct a pseudorandom generator from any one-way function with
+L97@P2: the property that each value in the range of the function has roughly the same number
+L98@P2: of preimages. This expanded the list of conjectured one-way functions from which
+L99@P2: pseudorandom generators can be constructed to a variety of nonnumber theoretic
+L100@P2: functions, including coding theory problems.
+L101@P2: However, the general question of how to construct a pseudorandom generator from
+L102@P2: a one-way function with no structural properties was left open. This paper resolves
+L103@P2: this question. We give several successively more intricate constructions, starting with
+L104@P2: constructions for one-way functions with a lot of structure and finishing with the
+L105@P2: constructions for one-way functions with no required structural properties.
+L106@P2: This paper is a combination of the results announced in the conference papers
+L107@P2: [ILL89] and [H90].
+L108@P2: 1.1. Concepts and tools. Previous methods, following [BM82], rely on constructing a function that has an output bit that is computationally unpredictable
+L109@P2: given the other bits of the output, but is nevertheless statistically correlated with
+L110@P2: these other bits. [GL89] provide a simple and natural input bit which is hidden from
+L111@P2: (a padded version of) any one-way function. Their result radically simplifies the previous constructions of pseudorandom generators from one-way permutations and in
+L112@P2: addition makes all previous constructions substantially more efficient. We use their
+L113@P2: result in a fundamental way.
+L114@P2: Our overall approach is different in spirit from previous constructions of pseudorandom generators based on one-way functions with special structure. Previous
+L115@P2: methods rely on iterating the one-way function many times, and from each iteration
+L116@P2: they extract a computationally unpredictable bit. The approach is to make sure that
+L117@P2: after many iterations the function is still one-way. In contrast, as explained below in
+L118@P2: more detail, our approach concentrates on extracting and smoothing entropy in parallel from many independent copies of the one-way function. Our overall construction
+L119@P2: combines this parallel approach with a standard method for iteratively stretching the
+L120@P2: output of a pseudorandom generator.
+L121@P2: The notion of computational indistinguishability provides one of the main conceptual tools in our paper. Following [GM84] and [Yao82], we say that two probability
+L122@P2: distributions D and E are computationally indistinguishable if no feasible adversary
+L123@P2: can distinguish D from E. In these terms, a pseudorandom generator is intuitively the
+L124@P2: following: let g be a polynomial time computable function that maps strings of length
+L125@P2: n to longer strings of length ℓn > n. Let X be a random variable that is uniformly
+L126@P2: distributed on strings of length n and let Y be a random variable that is uniformly
+L127@P2: distributed on strings of length ℓn. Then g is a pseudorandom generator if g(X) and
+L128@P2: Y are computationally indistinguishable.
+L129@P2: The Shannon entropy of a distribution is a good measure of its information content. A fundamental law of information theory is that the application of a function
+L130@P2: cannot increase entropy. For example, because X has n bits of entropy, g(X) can also
+L131@P2: have at most n bits of entropy (see Proposition 2.6). The work presented in this paper focuses on a computational analogue of Shannon entropy, namely computational
+L132@P2: entropy. We say the computational entropy of g(X) is at least the Shannon entropy of
+L133@P2: Y if g(X) and Y are computationally indistinguishable. If g(X) is a pseudorandom
+L134@P2: generator, the computational entropy of g(X) is greater than the Shannon entropy ofA PSEUDORANDOM GENERATOR FROM ANY ONE-WAY FUNCTION 1367
+L135@P3: its input X, and in this sense g amplifies entropy.
+L136@P3: We introduce the following generalizations of a pseudorandom generator based
+L137@P3: on computational entropy. We say that g(X) is a pseudoentropy generator if the
+L138@P3: computational entropy of g(X) is significantly more than the Shannon entropy of X.
+L139@P3: We say that g(X) is a false-entropy generator if the computational entropy of g(X)
+L140@P3: is significantly more than the Shannon entropy of g(X).
+L141@P3: We show how to construct a false-entropy generator from any one-way function,
+L142@P3: a pseudoentropy generator from any false-entropy generator, and finally a pseudorandom generator from any pseudoentropy generator. (The presentation of these
+L143@P3: results in the paper is in reverse order.)
+L144@P3: We use hash functions and their analysis in a fundamental way in our constructions. This approach has its roots in [GKL93]. In [GL89], it turns out that the easily
+L145@P3: computable bit that is hidden is the parity of a random subset of the input bits, i.e.,
+L146@P3: the inner product of the input and a random string. This random inner product can
+L147@P3: be viewed as a hash function from many bits to one bit.
+L148@P3: Due to its importance in such basic algorithms as primality testing, randomness
+L149@P3: has become an interesting computational resource in its own right. Recently, various
+L150@P3: studies for extracting good random bits from biased “slightly random” sources that
+L151@P3: nevertheless possess a certain amount of entropy have been made; these sources model
+L152@P3: the imperfect physical sources of randomness, such as Geiger counter noise and Zener
+L153@P3: diodes, that would have to actually be utilized in real life. (See [Blum84], [SV86],
+L154@P3: [V87], [VV85], [CG88], and [McIn87].) One of our main technical lemmas (Lemma 4.8)
+L155@P3: can be viewed as a hashing lemma which is used to manipulate entropy in various
+L156@P3: ways: it can be viewed as a method for extracting close to uniform random bits from
+L157@P3: a slightly random source using random bits as a catalyst.
+L158@P3: 1.2. Outline. An outline of the paper is as follows.
+L159@P3: In section 2 we give notation, especially as related to probability distributions
+L160@P3: and ensembles. In section 3, we define the basic primitives used in the paper and a
+L161@P3: general notion of reduction between primitives. We spend a little more time on this
+L162@P3: than is conventional in papers on cryptography, since we want to discuss the effects
+L163@P3: of reductions on security in quantitative terms.
+L164@P3: Section 4 introduces the basic mechanisms for finding hidden bits and manipulating entropy with hash functions. The main result of the section is a reduction from a
+L165@P3: false-entropy generator to a pseudorandom generator via a pseudoentropy generator.
+L166@P3: In section 5, we present a construction of a pseudorandom generator from a oneway function where preimage sizes can be estimated. Although such one-way functions are very common, and so this is an important special case, the main reason for
+L167@P3: including this is to develop intuition for general one-way functions.
+L168@P3: Section 6 presents the most technically challenging construction: that of a falseentropy generator from any one-way function. Combined with section 4, this yields
+L169@P3: the main result of the paper: the construction of a pseudorandom generator from any
+L170@P3: one-way function.
+L171@P3: In section 7, we present a somewhat more direct and efficient construction of
+L172@P3: a pseudorandom generator from any one-way function. This section uses the ideas
+L173@P3: from sections 4, 5, and 6, but avoids some redundancy involved in combining three
+L174@P3: generic reductions. Section 8 concludes by placing our results in the context of modern
+L175@P3: cryptographic complexity.
+L176@P3: 2. Basic notation. N is the set of natural numbers. If S is a set, then ♯S is
+L177@P3: the number of elements in S. If S and T are sets, then S \ T is the set consisting of1368 J. H˚ASTAD, R. IMPAGLIAZZO, L. LEVIN, AND M. LUBY
+L178@P4: all elements in S that are not in T. If a is a number, then |a| is the absolute value of
+L179@P4: a, ⌈a⌉ is the smallest integer greater than or equal to a, and log(a) is the logarithm
+L180@P4: base two of a.
+L181@P4: Let x and y be bit strings. We let ⟨x, y⟩ denote the sequence x followed by y, and
+L182@P4: when appropriate we also view this as the concatenation of x and y. If x ∈ {0, 1}
+L183@P4: n,
+L184@P4: then xiis the ith bit of x, x{i,...,j} is ⟨xi, . . . , xj ⟩, and x ⊕ y is ⟨x1 ⊕ y1, . . . , xn ⊕ yn⟩.
+L185@P4: An m × n bit matrix x is indicated by x ∈ {0, 1}
+L186@P4: m×n. We write xi,j to refer to
+L187@P4: the (i, j)-entry in x. We can also view x as a sequence x = ⟨x1, . . . , xm⟩ of m strings,
+L188@P4: each of length n, where in this case xiis the ith row of the matrix, or we can view x
+L189@P4: as a bit string of length mn, which is the concatenation of the rows of the matrix.
+L190@P4: The ⊙ operation indicates matrix multiplication over GF[2]. If x ∈ {0, 1}
+L191@P4: n appears to the left of ⊙, then it is considered to be a row vector, and if it appears to the
+L192@P4: right of ⊙, it is considered to be a column vector. Thus, if x ∈ {0, 1}
+L193@P4: n and y ∈ {0, 1}n,
+L194@P4: then x ⊙ y =
+L195@P4: Pn
+L196@P4: i=1 xi
+L197@P4: · yi mod 2. More generally, if x ∈ {0, 1}
+L198@P4: ℓ×m and y ∈ {0, 1}m×n,
+L199@P4: then x ⊙ y is the ℓ × n bit matrix, where the (i, j)-entry is r ⊙ c, where r is the ith
+L200@P4: row of x and c is the jth column of y.
+L201@P4: 2.1. Probability notation. In general, we use capital and Greek letters to
+L202@P4: denote random variables and random events. Unless otherwise stated, all random
+L203@P4: variables are independent of all other random variables.
+L204@P4: A distribution D on a finite set S assigns a probability D(x) ≥ 0 to each x ∈ S,
+L205@P4: and thus P
+L206@P4: x∈S D(x) = 1. We say a random variable X is distributed according
+L207@P4: to D on S if for all x ∈ S, Pr[X = x] = D(x), and we indicate this by X ∈D S.
+L208@P4: We write D : {0, 1}
+L209@P4: ℓn to indicate that D is supported on strings of length ℓn. We
+L210@P4: sometimes, for convenience, blur the distinction between a random variable and its
+L211@P4: distribution. If X1 and X2 are random variables (that are not necessarily independent), then (X1|X2 = x2) denotes the random variable that takes on value x1 with the
+L212@P4: conditional probability Pr[X1 = x1|X2 = x2] = Pr[X1 = x1 ∧ X2 = x2]/Pr[X2 = x2].
+L213@P4: If f is a function mapping S to a set T, then f(X) is a random variable that
+L214@P4: defines a distribution E, where for all y ∈ T, E(y) = P
+L215@P4: x∈S,f(x)=y D(x). We let f(D)
+L216@P4: indicate the distribution E.
+L217@P4: We let X ∈U S indicate that X is uniformly distributed in S; i.e., for all x ∈ S,
+L218@P4: Pr[X = x] = 1/♯S. We let Un indicate the uniform distribution on {0, 1}
+L219@P4: n; i.e., X is
+L220@P4: distributed according to Un if X ∈U {0, 1}
+L221@P4: n.
+L222@P4: We sometimes want to indicate a random sample chosen from a distribution, and
+L223@P4: we do this by using the same notation as presented above for random variables except
+L224@P4: that we use lowercase letters; i.e., x ∈D S indicates that x is a fixed element of S
+L225@P4: chosen according to distribution D.
+L226@P4: If X is a real-valued random variable, then E[X] denotes the expected value X.
+L227@P4: If E is a probabilistic event, then Pr[E] denotes the probability that event E occurs.
+L228@P4: Definition 2.1 (statistical distance). Let D and E be distributions on a set S.
+L229@P4: The statistical distance between D and E is
+L230@P4: L1(D, E) = X
+L231@P4: x∈S
+L232@P4: |Pr[D(x)] − Pr[E(x)]| /2.
+L233@P4: Proposition 2.2. For any function f with domain S and for any pair of distributions D and E on S, L1(f(D), f(E)) ≤ L1(D, E).
+L234@P4: 2.2. Entropy. The following definition of entropy is from [S48].
+L235@P4: Definition 2.3 (information and entropy). Let D be a distribution on a set
+L236@P4: S. For each x ∈ S, define the information of x with respect to D to be ID(x) =A PSEUDORANDOM GENERATOR FROM ANY ONE-WAY FUNCTION 1369
+L237@P5: − log(D(x)). Let X ∈D S. The (Shannon) entropy of D is H(D) = E[ID(X)]. Let D1
+L238@P5: and D2 be distributions on S that are not necessarily independent, and let X1 ∈D1 S
+L239@P5: and X2 ∈D2 S. Then the conditional entropy of D1 with respect to D2, H(D1|D2), is
+L240@P5: Ex2∈D2
+L241@P5: S[H(X1|X2 = x2)].
+L242@P5: We sometimes refer to the entropy H(X) of random variable X, which is equal to
+L243@P5: H(D). We sometimes refer to the conditional entropy H(X1|X2) of X1 conditioned
+L244@P5: on X2, which is equal to H(D1|D2).
+L245@P5: The following variant definition of entropy is due to [Renyi70].
+L246@P5: Definition 2.4 (Renyi entropy). Let D be a distribution on a set S. The Renyi
+L247@P5: entropy of D is HRen(D) = − log(Pr[X = Y ]), where X ∈D S and Y ∈D S are
+L248@P5: independent.
+L249@P5: There are distributions that have arbitrarily large entropy but have only a couple
+L250@P5: of bits of Renyi entropy.
+L251@P5: Proposition 2.5. For any distribution D, HRen(D) ≤ H(D).
+L252@P5: We sometimes use the following proposition implicitly. This proposition shows
+L253@P5: that a function cannot increase entropy in a statistical sense.
+L254@P5: Proposition 2.6. Let f be a function and let D be a distribution on the domain
+L255@P5: of f. Then H(f(D)) ≤ H(D).
+L256@P5: The following definition characterizes how much entropy is lost by the application
+L257@P5: of a function f to the uniform distribution.
+L258@P5: Definition 2.7 (degeneracy of f). Let f : {0, 1}
+L259@P5: n → {0, 1}ℓn and let X ∈U
+L260@P5: {0, 1}
+L261@P5: n. The degeneracy of f is Dn(f) = H(X|f(X)) = H(X) − H(f(X)).
+L262@P5: 2.3. Ensembles. We present all of our definitions and results in asymptotic
+L263@P5: form. Ensembles are used to make the asymptotic definitions, e.g., to define primitives
+L264@P5: such as one-way functions and pseudorandom generators, and to define the adversaries
+L265@P5: that try to break the primitives. In all cases, we use n ∈ N as the index of the ensemble
+L266@P5: and, implicitly, the definition and/or result holds for all values of n ∈ N .
+L267@P5: In our definitions of ensembles, the input and output lengths are all polynomially
+L268@P5: related. To specify this, we use the following.
+L269@P5: Definition 2.8 (polynomial parameter). We say parameter kn is a polynomial
+L270@P5: parameter if there is a constant c > 0 such that for all n ∈ N ,
+L271@P5: 1
+L272@P5: cnc
+L273@P5: ≤ kn ≤ cnc.
+L274@P5: We say kn is a P-time polynomial parameter if in addition there is a constant c
+L275@P5: ′ > 0
+L276@P5: such that, for all n, kn is computable in time at most c
+L277@P5: ′nc
+L278@P5: ′
+L279@P5: .
+L280@P5: In many uses of a polynomial parameter kn, kn is integer valued, but it is sometimes the case that kn is real valued.
+L281@P5: Definition 2.9 (function ensemble). We let f : {0, 1}
+L282@P5: tn → {0, 1}ℓn denote a
+L283@P5: function ensemble, where tn and ℓn are integer-valued P-time polynomial parameters
+L284@P5: and where f with respect to n is a function mapping {0, 1}
+L285@P5: tn to {0, 1}ℓn . If f is
+L286@P5: injective, then it is a one-to-one function ensemble. If f is injective and ℓn = tn,
+L287@P5: then it is a permutation ensemble. We let f : {0, 1}
+L288@P5: tn × {0, 1}ℓn → {0, 1}mn denote a
+L289@P5: function ensemble with two inputs. In this case, we sometimes consider f as being a
+L290@P5: function of the second input for a fixed value of the first input, in which case we write
+L291@P5: fx(y) in place of f(x, y).
+L292@P5: Definition 2.10 (P-time function ensemble). We say f : {0, 1}
+L293@P5: tn × {0, 1}ℓn →
+L294@P5: {0, 1}
+L295@P5: mn is a Tn-time function ensemble if f is a function ensemble such that, for all
+L296@P5: x ∈ {0, 1}
+L297@P5: tn , for all y ∈ {0, 1}ℓn , f(x, y) is computable in time Tn. We say f is a P-1370 J. H˚ASTAD, R. IMPAGLIAZZO, L. LEVIN, AND M. LUBY
+L298@P6: time function ensemble if there is a constant c such that, for all n, Tn ≤ cnc. We say
+L299@P6: f is a mildly nonuniform P-time function ensemble if it is a P-time function ensemble
+L300@P6: except that it has an additional input an called the advice, that is, an integer-valued
+L301@P6: polynomial parameter that is not necessarily P-time computable.
+L302@P6: These definitions generalize in a natural way to functions with more than two
+L303@P6: inputs. Sometimes we describe functions that have variable length inputs or outputs;
+L304@P6: in these cases we implicitly assume that the string is padded out with a special blank
+L305@P6: symbol to the appropriate length.
+L306@P6: In some of our intermediate reductions, we use certain statistical quantities in
+L307@P6: order to construct our new primitive. For example, we might use an approximation
+L308@P6: of the entropy of a distribution in our construction of a pseudoentropy generator.
+L309@P6: Although in many cases these quantities are not easy to approximate, the number
+L310@P6: of different approximation values they can take on is small. This is the reason for
+L311@P6: the definition of a mildly nonuniform P-time function ensemble in the above definition. In all the definitions we give below, e.g., of one-way functions, false-entropy
+L312@P6: generators, pseudoentropy generators, and pseudorandom generators, there is also an
+L313@P6: analogous mildly nonuniform version. In Proposition 4.17, we show how to remove
+L314@P6: mild nonuniformity in the final construction of a pseudorandom generator.
+L315@P6: Definition 2.11 (range and preimages of a function). Let f : {0, 1}
+L316@P6: n → {0, 1}ℓn
+L317@P6: be a function ensemble. With respect to n, define
+L318@P6: rangef = {f(x) : x ∈ {0, 1}
+L319@P6: n
+L320@P6: }.
+L321@P6: For each y ∈ rangef, define
+L322@P6: pref(y) = {x ∈ {0, 1}
+L323@P6: n
+L324@P6: : f(x) = y}.
+L325@P6: Definition 2.12 (regular function ensemble). We say function ensemble f :
+L326@P6: {0, 1}
+L327@P6: n → {0, 1}ℓn is σn-regular if ♯pref
+L328@P6: (y) = σn for all y ∈ rangef.

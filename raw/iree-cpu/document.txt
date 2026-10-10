@@ -1,0 +1,446 @@
+IREE CPU Deployment
+Supplied URL: https://iree.dev/guides/deployment-configurations/cpu/
+Retrieved on: 2026-10-07
+Format: text extracted by the web browsing tool, not the original PDF/HTML bytes.
+L numbers refer to the browser extraction. PDF P numbers are zero-based.
+A complete text extraction does not imply that every figure, equation, or proof was reviewed.
+Read capture.json for captured URLs, line coverage, and missing ranges.
+
+
+=== Segment 1: https://iree.dev/guides/deployment-configurations/cpu/ ===
+
+L0: [Input] [Input]
+L1: 
+L2: cite0†Skip to content
+L3: 
+L4: IREE
+L5: 
+L6: CPU
+L7: 
+L8: [Input] [Input]
+L9: 
+L10: [Input: Search]
+L11: 
+L12: Initializing search
+L13: 
+L14: cite1†iree-org/iree†github.com
+L15: 
+L16:   * cite2†Home
+L17:   * cite3†Building from source
+L18:   * cite4†Guides
+L19:   * cite5†Reference
+L20:   * cite6†Developers
+L21:   * cite7†Community
+L22: 
+L23: IREE
+L24: 
+L25: cite1†iree-org/iree†github.com
+L26: 
+L27:   * cite2†Home
+L28:   * [Input]
+L29: 
+L30: cite3†Building from source
+L31: 
+L32: Building from source
+L33:     * cite8†Getting started
+L34:     * cite9†Android cross-compilation
+L35:     * cite10†iOS cross-compilation
+L36:     * cite11†RISC-V cross-compilation
+L37:   * [Input]
+L38: 
+L39: cite4†Guides
+L40: Guides
+L41:     * [Input]
+L42: 
+L43: cite12†ML frameworks
+L44: 
+L45: ML frameworks
+L46:       * cite13†JAX
+L47:       * cite14†ONNX
+L48:       * cite15†PyTorch
+L49:       * cite16†TensorFlow
+L50:       * cite17†TensorFlow Lite
+L51:     * [Input]
+L52: 
+L53: cite18†Deployment configurations
+L54: Deployment configurations
+L55:       * [Input] CPU cite19†CPU Table of contents
+L56:         * cite20†Prerequisites
+L57:           * cite21†Get the IREE compiler
+L58:             * cite22†Download the compiler from a release
+L59:             * cite23†Build the compiler from source
+L60:           * cite24†Get the IREE runtime
+L61:             * cite25†Download the runtime from a release
+L62:             * cite26†Build the runtime from source
+L63:             * cite27†Check for CPU devices
+L64:         * cite28†Compile and run a program
+L65:           * cite29†Compile a program
+L66:             * cite30†Choosing CPU targets
+L67:           * cite31†Run a compiled program
+L68:       * cite32†CPU - Bare-Metal
+L69:       * cite33†GPU - Vulkan
+L70:       * cite34†GPU - ROCm
+L71:       * cite35†GPU - CUDA
+L72:       * cite36†GPU - Metal
+L73:     * [Input] General topics General topics
+L74:       * cite37†Parameters
+L75:   * [Input]
+L76: cite5†Reference
+L77: 
+L78: Reference
+L79:     * [Input] General topics General topics
+L80:       * cite38†Glossary
+L81:       * cite39†Optimization options
+L82:       * cite40†Tuning
+L83:       * cite41†Extensions
+L84:     * [Input]
+L85: 
+L86: cite42†API bindings
+L87: 
+L88: API bindings
+L89:       * cite43†C API
+L90:       * cite44†Python
+L91:     * [Input]
+L92: 
+L93: cite45†MLIR dialects
+L94: MLIR dialects
+L95:       * [Input] Core Core
+L96:         * cite46†Flow
+L97:         * cite47†HAL
+L98:         * cite48†Stream
+L99:         * cite49†Util
+L100:         * cite50†VM
+L101:       * [Input] MLIR extensions MLIR extensions
+L102:         * cite51†Encoding
+L103:         * cite52†LinalgExt
+L104:         * cite53†TensorExt
+L105:       * [Input] Codegen/target-specific Codegen/target-specific
+L106:         * cite54†IREECodegen
+L107:         * cite55†IREECPU
+L108:         * cite56†IREEGPU
+L109:         * cite57†IREEVectorExt
+L110:         * cite58†PCF
+L111:         * cite59†VMVX
+L112:       * [Input] Optional modules Optional modules
+L113:         * cite60†Check
+L114:         * [Input] HAL HAL
+L115:           * cite61†Inline
+L116:           * cite62†Loader
+L117:         * [Input] IO IO
+L118:           * cite63†Parameters
+L119:     * [Input]
+L120: cite64†MLIR passes
+L121: MLIR passes
+L122:       * [Input] Core dialects Core dialects
+L123:         * cite65†Flow
+L124:         * cite66†HAL
+L125:         * cite67†Stream
+L126:         * cite68†Util
+L127:         * cite69†VM
+L128:       * [Input] Pipelines Pipelines
+L129:         * cite70†ConstEval
+L130:         * cite71†DispatchCreation
+L131:         * cite72†GlobalOptimization
+L132:         * cite73†InputConversion
+L133:         * cite74†Preprocessing
+L134:       * [Input] Codegen Codegen
+L135:         * cite75†Common
+L136:         * cite76†Common/CPU
+L137:         * cite77†Common/GPU
+L138:         * cite78†Dialect/GPU
+L139:         * cite79†Dialect/PCF
+L140:         * cite80†Dialect/VectorExt
+L141:         * cite81†LLVMCPU
+L142:         * cite82†LLVMGPU
+L143:         * cite83†SPIRV
+L144:         * cite84†VMVX
+L145:   * [Input]
+L146: cite6†Developers
+L147: Developers
+L148:     * [Input] General development topics General development topics
+L149:       * cite85†Contributing to IREE
+L150:       * cite86†Developer overview
+L151:       * cite87†Developer tips and tricks
+L152:       * cite88†Testing guide
+L153:       * cite89†GitHub Actions
+L154:       * cite90†Release management
+L155:       * cite91†Versioning scheme
+L156:     * [Input] Building Building
+L157:       * cite92†Building with Bazel
+L158:       * cite93†Building with Emscripten
+L159:       * cite94†CMake options
+L160:       * cite95†CMake with ccache
+L161:     * [Input] Debugging Debugging
+L162:       * cite96†Android LLDB debugging
+L163:       * cite97†Compile time regression debugging
+L164:       * cite98†GPU debugging playbook
+L165:       * cite99†LLVM debugging playbook
+L166:       * cite100†Integration test debugging
+L167:       * cite101†Model development debugging
+L168:       * cite102†Release debugging playbook
+L169:       * cite103†Sanitizers (ASan/MSan/TSan)
+L170:       * cite104†Fuzzing with libFuzzer
+L171:     * [Input] Performance Performance
+L172:       * cite105†Benchmarking
+L173:       * cite106†Profiling overview
+L174:       * cite107†Device profiling
+L175:       * cite108†Device replay
+L176:       * cite109†Profiling CPUs
+L177:       * cite110†Profiling GPUs using Vulkan
+L178:       * cite111†Profiling with Tracy
+L179:     * [Input] Design docs Design docs
+L180:       * cite112†Design roadmap
+L181:       * cite113†Function ABI
+L182:       * cite114†Invocation execution model
+L183:       * cite115†CUDA HAL driver
+L184:       * cite116†HIP HAL driver
+L185:       * cite117†Metal HAL driver
+L186:       * cite118†Virtual machine (VM)
+L187:       * [Input]
+L188: cite119†Async Scheduling
+L189: 
+L190: Async Scheduling
+L191:         * cite120†Frontiers vs. Binary Events
+L192:         * cite121†Multi-Model Scheduling Scenarios
+L193:     * [Input] Other topics Other topics
+L194:       * cite122†Usage best practices
+L195:       * cite123†Integrating newer LLVM in IREE
+L196:       * cite124†Updating SDXL Golden Outputs for IREE CI
+L197:       * cite125†Vulkan environment setup
+L198:       * cite126†IREE Lowering Configs
+L199:   * [Input]
+L200: 
+L201: cite7†Community
+L202: 
+L203: Community
+L204:     * [Input]
+L205: 
+L206: cite127†Blog
+L207: Blog
+L208:       * [Input] Archive Archive
+L209:         * cite128†2026
+L210:         * cite129†2025
+L211:         * cite130†2024
+L212:         * cite131†2021
+L213:       * [Input] Categories Categories
+L214:         * cite132†Frontends
+L215:         * cite133†Performance
+L216:         * cite134†Platforms
+L217:     * cite135†Tags
+L218: 
+L219: Table of contents
+L220:   * cite20†Prerequisites
+L221:     * cite21†Get the IREE compiler
+L222:       * cite22†Download the compiler from a release
+L223:       * cite23†Build the compiler from source
+L224:     * cite24†Get the IREE runtime
+L225:       * cite25†Download the runtime from a release
+L226:       * cite26†Build the runtime from source
+L227:       * cite27†Check for CPU devices
+L228:   * cite28†Compile and run a program
+L229:     * cite29†Compile a program
+L230:       * cite30†Choosing CPU targets
+L231:     * cite31†Run a compiled program
+L232: 
+L233: cite136†CPU
+L234: # CPU deploymentcite0†link
+L235: 
+L236: IREE supports efficient program execution on CPU devices by using cite137†LLVM†llvm.org to compile all dense computations in each program into highly optimized CPU native instruction streams, which are embedded in one of IREE's deployable formats.
+L237: 
+L238: To compile a program for CPU execution:
+L239: 
+L240:   1. Pick a CPU target supported by LLVM. By default, IREE includes these LLVM targets:
+L241: 
+L242:      * X86
+L243:      * ARM
+L244:      * AArch64
+L245:      * RISCV
+L246: Other targets may work, but in-tree test coverage and performance work is focused on that list.
+L247: 
+L248:   2. Pick one of IREE's supported executable formats:
+L249: 
+L250: Executable Format  | Description
+L251: --- | ---
+L252: Embedded ELF  | (Default) Portable, high performance dynamic library
+L253: System library  | Platform-specific dynamic library (.so, .dll, etc.)
+L254: VMVX  | Reference target
+L255: 
+L256: At runtime, CPU executables can be loaded using one of IREE's CPU HAL devices:
+L257:   * `local-task`: asynchronous, multithreaded device built on IREE's "task" system
+L258:   * `local-sync`: synchronous, single-threaded devices that executes work inline
+L259: ## Prerequisitescite20†link
+L260: 
+L261: ### Get the IREE compilercite21†link
+L262: #### Download the compiler from a releasecite22†link
+L263: 
+L264: Python packages are distributed through multiple channels. See the cite44†Python Bindings page for more details. The core cite138†`iree-base-compiler`†pypi.org package includes the compiler tools:
+L265: 
+L266: [Input][Input][Input]
+L267: 
+L268: Stable releases Nightly releases Development packages
+L269: 
+L270: Stable release packages are cite139†published to PyPI†pypi.org .
+L271: 
+L272:     `python -m pip install iree-base-compiler
+L273:     `
+L274: Nightly pre-releases are published on cite140†GitHub releases†github.com .
+L275: 
+L276:     `python -m pip install \
+L277:       --find-links https://iree.dev/pip-release-links.html \
+L278:       --upgrade --pre iree-base-compiler
+L279:     `
+L280: 
+L281: Development packages are built at every commit and on pull requests, for limited configurations.
+L282: On Linux with Python 3.11, development packages can be installed into a cite141†Python `venv`†docs.python.org using the cite142†`build_tools/pkgci/setup_venv.py`†github.com script:
+L283: 
+L284:     `# Install packages from a specific commit ref.
+L285:     # See also the `--fetch-latest-main` and `--fetch-gh-workflow` options.
+L286:     python ./build_tools/pkgci/setup_venv.py /tmp/.venv --fetch-git-ref=8230f41d
+L287:     source /tmp/.venv/bin/activate
+L288:     `
+L289: 
+L290: Tip
+L291: `iree-compile` and other tools are installed to your python module installation path. If you pip install with the user mode, it is under `${HOME}/.local/bin`, or `%APPDATA%\Python` on Windows. You may want to include the path in your system's `PATH` environment variable:
+L292: 
+L293:     `export PATH=${HOME}/.local/bin:${PATH}
+L294:     `
+L295: #### Build the compiler from sourcecite23†link
+L296: 
+L297: Please make sure you have followed the cite8†Getting started page to build IREE for your host platform. The `llvm-cpu` compiler backend is compiled in by default on all platforms, though you should ensure that the `IREE_TARGET_BACKEND_LLVM_CPU` CMake option is `ON` when configuring.
+L298: 
+L299: Tip
+L300: 
+L301: `iree-compile` will be built under the `iree-build/tools/` directory. You may want to include this path in your system's `PATH` environment variable.
+L302: ### Get the IREE runtimecite24†link
+L303: 
+L304: You will need to get an IREE runtime that supports the local CPU HAL driver, along with the appropriate executable loaders for your application.
+L305: #### Download the runtime from a releasecite25†link
+L306: 
+L307: Python packages are distributed through multiple channels. See the cite44†Python Bindings page for more details. The core cite143†`iree-base-runtime`†pypi.org package includes the local CPU HAL drivers:
+L308: 
+L309: [Input][Input][Input]
+L310: 
+L311: Stable releases Nightly releases Development packages
+L312: 
+L313: Stable release packages are cite139†published to PyPI†pypi.org .
+L314: 
+L315:     `python -m pip install iree-base-runtime
+L316:     `
+L317: Nightly pre-releases are published on cite140†GitHub releases†github.com .
+L318: 
+L319:     `python -m pip install \
+L320:       --find-links https://iree.dev/pip-release-links.html \
+L321:       --upgrade --pre iree-base-runtime
+L322:     `
+L323: 
+L324: Development packages are built at every commit and on pull requests, for limited configurations.
+L325: On Linux with Python 3.11, development packages can be installed into a cite141†Python `venv`†docs.python.org using the cite142†`build_tools/pkgci/setup_venv.py`†github.com script:
+L326: 
+L327:     `# Install packages from a specific commit ref.
+L328:     # See also the `--fetch-latest-main` and `--fetch-gh-workflow` options.
+L329:     python ./build_tools/pkgci/setup_venv.py /tmp/.venv --fetch-git-ref=8230f41d
+L330:     source /tmp/.venv/bin/activate
+L331:     `
+L332: #### Build the runtime from sourcecite26†link
+L333: 
+L334: Please make sure you have followed one of the cite3†Building from source pages to build IREE for your target platform. The local CPU HAL drivers and devices are compiled in by default on all platforms, though you should ensure that the `IREE_HAL_DRIVER_LOCAL_TASK` and `IREE_HAL_EXECUTABLE_LOADER_EMBEDDED_ELF` (or other executable loader) CMake options are `ON` when configuring.
+L335: #### Check for CPU devicescite27†link
+L336: You can check for CPU support by looking for the `local-sync` and `local-task` drivers and devices:
+L337: 
+L338:     `$ iree-run-module --list_drivers
+L339: 
+L340:     # ============================================================================
+L341:     # Available HAL drivers
+L342:     # ============================================================================
+L343:     # Use --list_devices={driver name} to enumerate available devices.
+L344: 
+L345:             cuda: NVIDIA CUDA HAL driver (via dylib)
+L346:              hip: HIP HAL driver (via dylib)
+L347:       local-sync: Local execution using a lightweight inline synchronous queue
+L348:       local-task: Local execution using the IREE multithreading task system
+L349:           vulkan: Vulkan 1.x (dynamic)
+L350:     `
+L351: 
+L352:     `$ iree-run-module --list_devices
+L353: 
+L354:     hip://GPU-00000000-1111-2222-3333-444444444444
+L355:     local-sync://
+L356:     local-task://
+L357:     vulkan://00000000-1111-2222-3333-444444444444
+L358:     `
+L359: ## Compile and run a programcite28†link
+L360: 
+L361: With the requirements out of the way, we can now compile a model and run it.
+L362: ### Compile a programcite29†link
+L363: 
+L364: The IREE compiler transforms a model into its final deployable format in several sequential steps. A model authored with Python in an ML framework should use the corresponding framework's import tool to convert into a format (i.e., cite144†MLIR†mlir.llvm.org ) expected by the IREE compiler first.
+L365: Using a cite145†MobileNet model†github.com as an example, import using IREE's cite14†ONNX importer :
+L366: 
+L367:     `# Download the model you want to compile and run.
+L368:     wget https://github.com/onnx/models/raw/refs/heads/main/validated/vision/classification/mobilenet/model/mobilenetv2-10.onnx
+L369: 
+L370:     # Import to MLIR using IREE's ONNX importer.
+L371:     pip install iree-base-compiler[onnx]
+L372:     iree-import-onnx mobilenetv2-10.onnx --opset-version 17 -o mobilenetv2.mlir
+L373:     `
+L374: Then run the following command to compile with the `local` device, `llvm-cpu` target compilation backend, and recommended optimization flags:
+L375: 
+L376:     `iree-compile \
+L377:         --iree-hal-target-device=local \
+L378:         --iree-hal-local-target-device-backends=llvm-cpu \
+L379:         --iree-llvmcpu-target-cpu=host \
+L380:         --iree-opt-level=O2 \
+L381:         --iree-opt-data-tiling \
+L382:         mobilenetv2.mlir -o mobilenet_cpu.vmfb
+L383:     `
+L384: 
+L385: Tip - Target CPUs and CPU features
+L386: By default, the compiler will use a generic CPU target which will result in poor performance. A target CPU or target CPU feature set should be selected using one of these options:
+L387: 
+L388:   * `--iree-llvmcpu-target-cpu=...`
+L389:   * `--iree-llvmcpu-target-cpu-features=...`
+L390: 
+L391: When not cross compiling, passing `--iree-llvmcpu-target-cpu=host` is usually sufficient on most devices.
+L392: 
+L393: Tip - Compiler Optimizations
+L394: Use `--iree-opt-level=[O0,O1,O2,O3]` to enable additional compiler optimizations. The default value of `O0` enables only minimal optimizations while higher levels enable progressively more aggressive optimizations. See cite39†Optimization Options for more details.
+L395: 
+L396: Tip - Data-Tiling
+L397: Use `--iree-opt-data-tiling` to enable the optimization that IREE developers have been working on. The option is default off for many reasons, but it has been used for performance when users target CPU. See cite146†Data-Tiling for more details.
+L398: #### Choosing CPU targetscite30†link
+L399: The `--iree-llvmcpu-target-triple` flag tells the compiler to generate code for a specific type of CPU. You can see the list of supported targets with `iree-compile --iree-llvmcpu-list-targets`, or use the default value of "host" to let LLVM infer the triple from your host machine (e.g. `x86_64-linux-gnu`).
+L400: 
+L401:     `$ iree-compile --iree-llvmcpu-list-targets
+L402: 
+L403:       Registered Targets:
+L404:         aarch64    - AArch64 (little endian)
+L405:         aarch64_32 - AArch64 (little endian ILP32)
+L406:         aarch64_be - AArch64 (big endian)
+L407:         arm        - ARM
+L408:         arm64      - ARM64 (little endian)
+L409:         arm64_32   - ARM64 (little endian ILP32)
+L410:         armeb      - ARM (big endian)
+L411:         riscv32    - 32-bit RISC-V
+L412:         riscv64    - 64-bit RISC-V
+L413:         wasm32     - WebAssembly 32-bit
+L414:         wasm64     - WebAssembly 64-bit
+L415:         x86        - 32-bit X86: Pentium-Pro and above
+L416:         x86-64     - 64-bit X86: EM64T and AMD64
+L417:     `
+L418: ### Run a compiled programcite31†link
+L419: 
+L420: To run the compiled program:
+L421: 
+L422:     `iree-run-module \
+L423:         --device=local-task \
+L424:         --module=mobilenet_cpu.vmfb \
+L425:         --function=torch-jit-export \
+L426:         --input="1x3x224x224xf32=0"
+L427:     `
+L428: 
+L429: The above assumes the exported function in the model is named `torch-jit-export` and it expects one 224x224 RGB image. We are feeding in an image with all 0 values here for brevity, see `iree-run-module --help` for the format to specify concrete values.
+L430: 
+L431: Back to top
+L432: Copyright © 2026 IREE a Series of LF Projects, LLC. For web site terms of use, trademark policy and other project policies please see cite147†https://lfprojects.org†lfprojects.org .
+L433: 
+L434: Made with cite148†Material for MkDocs†squidfunk.github.io

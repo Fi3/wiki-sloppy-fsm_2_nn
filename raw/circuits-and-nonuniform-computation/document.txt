@@ -1,0 +1,134 @@
+Title: Boolean Circuits and Non-Uniform Computation — CS 365
+Retrieved: 2026-10-09
+Format: browser-extracted text, not original PDF/HTML bytes. P page labels are zero-based. Coverage and review limits are recorded in capture.json.
+
+=== Segment 1: https://cs.uwaterloo.ca/~eblais/cs365/w26/circuits ===
+
+L0: × cite0†Models of Computation L1:   * cite1†1. Introduction L2:   * cite2†2. Turing Machines L3:   * cite3†3. Decidable Languages L4:   * cite4†4. Recursion Theorem L5:   * cite5†5. Undecidability L6:   * cite6†6. Reductions L7:   * cite7†7. Time Complexity L8:   * cite8†8. P vs. NP L9:   * cite9†9. Polynomial Hierarchy L10:   * cite10†10. Boolean Circuits L11:   * cite11†11. Non-Uniform Computation L12:   * cite12†12. Boolean Formulas L13:   * cite13†13. Satisfiability L14:   * cite14†14. Randomized Computation L15:   * cite15†15. P vs. BPP L16:   * cite16†16. Randomized Verification L17:   * cite17†17. Space Complexity L18:   * cite18†18. Logarithmic Space L19:   * cite19†19. Sublogarithmic Space L20:   * cite20†20. Nonregular Languages L21:   * cite21†21. Communication Complexity L22: ☰   cite0†Models of Computation cite22†Eric Blais L23: # 10. Boolean Circuits
+L24: 
+L25: cite9†← Polynomial Hierarchy cite11†Non-Uniform Computation → L26: 
+L27: We can approach the task of determining what computers can do from a very different angle by considering Boolean circuits instead of Turing machines.
+L28: ## Introduction to Circuits
+L29: 
+L30: A Boolean circuit (with unbounded fan-in over the standard basis) consists of \(n\) input bits labelled \(x_1,\ldots, x_n\) as well as a sequence of gates \(g_1,g_2,\ldots,g_m\). There are three types of gates:
+L31:   * NOT gates (also known as negations and denoted with \(\neg\)) take in one input bit and negate it to form their output.
+L32:   * AND gates (conjunctions, denoted with \(\wedge\)) take in any number of input bits and output 1 if and only if all the input bits have the value 1.
+L33:   * OR gates (disjunctions, denoted with \(\vee\)) take in any number of input bits and output 1 if and only if at least one of the input bits have the value 1.
+L34: The inputs to the gate \(g_k\) are either one of the input bits to the graph or the output of one of the earlier gates \(g_1,\ldots,g_{k-1}\). The output of the circuit is the output of the gate \(g_k\).
+L35: 
+L36: There are two important complexity measures for Boolean circuits. The size of a circuit is the total number of AND and OR gates that it contains. And the depth of a circuit is the number of AND and OR gates in the longest path from any input bit to the output of the circuit.
+L37: Boolean circuits can be represented with directed acyclic graphs as in this example:
+L38: 
+L39: cite23†Image: Illustration of a Boolean circuit L40: One important note: since the number of input bits to a Boolean circuit is fixed, it computes a Boolean function \(f \colon \{0,1\}^n \to \{0,1\}\). Recall that a language \(L \subseteq \{0,1\}^*\) can be expressed as a family of Boolean functions \(\{f_n\}_{n \ge 0}\) where each \(f_n \colon \{0,1\}^n \to \{0,1\}\) satisfies \(f_n^{-1}(1) = L \cap \{0,1\}^n\). This means that a single circuit in general cannot compute a language, but a family of circuits \(\{C_n\}_{n \ge 0}\) does.
+L41: Because we have different circuits for different input lengths (in contrast to the Turing machine model, where we have a single machine that must handle all input lengths), circuits are known as a non-uniform model of computation.
+L42: ## First Examples
+L43: 
+L44: The parity of a set of bits is the function \(\oplus_n \colon \{0,1\}^n \to \{0,1\}\) defined by
+L45: 
+L46: \[\oplus_n(x_1,\ldots,x_n) = \sum_{i=1}^n x_i \pmod{2}\]
+L47: 
+L48: that outputs \(1\) if and only if \(x\) contains an odd number of \(1\)s.
+L49: 
+L50: Constructing a Boolean circuit that computes the parity \(\oplus_2\) of 2 bits is a simple task:
+L51: 
+L52: cite24†Image: Boolean circuit for computing the parity of 2 bits L53: Similarly, we can compute \(\oplus_n\) for general values of \(n\) using a circuit with size \(O(n)\) and depth \(O(\log n)\). First, we observe that if we had a parity gate that computed the parity of 2 bits, we could use this gate to compute the parity of a larger number of bits in this way:
+L54: 
+L55: cite25†Image: Boolean circuit for computing the parity of 8 bits L56: Then we can complete the construction of the Boolean circuit by replacing each of the parity-of-two-bits gate with the earlier Boolean circuit we designed to compute this function.
+L57: 
+L58: For a more challenging task, see if you can construct a Boolean circuit to compute the majority function \(\mathrm{Maj}_n \colon \{0,1\}^n \to \{0,1\}\) defined by
+L59: 
+L60: \[\mathrm{Maj}_n(x) = \mathbf{1}\left[ \sum_{i=1}^n x_i \ge n/2 \right]\]
+L61: 
+L62: that outputs \(1\) if and only if at least half of the input bits have the value \(1\).
+L63: ## Shannon’s Theorem
+L64: 
+L65: One basic property of Boolean circuits that stands in stark contrast to Turing machines is that they are universal, in the sense that they can compute every function.
+L66: 
+L67: > Theorem 1. For every function \(f \colon \{0,1\}^n \to \{0,1\}\), there exists a Boolean circuit \(C\) of size at most \(2^n + 1\) that computes \(f\).
+L68: > Proof. Notice that every Boolean function \(f\) can be represented as a table of truth values. For example, the majority function on \(3\) bits can be represented as
+L69: >
+L70: > \(x_1\)  | \(x_2\)  | \(x_3\)  | \(\mathrm{Maj}_3(x)\)
+L71: > --- | --- | --- | ---
+L72: > 0  | 0  | 0  | 0
+L73: > 0  | 0  | 1  | 0
+L74: > 0  | 1  | 0  | 0
+L75: > 0  | 1  | 1  | 1
+L76: > 1  | 0  | 0  | 0
+L77: > 1  | 0  | 1  | 1
+L78: > 1  | 1  | 0  | 1
+L79: > 1  | 1  | 1  | 1
+L80: >
+L81: > Consider now the circuit obtained in the following way. We start by adding a NOT gate connected to each input. This enables us to have access to the \(n\) literals \(x_1\), \(\neg x_1\), \(x_2\), \(\neg x_2\), … We then create one AND gate for each row with function value \(1\) in the table, with \(n\) inputs corresponding to the \(n\) literals in that row. For example, the first AND gate for the table above is connected to the literals \(\neg x_1\), \(x_2\), and \(x_3\).
+L82: We then connect all the AND gates with a single OR gate to produce the output of the circuit.
+L83: >
+L84: > By construction, the circuit outputs \(1\) if and only if the inputs to the circuit belong to one of the \(1\)-valued rows in the table, so it computes \(f\). And the circuit has a total of \(n\) NOT gates, at most \(2^n\) AND gates, and a single OR gate.
+L85: This result immediately implies that every language can be computed by a circuit family.
+L86: 
+L87: > Corollary. For every language \(L \subseteq \{0,1\}^*\), there exists a family of circuits \(\{C_n\}_{n \ge 0}\) that computes \(L\).
+L88: Note that the corollary applies even to undecidable languages. So there is no (interesting) analogue of computability theory for Boolean circuits. But we can still consider the complexity of Boolean circuits by asking the next natural question: can every Boolean function be computed by a small circuit? In particular, can every Boolean function on \(n\) bits be computed by a circuit of size polynomial in \(n\)?
+L89: As Claude Shannon first showed, the answer to the last question is no. There are functions that cannot be computed by circuits of subexponential size.
+L90: 
+L91: > Shannon’s Theorem. For every \(n \ge 4\), there exists a function \(f \colon \{0,1\}^n \to \{0,1\}\) that cannot be computed by any Boolean circuit of size \(2^{n/2}/4\).
+L92: > Proof. We use a counting argument that combines two basic observations.
+L93: >
+L94: > First, note that that there are \(2^{2^n}\) distinct Boolean functions on \(n\) bits. (The function \(f\) can take \(2\) different values on each of its \(|\{0,1\}^n| = 2^n\) possible inputs.)
+L95: >
+L96: > Second, we want to give an upper bound on the number of Boolean circuits on \(n\) bits that contain \(m\) AND and NOT gates. There are 2 ways to choose the type of a gate (AND or OR). The inputs to each of these gates are a subset of (i) the input bits, (ii) the outputs of other gates, or (iii) the negation of one of the input bits or the output of another gate. So in total there are less than \(2^{2(n+m)}\) ways to select the inputs of each gate.
+L97: So the total number of distinct circuits is less than \(\left( 2 \cdot 2^{2(m+n)} \right)^m = 2^{2m(m+n)}.\) When \(m = 2^{n/2}/4\) and \(n \ge 12\), this last expression is at most \(2^{4m^2} = 2^{2^n}\).
+L98: >
+L99: > So the total number of distinct circuits of size at most \(2^{n/2}/4\) is strictly smaller than the total number of Boolean functions on \(n\) bits. This means that there must be some Boolean function not computable by circuits of this size.
+L100: Note that the proof of Shannon’s Theorem implies even more. Namely, it shows that almost every Boolean function (or, more precisely, a \(1-o(1)\) fraction of all Boolean functions) can’t be computed by polynomial-size Boolean circuits. But, amazingly, no one has been able to explicitly identify even a single one of these hard Boolean functions.
+L101: 
+L102: 
+L103: 
+L104: cite9†← Polynomial Hierarchy cite11†Non-Uniform Computation → L105: 
+L106: * * *
+L107: 
+L108: © 2026 Eric Blais. Last edited on January 7th, 2026
+
+=== Segment 2: https://cs.uwaterloo.ca/~eblais/cs365/w26/nonuniform ===
+
+L0: × cite0†Models of Computation L1:   * cite1†1. Introduction L2:   * cite2†2. Turing Machines L3:   * cite3†3. Decidable Languages L4:   * cite4†4. Recursion Theorem L5:   * cite5†5. Undecidability L6:   * cite6†6. Reductions L7:   * cite7†7. Time Complexity L8:   * cite8†8. P vs. NP L9:   * cite9†9. Polynomial Hierarchy L10:   * cite10†10. Boolean Circuits L11:   * cite11†11. Non-Uniform Computation L12:   * cite12†12. Boolean Formulas L13:   * cite13†13. Satisfiability L14:   * cite14†14. Randomized Computation L15:   * cite15†15. P vs. BPP L16:   * cite16†16. Randomized Verification L17:   * cite17†17. Space Complexity L18:   * cite18†18. Logarithmic Space L19:   * cite19†19. Sublogarithmic Space L20:   * cite20†20. Nonregular Languages L21:   * cite21†21. Communication Complexity L22: ☰   cite0†Models of Computation cite22†Eric Blais L23: # 11. Non-Uniform Computation
+L24: 
+L25: cite10†← Boolean Circuits cite12†Boolean Formulas → L26: 
+L27: We saw in the last lecture that Boolean circuits provide a model of computation that is very different from Turing machines. But the two models are also closely related to each other, as we will see in this lecture.
+L28: ## Circuits Simulate TMs
+L29: 
+L30: The starting point for the connection between Boolean circuits and Turing machines is the following fundamental lemma showing that Turing machines can be efficiently simulated with Boolean circuits.
+L31: 
+L32: > Lemma 1. For any single-tape Turing machine \(M\) that runs in time \(t\) and uses at most \(s\) squares of tape on any input of length \(n\), there is a circuit \(C\) of size \(O(s t)\) that outputs \(1\) on input \(x \in \{0,1\}^n\) if and only if \(M\) accepts \(x\).
+L33: > Proof. We first observe that any configuration of the machine \(M\) can be represented using a binary string. Namely, for each of the \(s\) squares of the tape that \(M\) might use, we encode two pieces of information using binary strings: the state of the machine is stored by encoding the index of the current state of \(M\) if the tape head is over the current square, and a special code (say, \(0\)) is encoded in the state instead if the tape head is over a different square.
+L34: And the symbol on the current square is stored by using the binary encoding of the index of the symbol currently written on that tape square.
+L35: >
+L36: > By writing the intial configuration of \(M\) on input \(x\) and then writing the configurations yielded by this initial configuration one below the other, we obtain a tableau representation of the execution of \(M\) on input \(x\). The machine \(M\) accepts \(x\) if and only if any of the configurations in this tableau is an accepting configuration.
+L37: >
+L38: > We can build each row of the tableau for \(M\) given the previous row using a circuit. Specifically, we create one circuit for each bit of the current row we are building. The input to each of these circuits is a subset of the bits of the previous row.
+L39: And the key observation is that each of these circuits only depends on a constant number of bits of the previous row since the state and symbol for the \(i\)th square in the tape only ever depend on the contents of the squares \(i-1\), \(i\), and \(i+1\) in the previous configuration. As a result, each of these circuits can be implemented with only \(O(1)\) gates, and the total size of the circuit required to build the entire tableau is \(O(s \cdot t)\).
+L40: >
+L41: > We then obtain \(C\) by taking the circuit that generates the tableau of \(M\) with the input \(x\) as the only non-fixed inputs to the first configuration, and adding another \(O(s \cdot t)\) gates to output \(1\) if and only if any of the configurations in the tableau is accepting.
+L42: Since a Turing machine with polynomial time complexity can only use a polynomial number of squares on the tape, Lemma 1 implies the following important consequence.
+L43: 
+L44: > Theorem 2. Every language in \(\mathbf{P}\) can be computed with a family of polynomial-size circuits.
+L45: The converse to this statement is not true in general: there are languages that can be computed by families of polynomial-size circuits but are not in \(\mathbf{P}\). In fact, the converse statement fails in a much more dramatic way: there are languages that can be computed by families of constant-sized circuits which are not even decidable. However, we can consider a non-uniform variant of Turing machines that can efficiently simulate circuits.
+L46: ## The Class P/poly
+L47: 
+L48: The notion of non-uniform Turing machines is obtained via the following variant of our usual Turing machine model.
+L49: > Definition. A Turing machine with advice is a Turing machine that in addition to its usual tape also has a special advice tape and is defined with a sequence of advice strings \(a_0, a_1, a_2, \ldots\), one for each \(n \in \mathbb{N}\). When running a Turing machine with advice on input \(x \in \{0,1\}^n\), the machine is initialized with the advice string \(a_n\) corresponding to the length of \(x\) on the advice tape.
+L50: The execution of the Turing machine with advice is the same as for standard Turing machines. We will be interested in polynomial-time Turing machines with advice. Since time cost is again just measured in terms of the input string itself (and not the advice string), this means that we can assume without loss of generality that the advice strings all have polynomial length.
+L51: > Definition. The language class \(\mathbf{P/poly}\) represents the set of languages that can be decided by polynomial-time Turing machines with advice strings that have length polynomial in \(n\).
+L52: 
+L53: We can also consider other classes of languages obtained by any other restriction on the length of the advice strings. For instance, \(\mathbf{P/1}\) represents the set of languages that can be computed by polynomial-time Turing machines with a single bit of advice.
+L54: The class \(\mathbf{P/poly}\) exactly captures the set of languages that can be computed by polynomial-sized circuits.
+L55: 
+L56: > Theorem 3. The language class \(\mathbf{P/poly}\) is exactly the set of languages that can be computed by families of polynomial-size Boolean circuits.
+L57: > Proof. The proof of Theorem 1 can again be extended slightly (by hardcoding the advice bits in the intial configuration) to show that every language in \(\mathbf{P/poly}\) can be computed by a family of polynomial-size circuits.
+L58: >
+L59: > For the other direction, consider the Turing machine with advice \(U\) that interprets its advice string as the encoding of a Boolean circuit, and then simulates the circuit on its input \(x\). Every Boolean circuit of polynomial size can be encoded with a binary string of polynomial length. And it can be simulated in polynomial time by sequentially computing the output to each gate in the circuit.
+L60: Therefore, if \(L\) can be computed by a family of polynomial-size circuits, the machine \(U\) with advice strings corresponding to the circuits in this family correctly decides \(L\) in polynomial time, so \(L \in \mathbf{P/poly}\).
+L61: 
+L62: 
+L63: cite10†← Boolean Circuits cite12†Boolean Formulas → L64: 
+L65: * * *
+L66: 
+L67: © 2026 Eric Blais. Last edited on January 7th, 2026
+

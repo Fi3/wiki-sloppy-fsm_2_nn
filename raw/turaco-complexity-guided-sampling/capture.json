@@ -1,0 +1,16 @@
+{
+  "retrieved_on": "2026-10-07",
+  "format": "browser-extracted-text",
+  "original_bytes_downloaded": false,
+  "url": "https://arxiv.org/pdf/2309.11726",
+  "browser_total_lines": 4169,
+  "captured_numbered_lines": 343,
+  "missing_line_ranges": [
+    [
+      343,
+      4168
+    ]
+  ],
+  "complete_browser_text": false,
+  "review_scope": "First-pass reading of the captured excerpt; no full proof, figure or benchmark audit."
+}

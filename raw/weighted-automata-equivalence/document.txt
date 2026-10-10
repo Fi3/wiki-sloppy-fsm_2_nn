@@ -1,0 +1,416 @@
+Notes on Equivalence and Minimization of Weighted Automata
+Supplied URL: https://arxiv.org/html/2009.01217v1
+Retrieved on: 2026-10-07
+Format: text extracted by the web browsing tool, not the original PDF/HTML bytes.
+L numbers refer to the browser extraction. PDF P numbers are zero-based.
+A complete text extraction does not imply that every figure, equation, or proof was reviewed.
+Read capture.json for captured URLs, line coverage, and missing ranges.
+
+
+=== Segment 1: https://arxiv.org/html/2009.01217v1 ===
+
+L0: ##### Report GitHub Issue
+L1: 
+L2: [Button: ×]
+L3: 
+L4: Title: [Input: Enter title]
+L5: 
+L6: Content selection saved. Describe the issue below:
+L7: 
+L8: Description:
+L9: 
+L10: [Button: Submit without GitHub] [Button: Submit in GitHub]
+L11: 
+L12: cite0†Back to arXiv
+L13: 
+L14: cite1†Why HTML?†info.arxiv.org cite2†Report Issue cite3†Back to Abstract cite4†Download PDF
+L15: 
+L16:   1. cite5†Abstract
+L17:   2. cite6†1 Preliminaries
+L18:   3. cite7†2 Equivalence Checking
+L19:   4. cite8†3 Minimization
+L20:   5. cite9†4 The Hankel Automaton
+L21:   6. cite10†5 Computations in NC
+L22:   7. cite11†References
+L23: cite12†License: arXiv.org perpetual non-exclusive license†info.arxiv.org
+L24: 
+L25: arXiv:2009.01217v1 [cs.FL] 02 Sep 2020
+L26: # Notes on Equivalence and Minimization of Weighted Automata
+L27: 
+L28: Stefan Kiefer
+L29: ###### Abstract
+L30: 
+L31: This set of notes re-proves known results on weighted automata (over a field, also known as multiplicity automata). The text offers a unified view on theorems and proofs that have appeared in the literature over decades and were written in different styles and contexts. None of the results reported here are claimed to be new.
+L32: 
+L33: The content centres around fundamentals of equivalence and minimization, with an emphasis on algorithmic aspects.
+L34: The presentation is minimalistic. No attempt has been made to motivate the material. Weighted automata are viewed from a linear-algebra angle. As a consequence, the proofs, which are meant to be succinct, but complete and almost self-contained, rely mainly on elementary linear algebra.
+L35: ## 1 Preliminaries
+L36: 
+L37: Let $\mathbb{K}$ be a field. When speaking about algorithms and computational complexity, we will implicitly take as $\mathbb{K}$ the field $\mathbb{Q}$ of rational numbers (where we assume that rational numbers are encoded as quotients of integers encoded in binary). For a finite alphabet $\Sigma$ we call a map $s:\Sigma^{*}\to\mathbb{K}$ a series.
+L38: An automaton $\mathcal{A}=(n,\Sigma,M,\alpha,\eta)$ consists of a natural number $n$ (to which we refer as the number of states), a finite alphabet $\Sigma$, a map $M:\Sigma\to\mathbb{K}^{n\times n}$, an initial (row) vector $\alpha\in\mathbb{K}^{n}$, and a final (column) vector $\eta\in\mathbb{K}^{n}$.
+L39: Extend $M$ to a monoid homomorphism $M:\Sigma^{*}\to\mathbb{K}^{n\times n}$ by setting $M(a_{1}\cdots a_{k}):=M(a_{1})\cdots M(a_{k})$ and $M(\varepsilon):=I_{n}$, where $\varepsilon$ is the empty word and $I_{n}\in\{0,1\}^{n\times n}$ the $n\times n$ identity matrix. The semantics of an automaton $\mathcal{A}$ is the series $\llbracket\mathcal{A}\rrbracket:\Sigma^{*}\to\mathbb{K}$ with $\llbracket\mathcal{A}\rrbracket(w)=\alpha M(w)\eta$.
+L40: Automata $\mathcal{A}_{1},\mathcal{A}_{2}$ over the same alphabet $\Sigma$ are said to be equivalent if $\llbracket\mathcal{A}_{1}\rrbracket=\llbracket\mathcal{A}_{2}\rrbracket$. An automaton $\mathcal{A}$ is minimal if there is no equivalent automaton $\mathcal{A}^{\prime}$ with fewer states. If $n=0$, it is natural to put $\llbracket\mathcal{A}\rrbracket(w)=0$ for all $w\in\Sigma^{*}$.
+L41: We have the following closure properties:
+L42: ###### Proposition 1.1.
+L43: Let $\mathcal{A}_{i}=(n_{i},\Sigma,M_{i},\alpha_{i},\eta_{i})$ for $i\in\{1,2\}$ be automata.
+L44: One can compute in logarithmic space (hence, in polynomial time) automata $\mathcal{A}_{+},\mathcal{A}_{-},\mathcal{A}_{\otimes}$ with $\llbracket\mathcal{A}_{+}\rrbracket(w)=\llbracket\mathcal{A}_{1}\rrbracket(w)+\llbracket\mathcal{A}_{2}\rrbracket(w)$ and $\llbracket\mathcal{A}_{-}\rrbracket(w)=\llbracket\mathcal{A}_{1}\rrbracket(w)-\llbracket\mathcal{A}_{2}\rrbracket(w)$ and $\llbracket\mathcal{A}_{\otimes}\rrbracket(w)=\llbracket\mathcal{A}_{1}\rrbracket(w)\cdot\llbracket\mathcal{A}_{2}\rrbracket(w)$ for all $w\in\Sigma^{*}$.
+L45: One can compute $\mathcal{A}_{+},\mathcal{A}_{-}$ with $O(|\Sigma|(n_{1}+n_{2})^{2})$ arithmetic operations. One can compute $\mathcal{A}_{\otimes}$ with $O(|\Sigma|n_{1}^{2}n_{2}^{2})$ arithmetic operations.
+L46: ###### Proof.
+L47: 
+L48: It is straightforward to check that the automaton $\mathcal{A}_{+}=(n_{1}+n_{2},\Sigma,M_{+},(\alpha_{1},\alpha_{2}),\eta_{+})$ with
+L49: 
+L50:  | $$M_{+}(a)\ =\ \begin{pmatrix}M_{1}(a)&0_{n_{1},n_{2}}\\
+L51: 0_{n_{2},n_{1}}&M_{2}(a)\end{pmatrix}\quad\text{for all $a\in\Sigma$}\quad\text{and}\quad\eta_{+}\ =\ \begin{pmatrix}\eta_{1}\\
+L52: \eta_{2}\end{pmatrix}$$  |
+L53: 
+L54: is the desired automaton, where $0_{m,n}$ stands for the $m\times n$ zero matrix.
+L55: The automaton $\mathcal{A}_{-}$ can be constructed similarly to $\mathcal{A}_{+}$, but $(\alpha_{1},\alpha_{2})$ is replaced with $(\alpha_{1},-\alpha_{2})$.
+L56: Let $\mathord{\otimes}$ denote the Kronecker product. Define $\mathcal{A}_{\otimes}=(n_{1}n_{2},\Sigma,M_{\otimes},(\alpha_{1}\otimes\alpha_{2}),(\eta_{1}\otimes\eta_{2}))$, where $M_{\otimes}(a)=M_{1}(a)\otimes M_{2}(a)$ for all $a\in\Sigma$. Using the mixed-product property of $\mathord{\otimes}$ (i.e., $(AB)\otimes(CD)=(A\otimes C)(B\otimes D)$), we have for all $a_{1}\cdots a_{k}\in\Sigma^{*}$:
+L57:  | $\displaystyle\llbracket\mathcal{A}_{\otimes}\rrbracket(w)\ $  | $\displaystyle=\ (\alpha_{1}\otimes\alpha_{2})(M_{1}(a_{1})\otimes M_{2}(a_{1}))\cdots(M_{1}(a_{k})\otimes M_{2}(a_{k}))(\eta_{1}\otimes\eta_{2})$  |
+L58:  |  | $\displaystyle=\ (\alpha_{1}M_{1}(a_{1})\cdots M_{1}(a_{k})\eta_{1})\otimes(\alpha_{2}M_{2}(a_{1})\cdots M_{2}(a_{k})\eta_{2})$  |
+L59:  |  | $\displaystyle=\ \llbracket\mathcal{A}_{1}\rrbracket(a_{1}\cdots a_{k})\cdot\llbracket\mathcal{A}_{2}\rrbracket(a_{1}\cdots a_{k})\qed$  |
+L60: For a set $V$ of vectors we use the notation $\langle v\mid v\in V\rangle$ to denote the vector space spanned by $V$. For an automaton $\mathcal{A}$, define its forward space as the (row) vector space $\langle\alpha M(w)\mid w\in\Sigma^{*}\rangle$. Similarly, the backward space of $\mathcal{A}$ is the (column) vector space $\langle M(w)\eta\mid w\in\Sigma^{*}\rangle$.
+L61: Let $s:\Sigma^{*}\to\mathbb{K}$. The Hankel matrix of $s$ is the (infinite) matrix $H\in\mathbb{K}^{\Sigma^{*}\times\Sigma^{*}}$ with $H[x,y]=s(xy)$ for all $x,y\in\Sigma^{*}$. Define $\textup{rank}(s):=\textup{rank}(H)$.
+L62: ## 2 Equivalence Checking
+L63: 
+L64: First we discuss how to efficiently compute a basis of the forward space $\mathcal{F}:=\langle\alpha M(w)\mid w\in\Sigma^{*}\rangle$ of an automaton $\mathcal{A}=(n,\Sigma,M,\alpha,\eta)$. It is a matter of basic linear algebra to check that $\mathcal{F}$ is the smallest vector space that contains $\alpha$ and is closed under post-multiplication of $M(a)$ (i.e., $\mathcal{F}M(a)\subseteq\mathcal{F}$) for all $a\in\Sigma$. Hence cite13†Algorithm 1 computes a basis of $\mathcal{F}$.
+L65: Algorithm 1 Computing a basis of the forward space of an automaton $\mathcal{A}=(n,\Sigma,M,\alpha,\eta)$.
+L66: 
+L67: 1 if $\alpha=0$ then
+L68: 
+L69:     2 return $\emptyset$
+L70: 
+L71: 3 $W:=\{\varepsilon\}$
+L72: 
+L73: 4 while $\exists\,w\in W\;\exists\,a\in\Sigma:\alpha M(wa)\not\in\langle\alpha M(w)\mid w\in W\rangle$ do
+L74: 
+L75:     5 $W:=W\cup\{wa\}$
+L76: 
+L77: 6 return $\{\alpha M(w)\mid w\in W\}$
+L78: cite13†Algorithm 1 actually computes a set $W$ of words such that $\{\alpha M(w)\mid w\in W\}$ is a basis of the forward space $\mathcal{F}$. These words will be of interest, e.g., to compute a word $w$ that “witnesses” the inequivalence of two automata. Since $\mathcal{F}$ is a subspace of $\mathbb{K}^{n}$, its dimension, say $\overrightarrow{n}$, is at most $n$. It follows that $|W|=\overrightarrow{n}\leq n$ and $|w|\leq\overrightarrow{n}-1$ holds for all $w\in W$.
+L79: We want to make cite13†Algorithm 1 efficient. First, in addition to the words $w$ we save the vectors $\alpha M(w)$ to avoid unnecessary vector-matrix computations. Second, we use a worklist, implemented as a queue, to keep track of which vectors are new in the basis of $\mathcal{F}$ computed so far. These refinements result in cite14†Algorithm 2 .
+L80: Algorithm 2 Computing $\{(w_{1},v_{1}),\ldots,(w_{\overrightarrow{n}},v_{\overrightarrow{n}})\}\subseteq\Sigma^{\leq\overrightarrow{n}-1}\times\mathbb{K}^{n}$ such that $\{v_{1},\ldots,v_{\overrightarrow{n}}\}$ is a basis of the forward space of an automaton $\mathcal{A}=(n,\Sigma,M,\alpha,\eta)$
+L81: 
+L82: 1 if $\alpha=0$ then
+L83: 
+L84:     2 return $\emptyset$
+L85: 
+L86: 3 $P:=\{(\varepsilon,\alpha)\}$
+L87: 
+L88: 4 $Q:=[(\varepsilon,\alpha)]$
+L89: 
+L90: 5 repeat
+L91: 
+L92:     6 $(w,v):=\mathit{dequeue}(Q)$
+L93: 
+L94:     7 forall $a\in\Sigma$ do
+L95:        8 $w^{\prime}:=wa$
+L96: 
+L97:        9 $v^{\prime}:=vM(a)$
+L98: 
+L99:        10 if $v^{\prime}\not\in\langle u\mid(x,u)\in P\rangle$ then
+L100: 
+L101:           11 $P:=P\cup\{(w^{\prime},v^{\prime})\}$
+L102: 
+L103:           12 $Q:=\mathit{enqueue}(Q,(w^{\prime},v^{\prime}))$
+L104: 
+L105: 13 until $\mathit{isEmpty}(Q)$
+L106: 
+L107: 14 return $P$
+L108: cite14†Algorithm 2 of cite14†Algorithm 2 requires a check for linear independence. Using Gaussian elimination, such a check can be carried out with $O(n^{3})$ arithmetic operations. To make this more efficient, one can keep a basis of the vector space $\langle u\mid(x,u)\in P\rangle$ in echelon form. With such a basis at hand, the check for linear independence amounts to performing one iteration of Gaussian elimination, which takes $O(n^{2})$ operations, and checking if the resulting vector is non-zero.
+L109: If it is indeed non-zero, it can be added to the basis, thus preserving its echelon form.^{1}^{1} 1 For improved numerical stability of the computation, instead of using a basis in echelon form, one may keep an orthonormal basis, against which the new vector is orthogonalized using one iteration ($O(n^{2})$ operations) of the modified Gram-Schmidt process.
+L110: Since $\overrightarrow{n}\leq n$, it follows that cite14†Algorithm 2 is executed $O(n|\Sigma|)$ times. Hence we have:
+L111: ###### Proposition 2.1.
+L112: 
+L113: Let $\mathcal{A}=(n,\Sigma,M,\alpha,\eta)$ be an automaton. One can compute in polynomial time (with $O(|\Sigma|n^{3})$ arithmetic operations) a set $\{(w_{1},v_{1}),\ldots,(w_{\overrightarrow{n}},v_{\overrightarrow{n}})\}\subseteq\Sigma^{\leq\overrightarrow{n}-1}\times\mathbb{K}^{n}$ such that $\{v_{1},\ldots,v_{\overrightarrow{n}}\}$ is a basis of $\mathcal{F}$ and $v_{i}=\alpha M(w_{i})$ holds for all $1\leq i\leq\overrightarrow{n}$.
+L114: An automaton $\mathcal{A}$ is called zero if $\llbracket\mathcal{A}\rrbracket(w)=0$ for all $w\in\Sigma^{*}$. We show:
+L115: ###### Proposition 2.2.
+L116: 
+L117: Let $\mathcal{A}=(n,\Sigma,M,\alpha,\eta)$ be an automaton. One can check in polynomial time (with $O(|\Sigma|n^{3})$ arithmetic operations) whether $\mathcal{A}$ is zero, and if it is not, output $w\in\Sigma^{*}$ with $|w|\leq n-1$ such that $\llbracket\mathcal{A}\rrbracket(w)\neq 0$.
+L118: ###### Proof.
+L119: Automaton $\mathcal{A}=(n,\Sigma,M,\alpha,\eta)$ is zero if and only if its forward space $\mathcal{F}:=\langle\alpha M(w)\mid w\in\Sigma^{*}\rangle$ is orthogonal to $\eta$, i.e., $v\eta=0$ for all $v\in\mathcal{F}$. Let $S\subseteq\mathbb{K}^{n}$ (with $|S|\leq n$) be a basis of $\mathcal{F}$. Then $\mathcal{A}$ is zero if and only if $v\eta=0$ holds for all $v\in S$. But by cite15†Proposition 2.1 one can compute such $S$. Similarly, one can compute, if it exists, the “counterexample” $w$. ∎
+L120: ###### Theorem 2.3.
+L121: 
+L122: Let $\mathcal{A}_{i}=(n_{i},\Sigma,M_{i},\alpha_{i},\eta_{i})$ for $i\in\{1,2\}$ be automata. One can check in polynomial time (with $O(|\Sigma|(n_{1}+n_{2})^{3})$ arithmetic operations) whether $\mathcal{A}_{1},\mathcal{A}_{2}$ are equivalent, and if they are not, output $w\in\Sigma^{*}$ with $|w|\leq n_{1}+n_{2}-1$ such that $\llbracket\mathcal{A}_{1}\rrbracket(w)\neq\llbracket\mathcal{A}_{2}\rrbracket(w)$.
+L123: ###### Proof.
+L124: 
+L125: Compute automaton $\mathcal{A}_{-}$ from cite16†Proposition 1.1 . Then the theorem follows from cite17†Proposition 2.2 . ∎
+L126: ### Bibliographic Remarks
+L127: Equivalence checking goes back to the seminal paper by Schützenberger from 1961 [cite18†21 ]. A polynomial-time algorithm could be derived from there but was not made explicit. The books by Paz [cite19†20 ] and Eilenberg [cite20†11 ] from 1971 and 1974, respectively, describe an exponential-time algorithm based on the fact that shortest “counterexamples” have length at most $n_{1}+n_{2}-1$.
+L128: An $O(|\Sigma|(n_{1}+n_{2})^{4})$ (in terms of arithmetic operations) algorithm was explicitly provided in 1992 by Tzeng [cite21†22 ]. Improvements to $O(|\Sigma|(n_{1}+n_{2})^{3})$ were then (re-)discovered, e.g., in [cite22†9 , cite23†16 , cite24†3 ]. These improvements are all based on the idea described before cite15†Proposition 2.1 . The abstract of the 2002 paper [cite25†1 ] indicates that this improvement was already known to some. Incidentally, a different algorithm, also cubic in $n$, was proposed in [cite25†1 ].
+L129: ## 3 Minimization
+L130: Let $\mathcal{A}=(n,\Sigma,M,\alpha,\eta)$ be an automaton. Let $F\in\mathbb{K}^{\overrightarrow{n}\times n}$ with $\overrightarrow{n}\leq n$ be a matrix whose rows form a basis of the forward space $\mathcal{F}$. Similarly, let $B\in\mathbb{K}^{n\times\overleftarrow{n}}$ with $\overleftarrow{n}\leq n$ be a matrix whose columns form a basis of the backward space $\mathcal{B}$.
+L131: Since $\mathcal{F}M(a)\subseteq\mathcal{F}$ and $M(a)\mathcal{B}\subseteq\mathcal{B}$ for all $a\in\Sigma$, there exist maps $\overrightarrow{M}:\Sigma\to\mathbb{K}^{\overrightarrow{n}\times\overrightarrow{n}}$ and $\overleftarrow{M}:\Sigma\to\mathbb{K}^{\overleftarrow{n}\times\overleftarrow{n}}$ such that
+L132:  | $$FM(a)\ =\ \overrightarrow{M}(a)F\quad\text{and}\quad M(a)B\ =\ B\overleftarrow{M}(a)\quad\text{for all $a\in\Sigma$.}$$  |
+L133: 
+L134: These maps $\overrightarrow{M},\overleftarrow{M}$ are unique, as $F,B$ have full rank. The above equalities extend inductively to words:
+L135: 
+L136:  | $$FM(w)\ =\ \overrightarrow{M}(w)F\quad\text{and}\quad M(w)B\ =\ B\overleftarrow{M}(w)\quad\text{for all $w\in\Sigma^{*}$}$$  |  | (1)
+L137: Let $\overrightarrow{\alpha}\in\mathbb{K}^{\overrightarrow{n}}$ be the unique row vector with $\overrightarrow{\alpha}F=\alpha$, and $\overleftarrow{\eta}\in\mathbb{K}^{\overleftarrow{n}}$ be the unique column vector with $B\overleftarrow{\eta}=\eta$.
+L138: Call $\overrightarrow{\mathcal{A}}:=(\overrightarrow{n},\Sigma,\overrightarrow{M},\overrightarrow{\alpha},F\eta)$ the forward conjugate of $\mathcal{A}$ with base $F$, and $\overleftarrow{\mathcal{A}}:=(\overleftarrow{n},\Sigma,\overleftarrow{M},\alpha B,\overleftarrow{\eta})$ the backward conjugate of $\mathcal{A}$ with base $B$.
+L139: ###### Proposition 3.1.
+L140: 
+L141: Let $\mathcal{A}$ be an automaton. Then $\llbracket\mathcal{A}\rrbracket=\llbracket\overrightarrow{\mathcal{A}}\rrbracket=\llbracket\overleftarrow{\mathcal{A}}\rrbracket$.
+L142: ###### Proof.
+L143: 
+L144: By symmetry, it suffices to show the first equality. Indeed, we have for all $w\in\Sigma^{*}$:
+L145: 
+L146:  | $\displaystyle\llbracket\overrightarrow{\mathcal{A}}\rrbracket(w)\ $  | $\displaystyle=\ \overrightarrow{\alpha}\overrightarrow{M}(w)F\eta$  |
+L147:  |  | $\displaystyle=\ \overrightarrow{\alpha}FM(w)\eta$  |  | by cite26†1 |
+L148:  |  | $\displaystyle=\ \alpha M(w)\eta$  |  | definition of $\overrightarrow{\alpha}$  |
+L149:  |  | $\displaystyle=\ \llbracket\mathcal{A}\rrbracket(w)$  |  | ∎
+L150: ###### Proposition 3.2.
+L151: 
+L152: Let $\mathcal{A}=(n,\Sigma,M,\alpha,\eta)$ be an automaton. One can compute in polynomial time (with $O(|\Sigma|n^{3})$ arithmetic operations)
+L153: 
+L154:   * •
+L155: 
+L156: a matrix $F$ whose rows form a basis of the forward space of $\mathcal{A}$, and
+L157: 
+L158:   * •
+L159: 
+L160: the forward conjugate of $\mathcal{A}$ with base $F$.
+L161: 
+L162: The statement holds analogously for backward conjugates.
+L163: ###### Proof.
+L164: 
+L165: By cite15†Proposition 2.1 one can compute a basis of the forward space, and hence $F$, in the required time. Having computed $F$ it is straightforward to compute $\overrightarrow{\mathcal{A}}$ in the required time. The same holds analogously for $\overleftarrow{\mathcal{A}}$. ∎
+L166: 
+L167: ###### Proposition 3.3.
+L168: 
+L169: Let $\mathcal{A}$ be an automaton. Then $\textup{rank}(\llbracket\mathcal{A}\rrbracket)\leq n$.
+L170: ###### Proof.
+L171: Consider the matrices $\widehat{F}:\mathbb{K}^{\Sigma^{*}\times n}$ and $\widehat{B}:\mathbb{K}^{n\times\Sigma^{*}}$ with $\widehat{F}[w,\cdot]=\alpha M(w)$ and $\widehat{B}[\cdot,w]=M(w)\eta$ for all $w\in\Sigma^{*}$. Note that $\textup{rank}(\widehat{F})\leq n$ (and similarly $\textup{rank}(\widehat{B})\leq n$). Let $x,y\in\Sigma^{*}$.
+L172: Then $(\widehat{F}\widehat{B})[x,y]=\alpha M(x)M(y)\eta=\llbracket\mathcal{A}\rrbracket(xy)$, so $\widehat{F}\widehat{B}$ is the Hankel matrix of $\llbracket\mathcal{A}\rrbracket$. Hence $\textup{rank}(\llbracket\mathcal{A}\rrbracket)=\textup{rank}(\widehat{F}\widehat{B})\leq\textup{rank}(\widehat{F})\leq n$. ∎
+L173: Call an automaton with $n$ states forward-minimal (resp., backward-minimal) if its forward (resp., backward) space has dimension $n$.
+L174: ###### Proposition 3.4.
+L175: 
+L176: A forward conjugate is forward-minimal. A backward conjugate is backward-minimal.
+L177: ###### Proof.
+L178: 
+L179: By symmetry, it suffices to prove the statement about forward conjugates. Let $\overrightarrow{\mathcal{A}}=(\overrightarrow{n},\Sigma,\overrightarrow{M},\overrightarrow{\alpha},F\eta)$ be the forward conjugate of $\mathcal{A}=(n,\Sigma,M,\alpha,\eta)$ with base $F\in\mathbb{K}^{\overrightarrow{n}\times n}$. We have:
+L180:  |  | $\displaystyle\dim\,\langle\overrightarrow{\alpha}\overrightarrow{M}(w)\mid w\in\Sigma^{*}\rangle$  |
+L181:  | $\displaystyle=\ $  | $\displaystyle\dim\,\langle\overrightarrow{\alpha}\overrightarrow{M}(w)F\mid w\in\Sigma^{*}\rangle$  |  | the rows of $F$ are linearly independent  |
+L182:  | $\displaystyle=\ $  | $\displaystyle\dim\,\langle\overrightarrow{\alpha}FM(w)\mid w\in\Sigma^{*}\rangle$  |  | by cite26†1 |
+L183:  | $\displaystyle=\ $  | $\displaystyle\dim\,\langle\alpha M(w)\mid w\in\Sigma^{*}\rangle$  |  | definition of $\overrightarrow{\alpha}$  |
+L184:  | $\displaystyle=\ $  | $\displaystyle\dim\,\mathcal{F}$  |  | definition of $\mathcal{F}$  |
+L185:  | $\displaystyle=\ $  | $\displaystyle\overrightarrow{n}$  |  | definition of $\overrightarrow{n}$  |
+L186: ###### Proposition 3.5.
+L187: 
+L188: A backward conjugate of a forward-minimal automaton is minimal. A forward conjugate of a backward-minimal automaton is minimal.
+L189: ###### Proof.
+L190: By symmetry, it suffices to show the first statement. Let $\mathcal{A}=(n,\Sigma,M,\alpha,\eta)$ be forward-minimal. Let $B\in\mathbb{K}^{n\times\overleftarrow{n}}$ be a matrix whose columns form a basis of the backward space of $\mathcal{A}$. By cite27†Proposition 3.3 it suffices to show that $\overleftarrow{n}=\textup{rank}(H)$, where $H$ is the Hankel matrix of $\llbracket\mathcal{A}\rrbracket$. Let $\widehat{F}$ and $\widehat{B}$ be the matrices from the proof of cite27†Proposition 3.3 .
+L191: Since $\mathcal{A}$ is forward-minimal, the columns of $\widehat{F}$ are linearly independent. We have:
+L192:  |  | $\displaystyle\ \overleftarrow{n}$  |
+L193:  | $\displaystyle=$  | $\displaystyle\ \textup{rank}(B)$  |  | definition of $B$  |
+L194:  | $\displaystyle=$  | $\displaystyle\ \textup{rank}(\widehat{F}B)$  |  | the columns of $\widehat{F}$ are linearly independent  |
+L195:  | $\displaystyle=$  | $\displaystyle\,\dim\,\langle\widehat{F}M(w)\eta\mid w\in\Sigma^{*}\rangle$  |  | definition of $B$  |
+L196:  | $\displaystyle=$  | $\displaystyle\ \textup{rank}(\widehat{F}\widehat{B})$  |  | definition of $\widehat{B}$  |
+L197:  | $\displaystyle=$  | $\displaystyle\ \textup{rank}(H)$  |  | $\displaystyle\text{proof of \lx@cref{creftype~refnum}{prop:direction-1}}\qed$  |
+L198: ###### Theorem 3.6.
+L199: 
+L200: Let $\mathcal{A}$ be an automaton. Let $\mathcal{A}^{\prime}$ be a backward conjugate of a forward conjugate of $\mathcal{A}$ (or a forward conjugate of a backward conjugate of $\mathcal{A}$). Then $\mathcal{A}^{\prime}$ is minimal and equivalent to $\mathcal{A}$. It can be computed in polynomial time (with $O(|\Sigma|n^{3})$ arithmetic operations).
+L201: ###### Proof.
+L202: 
+L203: Minimality follows from cite28†Propositions 3.4 and cite29†3.5 . Equivalence follows from cite30†Proposition 3.1 . Polynomial-time computability follows by invoking cite31†Proposition 3.2 twice. ∎
+L204: 
+L205: Let $\mathcal{A}_{i}=(n,\Sigma,M_{i},\alpha_{i},\eta_{i})$ for $i\in\{1,2\}$ be minimal, where $\mathcal{A}_{2}$ is the forward conjugate of $\mathcal{A}_{1}$ with some base $Q\in\mathbb{K}^{n\times n}$. By minimality and cite30†Proposition 3.1 , matrix $Q$ is invertible. Since
+L206:  | $$\alpha_{2}Q=\alpha_{1},\quad\eta_{2}=Q\eta_{1},\quad QM_{1}(a)=M_{2}(a)Q\quad\text{for all }a\in\Sigma\,,$$  |
+L207: 
+L208: automaton $\mathcal{A}_{1}$ is the backward conjugate of $\mathcal{A}_{2}$ with base $Q$. Since
+L209: 
+L210:  | $$\alpha_{2}=\alpha_{1}Q^{-1},\quad Q^{-1}\eta_{2}=\eta_{1},\quad M_{1}(a)Q^{-1}=Q^{-1}M_{2}(a)\quad\text{for all }a\in\Sigma\,,$$  |
+L211: automaton $\mathcal{A}_{1}$ is the forward conjugate of $\mathcal{A}_{2}$ with base $Q^{-1}$, and $\mathcal{A}_{2}$ is the backward conjugate of $\mathcal{A}_{1}$ with base $Q^{-1}$.
+L212: 
+L213: This motivates the following definition. Call minimal automata $\mathcal{A}_{1},\mathcal{A}_{2}$ conjugate if one is a forward (equivalently, backward) conjugate of the other.
+L214: ###### Theorem 3.7.
+L215: 
+L216: Two minimal automata are conjugate if and only if they are equivalent.
+L217: ###### Proof.
+L218: 
+L219: The forward direction follows from cite30†Proposition 3.1 .
+L220: Towards the backward direction, let $\mathcal{A}_{i}=(n,\Sigma,M_{i},\alpha_{i},\eta_{i})$ for $i\in\{1,2\}$ be minimal equivalent automata. For $i\in\{1,2\}$, consider the matrices $\widehat{F}_{i}:\mathbb{K}^{\Sigma^{*}\times n}$ and $\widehat{B}_{i}:\mathbb{K}^{n\times\Sigma^{*}}$ with $\widehat{F}_{i}[w,\cdot]=\alpha_{i}M_{i}(w)$ and $\widehat{B}_{i}[\cdot,w]=M_{i}(w)\eta_{i}$ for all $w\in\Sigma^{*}$.
+L221: It follows from minimality and cite30†Proposition 3.1 that $\widehat{F}_{i}$ and $\widehat{B}_{i}$ have full rank $n$. Thus, there is an invertible matrix $Q\in\mathbb{K}^{n\times n}$ with $\widehat{F}_{1}=\widehat{F}_{2}Q$. We show that $\mathcal{A}_{2}$ is the forward conjugate of $\mathcal{A}_{1}$ with base $Q$.
+L222: We have $\alpha_{1}=\widehat{F}_{1}[\varepsilon,\cdot]=\widehat{F}_{2}[\varepsilon,\cdot]Q=\alpha_{2}Q$. Letting $H$ denote the Hankel matrix of $\llbracket\mathcal{A}_{1}\rrbracket=\llbracket\mathcal{A}_{2}\rrbracket$, we have $\widehat{F}_{2}Q\widehat{B}_{1}=\widehat{F}_{1}\widehat{B}_{1}=H=\widehat{F}_{2}\widehat{B}_{2}$. Since $\widehat{F}_{2}$ has full rank, it follows that $Q\widehat{B}_{1}=\widehat{B}_{2}$.
+L223: In particular, $Q\eta_{1}=Q\widehat{B}_{1}[\cdot,\varepsilon]=\widehat{B}_{2}[\cdot,\varepsilon]=\eta_{2}$.
+L224: For any $a\in\Sigma$ let $H_{a}\in\mathbb{K}^{\Sigma^{*}\times\Sigma^{*}}$ be the matrix with $H_{a}[x,y]=\llbracket\mathcal{A}_{i}\rrbracket(xay)$ for all $x,y\in\Sigma^{*}$. We have $\widehat{F}_{i}M_{i}(a)\widehat{B}_{i}=H_{a}$ for all $a\in\Sigma$. Thus, for all $a\in\Sigma$ we have:
+L225: 
+L226:  | $$\widehat{F}_{2}QM_{1}(a)\widehat{B}_{1}\ =\ \widehat{F}_{1}M_{1}(a)\widehat{B}_{1}\ =\ H_{a}\ =\ \widehat{F}_{2}M_{2}(a)\widehat{B}_{2}\ =\ \widehat{F}_{2}M_{2}(a)Q\widehat{B}_{1}$$  |
+L227: Since $\widehat{F}_{2}$ and $\widehat{B}_{1}$ have full rank, we have $QM_{1}(a)=M_{2}(a)Q$ for all $a\in\Sigma$. ∎
+L228: ### Bibliographic Remarks
+L229: Minimization is closely related to equivalence and also goes back to [cite18†21 ]. The book [cite32†4 , Chapter II] describes a minimization procedure. An $O(|\Sigma|n^{4})$ minimization algorithm (for a related probabilistic model) was suggested in [cite33†13 ]. The algorithm given in this note reminds of Brzozowski’s algorithm for minimizing DFAs [cite34†6 ]. The succinct formulation in this note is essentially from [cite35†18 ]. Further generalizations of Brzozowski’s algorithm are discussed in [cite36†5 ].
+L230: cite37†Theorem 3.7 also goes back to [cite18†21 ]. See also [cite38†12 ] and [cite32†4 , Chapter II].
+L231: ## 4 The Hankel Automaton
+L232: 
+L233: Let $s:\Sigma^{*}\to\mathbb{K}$ be a series of rank $n$, with Hankel matrix $H$. Call a set $C=\{c_{1},\ldots,c_{n}\}\subseteq\Sigma^{*}$ complete if the columns of $H[\cdot,C]$ form a basis of the column space of $H$.
+L234: 
+L235: Note that for any $G\subseteq\Sigma^{*}$ and $w\in\Sigma^{*}$ we have $H[Gw,C]=H[G,wC]$, where $Gw:=\{gw\mid g\in G\}$ and $wC:=\{wc\mid c\in C\}$.
+L236: Let $C=\{c_{1},\ldots,c_{n}\}\subseteq\Sigma^{*}$ be complete. Then, for any $w\in\Sigma^{*}$ there is a unique column vector $\eta_{w}\in\mathbb{K}^{n}$ with $H[\cdot,w]=H[\cdot,C]\eta_{w}$, and for all $a\in\Sigma$ a unique matrix $\overline{M}(a)\in\mathbb{K}^{n\times n}$ with $H[\cdot,C]\overline{M}(a)=H[\cdot,aC]$. We define the Hankel automaton for $s,C$ as $\overline{\mathcal{A}}=(n,\Sigma,\overline{M},H[\varepsilon,C],\eta_{\varepsilon})$.
+L237: ###### Proposition 4.1.
+L238: 
+L239: Let $\overline{\mathcal{A}}=(n,\Sigma,\overline{M},H[\varepsilon,C],\eta_{\varepsilon})$ be the Hankel automaton for $s,C$. Then for all $w\in\Sigma^{*}$ we have $H[\cdot,C]\overline{M}(w)=H[\cdot,wC]$. Hence, if $G=\{g_{1},\ldots,g_{n}\}\subseteq\Sigma^{*}$ is such that $H[G,C]$ has full rank, we have $\overline{M}(w)=H[G,C]^{-1}H[G,wC]$ for all $w\in\Sigma^{*}$.
+L240: ###### Proof.
+L241: 
+L242: We proceed by induction on the length of $w$. The induction base ($w=\varepsilon$) is trivial. For the step, let $w\in\Sigma^{*}$ and $a\in\Sigma$. We have:
+L243: 
+L244:  | $\displaystyle H[\cdot,C]\overline{M}(wa)\ $  | $\displaystyle=\ H[\cdot,wC]\overline{M}(a)$  |  | induction hypothesis  |
+L245:  |  | $\displaystyle=\ H[\cdot\,w,C]\overline{M}(a)$  |
+L246:  |  | $\displaystyle=\ H[\cdot\,w,aC]$  |  | definition of $\overline{M}(a)$  |
+L247:  |  | $\displaystyle=\ H[\cdot,waC]$  |
+L248: ###### Proposition 4.2.
+L249: 
+L250: Let $\overline{\mathcal{A}}=(n,\Sigma,\overline{M},H[\varepsilon,C],\eta_{\varepsilon})$ be the Hankel automaton for $s,C$. Then $\llbracket\overline{\mathcal{A}}\rrbracket=s$ and $\overline{\mathcal{A}}$ is minimal.
+L251: ###### Proof.
+L252: 
+L253: We have for all $w\in\Sigma^{*}$:
+L254: 
+L255:  | $\displaystyle\llbracket\overline{\mathcal{A}}\rrbracket(w)\ $  | $\displaystyle=\ H[\varepsilon,C]\overline{M}(w)\eta_{\varepsilon}$  |
+L256:  |  | $\displaystyle=\ H[\varepsilon,wC]\eta_{\varepsilon}$  |
+L257:  |  | $\displaystyle=\ H[w,C]\eta_{\varepsilon}$  |
+L258:  |  | $\displaystyle=\ H[w,\varepsilon]$  |  | definition of $\eta_{\varepsilon}$  |
+L259:  |  | $\displaystyle=\ s(w)$  |
+L260: 
+L261: Minimality follows from cite27†Proposition 3.3 . ∎
+L262: ###### Theorem 4.3.
+L263: 
+L264: Let $s:\Sigma^{*}\to\mathbb{K}$ be a series and $n\in\mathbb{N}$. Then $\textup{rank}(s)\leq n$ if and only if there is an automaton $\mathcal{A}$ with $\llbracket\mathcal{A}\rrbracket=s$ that has at most $n$ states.
+L265: 
+L266: ###### Proof.
+L267: 
+L268: Follows from cite39†Propositions 4.2 and cite27†3.3 . ∎
+L269: 
+L270: The following proposition uses some notions from cite8†Section 3 .
+L271: ###### Proposition 4.4.
+L272: 
+L273: Let $\mathcal{A}=(n,\Sigma,M,\alpha,\eta)$ be forward-minimal. Let $C=\{c_{1},\ldots,c_{r}\}\subseteq\Sigma^{*}$ be such that the columns of the matrix $B:=(M(c_{1})\eta,\ldots,M(c_{r})\eta)\in\mathbb{K}^{n\times r}$ form a basis of the backward space of $\mathcal{A}$. Then $C$ is complete, and the backward conjugate of $\mathcal{A}$ with base $B$ is the Hankel automaton for $\llbracket\mathcal{A}\rrbracket,C$.
+L274: ###### Proof.
+L275: Let $H$ be the Hankel matrix of $\llbracket\mathcal{A}\rrbracket$. Let $\widehat{F}:\mathbb{K}^{\Sigma^{*}\times n}$ and $\widehat{B}:\mathbb{K}^{n\times\Sigma^{*}}$ be the matrices with $\widehat{F}[w,\cdot]=\alpha M(w)$ and $\widehat{B}[\cdot,w]=M(w)\eta$ for all $w\in\Sigma^{*}$. We have $\widehat{F}\widehat{B}=H$ and $\widehat{B}[\cdot,C]=B$, hence $\widehat{F}B=H[\cdot,C]$. Since the column spaces of $\widehat{B}$ and $B$ are equal, it follows that the column spaces of $H$ and $H[\cdot,C]$ are equal.
+L276: Since $\mathcal{A}$ is forward-minimal, $\widehat{F}$ has full rank. Thus, $r=\textup{rank}(B)=\textup{rank}(\widehat{F}B)=\textup{rank}(H[\cdot,C])$, so the columns of $H[\cdot,C]$ are linearly independent. Hence, $C$ is complete.
+L277: Let $\overline{\mathcal{A}}=(r,\Sigma,\overline{M},H[\varepsilon,C],\eta_{\varepsilon})$ be the Hankel automaton for $\llbracket\mathcal{A}\rrbracket,C$. For all $x,w\in\Sigma^{*}$ and all $c\in C$ we have $\widehat{F}[x,\cdot]M(w)B[\cdot,c]=\alpha M(x)M(w)M(c)\eta=\llbracket\mathcal{A}\rrbracket(xwc)=H[x,wc]$. Thus, we have for all $w\in\Sigma^{*}$:
+L278:  | $\displaystyle\widehat{F}M(w)B\ $  | $\displaystyle=\ H[\cdot,wC]$  |
+L279:  |  | $\displaystyle=\ H[\cdot,C]\overline{M}(w)$  |
+L280:  |  | $\displaystyle=\ \widehat{F}B\overline{M}(w)$  |
+L281: Since $\widehat{F}$ has full rank, it follows that $M(w)B=B\overline{M}(w)$ for all $w\in\Sigma^{*}$. Similarly, we have $\widehat{F}B\eta_{\varepsilon}=H[\cdot,C]\eta_{\varepsilon}=H[\cdot,\varepsilon]=\widehat{F}\eta$, and since $\widehat{F}$ has full rank, it follows that $B\eta_{\varepsilon}=\eta$. Finally, we have $\alpha B=\widehat{F}[\varepsilon,\cdot]B=H[\varepsilon,C]$. We conclude that $\overline{\mathcal{A}}$ is the backward conjugate of $\mathcal{A}$ with base $B$. ∎
+L282: ###### Theorem 4.5.
+L283: 
+L284: Let $\mathcal{A}=(n,\Sigma,M,\alpha,\eta)$ be an automaton. One can compute in polynomial time (with $O(|\Sigma|n^{3})$ arithmetic operations) a complete (for $\llbracket\mathcal{A}\rrbracket$) set $C=\{c_{1},\ldots,c_{r}\}\subseteq\Sigma^{\leq r-1}$ with $r\leq n$, and the Hankel automaton for $\llbracket\mathcal{A}\rrbracket,C$.
+L285: ###### Proof.
+L286: Using cite31†Propositions 3.2 , cite30†3.1 and cite28†3.4 , first compute in the required time a forward-minimal automaton $\overrightarrow{\mathcal{A}}=(\overrightarrow{n},\Sigma,\overrightarrow{M},\overrightarrow{\alpha},\overrightarrow{\eta})$ with $\llbracket\overrightarrow{\mathcal{A}}\rrbracket=\llbracket\mathcal{A}\rrbracket$.
+L287: By the backward analogue of cite15†Proposition 2.1 one can compute in the required time a set $C=\{c_{1},\ldots,c_{r}\}\subseteq\Sigma^{\leq r-1}$ and the matrix $B=(\overrightarrow{M}(c_{1})\overrightarrow{\eta},\ldots,\overrightarrow{M}(c_{r})\overrightarrow{\eta})\in\mathbb{K}^{\overrightarrow{n}\times r}$ such that the columns of $B$ form a basis of the backward space of $\overrightarrow{\mathcal{A}}$. Let $\mathcal{A}^{\prime}$ be the backward conjugate of $\overrightarrow{\mathcal{A}}$ with base $B$.
+L288: By cite31†Proposition 3.2 , it can be computed in the required time. By cite40†Proposition 4.4 , $\mathcal{A}^{\prime}$ is the Hankel automaton for $\llbracket\mathcal{A}\rrbracket,C$. ∎
+L289: ### Bibliographic Remarks
+L290: 
+L291: The material in this section, at least up to cite41†Theorem 4.3 , is similar to [cite42†7 , Section 2] and [cite38†12 ]. See also [cite43†19 , Theorem 5.3] and [cite44†2 , Section 2] for related treatments.
+L292: ## 5 Computations in NC
+L293: 
+L294: We show that some of the mentioned polynomial-time computations can even be carried out in the complexity class NC, which comprises those languages having L-uniform Boolean circuits of polylogarithmic depth and polynomial size, or, equivalently, those problems solvable in polylogarithmic time on parallel random-access machines with polynomially many processors. We have $\text{NL}\subseteq\text{{NC}}\subseteq\text{P}$.
+L295: ###### Lemma 5.1.
+L296: 
+L297: Let $A\in\mathbb{K}^{m\times n}$. The row spaces of $A$ and $A^{T}A$ are equal.
+L298: ###### Proof.
+L299: 
+L300: It is clear that the row space of $A^{T}A$ is included in the row space of $A$. For the converse, it suffices to show that the null space of $A^{T}A$ is included in the null space of $A$. Let $x\in\mathbb{K}^{n}$ with $A^{T}Ax=0_{n}$, where $0_{n}$ denotes the zero vector. Then $(Ax)^{T}(Ax)=x^{T}A^{T}Ax=x^{T}0_{n}=0$, and hence $Ax=0_{m}$. ∎
+L301: 
+L302: In the following we assume $\mathbb{K}=\mathbb{Q}$.
+L303: ###### Proposition 5.2 (cf. cite15†Proposition 2.1 ).
+L304: 
+L305: Let $\mathcal{A}=(n,\Sigma,M,\alpha,\eta)$ be an automaton. One can compute in NC a basis of the forward space $\mathcal{F}:=\langle\alpha M(w)\mid w\in\Sigma^{*}\rangle$.
+L306: ###### Proof.
+L307: 
+L308: Let $F\in\mathbb{K}^{\Sigma^{\leq n-1}\times n}$ be the matrix with $F[w,\cdot]=\alpha M(w)$ for $w\in\Sigma^{\leq n-1}$. We have shown in cite7†Section 2 that the rows of $F$ span $\mathcal{F}$. By cite45†Lemma 5.1 , the rows of $E:=F^{T}F\in\mathbb{K}^{n\times n}$ also span $\mathcal{F}$.
+L309: Let $e_{i}\in\{0,1\}^{n}$ denote the $i$th coordinate column vector, and let $\mathord{\otimes}$ denote the Kronecker product. Using the mixed-product property of $\mathord{\otimes}$ (i.e., $(AB)\otimes(CD)=(A\otimes C)(B\otimes D)$), we have:
+L310:  | $\displaystyle E[i,j]\ $  | $\displaystyle=\ F^{T}[i,\cdot]\ F[\cdot,j]$  |
+L311:  |  | $\displaystyle=\ \sum_{w\in\Sigma^{\leq n-1}}(\alpha M(w))[i]\ (\alpha M(w))[j]$  |
+L312:  |  | $\displaystyle=\ \sum_{w\in\Sigma^{\leq n-1}}(\alpha M(w)e_{i})\otimes(\alpha M(w)e_{j})$  |
+L313:  |  | $\displaystyle=\ \sum_{w\in\Sigma^{\leq n-1}}(\alpha\otimes\alpha)(M(w)\otimes M(w))(e_{i}\otimes e_{j})$  |
+L314:  |  | $\displaystyle=\ (\alpha\otimes\alpha)\left(\sum_{w\in\Sigma^{\leq n-1}}M(w)\otimes M(w)\right)(e_{i}\otimes e_{j})$  |
+L315:  |  | $\displaystyle=\ (\alpha\otimes\alpha)\left(\sum_{k=0}^{n-1}\sum_{w\in\Sigma^{k}}M(w)\otimes M(w)\right)(e_{i}\otimes e_{j})$  |
+L316:  |  | $\displaystyle=\ (\alpha\otimes\alpha)\left(\sum_{k=0}^{n-1}\sum_{a_{1}\cdots a_{k}\in\Sigma^{k}}(M(a_{1})\otimes M(a_{1}))\cdots(M(a_{k})\otimes M(a_{k}))\right)$  |
+L317:  |  | $\displaystyle\qquad(e_{i}\otimes e_{j})$  |
+L318:  |  | $\displaystyle=\ (\alpha\otimes\alpha)\left(\sum_{k=0}^{n-1}\Big(\sum_{a\in\Sigma}M(a)\otimes M(a)\Big)^{k}\right)(e_{i}\otimes e_{j})$  |
+L319: Since Kronecker products, sums and matrix powers [cite46†8 ] can be computed in NC, one can compute $E$ in NC. We include the $i$th row of $E$ in the desired basis of $\mathcal{F}$ if and only if $\textup{rank}(E[\{1,\ldots,i\},\cdot])>\textup{rank}(E[\{1,\ldots,i-1\},\cdot])$. This can be done in NC, as the rank of a matrix can be determined in NC [cite47†14 ]. ∎
+L320: ###### Proposition 5.3 (cf. cite17†Proposition 2.2 ).
+L321: 
+L322: Let $\mathcal{A}=(n,\Sigma,M,\alpha,\eta)$ be an automaton. One can check in NC whether $\mathcal{A}$ is zero.
+L323: 
+L324: ###### Proof.
+L325: 
+L326: Analogous to the proof of cite17†Proposition 2.2 . ∎
+L327: 
+L328: ###### Theorem 5.4 (cf. cite48†Theorem 2.3 ).
+L329: 
+L330: Let $\mathcal{A}_{i}=(n_{i},\Sigma,M_{i},\alpha_{i},\eta_{i})$ for $i\in\{1,2\}$ be automata. One can check in NC whether $\mathcal{A}_{1},\mathcal{A}_{2}$ are equivalent.
+L331: 
+L332: ###### Proof.
+L333: 
+L334: Analogous to the proof of cite48†Theorem 2.3 . ∎
+L335: ###### Proposition 5.5 (cf. cite31†Proposition 3.2 ).
+L336: 
+L337: Let $\mathcal{A}=(n,\Sigma,M,\alpha,\eta)$ be an automaton. One can compute in NC:
+L338: 
+L339:   * •
+L340: 
+L341: a matrix $F$ whose rows form a basis of the forward space of $\mathcal{A}$,
+L342: 
+L343:   * •
+L344: 
+L345: the forward conjugate of $\mathcal{A}$ with base $F$.
+L346: 
+L347: The statement holds analogously for backward conjugates.
+L348: 
+L349: ###### Proof.
+L350: 
+L351: The first item follows from cite49†Proposition 5.2 . The second item follows from the fact that linear systems of equations can be solved in NC [cite50†10 ]. ∎
+L352: ###### Theorem 5.6 (cf. cite51†Theorem 3.6 ).
+L353: 
+L354: Given an automaton, one can compute in NC a minimal equivalent automaton.
+L355: 
+L356: ###### Proof.
+L357: 
+L358: Analogous to the proof of cite51†Theorem 3.6 . ∎
+L359: 
+L360: ### Bibliographic Remarks
+L361: 
+L362: cite52†Theorem 5.4 about equivalence checking was proved by Tzeng [cite53†23 ]. cite54†Theorem 5.6 about minimization was obtained in [cite55†15 , Section 4.2]. It is not known whether “counterexample” words for equivalence can be computed in NC. They can be computed in randomized NC [cite56†17 ].
+L363: #### Acknowledgements.
+L364: 
+L365: The author thanks Oscar Darwin, Qiyi Tang, and Cas Widdershoven for comments that helped to improve the text.
+L366: ## References
+L367:   * [1] K. Archangelsky. Efficient algorithm for checking multiplicity equivalence for the finite $Z-\Sigma^{*}$-automata. In Developments in Language Theory, 6th International Conference (DLT), volume 2450 of Lecture Notes in Computer Science, pages 283–289. Springer, 2002.
+L368:   * [2] A. Beimel, F. Bergadano, N.H. Bshouty, E. Kushilevitz, and S. Varricchio. Learning functions represented as multiplicity automata. Journal of the ACM, 47:2000, 2000.
+L369:   * [3] M.V. Berlinkov, R.Ferens, and M. Szykuła. Complexity of preimage problems for deterministic finite automata. In 43rd International Symposium on Mathematical Foundations of Computer Science (MFCS), volume 117 of LIPIcs, pages 32:1–32:14. Schloss Dagstuhl - Leibniz-Zentrum für Informatik, 2018.
+L370:   * [4] J. Berstel and C. Reutenauer. Rational Series and Their Languages. EATCS Monographs on Theoretical Computer Science. Springer, 1988.
+L371:   * [5] F. Bonchi, M.M. Bonsangue, H.H. Hansen, P. Panangaden, J.J.M.M. Rutten, and A. Silva. Algebra-coalgebra duality in Brzozowski’s minimization algorithm. ACM Transactions on Computational Logic, 15(1), 2014.
+L372:   * [6] J.A. Brzozowski. Canonical regular expressions and minimal state graphs for definite events. In Proceedings of the Symposium on Mathematical Theory of Automata, MRI Symposia Series, pages 529–561. Polytechnic Institute of Brooklyn, 1962.
+L373:   * [7] J.W. Carlyle and A. Paz. Realizations by stochastic finite automata. Journal of Computer and System Sciences, 5(1):26–40, 1971.
+L374:   * [8] S.A. Cook. A taxonomy of problems with fast parallel algorithms. Information and Control, 64(1-3):2–22, 1985.
+L375:   * [9] C. Cortes, M. Mohri, and A. Rastogi. $L_{p}$ distance and equivalence of probabilistic automata. International Journal of Foundations of Computer Science, 18(04):761–779, 2007.
+L376:   * [10] L. Csanky. Fast parallel matrix inversion algorithms. SIAM Journal on Computing, 5(4):618–623, 1976.
+L377:   * [11] S. Eilenberg. Automata, Languages, and Machines, Volume A. Academic Press, 1974.
+L378:   * [12] M. Fliess. Matrices de Hankel. Journal de Mathématiques Pures et Appliquées, 53:197–222, 1974.
+L379:   * [13] D. Gillman and M. Sipser. Inference and minimization of hidden Markov chains. In Proceedings of the Seventh Annual ACM Conference on Computational Learning Theory (COLT), pages 147–158. ACM, 1994.
+L380:   * [14] O.H. Ibarra, S. Moran, and L.E. Rosier. A note on the parallel complexity of computing the rank of order $n$ matrices. Information Processing Letters, 11(4/5):162, 1980.
+L381:   * [15] S. Kiefer, I. Marusic, and J. Worrell. Minimisation of multiplicity tree automata. Logical Methods in Computer Science, 13(1), 2017.
+L382:   * [16] S. Kiefer, A.S. Murawski, J. Ouaknine, B. Wachter, and J. Worrell. Language equivalence for probabilistic automata. In Proceedings of the 23rd International Conference on Computer Aided Verification (CAV), volume 6806 of Lecture Notes in Computer Science, pages 526–540. Springer, 2011.
+L383:   * [17] S. Kiefer, A.S. Murawski, J. Ouaknine, B. Wachter, and J. Worrell. On the complexity of equivalence and minimisation for $\mathbb{Q}$-weighted automata. Logical Methods in Computer Science, 9(1), 2013.
+L384:   * [18] S. Kiefer and B. Wachter. Stability and complexity of minimising probabilistic automata. In Proceedings of the 41st International Colloquium on Automata, Languages and Programming (ICALP), part II, volume 8573 of LNCS, pages 268–279. Springer, 2014.
+L385:   * [19] A. Mandel and I. Simon. On finite semigroups of matrices. Theoretical Computer Science, 5(2):101–111, 1977.
+L386:   * [20] A. Paz. Introduction to Probabilistic Automata. Academic Press, 1971.
+L387:   * [21] M.P. Schützenberger. On the definition of a family of automata. Information and Control, 4(2–3):245–270, 1961.
+L388:   * [22] W.-G. Tzeng. A polynomial-time algorithm for the equivalence of probabilistic automata. SIAM Journal on Computing, 21(2):216–227, 1992.
+L389:   * [23] W.-G. Tzeng. On path equivalence of nondeterministic finite automata. Information Processing Letters, 58(1):43–46, 1996.
+L390: Experimental support, please cite57†view the build logs for errors. Generated by cite58†L A T E xml†math.nist.gov .
+L391: ## Instructions for reporting errors
+L392: 
+L393: We are continuing to improve HTML versions of papers, and your feedback helps enhance accessibility and mobile support. To report errors in the HTML that will help us improve conversion and rendering, choose any of the methods listed below:
+L394: 
+L395:   * Click the "Report Issue" () button, located in the page header.
+L396: 
+L397: Tip: You can select the relevant text first, to include it in your report.
+L398: Our team has already identified cite59†the following issues†github.com . We appreciate your time reviewing and reporting rendering errors we may not have found yet. Your efforts will help us improve the HTML versions for all readers, because disability should not be a barrier to accessing research. Thank you for your continued support in championing open access for all.
+L399: Have a free development cycle? Help support accessibility at arXiv! Our collaborators at LaTeXML maintain a cite60†list of packages that need conversion†github.com , and welcome cite61†developer contributions†github.com .
+L400: 
+L401: We gratefully acknowledge support from our major funders, cite62†member institutions†info.arxiv.org , , and all contributors.
+L402: cite63†About†info.arxiv.org · cite64†Help†info.arxiv.org · cite65†Contact†info.arxiv.org · cite66†Subscribe†info.arxiv.org · cite67†Copyright†info.arxiv.org · cite68†Privacy†info.arxiv.org · cite69†Accessibility†info.arxiv.org · cite70†Operational Status (opens in new tab)†status.arxiv.org
+L403: 
+L404: Major funding support from

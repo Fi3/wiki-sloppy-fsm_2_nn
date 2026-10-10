@@ -1,0 +1,373 @@
+Disjoint-Support Decomposition and Extraction for Interconnect-Driven Threshold Logic Synthesis
+Supplied URL: https://baloneymath.github.io/files/DAC19_thre.pdf
+Retrieved on: 2026-10-07
+Format: text extracted by the web browsing tool, not the original PDF/HTML bytes.
+L numbers refer to the browser extraction. PDF P numbers are zero-based.
+A complete text extraction does not imply that every figure, equation, or proof was reviewed.
+Read capture.json for captured URLs, line coverage, and missing ranges.
+
+
+=== Segment 1: https://baloneymath.github.io/files/DAC19_thre.pdf ===
+
+L0@P0: Disjoint-Support Decomposition and Extraction for
+L1@P0: Interconnect-Driven Threshold Logic Synthesis
+L2@P0: Hao Chen, Shao-Chun Hung, and Jie-Hong R. Jiang
+L3@P0: Department of Electrical Engineering / Graduate Institute of Electronics Engineering
+L4@P0: National Taiwan University, Taipei 10617, Taiwan
+L5@P0: ABSTRACT
+L6@P0: Threshold logic circuits are artificial neural networks with their neuron outputs being binarized, thus amenable for efficient, multiplierfree, hardware implementation of machine learning applications. In
+L7@P0: the reviving threshold logic synthesis, this work lays the foundations of disjoint-support decomposition and extraction operation
+L8@P0: of threshold logic functions. They lead to a synthesis procedure
+L9@P0: for interconnect minimization of threshold logic circuits, an important, but not well addressed, objective in both neural network
+L10@P0: and nanometer circuit designs. Experimental results show that our
+L11@P0: method can efficiently and effectively reduce interconnect as well as
+L12@P0: weight/threshold value over highly optimized circuits, thus suitable
+L13@P0: for implementation using emerging technologies.
+L14@P0: CCS CONCEPTS
+L15@P0: • Hardware→Combinational synthesis; Circuit optimization;
+L16@P0: KEYWORDS
+L17@P0: decomposition, extraction, threshold logic
+L18@P0: ACM Reference Format:
+L19@P0: Hao Chen, Shao-Chun Hung, and Jie-Hong R. Jiang. 2019. Disjoint-Support
+L20@P0: Decomposition and Extraction for Interconnect-Driven Threshold Logic
+L21@P0: Synthesis. In The 56th Annual Design Automation Conference 2019 (DAC ’19),
+L22@P0: June 2–6, 2019, Las Vegas, NV, USA. ACM, New York, NY, USA, 6 pages.
+L23@P0: https://doi.org/10.1145/3316781.3317801
+L24@P0: 1 INTRODUCTION
+L25@P0: As Moore’s law hits the physical limit, new alternative computing architectures and devices are under active research. On the
+L26@P0: architecture side, there is non-von Neumann architecture for neuromorphic computing, which can achieve effective implementation
+L27@P0: of neural networks for machine learning applications. On the device side, alternatives beyond CMOS, such as resonant tunneling
+L28@P0: devices (RTD) [20], quantum cellular automata [3], single electron
+L29@P0: transistors [12], memristors [9], and spintronic devices [8], have
+L30@P0: been demonstrated. Threshold logic turns out to be a promising
+L31@P0: circuit model under these architecture and device innovations based
+L32@P0: on neuron-like computation. Various nanoscale devices have been
+L33@P0: used to implement threshold logic circuits [1]. On the other hand,
+L34@P0: recent progress in deep learning has made neural networks become
+L35@P0: a popular model to perform tasks in artificial intelligence. Hardware acceleration of neural networks is an active research area.
+L36@P0: Neural network binarization for effective hardware realization has
+L37@P0: been demonstrated [6]. Essentially threshold logic networks are
+L38@P0: Permission to make digital or hard copies of all or part of this work for personal or
+L39@P0: classroom use is granted without fee provided that copies are not made or distributed
+L40@P0: for profit or commercial advantage and that copies bear this notice and the full citation
+L41@P0: on the first page. Copyrights for components of this work owned by others than ACM
+L42@P0: must be honored. Abstracting with credit is permitted. To copy otherwise, or republish,
+L43@P0: to post on servers or to redistribute to lists, requires prior specific permission and/or a
+L44@P0: fee. Request permissions from permissions@acm.org.
+L45@P0: DAC ’19, June 2–6, 2019, Las Vegas, NV, USA
+L46@P0: © 2019 Association for Computing Machinery.
+L47@P0: ACM ISBN 978-1-4503-6725-7/19/06. . . $15.00
+L48@P0: https://doi.org/10.1145/3316781.3317801
+L49@P0: neural networks with their activation functions being binarized.
+L50@P0: The advancements of synthesis and verification of threshold logic
+L51@P0: circuits may have important practical implications. These trends
+L52@P0: revive threshold logic research in recent years.
+L53@P0: Among prior efforts on threshold logic synthesis, prior work [19,
+L54@P0: 20] decomposes Boolean functions into a network of threshold logic
+L55@P0: functions based on Shannon expansion. A decomposition algorithm
+L56@P0: based on the truth table and binate splitting heuristic is proposed
+L57@P0: in [19]. In [10], a tree matching method is applied for threshold
+L58@P0: circuit synthesis. In [17], an implicant-implicit method is proposed.
+L59@P0: In [16], the and-inverter graph (AIG) and cut-based technology
+L60@P0: mapping are applied. In [11], [4], and [13], rewiring, merging and
+L61@P0: collapse operations are proposed, respectively. Common synthesis
+L62@P0: objectives of threshold logic circuits are minimizing gate counts,
+L63@P0: circuit depths, and/or the magnitudes of weight/threshold values.
+L64@P0: In this work, we address the synthesis objective from a different
+L65@P0: aspect of minimizing the interconnect complexity of threshold logic
+L66@P0: circuits, which is a crucial issue in machine learning applications as
+L67@P0: neural networks are often layerwise densely connected. Recently
+L68@P0: a synthesis method [5] is proposed to reuse partial summation in
+L69@P0: binarized neural networks for interconnect minimization. However
+L70@P0: its detailed implementation assumption of a binarized neuron makes
+L71@P0: it not applicable to threshold logic synthesis.
+L72@P0: In this paper, we lay the theoretical foundation toward disjointsupport decomposition for threshold logic functions and extraction
+L73@P0: of common sub-threshold logic functions for a given set of multiple
+L74@P0: threshold logic functions. Essentially the enabling technique is the
+L75@P0: generalized decision list, which we define as an extension to the
+L76@P0: decision list [7, 18], for Boolean function representation. Further
+L77@P0: we seek practical applications of the extraction operation to interconnect minimization of threshold logic circuits. Such minimization
+L78@P0: may directly benefit area cost reduction for implementations with
+L79@P0: the spintronics- and memrister-based technologies. Experimental
+L80@P0: results demonstrate that effective interconnect reduction by 10%
+L81@P0: (resp. 8%) on average can be achieved efficiently on threshold logic
+L82@P0: circuits that have been highly optimized for delay (resp. area). As a
+L83@P0: by-product, the magnitudes of weight/threshold values of threshold
+L84@P0: logic gates can be reduced by 14% (resp. 13%) on average for delayminimized (resp. area-minimized) circuits. This effect also benefits
+L85@P0: area cost reduction in RTD-based technology for threshold logic
+L86@P0: implementation.
+L87@P0: The remaining sections are organized as follows. Section 2 gives
+L88@P0: the preliminaries. The decomposition and extraction operations
+L89@P0: are detailed in Sections 3 and 4, respectively. Section 5 shows the
+L90@P0: experimental results, and Section 6 concludes this paper.
+L91@P0: 2 PRELIMINARIES
+L92@P0: A literal is a variable or the negation of a variable. A cube is a conjunction of literals, and will be alternatively treated as a set of literals in the sequel. Given a Boolean function f (x1, . . . , xi
+L93@P0: , . . . , xn),
+L94@P0: its negative cofactor, i.e., f (x1, . . . , 0, . . . , xn), and positive cofactor, i.e., f (x1, . . . , 1, . . . , xn), on variable xi are denoted as f |¬xi
+L95@P0: and f |xi, respectively. The notion of cofactor on a single literalcan be extended to a cube. That is, the cofactor of f on a cube
+L96@P1: c = l1 ∧ · · · ∧ lkis defined as iterative cofactoring f on literals
+L97@P1: l1, . . . ,lk and denoted as f |c . Given an (ordered) set X of Boolean
+L98@P1: variables, its set of valuations/assignments is denoted as [[X]]. E.g.,
+L99@P1: [[(x1, x2)]] = {00, 01, 10, 11}. An assignment to a set X of variables is
+L100@P1: alternatively represented as a cube. E.g., assignment (x1 = 1, x2 = 0)
+L101@P1: is represented as x1¬x2. The onset, denoted f
+L102@P1: 1
+L103@P1: , and offset, denoted
+L104@P1: f
+L105@P1: 0
+L106@P1: , of a function f over variables X are the sets of assignments
+L107@P1: that valuate f to 1 and 0, respectively. A function f is said positive unate (resp. negative unate) on variable xi
+L108@P1: if the implication
+L109@P1: f |¬xi → f |xi(resp. f |xi → f |¬xi) holds. A function f is called
+L110@P1: a unate function if it is either positive or negative unate on every
+L111@P1: variable. A function f is said symmetric on variables xi and xjif
+L112@P1: f (. . . , xi, . . . , xj, . . .) = f (. . . , xj, . . . , xi, . . .). In fact, f is symmetric on variables xi and xj
+L113@P1: if and only if f |xi¬xj = f |¬xi xj. As the
+L114@P1: symmetry property is transitive, i.e., if variables x1 and x2 are symmetric and x2 and x3 are symmetric, then x1 and x3 are symmetric
+L115@P1: in f . In this case, {x1, x2, x3} forms a symmetric group.
+L116@P1: A threshold logic function (TLF) [15] f : B
+L117@P1: n → B over input
+L118@P1: (support) variables x1, . . . , xn is a Boolean function that can be
+L119@P1: specified with a vector of parameters, denoted [w1, . . . ,wn;T ], such
+L120@P1: that
+L121@P1: f =
+L122@P1: 
+L123@P1: 
+L124@P1: 
+L125@P1: 1, i f Õn
+L126@P1: i=1
+L127@P1: wixi ≥ T,
+L128@P1: 0, otherwise,
+L129@P1: (1)
+L130@P1: where parameter wi ∈ Z represents the weight of input xi, and
+L131@P1: T ∈ Z is the threshold value. Note that a TLF f must be a unate
+L132@P1: function. Specifically, f is positive (resp. negative) unate on xiif
+L133@P1: wi > 0 (resp. wi < 0). Any TLF can be converted to a function that
+L134@P1: is positive unate on every variable by inverting its negative unate
+L135@P1: inputs [15]. In the sequel, unless otherwise stated we assume that
+L136@P1: the weights of a TLF have been transformed to positive values.
+L137@P1: A threshold logic network (TLN), or called a threshold logic circuit
+L138@P1: (TLC), is a directed acyclic graph G = (V, E), where V is a set of
+L139@P1: vertices and E ⊆ V ×V is a set of edges. The set V consists of three
+L140@P1: disjoint subsets: primary inputs (PIs), primary outputs (POs), and
+L141@P1: intermediate nodes representing threshold logic gates (TLGs), where
+L142@P1: each TLG is referred to as a physical primitive logic unit that implements a TLF. The set e = (u,v) ∈ E signifies the interconnections
+L143@P1: from vertex u to v. In this case, we say u is a fanin of v, denoted
+L144@P1: u ∈ FI(v), and v is a fanout of u, denoted v ∈ FO(u). For a TLG
+L145@P1: v with n fanins v1, . . . ,vn, it realizes some threshold function fv
+L146@P1: specified by [wv1, . . . ,wvn;Tv ] over variables xv1, . . . , xvn, where
+L147@P1: xvicorresponds to the output variable of vi.
+L148@P1: The implementation cost of a TLN can be measured by the total
+L149@P1: cost of its constituent TLGs and interconnections. To implement
+L150@P1: a TLG, several approaches including CMOS and emerging technologies have been proposed. For RTD-based implementations, the
+L151@P1: area of a TLG is mainly affected by the magnitudes of weight and
+L152@P1: threshold values. Hence the total area of a TLN is estimated by the
+L153@P1: summation of weights and threshold value in each TLG; while for
+L154@P1: spintronics-based and memrister-based implementations, the most
+L155@P1: critical factor which determines the area of a TLG is the total number
+L156@P1: of fanins [8, 9, 20].
+L157@P1: 3 THRESHOLD LOGIC DECOMPOSITION
+L158@P1: 3.1 Generalized Decision List
+L159@P1: To characterize the feasibility of the threshold gate decomposition,
+L160@P1: we extend the concept of decision list [7, 18], and define the generalized decision list.
+L161@P1: Definition 1. The generalized decision list (GDL) of a function f
+L162@P1: over variables X = {x1, . . . , xn } is an ordered list of three-tuple nodes
+L163@P1: (X1, α1, β1), . . . ,(Xm, αm, βm)
+L164@P1: where X1, . . . ,Xm are non-empty variable sets forming a partition
+L165@P1: on X, i.e., Ð
+L166@P1: i Xi = X and Xi ∩ Xj = ∅ for i , j, and αi ⊆ [[Xi]]
+L167@P1: and βi ⊆ [[Xi]] are the sets of assignments on Xi, along with any
+L168@P1: assignment on Xj not in αj ∪ βj for j = 1, . . . ,i − 1, that valuate
+L169@P1: f to 1 and 0, respectively, regardless of the assignments on variables
+L170@P1: Xi+1 ∪ · · · ∪ Xm.
+L171@P1: Example 1. The Boolean function f = x1 ∨ (x2 ∧ x3) can be
+L172@P1: expressed by the GDL: (x1, {1}, ∅), ((x2, x3), {11}, {10, 01, 00}).
+L173@P1: Algorithm 1 ConstructGDL(f )
+L174@P1: Input: A TLF f (x1, . . . , xn) with [w1, . . . , wn;T ] for wi ≥ wi+1 > 0.
+L175@P1: Output: A GDL L of f .
+L176@P1: 1: L := ∅, X := ∅;
+L177@P1: 2: for i = 1 to n
+L178@P1: 3: X := X ∪ {xi };
+L179@P1: 4: if no non-controlling assignment on X
+L180@P1: 5: add node (X, controlling-1(X),controlling-0(X)) into L;
+L181@P1: 6: break ;
+L182@P1: 7: else if f |a = f |b for all a, b ∈ non-controlling({x1, . . . , xi })
+L183@P1: 8: add node (X, controlling-1(X),controlling-0(X)) into L;
+L184@P1: 9: X := ∅;
+L185@P1: 10: return L;
+L186@P1: For a GDL node (Xi, αi, βi), an assignment in αi(resp. βi) is
+L187@P1: referred to as a controlling-1 (resp. controlling-0) assignment, and
+L188@P1: an assignment not in αi ∪ βiis referred to as a non-controlling
+L189@P1: assignment.
+L190@P1: In fact, any Boolean function can be represented as a GDL. To characterized the feasibility of decomposition and extraction of threshold
+L191@P1: logic functions, we use GDL to represent a TLF. Algorithm 1 provides a conversion procedure from a TLF to a GDL. The for-loop in
+L192@P1: Lines 2-9 iterates over the input variables in a descending order with
+L193@P1: respect to their weight values. In Line 3, the target input xiis added
+L194@P1: into the temporary variable vector X. If there is no non-controlling
+L195@P1: assignment in [[X]], the corresponding GDL node is added to the
+L196@P1: list L in Line 5, and then L is ready to be returned in Line 10 as
+L197@P1: all onset and offset assignments of f have already been covered.
+L198@P1: Otherwise, if there is some assignment c in [[(x1, . . . , xi)]] under
+L199@P1: which the value of f remains undetermined, we check whether all
+L200@P1: such f |c are functionally equivalent. If yes, a corresponding GDL
+L201@P1: node is created in Line 8, and vector X is emptied in Line 9. Else,
+L202@P1: the process continues with another iteration.
+L203@P1: The time complexity of algorithm ConstructGDL can be analyzed
+L204@P1: as follows. Given an n-variable TLF f , the for-loop in Lines 2-9
+L205@P1: will be executed at most n times. For each iteration, the bottleneck
+L206@P1: occurs at Line 7, where the checking can be reformulated implicitly
+L207@P1: as satisfiability checking or done explicitly via enumeration through
+L208@P1: all non-controlling assignments. Despite the expensive computation,
+L209@P1: algorithm ConstructGDL can be efficient in practical applications.
+L210@P1: As prior work on threshold logic synthesis mostly restricts the fanin
+L211@P1: number of a TLG to a low level, e.g., 8 inputs in [16], the runtime
+L212@P1: overhead for the checking can be low. Moreover, in application
+L213@P1: benchmarks, the number of non-controlling assignments equals 1
+L214@P1: frequently.
+L215@P1: To ease our discussion, we define three types of GDL nodes:
+L216@P1: Definition 2. A node (Xi, αi, βi) in a GDL that constructed by
+L217@P1: algorithm ConstructGDL is a type-0 node if Xiis a singleton set andβi = {0}, a type-1 node if Xi
+L218@P2: is a singleton set and αi = {1}, and a
+L219@P2: type-2 node if |Xi| ≥ 2.
+L220@P2: Example 2. Consider the TLG in Figure 1(a). By Algorithm ConstructGDL, its GDL is obtained as (x1, {1}, ∅), (x2, {1}, ∅), (x3, ∅, {0}),
+L221@P2: (x4, ∅, {0}), ((x5, x6), {11}, {00}), (x7, {1}, {0}). It is visualized as the
+L222@P2: list shown in Figure 1. The first two nodes are of type-1, the third and
+L223@P2: fourth nodes are of type-0, the fifth node is of type-2, and the last node
+L224@P2: is of either type-0 or type-1.
+L225@P2: Given a GDL L of a TLF f with [w1, . . . ,wn;T ], it can be observed
+L226@P2: that any suffix of L must correspond to some TLF. Such suffix TLF
+L227@P2: can be obtained through the following derivation. Without loss
+L228@P2: of generality, consider the derivation of the TLF д corresponding
+L229@P2: to the (n − 1)-node suffix of L. There are three cases: For the first
+L230@P2: node being a type-0 node with input x1, only the non-controlling
+L231@P2: assignment, i.e., x1 = 1, matters to д. Specifically, function д = f |x1
+L232@P2: and can be expressed by [w2, . . . ,wn;T −w1]. Similarly, for the first
+L233@P2: node being a type-1 node, function д = f |¬x1and can be expressed
+L234@P2: by [w2, . . . ,wn;T ]. On the other hand, for the first node being a
+L235@P2: type-2 node with inputs x1, . . . , xk, let c being the assignment in
+L236@P2: [[(x1, . . . , xk)]] with the minimum value of Í
+L237@P2: xi ∈c wi
+L238@P2: , where “xi ∈ c”
+L239@P2: indicates literal xiis in the cube c. Then function д = f |c and can be
+L240@P2: expressed by [wk+1, . . . ,wn;T −
+L241@P2: Í
+L242@P2: xi ∈c wi]. By repeating the above
+L243@P2: process, all suffix TLFs can be obtained.
+L244@P2: The constructed GDL enjoys the following property.
+L245@P2: Lemma 1. Given an n-variable TLF f and its GDL L, the set of
+L246@P2: variables in contiguous type-0 (type-1) nodes of L forms a symmetric
+L247@P2: group of f .
+L248@P2: With Algorithm 1, the following property can be established.
+L249@P2: Theorem 1. Given an n-input TLF f , the GDL L constructed by
+L250@P2: algorithm ConstructGDL is the longest. That is, there exists no other
+L251@P2: GDL L
+L252@P2: ′
+L253@P2: of f such that |L
+L254@P2: ′
+L255@P2: | > |L|.
+L256@P2: 3.2 Disjoint-Support Decomposition
+L257@P2: With GDL, we study the feasibility of disjoint-support decomposition of a TLF. Formally, a disjoint-support decomposition of a TLF
+L258@P2: f over variables X = A ∪ B with A ∩ B = ∅ is to rewrite f (X) as
+L259@P2: h(A,д(B)) for h and д being TLFs. We call variablesA and B being the
+L260@P2: free set and bound set, respectively. To avoid trivial decomposition,
+L261@P2: we shall assume A , ∅ and |B| ≥ 2.
+L262@P2: The following theorem relates GDL and the decomposability of a
+L263@P2: TLF.
+L264@P2: Theorem 2. Given a TLF f (X) with X = A ∪ B for A , ∅ and
+L265@P2: |B| ≥ 2, a disjoint-support decomposition f (X) = h(A,д(B)) is feasible
+L266@P2: if there exists a GDL L such that one of the following three cases holds:
+L267@P2: (1) The bound set variables B appear in some contiguous type-0
+L268@P2: nodes in L.
+L269@P2: (2) The bound set variables B appear in some contiguous type-1
+L270@P2: nodes in L.
+L271@P2: (3) The bound set variables B appear in the nodes of some suffix
+L272@P2: list of L.
+L273@P2: The theorem can be proved constructively by deriving functions h
+L274@P2: and д with respect to the three cases of Theorem 2. For a TLF f with
+L275@P2: [w1, . . . ,wn;T ], assume the bound set variables B = {xk, . . . , xl},
+L276@P2: where 1 ≤ k < l ≤ n. In the first case,
+L277@P2: д = [1, . . . , 1; |B|],
+L278@P2: h = [w1, . . . ,wk−1,wд,wl+1, . . . ,wn;T ],
+L279@P2: for wд =
+L280@P2: Íl
+L281@P2: j=k
+L282@P2: wj. In the second case,
+L283@P2: д = [1, . . . , 1; 1],
+L284@P2: h = [w1, . . . ,wk−1,wд,wl+1, . . . ,wn;T ],
+L285@P2: for wд = wk. In the third case,
+L286@P2: д = [wk, . . . ,wn;T −
+L287@P2: Õ
+L288@P2: xi ∈c
+L289@P2: wi],
+L290@P2: h = [w1, . . . ,wk−1,wд;T ],
+L291@P2: forwд = T −
+L292@P2: Í
+L293@P2: xi ∈c wi
+L294@P2: , where c is the assignment in [[(x1, . . . , xk−1)]]
+L295@P2: with the minimum value of Í
+L296@P2: xi ∈c wi as discussed in suffix TLF
+L297@P2: derivation. It can be verified that the above derivations establish
+L298@P2: f (X) = h(A,д(B)).
+L299@P2: Example 3. Figure 1(b), (c) and (d) show three examples of disjointsupport decomposition for the TLF in (a) corresponding to the three
+L300@P2: cases stated in Theorem 2, respectively.
+L301@P2: The GDL L constructed by ConstructGDL exhibits the nice property that if a bound set B appears in some GDL L
+L302@P2: ′
+L303@P2: as stated in
+L304@P2: Theorem 2, then B can also be found in L. The property is formally
+L305@P2: stated in Theorem 3.
+L306@P2: Theorem 3. In Theorem 2, it suffices to consider only the longest
+L307@P2: GDL constructed by algorithm ConstructGDL.
+L308@P2: By the above theorems, we know that our GDL construction algorithm can generate the longest GDL of a TLF, and that all options of
+L309@P2: disjoint-support decomposition stated in Theorem 2 can be covered.
+L310@P2: 4 THRESHOLD LOGIC EXTRACTION
+L311@P2: 4.1 Problem Formulation
+L312@P2: Given a TLN with multiple TLGs having the same disjoint decomposition option, it is possible to extract a common decomposition TLF
+L313@P2: for logic sharing among the TLGs. Such an extraction operation may
+L314@P2: reduce interconnect complexity of the TLN. To compute extraction
+L315@P2: candidates, we define extraction set and extraction pair of a TLF as
+L316@P2: follows.
+L317@P2: Definition 3. An extraction set is a set of nodes in a GDL whose
+L318@P2: corresponding variable set forms a legal bound set for disjoint-support
+L319@P2: decomposition. A set with contiguous type-0 (resp. type-1) nodes is
+L320@P2: called a type-0 extraction set (resp. type-1 extraction set). An extraction pair (S,v) consists of an extraction set S and a corresponding TLG
+L321@P2: v where S comes from.
+L322@P2: Example 4. For the TLN in Figure 3(a), the set S = {(x3, ∅, {0}),
+L323@P2: (x4, ∅, {0})} is a type-0 extraction set, and (S,v1) is an extraction pair.
+L324@P2: Problem 1 (Threshold Logic Extraction). Given a TLN, the
+L325@P2: threshold logic extraction problem seeks to find common decomposition TLFs for logic sharing among the TLGs such that the total number
+L326@P2: of interconnections in the TLN is minimized while the function of the
+L327@P2: revised TLN remains unchanged.
+L328@P2: 4.2 Extraction Flow
+L329@P2: To achieve a high-quality solution efficiently, we propose an extraction flow shown in Figure 2. In the flow, an input circuit, not
+L330@P2: necessarily a TLN, is first synthesized into a TLN through existing
+L331@P2: TL synthesis tools and then the weights and threshold values of
+L332@P2: the TLGs are minimized. After the pre-processing, the core of our
+L333@P2: extraction flow includes three main stages: 1) extraction pair initialization, 2) iterative TLG extration, 3) and TLG post-processing, to
+L334@P2: be detailed in the following.Figure 1: (a) TLG under decomposition and its GDL; (b) decomposition with contiguous type-0 nodes; (c) decomposition with contiguous
+L335@P3: type-1 nodes; (d) decomposition with suffix nodes.
+L336@P3: Figure 2: Computation flow of threshold logic extraction.
+L337@P3: 4.3 Extraction Pair Initialization
+L338@P3: Given a TLN G = (V, E) with all its TLGs ∈ V converted in the
+L339@P3: positive unate form, the set of extraction pairs can be collected from
+L340@P3: the GDL, generated by algorithm ConstructGDL, of each TLG v ∈ V
+L341@P3: by identifying the longest contiguous type-0 and type-1 nodes in
+L342@P3: the GDL.1 Algorithm 2 sketches the steps.
+L343@P3: Algorithm 2 InitExtractionPairs(G)
+L344@P3: Input: A TLN G = (V, E) with every TLG v ∈ V in positive unate form.
+L345@P3: Output: A set P of extraction pairs.
+L346@P3: 1: P := ∅;
+L347@P3: 2: for each TLG v ∈ V
+L348@P3: 3: for each S ∈ ExtractionSets(v)
+L349@P3: 4: P := P ∪ {(S, v)};
+L350@P3: 5: return P;
+L351@P3: Example 5. Consider the TLN in Figure 3(a). Assume variables x1
+L352@P3: and x2 are inverted for TLG v1 to be in positive unate form. For the
+L353@P3: TLN, the extraction pairs ({¬x1, x3, x4, x5},v1), ({x3, x4, x5},v2) and
+L354@P3: ({x3, x4, x5},v3) can be derived.
+L355@P3: 4.4 Iterative TLG Extraction
+L356@P3: Given a TLN G = (V, E), its corresponding set P of extraction pairs,
+L357@P3: and an upper bound Nlmax on logic level, we perform iterative
+L358@P3: 1
+L359@P3: In our current implementation we do not exploit suffix nodes for extraction, i.e., case 3
+L360@P3: of Theorem 2, as the likelihood of having equivalent suffix TLFs from different TLGs
+L361@P3: can be low.

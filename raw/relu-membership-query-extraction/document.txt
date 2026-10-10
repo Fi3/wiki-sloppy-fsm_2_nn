@@ -1,0 +1,175 @@
+An Exact Poly-Time Membership-Queries Algorithm for Extracting a Three-Layer ReLU Network
+Supplied URL: https://arxiv.org/html/2105.09673v5
+Retrieved on: 2026-10-07
+Format: text extracted by the web browsing tool, not the original PDF/HTML bytes.
+L numbers refer to the browser extraction. PDF P numbers are zero-based.
+A complete text extraction does not imply that every figure, equation, or proof was reviewed.
+Read capture.json for captured URLs, line coverage, and missing ranges.
+
+
+=== Segment 1: https://arxiv.org/html/2105.09673v5 ===
+
+L0: ##### Report GitHub Issue
+L1: 
+L2: [Button: ×]
+L3: 
+L4: Title: [Input: Enter title]
+L5: 
+L6: Content selection saved. Describe the issue below:
+L7: 
+L8: Description:
+L9: 
+L10: [Button: Submit without GitHub] [Button: Submit in GitHub]
+L11: 
+L12: cite0†Back to arXiv
+L13: 
+L14: cite1†Why HTML?†info.arxiv.org cite2†Report Issue cite3†Back to Abstract cite4†Download PDF
+L15:   1. cite5†Abstract
+L16:   2. cite6†1 Introduction
+L17:   3. cite7†2 Results
+L18:     1. cite8†2.1 Depth Two Networks
+L19:     2. cite9†2.2 Depth Three Networks
+L20:     3. cite10†2.3 Novelty of the Reconstructions
+L21:   4. cite11†3 Proofs
+L22:     1. cite12†3.1 Notations and Terminology
+L23:     2. cite13†3.2 Piecewise Linear Functions
+L24:       1. cite14†3.2.1 Reconstruction of an affine function
+L25:       2. cite15†3.2.2 Reconstruction of critical points in one dimension
+L26:       3. cite16†3.2.3 Reconstruction of a critical hyperplane
+L27:       4. cite17†3.2.4 Checking convexity/concavity in a $\delta$-non-degenerate critical point
+L28:       5. cite18†3.2.5 Distinguish $\epsilon$-general point from $\epsilon$-non-degenerate critical point
+L29:     3. cite19†3.3 General Position Assumption
+L30:     4. cite20†3.4 Reconstruction of Depth Two Network – Sketch Proof of Theorems and
+L31:       1. cite21†3.4.1 Sketch proof of theorem
+L32:     5. cite22†3.5 Reconstruction of Depth Three Network – Sketch Proof of Theorem
+L33:       1. cite23†3.5.1 Extracting a set containing the critical hyperplanes of the first layer
+L34:       2. cite24†3.5.2 Identifying first layer critical hyperplanes
+L35:       3. cite25†3.5.3 Identifying directions
+L36:       4. cite26†3.5.4 Reconstruction of the top two layers
+L37:   5. cite27†4 Discussion and Social Impact
+L38:   6. cite28†References
+L39:   7. cite29†A Regular Networks
+L40:   8. cite30†B Proof of the Main Theorems
+L41:   9. cite31†C Proofs of Lemmas
+L42:   10. cite32†D Correctness of the Algorithms
+L43:   11. cite33†E On the non-zero partial derivatives assumption
+L44: cite34†License: CC BY 4.0†info.arxiv.org
+L45: 
+L46: arXiv:2105.09673v5 [cs.LG] 04 Mar 2023
+L47: # An Exact Poly-Time Membership-Queries Algorithm for Extracting a Three-Layer ReLU Network
+L48: 
+L49: Amit Daniely Affiliation: School of Computer Science and Engineering, The Hebrew University Affiliation: and Google Research Tel-Aviv Email: amit.daniely@mail.huji.ac.il    Elad Granot Affiliation: School of Computer Science and Engineering, The Hebrew University Email: elad.granot@mail.huji.ac.il
+L50: ###### Abstract
+L51: We consider the natural problem of learning a ReLU network from queries, which was recently remotivated by model extraction attacks. In this work, we present a polynomial-time algorithm that can learn a depth-two ReLU network from queries under mild general position assumptions. We also present a polynomial-time algorithm that, under mild general position assumptions, can learn a rich class of depth-three ReLU networks from queries.
+L52: For instance, it can learn most networks where the number of first layer neurons is smaller than the dimension and the number of second layer neurons.
+L53: These two results substantially improve state-of-the-art: Until our work, polynomial-time algorithms were only shown to learn from queries depth-two networks under the assumption that either the underlying distribution is Gaussian (cite35†Chen et al. (2021) ) or that the weights matrix rows are linearly independent (cite36†Milli et al. (2019) ). For depth three or more, there were no known poly-time results.
+L54: ## 1 Introduction
+L55: With the growth of neural-network-based applications, many commercial companies offer machine learning services, allowing public use of trained networks as a black-box. Those networks allow the user to query the model and, in some cases, return the exact output of the network to allow the users to reason about the model’s output. Yet, the parameters of the model and its architecture are considered the companies’ intellectual property, and they do not often wish to reveal it.
+L56: Moreover, sometimes the training phase uses sensitive data, and as demonstrated in cite37†Zhang et al. (2020) , inversion attacks can expose those sensitive data to one who has the trained model.
+L57: Nevertheless, the model is still vulnerable to membership query attacks even as a black box. A recent line of works (cite38†Tramer et al. (2016) , cite39†Shi et al. (2017) , cite36†Milli et al. (2019) , cite40†Rolnick & Körding (2020) , cite41†Carlini et al. (2020) , cite42†Fornasier et al. (2021) ) showed either empirically or theoretically that using a specific set of queries, one can reconstruct some hidden models. Theoretical work includes cite35†Chen et al.
+L58: (2021) that proposed a novel algorithm that, under the Gaussian distribution, can approximate a two-layer model with ReLU activation in a guaranteed polynomial time and query complexity without any further assumptions on the parameters. Likewise, cite36†Milli et al. (2019) has shown how to exactly extract the parameters of depth-two networks, assuming that the weight matrix has independent rows (in particular, the number of neurons is at most the input dimension). Our work extends their work by showing:
+L59:   1. 1.
+L60: 
+L61: A polynomial time and query complexity algorithm for exact reconstruction of a two-layer neural network with any number of hidden neurons, under mild general position assumptions; and
+L62: 
+L63:   2. 2.
+L64: A polynomial time and a query complexity algorithm for exact reconstruction of a three-layer neural network under mild general position assumptions, with the additional assumptions that the number of first layer neurons is smaller than the input dimension and the assumption that the second layer has non-zero partial derivatives. The last assumption is valid for most networks with more second layer neurons than first layer neurons.
+L65: The mild general position assumptions are further explained in section cite19†3.3 . However, we note that the proposed algorithm will work on any two-layer neural network except for a set with a zero Lebesgue measure.
+L66: Furthermore, it will work in polynomial time provided that the input weights are slightly perturbed (for instance, each weight is perturbed by adding a uniform number in $[-2^{-d},2^{-d}]$) At a very high level, the basis of our approach is to find points in which the linearity of the network breaks and extract neurons by recovering the affine transformations computed by the network near these points. This approach was taken by the previous theoretical papers cite36†Milli et al. (2019) ; cite35†Chen et al.
+L67: (2021) and also in the empirical works of cite41†Carlini et al. (2020) ; cite43†Jagielski et al. (2019) . In order to derive our results, we add several ideas to the existing techniques, including the ability to distinguish first from second layer neurons, which allows us to deal with three-layer networks, as well as the ability to reconstruct the neurons correctly in general depth-two networks with any finite width in a polynomial time, without assuming that the rows are independent.
+L68: ## 2 Results
+L69: We next describe our results. Our results will assume a general position assumption quantified by a parameter $\delta\in(0,1)$, and a network that satisfies our assumption with parameter $\delta$ will be called $\delta$-regular. This assumption is defined in section cite19†3.3 . We note, however, that a slight perturbation of the network weights, say, adding to each weight a uniform number in $[-2^{-d},2^{-d}]$, guarantees that w.p.
+L70: $1-2^{-d}$ the network will be $\delta$-regular with $\delta$ that is large enough to guarantee polynomial time complexity. Thus, $\delta$-regularity is argued to be a mild general position assumption. Throughout the paper, we denote by $Q$ the time it takes to make a single query.
+L71: ### 2.1 Depth Two Networks
+L72: 
+L73: Consider a $2$-layer network model given by
+L74: 
+L75:  | $$\mathcal{M}(\bm{x})=\sum_{j=1}^{d_{1}}u_{j}\phi\left(\left\langle\bm{w}_{j},\bm{x}\right\rangle+b_{j}\right)$$  |  | (1)
+L76: where $\phi(x)=x^{+}=\max(x,0)$ is the ReLU function, and for any $j\in[d_{1}]$, $\bm{w}_{j}\in\mathbb{R}^{d}$, $b_{j}\in\mathbb{R}$, and $u_{j}\in\mathbb{R}$. We assume that the $\bm{w}_{j}$’s, the $b_{j}$’s and the $u_{j}$’s, along with the width $d_{1}$, are unknown to the user, which has only black box access to $\mathcal{M}(\bm{x})$, for any $\bm{x}\in\mathbb{R}^{d}$. We do not make any further assumptions on the network weights, rather than $\delta$-regularity.
+L77: ###### Theorem 1.
+L78: 
+L79: There is an algorithm that given an oracle access to a $\delta$-regular network as in equation cite44†1 , reconstructs it using $O\left(\left(d_{1}\log(1/\delta)+d_{1}d\right)Q+d^{2}d_{1}\right)$ time and $O\left(d_{1}\log(1/\delta)+d_{1}d\right)$ queries.
+L80: We note that by reconstruction we mean that the algorithm will find $d^{\prime}_{1}$ and weights $\bm{w}^{\prime}_{0},\ldots,\bm{w}^{\prime}_{d^{\prime}_{1}}\in\mathbb{R}^{d}$, $b^{\prime}_{0},\ldots,b^{\prime}_{d^{\prime}_{1}}\in\mathbb{R}$, and $u^{\prime}_{1},\ldots,u^{\prime}_{d^{\prime}_{1}}\in\mathbb{R}$ such that
+L81:  | $$\forall\bm{x}\in\mathbb{R}^{d},\;\;\mathcal{M}(\bm{x})={\left\langle\bm{w}^{\prime}_{0},\bm{x}\right\rangle}+b^{\prime}_{0}+\sum_{j=1}^{d^{\prime}_{1}}u^{\prime}_{j}\phi\left({\left\langle\bm{w}^{\prime}_{j},\bm{x}\right\rangle}+b^{\prime}_{j}\right).$$  |  | (2)
+L82: We will also prove a similar result for the case that the algorithm is allowed to query the network just on points in $\mathbb{R}_{+}^{d}$, but on the other hand, equation equation cite45†2 needs to be satisfied just for $\bm{x}\in\mathbb{R}_{+}^{d}$. This case is essential for reconstructing depth-three networks, and we will call it the $\mathbb{R}_{+}^{d}$-restricted case.
+L83: ###### Theorem 2.
+L84: 
+L85: In the $\mathbb{R}_{+}^{d}$-restricted case there is an algorithm that given an oracle access to a $\delta$-regular network as in equation cite44†1 , reconstructs it using $O\left(\left(dd_{1}\log(1/\delta)+d_{1}d\right)Q+d^{2}d^{2}_{1}\right)$ time and $O\left(dd_{1}\log(1/\delta)+d_{1}d\right)$ queries.
+L86: ### 2.2 Depth Three Networks
+L87: 
+L88: Consider a $3$-layer network given by
+L89: 
+L90:  | $$\mathcal{M}(\bm{x})={\left\langle\bm{u},\phi({\bm{V}}\phi({\bm{W}}\bm{x}+\bm{b})+\bm{c})\right\rangle}$$  |  | (3)
+L91: where ${\bm{W}}\in\mathbb{R}^{d_{1}\times d}$, $\bm{b}\in\mathbb{R}^{d_{1}}$, ${\bm{V}}\in\mathbb{R}^{d_{2}\times d_{1}}$, $\bm{c}\in\mathbb{R}^{d_{2}}$, $\bm{u}\in\mathbb{R}^{d_{2}}$ and $\phi$ is the ReLU function defined element-wise. We assume ${\bm{W}},{\bm{V}},\bm{u},\bm{b},\bm{c}$, along with $d_{1}$ and $d_{2}$, are unknown to the user, which have only black box access to $\mathcal{M}(x)$ for any $\bm{x}\in\mathbb{R}^{d}$.
+L92: Besides $\delta$-regularity we will assume that (i) $d_{1}\leq d$ and that (ii) the top layer has non-zero partial derivatives: For the second layer function $F:\mathbb{R}^{d_{1}}\to\mathbb{R}$ given by $F(\bm{x})={\left\langle\bm{u},\phi(V\bm{x}+\bm{c})\right\rangle}$ we assume that for any $\bm{x}\in\mathbb{R}_{+}^{d_{1}}$ and $j\in[d_{1}]$, the derivative of $F$ in the direction of $\bm{e}^{\left(j\right)}$ and $-\bm{e}^{\left(j\right)}$ is not zero.
+L93: We note that if $d_{2}$ is large compared to $d_{1}$ ($d_{2}\geq 3.5d_{1}$ would be enough) this assumption is valid for most choices of $\bm{u},{\bm{V}}$ and $\bm{c}$ (see theorem cite46†5 ).
+L94: ###### Theorem 3.
+L95: 
+L96: There is an algorithm that given an oracle access to a $\delta$-regular network as in equation cite45†2 , with $d_{1}\leq d$ and top layer with non-zero partial derivatives, reconstruct it using $\mathrm{poly}(d,d_{1},d_{2},\log(1/\delta))$ time and queries.
+L97: By reconstruction we mean that the algorithm will find $d^{\prime}_{1},d^{\prime}_{2}\in\mathbb{N}$, weights $\bm{v}^{\prime}_{0},\ldots,\bm{v}^{\prime}_{d^{\prime}_{2}}\in\mathbb{R}^{d^{\prime}_{1}}$, $c^{\prime}_{0},\ldots,c^{\prime}_{d^{\prime}_{2}}\in\mathbb{R}$, $u^{\prime}_{1},\ldots,u^{\prime}_{d^{\prime}_{2}}\in\mathbb{R}$, as well as a matrix ${\bm{W}}^{\prime}\in\mathbb{R}^{d^{\prime}_{1}\times d}$ and a vector $\bm{b}^{\prime}\in\mathbb{R}^{d^{\prime}_{1}}$ such that
+L98:  | $$\forall\bm{x}\in\mathbb{R}^{d},\;\;\mathcal{M}(\bm{x})={\left\langle\bm{v}^{\prime}_{0},\phi\left({\bm{W}}^{\prime}\bm{x}+\bm{b}^{\prime}\right)\right\rangle}+c^{\prime}_{0}+\sum_{j=1}^{d^{\prime}_{2}}u^{\prime}_{j}\phi\left({\left\langle\bm{v}^{\prime}_{j},\phi\left({\bm{W}}^{\prime}\bm{x}+\bm{b}^{\prime}\right)\right\rangle}+c^{\prime}_{j}\right).$$  |
+L99: ### 2.3 Novelty of the Reconstructions
+L100: Having an exact reconstruction is an essential task for extracting a model. While approximate reconstructions, such as in cite35†Chen et al. (2021) , may mimic the output of the extracted network, they cannot reveal information on the architecture, like the network’s width. Moreover, an approximated reconstruction can be viewed as a regression task. For example, the work of cite39†Shi et al. (2017) used Naive Bayes and SVM models to predict the network’s output.
+L101: An exact reconstruction requires building new tools, as we provide in this work.
+L102: Exploring the non-linearity parts of a network can offer information on the relations between the weights of a neuron up to a multiplicative factor. Specifically, the sign of a neuron is missing. Indeed: for the $j$’th neuron both $(\bm{w}_{j},b_{j})$ and $(-\bm{w}_{j},-b_{j})$ have the property of breaking the linearity of $\mathcal{M}(\bm{x})$ at the same values of $\bm{x}$. To achieve the global signs of all the neurons, one requires either to restrict the width of the network (as in cite36†Milli et al.
+L103: (2019) ) or to use brute-force over all possible combinations (as in cite41†Carlini et al. (2020) and cite40†Rolnick & Körding (2020) ). We bypass this challenge by allowing reconstruction up to an affine transformation and using the fact that for all $\bm{x}\in\mathbb{R}^{d}$,
+L104:  | $$\left\langle\bm{w},\bm{x}\right\rangle+b=\phi(\left\langle\bm{w},\bm{x}\right\rangle+b)-\phi(-\left\langle\bm{w},\bm{x}\right\rangle-b).$$  |
+L105: 
+L106: This bypass allows the reconstruction of a network with any finite width in a polynomial time.
+L107: 
+L108: Another technical novelty of the paper is an algorithm that can identify whether a neuron belongs to the first or the second layer. This allows us to handle a second hidden layer after peeling the first layer.
+L109: ## 3 Proofs
+L110: ### 3.1 Notations and Terminology
+L111: We denote by $\bm{e}^{\left(1\right)},\ldots,\bm{e}^{\left(d\right)}$ the standard basis of $\mathbb{R}^{d}$ and by $\mathbb{B}(\bm{x},\delta)$ the open ball around $\bm{x}\in\mathbb{R}^{d}$ with radius $\delta>0$. For $\bm{w}\in\mathbb{R}^{d}$ and $b\in\mathbb{R}$ we denote by $\Lambda_{\bm{w},b}$ the affine function $\Lambda_{\bm{w},b}(\bm{x})={\left\langle\bm{w},\bm{x}\right\rangle}+b$.
+L112: For a point $\bm{x}\in\mathbb{R}^{d}$ and a set $A\subset\mathbb{R}^{d}$ we denote by $d(\bm{x},A)=\inf_{\bm{y}\in A}\|\bm{x}-\bm{y}\|$ the distance between $\bm{x}$ and $A$. Given a subspace ${\mathbb{P}}$, A Gaussian in ${\mathbb{P}}$ is a Gaussian vector ${\mathbf{x}}$ in $\mathbb{R}^{d}$ whose density function is supported in ${\mathbb{P}}$. We say that it is standard if the projection of ${\mathbf{x}}$ on any line in ${\mathbb{P}}$ that passes through $\mathbb{E}[{\mathbf{x}}]$ has a variance of $1$.
+L113: The state of a neuron on a point $\bm{x}\in\mathbb{R}^{d}$ is the sign of the input of that neuron (either positive, negative, or zero). The state of a network on a point $\bm{x}\in\mathbb{R}^{d}$ is a description of the states of all neurons at $\bm{x}$. Similarly, the state of the first layer at $\bm{x}\in\mathbb{R}^{d}$ is a description of the state of all first layer neurons at $\bm{x}$.
+L114: The angle between a hyperplane ${\mathbb{P}}$ with a normal vector $\bm{n}$ and a line $\{t\bm{x}+\bm{y}:t\in\mathbb{R}\}$ (or just a vector $\bm{x}\neq 0$) is defined as $\left|{\left\langle\frac{\bm{x}}{\|\bm{x}\|},\bm{n}\right\rangle}\right|$. Likewise, the distance between two hyperplanes ${\mathbb{P}}_{1},{\mathbb{P}}_{2}$ with normal vectors $\bm{n}_{1},\bm{n}_{2}$ respectively, is given by $D({\mathbb{P}}_{1},{\mathbb{P}}_{2}):=\sqrt{1-{\left\langle\bm{n}_{1},\bm{n}_{2}\right\rangle}^{2}}$.
+L115: We say that a hyperplane is $\delta$-general if its angle with all the $d$ axes is at least $\delta$. A hyperplane is general if it is $\delta$-general for some $\delta>0$ (equivalently, it is not parallel to any axis).
+L116: ### 3.2 Piecewise Linear Functions
+L117: Let $f:\mathbb{R}^{d}\to\mathbb{R}$ be piecewise linear, with finitely many pieces. A general point is a point $\bm{x}\in\mathbb{R}^{d}$ such that exists a neighborhood around $\bm{x}$ for which $f$ is affine in that neighborhood. Furthermore, we say that the point $\bm{x}\in\mathbb{R}^{d}$ is a $\delta$-general point if $f$ is affine in $\mathbb{B}(\bm{x},\delta)$.
+L118: Complementarily, a critical point is a point $\bm{x}\in\mathbb{R}^{d}$ such that for every $\delta>0$, $f$ is not affine in $\mathbb{B}(\bm{x},\delta)$. A critical hyperplane is an affine hyperplane ${\mathbb{P}}$, whose intersection with the set of critical points is of dimension $d-1$. For a critical hyperplane ${\mathbb{P}}$, we say that a point $\bm{x}\in\mathbb{R}^{d}$ is ${\mathbb{P}}$-critical if it is critical and $\bm{x}\in{\mathbb{P}}$.
+L119: Figure cite47†1 illustrates the above definitions for the one-dimensional input case.
+L120: cite48†Image: Refer to caption Figure 1: An illustration of one-dimensional piecewise linear function $\mathcal{M}:\mathbb{R}\rightarrow\mathbb{R}$
+L121: Note that there are finitely many critical hyperplanes for any piecewise linear function, that any critical point belongs to at least one critical hyperplane, and most^{1}^{1} 1 By most, we mean all except a set whose dimension is $d-2$. critical points belong to exactly one critical hyperplane. We will call such points non-degenerate. Furthermore, we will say that a critical point $\bm{x}$ is $\delta$-non-degenerate if exactly one critical hyperplane intersects with $\mathbb{B}(\bm{x},\delta)$.
+L122: For the function $\mathcal{M}$ computed by a network such as equation cite44†1 or equation cite49†3 , we note that for any $j\in[d_{1}]$, the hyperplane ${\mathbb{P}}_{j}=\{\bm{x}:{\left\langle\bm{w}_{j},\bm{x}\right\rangle}+b_{j}=0\}$ is a critical hyperplane. In this case, we say that ${\mathbb{P}}$ corresponds to the $j$th neuron, and vice-verse. Also, if $\bm{x}$ is a critical point, then at least one of the neurons is in a critical state (i.e., its input is $0$).
+L123: In this case, we will say that $\bm{x}$ is a critical point of that neuron.
+L124: We next describe a few simple algorithms related to piecewise linear functions that we will use frequently. Their correctness is given in section cite32†D of the appendix; here we briefly sketch the idea behind it.
+L125: #### 3.2.1 Reconstruction of an affine function
+L126: 
+L127: We note that if $\bm{x}$ is an $\epsilon$-general point of a function $f$, then one can reconstruct the affine function $f$ computes over $\mathbb{B}(\bm{x},\epsilon)$ with $d+1$ queries in $\mathbb{B}(\bm{x},\epsilon)$ and $O(dQ)$ time. Algorithm cite50†2 reconstructs the desired affine function.
+L128: #### 3.2.2 Reconstruction of critical points in one dimension
+L129: We say that a piecewise linear one dimensional function $f:\mathbb{R}\to\mathbb{R}$ is $\delta$-nice if: (1) All its critical points are in $\left(-\frac{1}{\delta},\frac{1}{\delta}\right)\setminus(-\delta,\delta)$, (2) each piece is of length at least $\delta$, (3) there are no two pieces that share the same affine function, and (4) all the points in the grid $\frac{2^{-\lceil\log_{2}(2/\delta^{2})\rceil}}{\delta}\mathbb{Z}$ are $\delta^{2}$-general.
+L130: Given a $\delta$-nice function, algorithm cite51†1 recovers the left-most critical point in the range $(a,1/\delta)$, if such a point exist, using $O\left(\log(1/\delta)Q\right)$ time. In short, the algorithm works similar to a binary search, where each iteration splits the current range into two halves and keeps the left half if and only if it is not affine.
+L131: 
+L132: Algorithm 1 $\mathtt{FIND\_CP}(\delta,f,a)$: Single critical point reconstruction
+L133: Input: Parameter $\delta<1$, black box access to a $\delta$-nice $f:\mathbb{R}\to\mathbb{R}$, and left limit $a\in\left(-\frac{1}{\delta},\frac{1}{\delta}\right)$
+L134: 
+L135: Output: The left most critical point of $f$ in $(a,1/\delta)$.
+L136: 
+L137: 1:  Set $x_{L}=-\frac{1}{\delta},x_{R}=\frac{1}{\delta}$
+L138: 
+L139: 2:  for $j=1,\ldots,\lceil\log_{2}(2/\delta^{2})\rceil+1$ do
+L140: 3:   If $\frac{x_{L}+x_{R}}{2}\leq a$ or $\mathtt{AFFINE}_{\delta^{2}}\left(f,x_{L}\right)=\mathtt{AFFINE}_{\delta^{2}}\left(f,\frac{x_{L}+x_{R}}{2}\right)$, set $x_{L}=\frac{x_{L}+x_{R}}{2}$. Else, set $x_{R}=\frac{x_{L}+x_{R}}{2}$.
+L141: 
+L142: 4:  end for
+L143: 5:  Let $\Lambda_{L}=\mathtt{AFFINE}_{\delta^{2}}\left(f,x_{L}\right)$ and $\Lambda_{R}=\mathtt{AFFINE}_{\delta^{2}}\left(f,x_{R}\right)$. If $\Lambda_{L}=\Lambda_{R}$ then return ”no critical points in $(a,1/\delta)$”. Else, return the point $x$ for which $\Lambda_{L}(x)=\Lambda_{R}(x)$
+L144: With algorithm cite51†1 we can reconstruct all the critical points of $f$ in a given range $(a,b)\subset(-1/\delta,1/\delta)$ in $O\left(k\log(1/\delta)Q\right)$ time, where $k$ is the number of critical points in $(a,b)$. Indeed, we can invoke algorithm cite51†1 to find the left-most critical point $x_{1}$ in $(a,b)$, then the one on its right and so on, until there are no more critical points in $(a,b)$.
+L145: #### 3.2.3 Reconstruction of a critical hyperplane
+L146: Let $f:\mathbb{R}^{d}\to\mathbb{R}$ be a piecewise linear function. Assume that $\bm{x}$ is a $\delta$-non-degenerate ${\mathbb{P}}$-critical point. If $\bm{x}_{1},\bm{x}_{2}\in\mathbb{B}(\bm{x},\delta)$ are two points on opposite sides of ${\mathbb{P}}$, then ${\mathbb{P}}$ is the null space of $\Lambda_{1}-\Lambda_{2}$, where $\Lambda_{1},\Lambda_{2}$ are the affine functions computed by $f$ near $\bm{x}_{1}$ and $\bm{x}_{2}$. Algorithm cite52†3 therefore reconstructs ${\mathbb{P}}$ in $O(dQ)$ time.
+L147: #### 3.2.4 Checking convexity/concavity in a $\delta$-non-degenerate critical point
+L148: Let $f:\mathbb{R}^{d}\to\mathbb{R}$ be a piecewise linear function. Assume that $\bm{x}$ is a $\delta$-non-degenerate ${\mathbb{P}}$-critical point. As ${\mathbb{P}}$ is the intersection of exactly two affine functions, then $f$ is necessarily convex or concave in $\mathbb{B}(\bm{x},\delta)$. Furthermore, for any unit vector $\bm{e}$ that is not parallel^{2}^{2} 2 By parallel we mean that the vector is orthogonal to the hyperplane’s normal.
+L149: to ${\mathbb{P}}$, we have that $f$ is convex in $\mathbb{B}(\bm{x},\delta)$ if and only if it is convex in $[\bm{x}-\delta\bm{e},\bm{x}+\delta\bm{e}]$, in which case the slope of $t\mapsto f(\bm{x}+t\bm{e})$ in $[-\delta,0]$ is strictly smaller then its slope in $[0,\delta]$. Algorithm cite53†4 therefore determine if $f$ is convex or concave in $\mathbb{B}(\bm{x},\delta)$ in $O(Q)$ time.
+L150: #### 3.2.5 Distinguish $\epsilon$-general point from $\epsilon$-non-degenerate critical point
+L151: Let $f:\mathbb{R}^{d}\to\mathbb{R}$ be a piecewise linear function. Assume that $\bm{x}$ is either a $\epsilon$-non-degenerate ${\mathbb{P}}$-critical point or an $\epsilon$-general point. Then by the definitions, for any unit vector $\bm{e}$ that is not parallel to ${\mathbb{P}}$, $\bm{x}$ is critical if and only if the slope of $t\mapsto f(\bm{x}+t\bm{e})$ is different in the segments $[-\epsilon,0]$ and $[0,\epsilon]$. Algorithm cite54†5 therefore determine if $\bm{x}$ is critical in $O(Q)$ time.
+L152: Algorithm 2 $\mathtt{AFFINE}_{\epsilon}(f,\bm{x})$ –
+L153: Affine map reconstruction from $\epsilon$-general point
+L154: 
+L155: Input: Black box access to a piecewise linear $f:\mathbb{R}^{d}\to\mathbb{R}$, parameter $\epsilon>0$, and an $\epsilon$-general point $\bm{x}\in\mathbb{R}^{d}$
+L156: 
+L157: Output: Vector $\bm{w}\in\mathbb{R}^{d}$ and $b\in\mathbb{R}$ such that $\forall\bm{y}\in\mathbb{B}(\bm{x},\epsilon),\;\Lambda_{\bm{w},b}(\bm{y})=f(\bm{y})$
+L158: 1:  Return $w_{i}=\frac{f(\bm{x}+\epsilon\bm{e}^{\left(i\right)})-f(\bm{x})}{\epsilon}$ and $b=\left(f(\bm{x})-\sum_{i=1}^{d}\frac{f(\bm{x}+\epsilon\bm{e}^{\left(i\right)})-f(\bm{x})}{\epsilon}x_{i}\right)$
+L159: 
+L160: Algorithm 3 $\mathtt{FIND\_HP}(f,\delta,\bm{x})$ –
+L161: Reconstruction of a critical hyperplane
+L162: Input: Black box access to a piecewise linear $f:\mathbb{R}^{d}\to\mathbb{R}$, a parameter $\delta>0$, a $\delta$-non-degenerate ${\mathbb{P}}$-critical point $\bm{x}\in\mathbb{R}^{d}$ for $\delta$-general ${\mathbb{P}}$
+L163: 

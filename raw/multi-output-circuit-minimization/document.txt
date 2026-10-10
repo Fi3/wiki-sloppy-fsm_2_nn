@@ -1,0 +1,345 @@
+NP-Hardness of Circuit Minimization for Multi-Output Functions
+Supplied URL: https://drops.dagstuhl.de/entities/document/10.4230/LIPIcs.CCC.2020.22
+Retrieved on: 2026-10-07
+Format: text extracted by the web browsing tool, not the original PDF/HTML bytes.
+L numbers refer to the browser extraction. PDF P numbers are zero-based.
+A complete text extraction does not imply that every figure, equation, or proof was reviewed.
+Read capture.json for captured URLs, line coverage, and missing ranges.
+
+
+=== Segment 1: https://drops.dagstuhl.de/entities/document/10.4230/LIPIcs.CCC.2020.22 ===
+
+L0:   * cite0†Dagstuhl Publishing
+L1:     * cite1†Dagstuhl Publishing†www.dagstuhl.de cite2†Dagstuhl Publishing Team†www.dagstuhl.de
+L2:     *     * cite3†Publication Ethics
+L3:     * cite4†GenAI Statement
+L4:     *     * cite5†About DROPS
+L5:     * cite2†Contact†www.dagstuhl.de
+L6:   * cite0†Series
+L7:     * cite6†LIPIcs – Leibniz International Proceedings in Informatics
+L8:     * cite7†OASIcs – Open Access Series in Informatics
+L9:     * cite8†Dagstuhl Follow-Ups
+L10:     * cite9†Schloss Dagstuhl Jahresbericht
+L11:     *     * cite10†Discontinued Series
+L12:   * cite0†Journals
+L13:     * cite11†DARTS – Dagstuhl Artifacts Series
+L14:     * cite12†Dagstuhl Reports
+L15:     * cite13†Dagstuhl Manifestos
+L16:     * cite14†LITES – Leibniz Transactions on Embedded Systems
+L17:     * cite15†TGDK – Transactions on Graph Data and Knowledge
+L18:   * cite0†Conferences
+L19:     * cite16†AFT
+L20:     * cite17†AIB
+L21:     * cite18†AofA
+L22:     * cite19†APPROX
+L23:     * cite20†ATMOS
+L24:     * cite21†CALCO
+L25:     * cite22†CCC
+L26:     * cite23†CONCUR
+L27:     * cite24†COSIT
+L28:     * cite25†CP
+L29:     * cite26†CPM
+L30:     * cite27†CSL
+L31:     * cite28†DISC
+L32:     * cite29†DITAM
+L33:     * cite30†DNA
+L34:     * cite31†ECOOP
+L35:     * cite32†ECRTS
+L36:     * cite33†ESA
+L37:     * cite34†FAB
+L38:     * cite35†FMBC
+L39:     * cite36†FORC
+L40:     * cite37†FSCD
+L41:     * cite38†FSTTCS
+L42:     * cite39†FUN
+L43:     * cite40†GD
+L44:     * cite41†GIScience
+L45:     * cite42†ICALP
+L46:     * cite43†ICDT
+L47:     * cite44†ICPEC
+L48:     * cite45†IPEC
+L49:     * cite46†iPMVM
+L50:     * cite47†ISAAC
+L51:     * cite48†ITC
+L52:     * cite49†ITCS
+L53:     * cite50†ITP
+L54:     * cite51†LDK
+L55:     * cite52†MFCS
+L56:     * cite53†Microservices
+L57:     * cite54†NG-RES
+L58:     * cite55†OPODIS
+L59:     * cite56†PARMA
+L60:     * cite57†RANDOM
+L61:     * cite58†SAND
+L62:     * cite59†SAT
+L63:     * cite60†SEA
+L64:     * cite61†SLATE
+L65:     * cite62†SNAPL
+L66:     * cite63†SoCG
+L67:     * cite64†STACS
+L68:     * cite65†SWAT
+L69:     * cite66†TIME
+L70:     * cite67†Tokenomics
+L71:     * cite68†TQC
+L72:     * cite69†TYPES
+L73:     * cite70†WABI
+L74:     * cite71†WCET
+L75: 
+L76:   * cite0†Artifacts
+L77:     * cite72†Supplementary Materials (Software, Datasets, ...)
+L78:     * cite73†dblp Artifacts
+L79:     *     * cite11†DARTS (Evaluated Artifacts)
+L80: 
+L81: Document cite74†Image: Open Access Logo
+L82: 
+L83: [Input]
+L84: 
+L85: `https://doi.org/10.4230/LIPIcs.CCC.2020.22`
+L86:   * cite75†Export XML
+L87:   * cite76†Export ACM-XML
+L88:   * cite77†Export DOAJ-XML
+L89:   * cite78†Export Schema.org
+L90:   * cite79†Export BibTeX
+L91: 
+L92: * * *
+L93: # NP-Hardness of Circuit Minimization for Multi-Output Functions
+L94: 
+L95: ### Authors cite80†Rahul Ilango , cite81†Bruno Loff , cite82†Igor C. Oliveira
+L96: 
+L97: * * *
+L98: 
+L99:   * Part of: Volume: cite83†35th Computational Complexity Conference (CCC 2020)
+L100: Part of: Series: cite6†Leibniz International Proceedings in Informatics (LIPIcs)
+L101: Part of: Conference: cite22†Computational Complexity Conference (CCC)
+L102:   * License:   cite84†Creative Commons Attribution 3.0 Unported license†creativecommons.org
+L103:   * Publication Date: 2020-07-17
+L104: 
+L105: * * *
+L106: 
+L107: cite85†PDF
+L108: ## File
+L109: 
+L110: cite85†PDF LIPIcs.CCC.2020.22.pdf
+L111: 
+L112:   * Filesize: 0.69 MB
+L113:   * 36 pages
+L114: 
+L115: ## Document Identifiers
+L116: 
+L117:   * DOI: cite86†10.4230/LIPIcs.CCC.2020.22†doi.org
+L118:   * URN: cite87†urn:nbn:de:0030-drops-125744†nbn-resolving.org
+L119: 
+L120: ## Subject Classification
+L121: 
+L122: ##### ACM Subject Classification
+L123: 
+L124:   * Theory of computation → Computational complexity and cryptography
+L125: 
+L126: ##### Keywords
+L127: 
+L128:   * MCSP
+L129:   * circuit minimization
+L130:   * communication complexity
+L131:   * Boolean circuit
+L132: ## Metrics
+L133: 
+L134:   * cite0†Access Statistics
+L135:   * Total Accesses (updated on a weekly basis)
+L136: 
+L137: 0
+L138: 
+L139: Document
+L140: 
+L141: 0
+L142: 
+L143: Metadata
+L144: 
+L145: ##
+L146: ## Abstract
+L147:     Can we design efficient algorithms for finding fast algorithms? This question is captured by various circuit minimization problems, and algorithms for the corresponding tasks have significant practical applications. Following the work of Cook and Levin in the early 1970s, a central question is whether minimizing the circuit size of an explicitly given function is NP-complete.
+L148: While this is known to hold in restricted models such as DNFs, making progress with respect to more expressive classes of circuits has been elusive.
+L149:     In this work, we establish the first NP-hardness result for circuit minimization of total functions in the setting of general (unrestricted) Boolean circuits. More precisely, we show that computing the minimum circuit size of a given multi-output Boolean function f : {0,1}^n → {0,1}^m is NP-hard under many-one polynomial-time randomized reductions.
+L150: Our argument builds on a simpler NP-hardness proof for the circuit minimization problem for (single-output) Boolean functions under an extended set of generators.
+L151:     Complementing these results, we investigate the computational hardness of minimizing communication. We establish that several variants of this problem are NP-hard under deterministic reductions. In particular, unless 𝖯 = 𝖭𝖯, no polynomial-time computable function can approximate the deterministic two-party communication complexity of a partial Boolean function up to a polynomial.
+L152: This has consequences for the class of structural results that one might hope to show about the communication complexity of partial functions.
+L153: ## Cite As Get BibTex
+L154: 
+L155: Rahul Ilango, Bruno Loff, and Igor C. Oliveira. NP-Hardness of Circuit Minimization for Multi-Output Functions. In 35th Computational Complexity Conference (CCC 2020). Leibniz International Proceedings in Informatics (LIPIcs), Volume 169, pp. 22:1-22:36, Schloss Dagstuhl – Leibniz-Zentrum für Informatik (2020) cite86†https://doi.org/10.4230/LIPIcs.CCC.2020.22†doi.org
+L156: ##### BibTex
+L157: 
+L158:     @InProceedings{ilango_et_al:LIPIcs.CCC.2020.22,
+L159:       author =	{Ilango, Rahul and Loff, Bruno and Oliveira, Igor C.},
+L160:       title =	{{NP-Hardness of Circuit Minimization for Multi-Output Functions}},
+L161:       booktitle =	{35th Computational Complexity Conference (CCC 2020)},
+L162:       pages =	{22:1--22:36},
+L163:       series =	{Leibniz International Proceedings in Informatics (LIPIcs)},
+L164:       ISBN =	{978-3-95977-156-6},
+L165:       ISSN =	{1868-8969},
+L166:       year =	{2020},
+L167:       volume =	{169},
+L168:       editor =	{Saraf, Shubhangi},
+L169:       publisher =	{Schloss Dagstuhl -- Leibniz-Zentrum f{\"u}r Informatik},
+L170:       address =	{Dagstuhl, Germany},
+L171:       URL =		{https://drops.dagstuhl.de/entities/document/10.4230/LIPIcs.CCC.2020.22},
+L172:       URN =		{urn:nbn:de:0030-drops-125744},
+L173:       doi =		{10.4230/LIPIcs.CCC.2020.22},
+L174:       annote =	{Keywords: MCSP, circuit minimization, communication complexity, Boolean circuit}
+L175:     }
+L176: @InProceedings{ilango_et_al:LIPIcs.CCC.2020.22, author = {Ilango, Rahul and Loff, Bruno and Oliveira, Igor C.}, title = {{NP-Hardness of Circuit Minimization for Multi-Output Functions}}, booktitle = {35th Computational Complexity Conference (CCC 2020)}, pages = {22:1--22:36}, series = {Leibniz International Proceedings in Informatics (LIPIcs)}, ISBN = {978-3-95977-156-6}, ISSN = {1868-8969}, year = {2020}, volume = {169}, editor = {Saraf, Shubhangi}, publisher = {Schloss Dagstuhl -- Leibniz-Zentrum f{\"u}r Informatik}, address = {Dagstuhl, Germany}, URL = {https://drops.dagstuhl.de/entities/document/10.4230/LIPIcs.CCC.2020.22}, URN = {urn:nbn:de:0030-drops-125744}, doi = {10.4230/LIPIcs.CCC.2020.22}, annote = {Keywords: MCSP, circuit minimization, communication complexity, Boolean circuit} }
+L177: [Button: Close] Copy BibTex To Clipboard
+L178: ## Author Details
+L179: 
+L180: Rahul Ilango rilango@mit.edu
+L181: 
+L182:   * Massachusetts Institute of Technology, Cambridge, MA, US
+L183: 
+L184: Bruno Loff bruno.loff@gmail.com
+L185: 
+L186:   * University of Porto and INESC-Tec, Portugal
+L187: 
+L188: Igor C. Oliveira igor.oliveira@warwick.ac.uk
+L189: 
+L190:   * University of Warwick, Coventry, UK
+L191: ## Acknowledgements
+L192: Igor C. Oliveira would like to thank Ján Pich and Rahul Santhanam for discussions on the complexity of circuit minimization for partial Boolean functions. Bruno Loff would like to thank Eric Allender for posing a question that inspired some of the results in this work, and the Higher School of Economics for inviting him to the conference "Randomness, Information, Complexity", in honor of Alexander Shen and Nikolay Vereshchagin’s 60th birthday, where said question was asked.
+L193: Rahul Ilango would like to thank Eric Allender, Marco Carmosino, Russell Impagliazzo, Michael Saks, Rahul Santhanam, and Ryan Williams for their encouragement, suggestions, and helpful discussions.
+L194: ## References
+L195:   1. Misha Alekhnovich, Mark Braverman, Vitaly Feldman, Adam R. Klivans, and Toniann Pitassi. The complexity of properly learning simple concept classes. Journal of Computer and System Sciences, 74(1):16-34, 2008.
+L196:   2. Eric Allender and Bireswar Das. Zero knowledge and circuit minimization. In International Symposium on Mathematical Foundations of Computer Science (MFCS), pages 25-32, 2014.
+L197:   3. Eric Allender, Joshua A. Grochow, Dieter van Melkebeek, Cristopher Moore, and Andrew Morgan. Minimum circuit size, graph isomorphism, and related problems. SIAM Journal on Computing, 47(4):1339-1372, 2018.
+L198:   4. Eric Allender, Lisa Hellerstein, Paul McCabe, Toniann Pitassi, and Michael E. Saks. Minimizing disjunctive normal form formulas and AC⁰ circuits given a truth table. SIAM Journal on Computing, 38(1):63-84, 2008.
+L199:   5. Eric Allender and Shuichi Hirahara. New insights on the (non-)hardness of circuit minimization and related problems. In International Symposium on Mathematical Foundations of Computer Science (MFCS), pages 54:1-54:14, 2017.
+L200:   6. Eric Allender, Dhiraj Holden, and Valentine Kabanets. The minimum oracle circuit size problem. Computational Complexity, 26(2):469-496, 2017.
+L201:   7. Eric Allender, Rahul Ilango, and Neekon Vafa. The non-hardness of approximating circuit size. In International Computer Science Symposium in Russia (CSR), pages 13-24, 2019.
+L202:   8. Anurag Anshu, Naresh Goud Boddu, and Dave Touchette. Quantum log-approximate-rank conjecture is also false. arXiv, 2018. URL: cite88†http://arxiv.org/abs/1811.10525†arxiv.org .
+L203:   9. Benny Applebaum, Boaz Barak, and David Xiao. On basing lower-bounds for learning on worst-case assumptions. In Symposium on Foundations of Computer Science (FOCS), pages 211-220, 2008.
+L204:   10. Theodore P. Baker, John Gill, and Robert Solovay. Relativizations of the P =? NP question. SIAM Journal on Computing, 4(4):431-442, 1975.
+L205:   11. Avrim Blum, Merrick L. Furst, Michael J., and Richard J. Lipton. Cryptographic primitives based on hard learning problems. In International Cryptology Conference (CRYPTO), pages 278-291, 1993.
+L206:   12. Avrim L. Blum and Ronald L. Rivest. Training a 3-node neural network is np-complete. Neural Networks, 5(1):117-127, 1992.
+L207:   13. Anselm Blumer, Andrzej Ehrenfeucht, David Haussler, and Manfred K. Warmuth. Occam’s razor. Information Processing Letters, 24(6):377-380, 1987.
+L208:   14. Andrej Bogdanov and Luca Trevisan. Average-case complexity. Foundations and Trends in Theoretical Computer Science, 2(1), 2006.
+L209:   15. Dan Boneh and Richard J. Lipton. Amplification of weak learning under the uniform distribution. In Conference on Learning Theory (COLT), pages 347-351, 1993.
+L210:   16. Joan Boyar, Philip Matthews, and René Peralta. On the shortest linear straight-line program for computing linear forms. In International Symposium on Mathematical Foundations of Computer Science (MFCS), pages 168-179, 2008.
+L211:   17. Marco L. Carmosino, Russell Impagliazzo, Valentine Kabanets, and Antonina Kolokolova. Learning algorithms from natural proofs. In Conference on Computational Complexity (CCC), pages 10:1-10:24, 2016.
+L212:   18. Amit Chakrabarti and Oded Regev. An optimal lower bound on the communication complexity of gap-Hamming-distance. SIAM Journal on Computing, 41(5):1299-1317, 2012. URL: cite89†https://doi.org/10.1137/120861072†doi.org .
+L213:   19. Arkadev Chattopadhyay, Nikhil S Mande, and Suhail Sherif. The log-approximate-rank conjecture is false. In Symposium on Theory of Computing (STOC), pages 42-53. ACM, 2019.
+L214:   20. Mahdi Cheraghchi, Valentine Kabanets, Zhenjian Lu, and Dimitrios Myrisiotis. Circuit lower bounds for MCSP from local pseudorandom generators. Electronic Colloquium on Computational Complexity (ECCC), 26:22, 2019.
+L215:   21. Gil Cohen and Igor Shinkar. The complexity of DNF of parities. In Innovations in Theoretical Computer Science (ITCS), pages 47-58, 2016.
+L216:   22. Sebastian Czort. The complexity of minimizing disjunctive normal form formulas. Master’s Thesis, University of Aarhus, 1999.
+L217:   23. Uriel Feige. A threshold of ln n for approximating set cover. Journal of the ACM, 45(4):634-652, 1998.
+L218:   24. Uriel Feige and Joe Kilian. Zero knowledge and the chromatic number. Journal of Computer and System Sciences, 57(2):187-199, 1998.
+L219:   25. Magnus Gausdal Find, Alexander Golovnev, Edward A. Hirsch, and Alexander S. Kulikov. A better-than-3n lower bound for the circuit complexity of an explicit function. In Symposium on Foundations of Computer Science (FOCS), pages 89-98, 2016.
+L220:   26. Michael R. Garey and David S. Johnson. Computers and Intractability: A Guide to the Theory of NP-Completeness. W. H. Freeman, 1979.
+L221:   27. Alexander Golovnev, Rahul Ilango, Russell Impagliazzo, Valentine Kabanets, Antonina Kolokolova, and Avishay Tal. AC⁰[p] lower bounds against MCSP via the coin problem. Electronic Colloquium on Computational Complexity (ECCC), 26:18, 2019.
+L222:   28. Mika Göös and Toniann Pitassi. Communication lower bounds via critical block sensitivity. SIAM Journal on Computing, 47(5):1778-1806, 2018. URL: cite90†https://doi.org/10.1137/16M1082007†doi.org .
+L223:   29. Gary D. Hachtel and Fabio Somenzi. Logic synthesis and verification algorithms. Springer, 2006.
+L224:   30. Thomas R. Hancock, Tao Jiang, Ming Li, and John Tromp. Lower bounds on learning decision lists and trees. Information and Computation, 126(2):114-122, 1996.
+L225:   31. Johan Hastad. Clique is hard to approximate within n^1-ε. In Symposium on Foundations of Computer Science (FOCS), pages 627-636, 1996.
+L226:   32. Shuichi Hirahara. Non-black-box worst-case to average-case reductions within NP. In Symposium on Foundations of Computer Science (FOCS), pages 247-258, 2018.
+L227:   33. Shuichi Hirahara, Igor Carboni Oliveira, and Rahul Santhanam. NP-hardness of minimum circuit size problem for OR-AND-MOD circuits. In Computational Complexity Conference (CCC), pages 5:1-5:31, 2018.
+L228:   34. Shuichi Hirahara and Rahul Santhanam. On the average-case complexity of MCSP and its variants. In Computational Complexity Conference (CCC), pages 7:1-7:20, 2017.
+L229:   35. Shuichi Hirahara and Osamu Watanabe. Limits of minimum circuit size problem as oracle. In Conference on Computational Complexity (CCC), pages 18:1-18:20, 2016.
+L230:   36. John M. Hitchcock and Aduri Pavan. On the NP-completeness of the minimum circuit size problem. In Conference on Foundation of Software Technology and Theoretical Computer Science (FSTTCS), pages 236-245, 2015.
+L231:   37. Sangxia Huang. Improved hardness of approximating chromatic number. In International Conference on Approximation Algorithms for Combinatorial Optimization Problems (APPROX), pages 233-243, 2013.
+L232:   38. Rahul Ilango. AC⁰[p] lower bounds and NP-hardness for variants of MCSP. Electronic Colloquium on Computational Complexity (ECCC), 26:21, 2019.
+L233:   39. Russell Impagliazzo, Valentine Kabanets, and Ilya Volkovich. The Power of Natural Properties as Oracles. In Computational Complexity Conference (CCC), volume 102, pages 7:1-7:20, 2018.
+L234:   40. Kazuo Iwama and Hiroki Morizumi. An explicit lower bound of 5n - o(n) for boolean circuits. In International Symposium on Mathematical Foundations of Computer Science (MFCS), pages 353-364, 2002.
+L235:   41. J. Stephen Judd. Learning in networks is hard. In International Conference on Neural Networks (ICNN), volume 2, pages 685-692, 1987.
+L236:   42. Stasys Jukna. Boolean function complexity: advances and frontiers, volume 27. Springer, 2012.
+L237:   43. Valentine Kabanets and Jin-yi Cai. Circuit minimization problem. In Symposium on Theory of Computing (STOC), pages 73-79, 2000.
+L238:   44. Maurice Karnaugh. The map method for synthesis of combinational logic circuits. Transactions of the American Institute of Electrical Engineers, Part I: Communication and Electronics, 72(5):593-599, 1953.
+L239:   45. Michael J. Kearns and Leslie G. Valiant. Cryptographic limitations on learning boolean formulae and finite automata. J. ACM, 41(1):67-95, 1994. URL: cite91†https://doi.org/10.1145/174644.174647†doi.org .
+L240:   46. Michael J. Kearns and Umesh V. Vazirani. An Introduction to Computational Learning Theory. MIT Press, 1994.
+L241:   47. Subhash Khot. Improved inapproximability results for maxclique, chromatic number and approximate graph coloring. In Symposium on Foundations of Computer Science (FOCS), pages 600-609, 2001.
+L242:   48. Subhash Khot and Rishi Saket. Hardness of minimizing and learning DNF expressions. In Symposium on Foundations of Computer Science (FOCS), pages 231-240, 2008.
+L243:   49. Ker-I Ko. On the complexity of learning minimum time-bounded Turing machines. SIAM Journal on Computing, 20(5):962-986, 1990.
+L244:   50. Pravesh K. Kothari and Roi Livni. Improper learning by refuting. In Innovations in Theoretical Computer Science (ITCS), pages 55:1-55:10, 2018.
+L245:   51. Jan Krajícek. Forcing with Random Variables and Proof Complexity. Cambridge University Press, 2011.
+L246:   52. Eyal Kushilevitz. Communication complexity. In Advances in Computers, volume 44, pages 331-360. Elsevier, 1997.
+L247:   53. Eyal Kushilevitz and Noam Nisan. Communication Complexity. Cambridge University Press, 1997.
+L248:   54. Eyal Kushilevitz and Enav Weinreb. On the complexity of communication complexity. In Symposium on Theory of Computing (STOC), pages 465-474, 2009.
+L249:   55. Leonid Levin. Universal sequential search problems. Problemy Peredachi Informatsii, 9(3):115-116, 1973.
+L250:   56. László Lovász and Michael Saks. Lattices, mobius functions and communications complexity. In Symposium on Foundations of Computer Science (FOCS), pages 81-90, 1988.
+L251:   57. Carsten Lund and Mihalis Yannakakis. On the hardness of approximating minimization problems. Journal of the ACM, 41(5):960-981, 1994.
+L252:   58. William J. Masek. Some NP-complete set covering problems. Unpublished Manuscript, 1979.
+L253:   59. Edward J. McCluskey. Introduction to the theory of switching circuits. McGraw-Hill, 1965.
+L254:   60. Dylan M. McKay, Cody D. Murray, and R. Ryan Williams. Weak lower bounds on resource-bounded compression imply strong separations of complexity classes. In Symposium on Theory of Computing (STOC), 2019.
+L255:   61. Moritz Müller and Ján Pich. Feasibly constructive proofs of succinct weak circuit lower bounds. Electronic Colloquium on Computational Complexity (ECCC), 24:144, 2017.
+L256:   62. Cody D. Murray and Richard Ryan Williams. On the (non) NP-hardness of computing circuit complexity. In Conference on Computational Complexity (CCC), pages 365-380, 2015.
+L257:   63. Igor Carboni Oliveira, Ján Pich, and Rahul Santhanam. Hardness magnification near state-of-the-art lower bounds. In Conference on Computational Complexity (CCC), 2019.
+L258:   64. Igor Carboni Oliveira and Rahul Santhanam. Conspiracies between learning algorithms, circuit lower bounds, and pseudorandomness. In Computational Complexity Conference (CCC), pages 18:1-18:49, 2017.
+L259:   65. Igor Carboni Oliveira and Rahul Santhanam. Hardness magnification for natural problems. In Symposium on Foundations of Computer Science (FOCS), pages 65-76, 2018.
+L260:   66. James Orlin. Contentment in graph theory: covering graphs with cliques. Indagationes Mathematicae, 80(5):406-424, 1977.
+L261:   67. Leonard Pitt and Leslie G. Valiant. Computational limitations on learning from examples. Journal of the ACM, 35(4):965-984, 1988.
+L262:   68. Pavel Pudlák, Vojtech Rödl, and Petr Savický. Graph complexity. Acta Informatica, 25(5):515-535, 1988.
+L263:   69. Netanel Raviv. Truth table minimization of computational models. CoRR/arXiv, abs/1306.3766, 2013. URL: cite92†http://arxiv.org/abs/1306.3766†arxiv.org .
+L264:   70. Alexander A. Razborov and Steven Rudich. Natural proofs. Journal of Computer and System Sciences, 55(1):24-35, 1997.
+L265:   71. Ronald L. Rivest. Learning decision lists. Machine Learning, 2(3):229-246, 1987.
+L266:   72. J. Paul Roth and Richard M. Karp. Minimization over boolean graphs. IBM Journal of Research and Development, 6(2):227-238, 1962.
+L267:   73. Christoph Scholl. Functional decomposition with applications to FPGA synthesis. Kluwer Academic Publishers, 2001.
+L268:   74. Makrand Sinha and Ronald de Wolf. Exponential separation between quantum communication and logarithm of approximate rank. arXiv, 2018. URL: cite93†http://arxiv.org/abs/1811.10090†arxiv.org .
+L269:   75. Boris A Trakhtenbrot. A survey of Russian approaches to perebor (brute-force search) algorithms. Annals of the History of Computing, 6(4):384-400, 1984.
+L270:   76. Luca Trevisan. Non-approximability results for optimization problems on bounded degree instances. In Symposium on Theory of Computing (STOC), pages 453-461, 2001.
+L271:   77. Christopher Umans, Tiziano Villa, and Alberto L. Sangiovanni-Vincentelli. Complexity of two-level logic minimization. IEEE Trans. on CAD of Integrated Circuits and Systems, 25(7):1230-1246, 2006.
+L272:   78. Salil P. Vadhan. On learning vs. refutation. In Conference on Learning Theory (COLT), pages 1835-1848, 2017.
+L273:   79. Marcin Wrochna and Stanislav Živnỳ. Improved hardness for H-colourings of G-colourable graphs. arXiv, 2019. URL: cite94†http://arxiv.org/abs/1907.00872†arxiv.org .
+L274:   80. Andrew Chi-Chih Yao. Some complexity questions related to distributive computing (preliminary report). In Symposium on Theory of Computing (STOC), pages 209-213, 1979. URL: cite95†https://doi.org/10.1145/800135.804414†doi.org .
+L275:   81. Andrew Chi-Chih Yao. Theory and applications of trapdoor functions (extended abstract). In Symposium on Foundations of Computer Science (FOCS), pages 80-91, 1982.
+L276:   82. David Zuckerman. Linear degree extractors and the inapproximability of max clique and chromatic number. In Symposium on Theory of Computing (STOC), pages 681-690, 2006.
+L277: cite0†Any Issues?
+L278: 
+L279: cite0†X
+L280: 
+L281: Feedback on the Current Page
+L282: 
+L283: [Input: Name (optional)] [Input: Email (optional)]
+L284: 
+L285: [Button: Send]
+L286: 
+L287: [Input: Enter CAPTCHA] [Input] [Button: Submit]
+L288: ### Thanks for your feedback!
+L289: 
+L290: Feedback submitted to Dagstuhl Publishing
+L291: 
+L292: [Button: OK]
+L293: 
+L294: ### Could not send message
+L295: 
+L296: Please try again later or send an E-mail (publishing@dagstuhl.de)
+L297: 
+L298: [Button: OK]
+L299: ##### About DROPS
+L300: Schloss Dagstuhl - Leibniz Center for Informatics has been operating the Dagstuhl Research Online Publication Server (short: DROPS) since 2004. DROPS enables publication of the latest research findings in a fast, uncomplicated manner, in addition to providing unimpeded, open access to them. All the requisite metadata on each publication is administered in accordance with general guidelines pertaining to online publications (cf. Dublin Core).
+L301: This enables the online publications to be authorized for citation and made accessible to a wide readership on a permanent basis. Access is free of charge for readers following the open access idea which fosters unimpeded access to scientific publications.
+L302:   * cite5†More about DROPS
+L303: ##### Instructions for Authors
+L304: 
+L305: Dagstuhl Series
+L306: 
+L307:   * cite96†LIPIcs†submission.dagstuhl.de
+L308:   * cite97†OASIcs†submission.dagstuhl.de
+L309:   * cite98†Dagstuhl Follow-Ups†submission.dagstuhl.de
+L310: 
+L311: Dagstuhl Journals
+L312: 
+L313:   * cite99†DARTS – Dagstuhl Artifacts Series†submission.dagstuhl.de
+L314:   * cite100†Dagstuhl Reports†submission.dagstuhl.de
+L315:   * cite101†Dagstuhl Manifestos†submission.dagstuhl.de
+L316:   * cite102†LITES†submission.dagstuhl.de
+L317:   * cite103†TGDK – Transactions on Graph Data and Knowledge†submission.dagstuhl.de
+L318: ##### Instructions for Editors
+L319: 
+L320: Dagstuhl Series
+L321: 
+L322:   * cite104†LIPIcs†submission.dagstuhl.de
+L323:   * cite105†OASIcs†submission.dagstuhl.de
+L324:   * cite106†Dagstuhl Follow-Ups†submission.dagstuhl.de
+L325: 
+L326: Dagstuhl Journals
+L327: 
+L328:   * cite107†DARTS – Dagstuhl Artifacts Series†submission.dagstuhl.de
+L329:   * cite108†Dagstuhl Reports†submission.dagstuhl.de
+L330:   * cite109†Dagstuhl Manifestos†submission.dagstuhl.de
+L331:   * cite110†LITES†submission.dagstuhl.de
+L332:   * cite111†TGDK – Transactions on Graph Data and Knowledge†submission.dagstuhl.de
+L333: © 2023-2026 cite112†Schloss Dagstuhl – LZI GmbH†www.dagstuhl.de cite112†Schloss Dagstuhl – LZI GmbH†www.dagstuhl.de cite5†About DROPS cite113†Imprint cite114†Privacy cite2†Contact†www.dagstuhl.de

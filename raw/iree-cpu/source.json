@@ -1,0 +1,10 @@
+{
+  "title": "IREE CPU Deployment",
+  "document": "raw/iree-cpu/document.txt",
+  "original_filename": "web-extracted-text",
+  "url": "https://iree.dev/guides/deployment-configurations/cpu/",
+  "imported_at": "2026-10-07T09:53:03+00:00",
+  "sha256": "631f1bee78ec6ce0ebae9aa67a6ab0a7ad589258737420e3100332f24ade2f76",
+  "capture_format": "browser-extracted-text",
+  "retrieved_on": "2026-10-07"
+}

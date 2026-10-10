@@ -1,0 +1,16 @@
+{
+  "retrieved_on": "2026-10-07",
+  "format": "browser-extracted-text",
+  "original_bytes_downloaded": false,
+  "url": "https://arxiv.org/html/2407.15078v1",
+  "browser_total_lines": 2458,
+  "captured_numbered_lines": 263,
+  "missing_line_ranges": [
+    [
+      263,
+      2457
+    ]
+  ],
+  "complete_browser_text": false,
+  "review_scope": "First-pass reading of the captured excerpt; no full proof, figure or benchmark audit."
+}

@@ -1,0 +1,10 @@
+{
+  "title": "Auto-Vectorization in LLVM",
+  "document": "raw/llvm-vectorizers/document.txt",
+  "original_filename": "web-extracted-text",
+  "url": "https://llvm.org/docs/Vectorizers.html",
+  "imported_at": "2026-10-07T09:53:03+00:00",
+  "sha256": "66f8a374cb5e55189b17fbda211582bfd477a0121e00802f9e9cfddb0ffacb5c",
+  "capture_format": "browser-extracted-text",
+  "retrieved_on": "2026-10-07"
+}

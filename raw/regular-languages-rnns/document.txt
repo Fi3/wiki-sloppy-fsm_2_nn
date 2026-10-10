@@ -1,0 +1,326 @@
+On Efficiently Representing Regular Languages as RNNs
+Supplied URL: https://arxiv.org/html/2402.15814v2
+Retrieved on: 2026-10-07
+Format: text extracted by the web browsing tool, not the original PDF/HTML bytes.
+L numbers refer to the browser extraction. PDF P numbers are zero-based.
+A complete text extraction does not imply that every figure, equation, or proof was reviewed.
+Read capture.json for captured URLs, line coverage, and missing ranges.
+
+
+=== Segment 1: https://arxiv.org/html/2402.15814v2 ===
+
+L0: ##### Report GitHub Issue
+L1: 
+L2: [Button: ×]
+L3: 
+L4: Title: [Input: Enter title]
+L5: 
+L6: Content selection saved. Describe the issue below:
+L7: 
+L8: Description:
+L9: 
+L10: [Button: Submit without GitHub] [Button: Submit in GitHub]
+L11: 
+L12: cite0†Back to arXiv
+L13: 
+L14: cite1†Why HTML?†info.arxiv.org cite2†Report Issue cite3†Back to Abstract cite4†Download PDF
+L15:   1. cite5†Abstract
+L16:   2. cite6†1 Introduction
+L17:   3. cite7†2 Preliminaries
+L18:     1. cite8†2.1 Recurrent Neural Language Models
+L19:       1. cite9†2.1.1 Activation Functions and Precision
+L20:   4. cite10†3 Bounded Pushdown Automata
+L21:     1. cite11†Runs of a BPDA.
+L22:     2. cite12†Pushing and popping.
+L23:     3. cite13†3.1 Efficiently Representable BPDAs
+L24:       1. cite14†Vectorial representation of a stack.
+L25:   5. cite15†4 Efficiently Representing BPDAs
+L26:     1. cite16†4.1 Known Efficiently Representable Families
+L27:   6. cite17†5 Discussion
+L28:     1. cite18†Analyzing LMs with general models of computation.
+L29:     2. cite19†Inductive biases of RNN LMs.
+L30:     3. cite20†Inductive biases and learnability.
+L31:     4. cite21†On the connection to human language.
+L32:     5. cite22†A new interpretation of Elman RNN recurrence.
+L33:     6. cite23†Relation to other classes of formal languages.
+L34:   7. cite24†6 Conclusion
+L35:   8. cite25†References
+L36:   9. cite26†A Related Work
+L37:     1. cite27†A.1 Relation to Hewitt et al.’s (2020) Notion of Language Recognition
+L38:   10. cite28†B Finite-state Automata and Bounded Stack Languages
+L39:     1. cite29†B.1 Probabilistic Finite-state Automata
+L40:     2. cite30†B.2 Bounded-stack Probabilistic Finite-state Automata
+L41:   11. cite31†C Proofs
+L42:     1. cite32†C.1 Emulating Stack Updates
+L43:       1. cite33†On the use of the Heaviside activation function.
+L44:     2. cite34†C.2 On the Impossibility of Efficiently Representing All BPDA LMs
+L45:       1. cite35†Connection to the result by Hewitt et al. (2020).
+L46: cite36†License: arXiv.org perpetual non-exclusive license†info.arxiv.org
+L47: 
+L48: arXiv:2402.15814v2 [cs.CL] 18 Jun 2024
+L49: # On Efficiently Representing Regular Languages as RNNs
+L50: 
+L51: Anej Svete     Robin Shing Moon Chan     Ryan Cotterell Affiliation: {asvete (asvete@inf.ethz.ch), chanr (chanr@inf.ethz.ch), ryan.cotterell (ryan.cotterell@inf.ethz.ch)}@inf.ethz.ch Affiliation: cite37†Image: [Uncaptioned image]
+L52: ###### Abstract
+L53: Recent work by cite38†Hewitt et al. (2020) provides an interpretation of the empirical success of recurrent neural networks (RNNs) as language models (LMs). It shows that RNNs can efficiently represent bounded hierarchical structures that are prevalent in human language. This suggests that RNNs’ success might be linked to their ability to model hierarchy. However, a closer inspection of cite38†Hewitt et al. ’s (cite38†2020 ) construction shows that it is not inherently limited to hierarchical structures.
+L54: This poses a natural question: What other classes of LMs can RNNs efficiently represent? To this end, we generalize cite38†Hewitt et al. ’s (cite38†2020 ) construction and show that RNNs can efficiently represent a larger class of LMs than previously claimed—specifically, those that can be represented by a pushdown automaton with a bounded stack and a specific stack update function.
+L55: Altogether, the efficiency of representing this diverse class of LMs with RNN LMs suggests novel interpretations of their inductive bias.
+L56: cite39†Image: [Uncaptioned image]
+L57: 
+L58: cite40†https://github.com/rycolab/bpdas†github.com
+L59: ## 1 Introduction
+L60: Neural LMs have demonstrated a human-level grasp of grammar and linguistic nuance. Yet, a considerable gap remains between our empirical observations and our theoretical understanding of their capabilities. One approach to bridge this gap is to study what classes of formal languages neural LMs can efficiently represent.
+L61: The rationale behind this object of study is that a neural LM’s ability to represent a language efficiently suggests the presence of an inductive bias in the model architecture that prefers that language over others, and may make it specifically easier to learn, e.g., due to Occam’s razor.
+L62: Exploring LMs’ ability to model formal languages has garnered significant interest in recent years; see, e.g., the surveys by cite41†Merrill (2023) and cite42†Strobl et al. (2023) .
+L63: Investigation into this area has a particularly long history in the context of RNNs (cite43†McCulloch and Pitts, 1943 ; cite44†Minsky, 1954 ; cite45†Siegelmann and Sontag, 1992 ).^{1}^{1} 1 In terms of empirical performance on statistical language modeling, RNNs constituted the empirical state of the art until recently (cite46†Qiu et al., 2020 ; cite47†Orvieto et al., 2023 ), and have, despite the prominence of transformer-based LMs, seen a resurgence of late (cite48†Peng et al., 2023 ; cite47†Orvieto et al., 2023 ; cite49†Zhou et al., 2023 ).
+L64: For example, a classic result (cite44†Minsky, 1954 ) states that RNNs are equivalent to finite-state automata (FSAs). How efficiently an RNN can encode an FSA was studied by cite50†Indyk (1995) , who showed that an FSA with states ${{Q}}$ over an alphabet ${{\Sigma}}$ can be simulated by an RNN with ${{{{\mathcal{O}}}\left({{|{{\Sigma}}|}}\sqrt{{{|{{Q}}|}}}\right)}}$ neurons. This construction is optimal in the sense that there exist FSAs that require this many neurons to be emulated by an RNN.
+L65: Figure 1: An illustration of how an RNN can store information about a fixed number of symbols (in this case, three) that have appeared in the string ${{{{\bm{y}}}_{<{{t}}}}}$. Using some mechanism, the symbols ${{y}}_{2},{{y}}_{{{t}}-4},{{y}}_{{{t}}-1}$ have been selected for determining the continuation of the string and are stored in ${{{{{\mathbf{h}}}}}}$. These symbols are used to compute the conditional probability of the next symbol ${{\overline{{{y}}}}}_{{t}}$.
+L66: cite50†Indyk ’s (cite50†1995 ) bound presents a worst-case analysis: It reflects the number of neurons needed for an adversarially selected FSA. However, it is easy to construct FSAs that can be encoded with exponentially fewer neurons than the number of states. cite51†footnote 3 exhibits an n-gram LM that, when encoded as an FSA, has ${{|{{\Sigma}}|}}^{{{\textit{n}}}-1}$ states, but can still be represented with ${{{{\mathcal{O}}}\left({{\textit{n}}}\log{{|{{\Sigma}}|}}\right)}}$ neurons.
+L67: Building on this insight, cite38†Hewitt et al. (2020) show that an entire class of languages—${{{\mathrm{D}\!\left({{b}},{{n}}\right)}}}$, i.e., the Dyck language over ${{b}}$ parentheses types with nesting up to depth ${{n}}$—can be encoded in logarithmic space.
+L68: Specifically, even though an FSA that accepts the ${{{\mathrm{D}\!\left({{b}},{{n}}\right)}}}$ language requires ${{{{\mathcal{O}}}\left({{b}}^{{n}}\right)}}$ states, it can be encoded by an RNN with ${{{{\mathcal{O}}}\left({{n}}\log{{{b}}}\right)}}$ neurons, which is memory-optimal.
+L69: Attractively, ${{{\mathrm{D}\!\left({{b}},{{n}}\right)}}}$ languages capture, to some extent, the bounded nested nature of human language.^{2}^{2} 2 Bounded Dyck languages offer a useful framework for modeling the hierarchical and recursive aspects of human language syntax with limited memory. However, they fall short of capturing the full complexity of human language, which often includes context sensitivity and ambiguity that may go beyond the capabilities of a deterministic model of computation.
+L70: Figure 2: A simplified $3$-gram LM over ${{\Sigma}}={{\left\{{{a}},{{b}}\right\}}}$. Even though the number of states is exponential in n, the hidden state of the RNN only has to keep the ${{\textit{n}}}-1=2$ symbols of interest, each of which is represented by $\lceil\log_{2}{{|{{\Sigma}}|}}\rceil$ bits. This is illustrated by the state ${{a}}{{b}}$ being represented as ${{{{{\mathbf{h}}}}}}=\begin{pmatrix}{{a}}\\
+L71: {{b}}\end{pmatrix}$.^{3}^{3} 3 For simplicity, the final weights and the binary representations in the hidden state are omitted.
+L72: cite38†Hewitt et al. ’s (cite38†2020 ) result poses an interesting question: Are all languages that RNNs can implement efficiently hierarchical in nature? We show that this is not the case. We revisit cite38†Hewitt et al. ’s (cite38†2020 ) construction and demonstrate that the same optimal compression can be achieved for a more general class of languages, which do not necessarily exhibit hierarchical structure.
+L73: Stated differently, RNNs do not necessarily encode hierarchical languages any more compactly than non-hierarchical ones. To show this, we introduce probabilistic bounded pushdown automata (BPDA s), probabilistic pushdown automata cite52†Abney et al. (1999) whose stack is bounded. The probabilistic nature of BPDA s furthermore allows us to go beyond the binary recognition and reason about classes of language models---probability distributions over strings---that RNN LMs can efficiently represent.
+L74: This is particularly interesting because it requires the RNN to not only efficiently encode the transition dynamics of the automaton but also the string probabilities.^{4}^{4} 4 Note the same lower bounds for FSAs do not apply to the probabilistic case (cite53†Svete and Cotterell, 2023b ). Thus, we generalize the result by cite38†Hewitt et al. (2020) and give sufficient conditions for a probabilistic BPDA to be optimally compressible into an RNN.
+L75: The non-hierarchical nature of BPDA s leads us to contend that the reason some LMs lend themselves to exponential compression has little to do with their hierarchical structure. This offers two intriguing insights. First, it shows that the inductive biases of RNN LMs might be difficult to link to a hierarchical structure. Second, it provides a new perspective on which languages RNNs efficiently encode, i.e., those representable by sequential machines with a bounded stack.
+L76: Such a machine is illustrated in cite54†Fig. 1 .
+L77: ## 2 Preliminaries
+L78: We begin by introducing some core concepts. An alphabet ${{\Sigma}}$ is a finite, non-empty set of symbols. Its Kleene closure ${{{{\Sigma}}^{*}}}$ is the set of all strings of symbols in ${{\Sigma}}$. The length of the string ${{\bm{y}}}={{y}}_{1}\ldots{{y}}_{{T}}\in{{{{\Sigma}}^{*}}}$, denoted by $|{{\bm{y}}}|={{T}}$, is the number of symbols it contains. A language model ${{{p}}}$ is a probability distribution over ${{{{\Sigma}}^{*}}}$.
+L79: Two LMs ${{{p}}}$ and ${{{q}}}$ are weakly equivalent if ${{{p}}}\left({{\bm{y}}}\right)={{{q}}}\left({{\bm{y}}}\right)$ for all ${{\bm{y}}}\in{{{{\Sigma}}^{*}}}$ and two families of LMs ${{{\mathcal{P}}}}$ and ${{{\mathcal{Q}}}}$ are weakly equivalent if, for any ${{{p}}}\in{{{\mathcal{P}}}}$, there exists a weakly equivalent ${{{q}}}\in{{{\mathcal{Q}}}}$ and vice versa.
+L80: Most modern LMs define ${{{p}}}\left({{\bm{y}}}\right)$ as a product of conditional probability distributions:
+L81: 
+L82:  | $${{{p}}}\left({{\bm{y}}}\right)\mathrel{\stackrel{{\scriptstyle\textnormal{def}}}{{=}}}{{{p}}}\left({{\textsc{eos}}}\mid{{\bm{y}}}\right)\prod_{{{t}}=1}^{|{{\bm{y}}}|}{{{p}}}\left({{{{y}}_{{{t}}}}}\mid{{{{\bm{y}}}_{<{{t}}}}}\right),$$  |  | (1)
+L83: where ${{\textsc{eos}}}\notin{{\Sigma}}$ is a distinguished e nd-o f-s tring symbol. We denote ${{\overline{{{\Sigma}}}}}\mathrel{\stackrel{{\scriptstyle\textnormal{def}}}{{=}}}{{\Sigma}}\cup\left\{{{\textsc{eos}}}\right\}$ and use the notation ${{\overline{{{y}}}}}\in{{\overline{{{\Sigma}}}}}$ whenever ${{\overline{{{y}}}}}$ can also be eos. Such a definition is without loss of generality; any LM can be factorized in this form (cite55†Cotterell et al., 2024 ).
+L84: However, not all models expressible as cite56†Eq. 1 constitute LMs, i.e., a probabilistic model of the form given in cite56†Eq. 1 may leak probability mass to infinite sequences (cite57†Du et al., 2023 ). In this paper, we assume all autoregressive models are tight, i.e., they place probability 1 on ${{{{\Sigma}}^{*}}}$.
+L85: A historically important class of LM are those that obey the n-gram assumption.
+L86: ###### Assumption 2.1.
+L87: 
+L88: The n-gram assumption states that the probability ${{{p}}}\left({{\overline{{{y}}}}}_{{t}}\mid{{\bm{y}}}_{<{{t}}}\right)$ only depends on ${{\textit{n}}}-1$ previous symbols ${{y}}_{{{t}}-1},\ldots,{{y}}_{{{t}}-{{\textit{n}}}+1}$:
+L89: 
+L90:  | $${{{p}}}\left({{\overline{{{y}}}}}_{{t}}\mid{{\bm{y}}}_{<{{t}}}\right)={{{p}}}\left({{\overline{{{y}}}}}_{{t}}\mid{{y}}_{{{t}}-{{\textit{n}}}+1}\cdots{{y}}_{{{t}}-1}\right).$$  |  | (2)
+L91: cite51†footnote 3 shows an example of an $2$-gram LM. The weights on the transitions denote the conditional probabilities of the next symbol given the previous ${{\textit{n}}}-1=2$ symbols encoded by the current state.
+L92: ### 2.1 Recurrent Neural Language Models
+L93: 
+L94: The conditional distributions of recurrent neural LMs are given by a recurrent neural network. cite38†Hewitt et al. (2020) present results for both Elman RNNs (cite58†Elman, 1990 ) as well as those derived from the LSTM architecture (cite59†Hochreiter and Schmidhuber, 1997 ). Our paper focuses on Elman RNNs, as they are easier to analyze and suffice to present the main ideas, which also easily generalize to the LSTM case.
+L95: ###### Definition 2.1.
+L96: 
+L97: An Elman RNN ${{\mathcal{R}}}={{\left({{\Sigma}},{{\sigma}},{{D}},{{{{{\mathbf{U}}}}}},{{{{{\mathbf{V}}}}}},{{{{{\mathbf{b}}}}}},{{{{\bm{\eta}}}}}\right)}}$ is an RNN with the hidden state recurrence
+L98:  | $\displaystyle{{{{{{{\mathbf{h}}}}_{0}}}}}$  | $\displaystyle={{{{\bm{\eta}}}}}\quad\quad\quad\quad\quad\quad\quad\quad\quad\quad$  |  | $\displaystyle{\color[rgb]{0.4336,0.4336,0.4336}({{t}}=0)}$  |  | (3a)
+L99:  | $\displaystyle{{{{{{{\mathbf{h}}}}}}_{{t}}}}$  | $\displaystyle={{\sigma}}\left({{{{{\mathbf{U}}}}}}{{{{{{{\mathbf{h}}}}}}_{{{t}}-1}}}+{{{{{\mathbf{V}}}}}}{{{{{{{{{\mathbf{r}}}}}}\!\left({{y}}_{{t}}\right)}}}}+{{{{{\mathbf{b}}}}}}\right)\quad$  |  | $\displaystyle{\color[rgb]{0.4336,0.4336,0.4336}({{t}}>0)},$  |  | (3b)
+L100: where ${{{{{{{\mathbf{h}}}}}}_{{t}}}}\in{{\mathbb{R}}}^{{D}}$ is the hidden state at time step ${{t}}$, ${{{{\bm{\eta}}}}}\in{{\mathbb{R}}}^{{D}}$ is an initialization parameter, ${{{{y}}_{{{t}}}}}\in{{\Sigma}}$ is the input symbol at time step ${{t}}$, ${{{{{\mathbf{r}}}}}}\colon{{\Sigma}}\to{{\mathbb{R}}}^{{R}}$ is a symbol representation function, ${{{{{\mathbf{U}}}}}}\in{{\mathbb{R}}}^{{{D}}\times{{D}}},{{{{{\mathbf{V}}}}}}\in{{\mathbb{R}}}^{{{D}}\times{{R}}}$ are parameter matrices, ${{{{{\mathbf{b}}}}}}\in{{\mathbb{R}}}^{{{D}}}$ is a bias vector, and ${{\sigma}}\colon{{\mathbb{R}}}^{{D}}\to{{\mathbb{R}}}^{{D}}$ is an element-wise non-linear activation function.
+L101: We refer to the dimensionality of the hidden state, ${{D}}$, as the size of the RNN, and to each entry of the hidden state as a neuron.
+L102: Because ${{{{{{{\mathbf{h}}}}}}_{{t}}}}$ represents the string consumed by the RNN, we also use the evocative notation ${{{{{\mathbf{h}}}}}}\left({{\bm{y}}}\right)$ to denote the result of the application of cite60†Eq. 3b over the string ${{\bm{y}}}={{y}}_{1}\cdots{{y}}_{t}$. An RNN can be used to specify an LM by using the hidden states to define the conditional distributions over ${{\overline{{{y}}}}}$ given ${{{{\bm{y}}}_{<{{t}}}}}$.
+L103: ###### Definition 2.2.
+L104: 
+L105: Let ${{\mathcal{R}}}$ be an Elman RNN, ${{{{{\mathbf{E}}}}}}\in{{\mathbb{R}}}^{{{|{{\overline{{{\Sigma}}}}}|}}\times{{D}}}$ and ${{{{{\mathbf{u}}}}}}\in{{\mathbb{R}}}^{{{|{{\overline{{{\Sigma}}}}}|}}}$. An RNN LM is an LM whose conditional distributions are defined as
+L106:  | $${{{p}}}({{\overline{{{y}}}}}\mid{{{{\bm{y}}}_{<{{t}}}}})\mathrel{\stackrel{{\scriptstyle\textnormal{def}}}{{=}}}{{\mathrm{softmax}}}\left({{{{{\mathbf{E}}}}}}{{{{{\mathbf{h}}}}}}({{{{\bm{y}}}_{<{{t}}}}})+{{{{{\mathbf{u}}}}}}\right)_{{{\overline{{{y}}}}}}$$  |  | (4)
+L107: for ${{\overline{{{y}}}}}\in{{\overline{{{\Sigma}}}}},{{{{\bm{y}}}_{<{{t}}}}}\in{{{{\Sigma}}^{*}}}$.^{5}^{5} 5 Throughout the paper, we index vectors and matrices directly with symbols from ${{\overline{{{\Sigma}}}}}$. This is possible because of a trivial bijective relationship between ${{\overline{{{\Sigma}}}}}$ and ${{\left[{{|{{\overline{{{\Sigma}}}}}|}}\right]}}$. We term ${{{{{\mathbf{E}}}}}}$ the output matrix and ${{{{{\mathbf{u}}}}}}$ the bias vector.
+L108: #### 2.1.1 Activation Functions and Precision
+L109: 
+L110: An important consideration when analyzing RNN LM’s ability to compute the probability of a string ${{\bm{y}}}\in{{{{\Sigma}}^{*}}}$ is the number of bits required to represent the entries in ${{{{{{{\mathbf{h}}}}}}_{{t}}}}$ and how the number of bits scales with the length of the string, $|{{\bm{y}}}|$. This depends both on the dynamics of the RNN and the activation function used (cite61†Merrill, 2019 ) and motivates the following definition of precision.
+L111: ###### Definition 2.3.
+L112: 
+L113: The precision of an RNN is the number of bits required to represent ${{{{{\mathbf{h}}}}}}\left({{\bm{y}}}\right)$:
+L114: 
+L115:  | $${{{\psi}}_{{{\mathcal{R}}}}\left({{\bm{y}}}\right)}\mathrel{\stackrel{{\scriptstyle\textnormal{def}}}{{=}}}\max_{{{d}}\in{{\left[{{D}}\right]}}}\min_{\begin{subarray}{c}p,q\in{{\mathbb{N}}},\\
+L116: \frac{p}{q}={{{{{\mathbf{h}}}}}}\left({{\bm{y}}}\right)_{{{d}}}\end{subarray}}\lceil\log_{2}p\rceil+\lceil\log_{2}q\rceil.$$  |  | (5)
+L117: We say that an Elman RNN is of constant precision if ${{{\psi}}_{{{\mathcal{R}}}}\left({{\bm{y}}}\right)}={{{{\mathcal{O}}}\left(1\right)}}$, i.e., if ${{{\psi}}_{{{\mathcal{R}}}}\left({{\bm{y}}}\right)}\leq C$ for all ${{\bm{y}}}\in{{{{\Sigma}}^{*}}}$ and some $C\in{{\mathbb{R}}}$. It is of unbounded precision if ${{{\psi}}_{{{\mathcal{R}}}}\left({{\bm{y}}}\right)}$ cannot be bounded by a function of $|{{\bm{y}}}|$.
+L118: Common choices for the nonlinear function ${{\sigma}}$ in cite60†Eq. 3b are the Heaviside function ${{\text{H}}}\left(x\right)\mathrel{\stackrel{{\scriptstyle\textnormal{def}}}{{=}}}\mathbbm{1}\left\{x>0\right\}$, its continuous approximation, the sigmoid function ${{\sigma}}(x)\mathrel{\stackrel{{\scriptstyle\textnormal{def}}}{{=}}}\frac{1}{1+\exp\left(-x\right)}$, and ${{\mathrm{ReLU}}}\mathrel{\stackrel{{\scriptstyle\textnormal{def}}}{{=}}}\max(0,x)$. cite38†Hewitt et al.
+L119: (2020) focus on sigmoid activations as originally presented by cite58†Elman (1990) . However, to simply the analysis, they assume that ${{\left|x\right|}}\gg 0$, such that ${{{{\sigma}}\left(x\right)}}\approx 0$ or ${{{{\sigma}}\left(x\right)}}\approx 1$ since $\lim_{x\to-\infty}{{{{\sigma}}\left(x\right)}}=0$ and $\lim_{x\to\infty}{{{{\sigma}}\left(x\right)}}=1$.
+L120: Concretely, they define a parameter $\beta\in{{\mathbb{R}_{+}}}$ and assume ${{{{\sigma}}\left(x\right)}}=0$ for $x<-\beta$ and ${{{{\sigma}}\left(x\right)}}=1$ for $x>\beta$. Restricting to values of $x$ with ${{\left|x\right|}}>\beta$ results in a constant-precision RNN, equivalent to one with the Heaviside activation function. Its hidden states live in ${{\left\{0,1\right\}}}^{{D}}$, meaning that they can be interpreted as binary vectors.
+L121: The update rule cite60†Eq. 3b can then be interpreted as a logical operation on the hidden state and the input symbol (cite53†Svete and Cotterell, 2023b ).
+L122: We simplify the exposition by working directly with H-activated RNNs, which additionally allows for easy analysis of the RNN’s precision.^{6}^{6} 6 Since the Heaviside function can be implemented as a difference of two ${{\mathrm{ReLU}}}$ functions (over the integers), all our constructions work with the ${{\mathrm{ReLU}}}$ activation function as well, albeit with networks of twice the size.
+L123: ## 3 Bounded Pushdown Automata
+L124: 
+L125: In this section, we present a broad class of LMs that provide a convenient framework for analyzing the sufficient conditions for efficient representation by RNNs: bounded pushdown automata. They maintain a stack, albeit one that contains at most a fixed number of symbols.
+L126: ###### Definition 3.1.
+L127: An ${{m}}$-bounded pushdown automaton (BPDA) is a tuple $\left({{\Sigma}},{{\Gamma}},{{m}},{{\mu}},{{\lambda}},{{\rho}}\right)$ where ${{m}}\in{{\mathbb{N}}}$, ${{\Sigma}}$ is an alphabet of input symbols, ${{\Gamma}}$ is an alphabet of stack symbols, ${{\mu}}\colon{{{{{{\Gamma}}^{\leq{{m}}}}}}}\times{{\Sigma}}\times{{{{{{\Gamma}}^{\leq{{m}}}}}}}\to[0,1]$ is a weighted transition function, ${{\lambda}}\colon{{{{{{\Gamma}}^{\leq{{m}}}}}}}\to\left[0,1\right]$ is the initial weight function, and ${{\rho}}\colon{{{{{{\Gamma}}^{\leq{{m}}}}}}}\to\left[0,1\right]$ is the final weight function.
+L128: The string ${{{{{\bm{\gamma}}}}}}$ currently stored in the stack is the BPDA’s configuration. We read ${{{{{\bm{\gamma}}}}}}$ bottom to top, e.g., in the stack ${{{\bm{\gamma}}}}={{{{\gamma}}}}_{1}{{{{\gamma}}}}_{2}\cdots{{{{\gamma}}}}_{\ell}$, ${{{{\gamma}}}}_{1}$ is at the bottom of the stack, while ${{{{\gamma}}}}_{\ell}$ is at the top.
+L129: We say that the ${{m}}$-bounded stack is empty if $|{{{{{\bm{\gamma}}}}}}|=0$ (equivalently, ${{{{{\bm{\gamma}}}}}}={{\varepsilon}}$) and full if $|{{{{{\bm{\gamma}}}}}}|={{m}}$. Sometimes, it will be useful to think of the bounded stack as always being full—in that case, if there are $\ell<{{m}}$ elements on the stack, we assume that the other ${{m}}-\ell$ elements are occupied by a special placeholder symbol ${{\iota}}\notin{{\Gamma}}$; see cite62†Fig. 3 for an illustration.
+L130: We denote ${{{{\Gamma}}_{{\iota}}}}\mathrel{\stackrel{{\scriptstyle\textnormal{def}}}{{=}}}{{\Gamma}}\cup{{\left\{{{\iota}}\right\}}}$.
+L131: We call a BPDA probabilistic if the following two equations hold
+L132:  | $\displaystyle\sum_{{{{{{\bm{\gamma}}}}}}\in{{{{{{\Gamma}}^{\leq{{m}}}}}}}}{{{{\lambda}}\left({{{{{\bm{\gamma}}}}}}\right)}}$  | $\displaystyle=1$  |  | (6a)
+L133:  | $\displaystyle\!\!\!\sum_{\begin{subarray}{c}{{y}}\in{{\Sigma}}\\
+L134: {{{{{\bm{\gamma}}}}}}^{\prime}\in{{{{{{\Gamma}}^{\leq{{m}}}}}}}\end{subarray}}{{{\mu}}\left({{{{{\bm{\gamma}}}}}},{{y}},{{{{{\bm{\gamma}}}}}}^{\prime}\right)}+{{{{\rho}}\left({{{{{\bm{\gamma}}}}}}\right)}}$  | $\displaystyle=1,\forall{{{{{\bm{\gamma}}}}}}\in{{{{{{\Gamma}}^{\leq{{m}}}}}}}.$  |  | (6b)
+L135: We call a BPDA ${{\mathcal{P}}}=\left({{\Sigma}},{{\Gamma}},{{m}},{{\mu}},{{\lambda}},{{\rho}}\right)$ deterministic if there exists exactly one ${{{{{\bm{\gamma}}}}}}\in{{{{{{\Gamma}}^{\leq{{m}}}}}}}$ with ${{{{\lambda}}\left({{{{{\bm{\gamma}}}}}}\right)}}>0$ and, for any ${{{{{\bm{\gamma}}}}}}\in{{{{{{\Gamma}}^{\leq{{m}}}}}}}$ and ${{y}}\in{{\Sigma}}$, there is at most one ${{{{{\bm{\gamma}}}}}}^{\prime}\in{{{{{{\Gamma}}^{\leq{{m}}}}}}}$ with ${{{\mu}}\left({{{{{\bm{\gamma}}}}}},{{y}},{{{{{\bm{\gamma}}}}}}^{\prime}\right)}>0$.
+L136: For deterministic BPDA s, we also define:
+L137:   * •
+L138: 
+L139: ${{{{\phi}}\left({{{{{\bm{\gamma}}}}}},{{y}}\right)}}\mathrel{\stackrel{{\scriptstyle\textnormal{def}}}{{=}}}{{{{{\bm{\gamma}}}}}}^{\prime}$ for ${{{\mu}}\left({{{{{\bm{\gamma}}}}}},{{y}},{{{{{\bm{\gamma}}}}}}^{\prime}\right)}>0$ as the function returning the (deterministic) next configuration of the BPDA,
+L140: 
+L141:   * •
+L142: ${{{{\omega}}\left({{{{{\bm{\gamma}}}}}},{{y}}\right)}}\mathrel{\stackrel{{\scriptstyle\textnormal{def}}}{{=}}}w$ for $w={{{\mu}}\left({{{{{\bm{\gamma}}}}}},{{y}},{{{{\phi}}\left({{{{{\bm{\gamma}}}}}},{{y}}\right)}}\right)}$ as the weight of the only ${{y}}$-labeled transition from ${{{{{\bm{\gamma}}}}}}$, and
+L143: 
+L144:   * •
+L145: 
+L146: ${{{{\varphi}}\left({{\bm{y}}}\right)}}$ as the (unique) stack configuration reached upon reading ${{\bm{y}}}$.
+L147: ##### Runs of a BPDA.
+L148: A BPDA processes a string ${{\bm{y}}}={{y}}_{1}\cdots{{y}}_{{T}}\in{{{{\Sigma}}^{*}}}$ left to right by reading its symbols and changing its configurations accordingly. It starts with an initial configuration ${{{{{\bm{\gamma}}}}}}_{0}$ according to ${{\lambda}}$.
+L149: Then, it updates the stack according to ${{\mu}}$ for each symbol in ${{\bm{y}}}$, resulting in a sequence of stacks ${{{{\bm{\pi}}}}}={{{{{\bm{\gamma}}}}}}_{0},{{{{{\bm{\gamma}}}}}}_{1},\ldots,{{{{{\bm{\gamma}}}}}}_{{T}}$ where ${{{\mu}}\left({{{{{\bm{\gamma}}}}}}_{{{t}}-1},{{y}}_{{t}},{{{{{\bm{\gamma}}}}}}_{{t}}\right)}>0$.
+L150: Each such sequence of stacks ${{{{\bm{\pi}}}}}$ is called a run and we will denote all runs of ${{\mathcal{P}}}$ on ${{\bm{y}}}$ as ${{{{\Pi}}}}\left({{\bm{y}}};{{\mathcal{P}}}\right)$. A probabilistic BPDA ${{\mathcal{P}}}$ assigns ${{\bm{y}}}$ the probability
+L151:  |  | $\displaystyle{{\mathcal{P}}}\left({{\bm{y}}}\right)\mathrel{\stackrel{{\scriptstyle\textnormal{def}}}{{=}}}$  |  | (7)
+L152:  |  | $\displaystyle\sum_{\begin{subarray}{c}{{{{\bm{\pi}}}}}\in{{{{\Pi}}}}\left({{\bm{y}}};{{\mathcal{P}}}\right),\\
+L153: {{{{\bm{\pi}}}}}={{{{{\bm{\gamma}}}}}}_{0},{{{{{\bm{\gamma}}}}}}_{1},\ldots,{{{{{\bm{\gamma}}}}}}_{{T}}\end{subarray}}{{{{\lambda}}\left({{{{{\bm{\gamma}}}}}}_{0}\right)}}\left[\prod_{{{t}}=1}^{{T}}{{{\mu}}\left({{{{{\bm{\gamma}}}}}}_{{{t}}-1},{{y}}_{{t}},{{{{{\bm{\gamma}}}}}}_{{t}}\right)}\right]{{{{\rho}}\left({{{{{\bm{\gamma}}}}}}_{{T}}\right)}}.$  |
+L154: In this sense, probabilistic BPDAs induce distributions over strings and generalize cite38†Hewitt et al. ’s (cite38†2020 ) thresholded string acceptance to the probabilistic setting.^{7}^{7} 7 cite38†Hewitt et al. ’s (cite38†2020 ) construction focuses on binary recognition of languages through their notion of truncated language recognition (cf. cite63†Def. A.1 in cite27†§ A.1 ).
+L155: Specifically, they show that RNN LMs can assign high enough probabilities to correct continuations of strings while assigning low probabilities to incorrect continuations. This is illustrated in cite62†Fig. 3 .
+L156: Figure 3: An illustration of how a BPDA can compute the probability of a string under an n-gram LM.
+L157: ##### Pushing and popping.
+L158: We define the transition function ${{\mu}}$ as a general function of the stack configuration and the input symbol. As important special cases, ${{\mu}}$ can define the standard POP and PUSH operations.
+L159: Popping the top of stack ${{{\color[rgb]{0.3828,0.4492,0.0742}\bm{\tau}}}}$ is performed by transitions of the form $\left({{{{{\bm{\gamma}}}}}}{{{\color[rgb]{0.3828,0.4492,0.0742}\bm{\tau}}}},{{y}},{{{{{\bm{\gamma}}}}}}\right)$ with ${{{\mu}}\left({{{{{\bm{\gamma}}}}}}{{{\color[rgb]{0.3828,0.4492,0.0742}\bm{\tau}}}},{{y}},{{{{{\bm{\gamma}}}}}}\right)}>0$;
+L160:  | $${{{{\texttt{POP}}}\left({{{{{\bm{\gamma}}}}}}{{{\color[rgb]{0.3828,0.4492,0.0742}\bm{\tau}}}},{{y}},{{{{{\bm{\gamma}}}}}}\right)}}\mathrel{\stackrel{{\scriptstyle\textnormal{def}}}{{=}}}{{{\mu}}\left({{{{{\bm{\gamma}}}}}}{{{\color[rgb]{0.3828,0.4492,0.0742}\bm{\tau}}}},{{y}},{{{{{\bm{\gamma}}}}}}\right)}.$$  |  | (8)
+L161: Pushing definitionally increases the size of the stack, which raises the question of how to handle stack overflows. Rather than simply rejecting PUSH s that would result in a stack overflow, we allow a BPDA to discard the bottom of the stack when pushing; this is easy to specify with the general transition function ${{\mu}}$.
+L162: Given the current stack configuration ${{{{{\bm{\gamma}}}}}}={{{{\gamma}}}}_{1}\cdots{{{{\gamma}}}}_{\ell}$, we define the weight of pushing the symbols ${{{\color[rgb]{0.3828,0.4492,0.0742}\bm{\tau}}}}={{{{\gamma}}}}^{\prime}_{1}\cdots{{{{\gamma}}}}^{\prime}_{r}\in{{{{{{\Gamma}}^{\leq{{m}}}}}}}$ as
+L163:  |  | $\displaystyle{{{\texttt{PUSH}}}\left({{{{{\bm{\gamma}}}}}},{{y}},{{{{{\bm{\gamma}}}}}}{{{\color[rgb]{0.3828,0.4492,0.0742}\bm{\tau}}}}\right)}\mathrel{\stackrel{{\scriptstyle\textnormal{def}}}{{=}}}$  |  | (9)
+L164:  |  | $\displaystyle\begin{cases}{{{\mu}}\left({{{{{\bm{\gamma}}}}}},{{y}},{{{{{\bm{\gamma}}}}}}{{{\color[rgb]{0.3828,0.4492,0.0742}\bm{\tau}}}}\right)}&\textbf{if }\ell+r\leq{{m}}\\
+L165: {{{\mu}}\left({{{{{\bm{\gamma}}}}}},{{y}},{{{{\gamma}}}}_{\ell+r-{{m}}+1}\cdots{{{{\gamma}}}}_{\ell}{{{\color[rgb]{0.3828,0.4492,0.0742}\bm{\tau}}}}\right)}&\textbf{otherwise }.\end{cases}$  |
+L166: This definition is without loss of generality; we can always define BPDA s that assign transitions resulting in a stack overflow probability $0$. PUSH is illustrated in cite64†Fig. 4 .
+L167: 
+L168: Figure 4: PUSH moves the stack down, discards the bottom-most elements, and inserts a new top.
+L169: ### 3.1 Efficiently Representable BPDA s
+L170: It is easy to see that there are ${{{{\mathcal{O}}}\left({{|{{{{\Gamma}}_{{\iota}}}}|}}^{{{m}}}\right)}}$ possible ${{m}}$-bounded stacks over ${{\Gamma}}$, defining the number of configurations a BPDA can be in.
+L171: Interpreting the configurations as states of a (probabilistic) FSA, general constructions of RNN simulating FSAs mentioned in cite6†§ 1 would require ${{\Omega\left({{|{{\Sigma}}|}}{{|{{{{\Gamma}}_{{\iota}}}}|}}^{\frac{{{m}}}{2}}\right)}}$ neurons, exponentially many in the size of the stack (cite44†Minsky, 1954 ; cite65†Dewdney, 1977 ; cite50†Indyk, 1995 ; cite66†Svete and Cotterell, 2023a ; cite53†Svete and Cotterell, 2023b ).
+L172: One might, however, hope to exploit the special structure of the state space induced by the stack configurations to come up with more efficient representations. This motivates the following definition.
+L173: ###### Definition 3.2.
+L174: 
+L175: A BPDA ${{\mathcal{P}}}=\left({{\Sigma}},{{\Gamma}},{{m}},{{\mu}},{{\lambda}},{{\rho}}\right)$ is called $C$-efficiently representable if there exists a weakly equivalent RNN LM of size
+L176: 
+L177:  | $${{D}}\leq C\lceil\log_{2}{{{|{{{{\Gamma}}_{{\iota}}}}|}}^{{m}}}\rceil=C{{m}}\lceil\log_{2}{{{|{{{{\Gamma}}_{{\iota}}}}|}}}\rceil.$$  |  | (10)
+L178: Intuitively, cite67†Def. 3.2 characterizes efficiently representable BPDA s as those that can be defined by an RNN LM with logarithmically many neurons in the number of configurations. This is a natural generalization of (efficient) thresholded acceptance defined by cite38†Hewitt et al. (2020) to the probabilistic (language modeling) setting.^{8}^{8} 8 Thresholded acceptance defines string recognition based on their conditional probabilities. See cite27†§ A.1 for details.
+L179: cite67†Def. 3.2 paves the way to a formalization of LMs efficiently representable by RNN LMs with BPDA s. However, BPDA s are too rich to be efficiently representable in general. The following theorem shows that BPDA LMs are weakly equivalent to LMs induced by probabilistic finite-state automata, a classic family of computational models with a well-described relationship to RNNs.
+L180: ###### Theorem 3.1.
+L181: 
+L182: The family of LMs induced by PFSAs is weakly equivalent to the family of LMs induced by BPDA s.
+L183: ###### Proof.
+L184: 
+L185: See cite28†App. B . ∎
+L186: Because BPDA s define the same class of LMs as probabilistic FSAs, they cannot, in general, be represented more efficiently than with ${{\Omega\left({{|{{\Sigma}}|}}{{|{{{{\Gamma}}_{{\iota}}}}|}}^{{{m}}}\right)}}$ neurons—a more efficient simulation of general BPDA s would contradict the known lower bounds on simulating FSAs (cite50†Indyk, 1995 ; cite53†Svete and Cotterell, 2023b ). This implies that we inevitably must restrict the class of BPDA s to ensure their efficient representability.
+L187: The following definitions will help us characterize efficiently representable BPDA s.
+L188: ##### Vectorial representation of a stack.
+L189: 
+L190: When connecting BPDA s to RNNs, it is useful to think of the stack as a vector. Setting ${{G}}\mathrel{\stackrel{{\scriptstyle\textnormal{def}}}{{=}}}\lceil\log_{2}{{{|{{{{\Gamma}}_{{\iota}}}}|}}}\rceil$, we define the stack vector function ${{\chi}}\colon{{{{{{\Gamma}}^{\leq{{m}}}}}}}\to{{\left\{0,1\right\}}}^{{{m}}{{G}}}$ as
+L191:  | $${{{{\chi}}\!\left({{{{\gamma}}}}_{1}\cdots{{{{\gamma}}}}_{{m}}\right)}}\mathrel{\stackrel{{\scriptstyle\textnormal{def}}}{{=}}}\begin{pmatrix}{{{{\text{Bin}}}\!\left({{{{\gamma}}}}_{{m}}\right)}}\\
+L192: \vdots\\
+L193: {{{{\text{Bin}}}\!\left({{{{\gamma}}}}_{1}\right)}}\\
+L194: \end{pmatrix}\in{{\left\{0,1\right\}}}^{{{m}}{{G}}}.$$  |  | (11)
+L195: Here, ${{\text{Bin}}}\colon{{{{\Gamma}}_{{\iota}}}}\to{{\left\{0,1\right\}}}^{{{G}}}$ is the binary encoding function, where we assume that ${{{{\text{Bin}}}\!\left({{\iota}}\right)}}={{\mathbf{0}}}_{{{G}}}$, the ${{G}}$-dimensional vector of zeros. More precisely, let ${{c}}\colon{{{{\Gamma}}_{{\iota}}}}\to{{\left\{0,1,\ldots,{{|{{\Gamma}}|}}\right\}}}$ be a bijection between ${{{{\Gamma}}_{{\iota}}}}$ and ${{\left\{0,1,\ldots,{{|{{\Gamma}}|}}\right\}}}$ such that ${{c}}\left({{\iota}}\right)=0$.
+L196: Then ${{{{\text{Bin}}}\!\left({{{{\gamma}}}}\right)}}$ is the binary representation of ${{c}}\left({{{{\gamma}}}}\right)$.
+L197: ###### Definition 3.3.
+L198: A function ${{f}}\colon{{{{{{\Gamma}}^{\leq{{m}}}}}}}\to{{{{{{\Gamma}}^{\leq{{m}}}}}}}$ is stack-affine if there exists a matrix ${{{\mathbf{M}}}}\in{{\mathbb{R}}}^{{{m}}{{G}}\times{{m}}{{G}}}$ and a vector ${{{\mathbf{v}}}}\in{{\mathbb{R}}}^{{{m}}{{G}}}$ such that, for all ${{{{{\bm{\gamma}}}}}}\in{{{{{{\Gamma}}^{\leq{{m}}}}}}}$, it holds that ${{{{\chi}}\!\left({{f}}\left({{{{{\bm{\gamma}}}}}}\right)\right)}}={{{\mathbf{M}}}}{{{{\chi}}\!\left({{{{{\bm{\gamma}}}}}}\right)}}+{{{\mathbf{v}}}}$.
+L199: ###### Definition 3.4.
+L200: A function ${{\zeta}}\colon{{{{{{\Gamma}}^{\leq{{m}}}}}}}\times{{\Sigma}}\to{{{{{{\Gamma}}^{\leq{{m}}}}}}}$ is $K$-varied in ${{\Sigma}}$ if there exists a partition ${{\Sigma}}={{\Sigma}}_{1}\sqcup\cdots\sqcup{{\Sigma}}_{K}$ such that, for all $k=1,\ldots,K$, it holds that ${{\zeta}}\left({{{{{\bm{\gamma}}}}}},{{y}}\right)={{\zeta}}\left({{{{{\bm{\gamma}}}}}},{{y}}^{\prime}\right)\mathrel{\stackrel{{\scriptstyle\textnormal{def}}}{{=}}}{{\zeta}}_{k}\left({{{{{\bm{\gamma}}}}}}\right)$ for all ${{y}},{{y}}^{\prime}\in{{\Sigma}}_{k}$ and ${{{{{\bm{\gamma}}}}}}\in{{{{{{\Gamma}}^{\leq{{m}}}}}}}$.
+L201: ###### Definition 3.5.
+L202: 
+L203: A function ${{\alpha}}\colon{{{{{{\Gamma}}^{\leq{{m}}}}}}}\times{{\Sigma}}\to{{{{{{\Gamma}}^{\leq{{m}}}}}}}$ is ${{\Sigma}}$-determined if there exists a function ${{s}}\colon{{\Sigma}}\to{{\Gamma}}$ and a family of partitions $\left({{\left[{{m}}\right]}}={{{\mathcal{J}}}}^{{y}}_{1}\sqcup{{{\mathcal{J}}}}^{{y}}_{2}\sqcup{{{\mathcal{J}}}}^{{y}}_{3}\right)_{{{y}}\in{{\Sigma}}}$ such that, for all ${{{{{\bm{\gamma}}}}}}\in{{{{{{\Gamma}}^{\leq{{m}}}}}}}$, it holds that
+L204:  | $${{\alpha}}\left({{{{{\bm{\gamma}}}}}},{{y}}\right)_{{j}}=\begin{cases}{{{{\gamma}}}}_{{j}}&\textbf{if }{{j}}\in{{{\mathcal{J}}}}^{{y}}_{1}\\
+L205: {{s}}\left({{y}}\right)&\textbf{if }{{j}}\in{{{\mathcal{J}}}}^{{y}}_{2}\\
+L206: {{\iota}}&\textbf{if }{{j}}\in{{{\mathcal{J}}}}^{{y}}_{3}\end{cases}.$$  |  | (12)
+L207: In words, a stack-affine function can be implemented by an affine transformation of the vectorial representation of the stack, a $K$-varied function can be decomposed into $K$ different functions that are invariant to the input symbol, and a ${{\Sigma}}$-determined function changes the stack in a manner that only depends on the input symbol: it either keeps a symbol the same, replaces it with ${{s}}\left({{y}}\right)$, or empties the slot (inserting the placeholder symbol ${{\iota}}$).
+L208: Importantly, a ${{\Sigma}}$-determined function acts independent of the stack ${{{{{\bm{\gamma}}}}}}$.
+L209: Lastly, we consider the efficient representation of next-symbol probabilities. For a deterministic BPDA ${{\mathcal{P}}}=\left({{\Sigma}},{{\Gamma}},{{m}},{{\mu}},{{\lambda}},{{\rho}}\right)$, we define
+L210:  | $\displaystyle{{{p}}}\left({{y}}\mid{{{{{\bm{\gamma}}}}}}\right)$  | $\displaystyle\mathrel{\stackrel{{\scriptstyle\textnormal{def}}}{{=}}}{{{{\omega}}\left({{{{{\bm{\gamma}}}}}},{{y}}\right)}}$  |  | (13a)
+L211:  | $\displaystyle{{{p}}}\left({{\textsc{eos}}}\mid{{{{{\bm{\gamma}}}}}}\right)$  | $\displaystyle\mathrel{\stackrel{{\scriptstyle\textnormal{def}}}{{=}}}{{{{\rho}}\left({{{{{\bm{\gamma}}}}}}\right)}},$  |  | (13b)
+L212: for ${{{{{\bm{\gamma}}}}}}\in{{{{{{\Gamma}}^{\leq{{m}}}}}}}$ and ${{y}}\in{{\Sigma}}$ and
+L213: 
+L214:  | $${{{p}}}\left({{\overline{{{y}}}}}\mid{{\bm{y}}}\right)\mathrel{\stackrel{{\scriptstyle\textnormal{def}}}{{=}}}{{{p}}}\left({{\overline{{{y}}}}}\mid{{{{\varphi}}\left({{\bm{y}}}\right)}}\right),$$  |  | (14)
+L215: 
+L216: for ${{\bm{y}}}\in{{{{\Sigma}}^{*}}}$ and ${{\overline{{{y}}}}}\in{{\overline{{{\Sigma}}}}}$.
+L217: ###### Definition 3.6.
+L218: 
+L219: A deterministic BPDA is representation-compatible if there exists a matrix ${{{{{\mathbf{E}}}}}}\in{{\mathbb{R}}}^{{{|{{\overline{{{\Sigma}}}}}|}}\times{{m}}{{G}}}$ and a vector ${{{{{\mathbf{u}}}}}}\in{{\mathbb{R}}}^{{|{{\overline{{{\Sigma}}}}}|}}$ such that, for every ${{{{{\bm{\gamma}}}}}}\in{{{{{{\Gamma}}^{\leq{{m}}}}}}}$, it holds for all ${{\overline{{{y}}}}}\in{{\overline{{{\Sigma}}}}}$ that
+L220:  | $$\log{{{p}}}\left({{\overline{{{y}}}}}\mid{{{{{\bm{\gamma}}}}}}\right)={{\mathrm{softmax}\!\left({{{{{\mathbf{E}}}}}}{{{{\chi}}\!\left({{{{{\bm{\gamma}}}}}}\right)}}+{{{{{\mathbf{u}}}}}}\right)_{{{\overline{{{y}}}}}}}}.$$  |  | (15)
+L221: ## 4 Efficiently Representing BPDA s
+L222: 
+L223: The introduced technical machinery allows us to present our main result.
+L224: ###### Theorem 4.1.
+L225: 
+L226: Let ${{\mathcal{P}}}=\left({{\Sigma}},{{\Gamma}},{{m}},{{\mu}},{{\lambda}},{{\rho}}\right)$ be a deterministic representation-compatible (cf. cite68†Def. 3.6 ) BPDA where
+L227: 
+L228:  | $${{{\mu}}\left({{{{{\bm{\gamma}}}}}},{{y}},{{{{{\bm{\gamma}}}}}}^{\prime}\right)}=\begin{cases}{{{{\omega}}\left({{{{{\bm{\gamma}}}}}},{{y}}\right)}}&\textbf{if }{{{{{\bm{\gamma}}}}}}^{\prime}={{\alpha}}\left({{\zeta}}\left({{{{{\bm{\gamma}}}}}},{{y}}\right)\right)\\
+L229: 0&\textbf{otherwise }\end{cases}$$  |  | (16)
+L230: for a ${{\Sigma}}$-determined function ${{\alpha}}$ (cf. cite69†Def. 3.5 ) and a $K$-varied function (cf. cite70†Def. 3.4 ) ${{\zeta}}$ where all ${{\zeta}}_{k}$ are stack-affine (cf. cite71†Def. 3.3 ). Then, ${{\mathcal{P}}}$ is $K$-efficiently representable (cf. cite67†Def. 3.2 ).
+L231: This generalizes cite38†Hewitt et al. ’s (cite38†2020 ) result by considering the more general class of BPDA LMs, which includes ${{{\mathrm{D}\!\left({{b}},{{n}}\right)}}}$ LMs as a special case, and by incorporating the probabilistic nature of LMs. The requirement for the BPDA to be representation compatible is crucial for cite72†Thm. 4.1 ; there exist BPDA s that fulfill all the criteria of cite72†Thm. 4.1 but the one on representation compatibility that are not efficiently representable by RNN LMs.
+L232: ###### Theorem 4.2.
+L233: 
+L234: There exist deterministic BPDA s whose transition function ${{\mu}}$ conforms to the structure in cite73†Eq. 16 , but which are not efficiently representable for any $K$ independent of ${{|{{\Sigma}}|}}$.
+L235: ###### Proof intuition.
+L236: Consider a BPDA where ${{\Gamma}}={{\Sigma}}$.^{9}^{9} 9 Examples of such BPDA s are those defining n-gram LMs. Intuitively, this holds because a BPDA LM defines exponentially many possible (independently specified) conditional distributions over the next symbol given the current stack configuration. For an RNN LM to be weakly equivalent, it would need to, after affinely transforming the hidden state (applying the output matrix and the output bias vector), match the logits of these distributions.
+L237: However, as the logits can in general span the entire ${{|{{\Sigma}}|}}$-dimensional space, the hidden state ${{{{{\mathbf{h}}}}}}$ would have to be of size ${{\Omega\left({{|{{\Sigma}}|}}\right)}}$ to be able to do that, rather than $K{{m}}\log_{2}{{|{{\Sigma}}|}}$, as we have in the case of efficient simulation. See cite31†App. C for details. ∎
+L238: ### 4.1 Known Efficiently Representable Families
+L239: 
+L240: cite72†Thm. 4.1 offers a very abstract characterization of (the components of) efficiently representable BPDA s. Here, we frame this characterization in the context of two well-known LM families: bounded Dyck and n-gram LMs.
+L241: ###### Proposition 4.1.
+L242: 
+L243: Representation-compatible LMs over ${{{\mathrm{D}\!\left({{b}},{{n}}\right)}}}$ are $2$-efficiently representable with ${{m}}={{n}}$ and ${{\Gamma}}={{\left\{\langle_{{i}}\mid{{i}}\in{{\left[{{b}}\right]}}\right\}}}$.
+L244: ###### Proof.
+L245: LMs over ${{{\mathrm{D}\!\left({{b}},{{n}}\right)}}}$ define distributions over strings of well-nested parentheses of ${{b}}$ up do depth ${{n}}$. They work over the alphabet ${{\Sigma}}={{\left\{\langle_{{i}}\mid{{i}}\in{{\left[{{b}}\right]}}\right\}}}\cup{{\left\{\rangle_{{i}}\mid{{i}}\in{{\left[{{b}}\right]}}\right\}}}$. A BPDA modeling an LM over ${{{\mathrm{D}\!\left({{b}},{{n}}\right)}}}$ only has to define POP and PUSH operations.
+L246: Specifically, $\langle_{{i}}$ corresponds to a push operation ${{{\texttt{PUSH}}}\left({{{{{\bm{\gamma}}}}}},\langle_{{i}},{{{{{\bm{\gamma}}}}}}\langle_{{i}}\right)}$ while $\rangle_{{i}}$ corresponds to a pop operation ${{{{\texttt{POP}}}\left({{{{{\bm{\gamma}}}}}}\langle_{{i}},\rangle_{{i}},{{{{{\bm{\gamma}}}}}}\right)}}$ for all ${{i}}\in{{\left[{{b}}\right]}}$.^{10}^{10} 10 This is true because the input-to-stack-symbol function ${{s}}$ here is taken to be the identity function.
+L247: Since popping can be performed by shifting all entries on the stack one position up while pushing can be performed by shifting all entries one position down (before inserting a new symbol), the BPDA modeling a ${{{\mathrm{D}\!\left({{b}},{{n}}\right)}}}$ language is stack-affine and $2$-varied with the partition ${{\Sigma}}={{{{\Sigma}}_{{{\texttt{POP}}}}}}\sqcup{{{{\Sigma}}_{{{\texttt{PUSH}}}}}}$ where ${{{{\Sigma}}_{{{\texttt{POP}}}}}}={{\left\{\rangle_{{i}}\mid{{i}}\in{{\left[{{b}}\right]}}\right\}}}$, ${{{{\Sigma}}_{{{\texttt{PUSH}}}}}}={{\left\{\langle_{{i}}\mid{{i}}\in{{\left[{{b}}\right]}}\right\}}}$.
+L248: Additionally, since each input symbol modifies the stack in a deterministic way—either it is discarded (in case of popping) or is added to the top position of the stack (in case of pushing)—the BPDA is ${{\Sigma}}$-determined. Moreover, since the stack only ever needs to store the ${{b}}$ opening brackets, only $\lceil\log_{2}{\left({{b}}+1\right)}\rceil$ bits are needed to represent each entry.
+L249: Altogether, this means that ${{{\mathrm{D}\!\left({{b}},{{n}}\right)}}}$ LMs are efficiently representable by RNN LMs of size ${{D}}=2{{n}}\lceil\log_{2}{\left({{b}}+1\right)}\rceil$. ∎
+L250: Note that the construction presented by cite38†Hewitt et al. (2020) results in RNNs of size $2\cdot 2{{n}}\lceil\log_{2}{\left({{b}}+1\right)}\rceil$. This is because they rely on stack representations that contain the complements of the symbol encodings. This is not strictly required, which is interesting since cite38†Hewitt et al. (2020) note a difference in the constant factor between Elman RNNs and LSTMs. Our construction does away with this difference; see cite31†App. C for details.
+L251: ###### Proposition 4.2.
+L252: 
+L253: Representation-compatible n-gram LMs are $1$-efficiently representable with ${{m}}={{\textit{n}}}-1$ and ${{\Gamma}}={{\Sigma}}$.
+L254: ###### Proof.
+L255: Representing an n-gram LM requires computing the probability of every symbol given the previous ${{\textit{n}}}-1$ symbols.^{11}^{11} 11 The prefixes at the beginning of the string have to be appropriately padded. This can be performed by, at step ${{t}}$, (1) storing the previous ${{\textit{n}}}-1$ symbols in the bounded stack of size ${{m}}={{\textit{n}}}-1$ and (2) checking the probability of the symbol ${{{{y}}_{{{t}}}}}$ given the ${{\textit{n}}}-1$ stored symbols.
+L256: The required updates to the bounded stack can easily be performed by the stack-affine operation of shifting all symbols one position downward. Since all symbols perform that action, the function is $1$-varied. Furthermore, since each input symbol induces the same update to the stack—the insertion of the symbol at the top of the stack—the BPDA is ${{\Sigma}}$-determined.
+L257: This makes n-gram LMs efficiently representable by RNN LMs of size ${{D}}=\left({{\textit{n}}}-1\right)\lceil\log_{2}{\left({{|{{\Sigma}}|}}+1\right)}\rceil$. ∎
+L258: ## 5 Discussion
+L259: 
+L260: This work was motivated by the question of what classes of LMs beyond those over ${{\mathrm{D}\!\left({{b}},{{n}}\right)}}$ can be efficiently represented by RNN LMs, a generalization of an open question posed by cite38†Hewitt et al. (2020) . We address this with cite72†Thm. 4.1 , whose implications we discuss next.
+L261: ##### Analyzing LMs with general models of computation.
+L262: This work puts the results by cite38†Hewitt et al. (2020) in a broader context of studying the representational capacity of RNN LMs not limited to human language phenomena. Restricting the analysis to isolated phenomena might not provide a holistic understanding of the model, its capabilities, and the upper bounds of its representational capacity.
+L263: General models of computation provide a framework for such holistic analysis; besides being able to provide concrete lower and upper bounds on the (efficient) representational capacity, the thorough understanding of their relationship to human language also provides apt insights into the model’s linguistic capabilities.
+L264: For example, the simulation of n-gram LMs shows that RNNs can efficiently represent representation-compatible strictly local LMs (cite74†Jäger and Rogers, 2012 ), a simple and well-understood class of LMs. This provides a concrete (albeit loose) lower bound on the efficient representational capacity of RNNs. Further, we directly study the efficient probabilistic representational capacity of RNN LMs rather than the binary acceptance of strings.
+L265: This allows for a more natural and immediate connection between the inherently probabilistic neural LMs and probabilistic formal models of computation such as BPDA s.
+L266: ##### Inductive biases of RNN LMs.
+L267: Understanding neural LMs in terms of the classes of LMs they can efficiently represent allows us to reason about their inductive biases. When identifying the best model to explain the data, we suspect an RNN would prefer to learn simple representations that still effectively capture the underlying patterns, rather than more complex ones.
+L268: We note that this is a form of inductive bias inherent to the model architecture; we do not address other defining aspects of inductive biases, such as the learning procedure itself. Understanding such inductive biases can then, as argued by cite38†Hewitt et al. (2020) , lead to architectural improvements. One can, for example, design better architectures or training procedures that exploit these inductive biases, enforce them, or loosen them if they are too restrictive.
+L269: In this light, cite72†Thm. 4.1 substantiates that there is nothing inherent in RNN LMs that biases them towards hierarchical languages since non-hierarchical ones can be modeled just as efficiently. Encouraging RNNs to learn and model cognitively plausible mechanisms for modeling language might, therefore, require us to augment them with additional mechanisms that explicitly model hierarchical structure, such as a stack (cite75†DuSell and Chiang, 2023 ).
+L270: cite72†Thm. 4.1 also indicates that hierarchical languages might not be the most appropriate playground for studying the inductive biases of RNNs. For example, isolating the hidden state recurrence to the POP and PUSH operations disregards that, unlike a stack, an RNN can look at and modify the entire hidden state when performing the update; POP and PUSH operations are limited to modifying of the top of the stack.
+L271: ##### Inductive biases and learnability.
+L272: A defining aspect of an inductive bias is its effect on the learning behavior. While we do not discuss the learnability of bounded stack LMs by RNN LMs, we underscore the importance of this factor for a full understanding of inductive biases. Both theoretical and empirical insights are required; they provide an exciting avenue for future work, one which we see as deserving of its own treatment.
+L273: More broadly, the inductive biases of a particular neural model rely on various aspects beyond the architecture, including the learning objective, the training algorithm, and features of the training data such as its ordering and size. With this in mind, we note that our results in no way suggest that RNNs are any worse at modeling hierarchical languages than non-hierarchical ones.
+L274: The results merely provide a first step towards a more thorough understanding of the inductive biases and suggest that studies striving to understand RNNs’ learning behavior should look beyond hierarchical languages.
+L275: ##### On the connection to human language.
+L276: Our paper was motivated by the question of whether RNNs can efficiently represent languages beyond ${{\mathrm{D}\!\left({{b}},{{n}}\right)}}$, which models hierarchical structures prominent in human language. Interestingly, our exploration of a broader class of efficiently representable LMs revealed that n-gram LMs, another class of models useful for studying human language processing, are also efficiently representable (cite76†Bickel et al., 2005 ; cite77†Shain et al., 2020 ; cite78†Wang et al., 2024 ).
+L277: This suggests a compelling interpretation: While RNNs may not naturally prefer hierarchical languages, our extended framework associates them with a more extensive range of human-relevant languages. This opens new avenues for understanding the inductive biases of RNNs and their connection to human language, encouraging further theoretical and empirical studies on the specific facets of human language that efficiently representable BPDA s can represent and that RNNs are adept at modeling.
+L278: ##### A new interpretation of Elman RNN recurrence.
+L279: As detailed by the construction in the proof of cite72†Thm. 4.1 , the core principle behind the efficient representation lies in the utilization of different parts of the hidden state as placeholders for relevant symbols that have occurred in the context; see also cite54†Fig. 1 . This suggests that a natural interpretation of the languages efficiently representable by Elman RNNs: Those recognized by an automaton that keeps a memory of a fixed number of elements that have occurred in the string so far.
+L280: ##### Relation to other classes of formal languages.
+L281: Striving to make the results as general as possible motivates the connection of bounded stack languages to other well-understood classes of languages. Since bounded stack languages are a particular class of finite-state languages, a natural question is how they relate to the existing sub-regular languages.
+L282: Those have in the past been connected to various aspects of human language (cite74†Jäger and Rogers, 2012 ) and the representational power of convolutional neural LMs (cite61†Merrill, 2019 ) and transformers (cite79†Yao et al., 2021 ). At first glance, efficiently representable BPDA s do not lend themselves to a natural characterization in terms of known classes of sub-regular languages, but we plan on investigating this further in future work.
+L283: ## 6 Conclusion
+L284: We build on cite38†Hewitt et al. ’s (cite38†2020 ) results and show that RNNs can efficiently represent a more general class of LMs than those over bounded Dyck languages. Concretely, we introduce bounded stack LMs as LMs defined by automata that keep ${{m}}$ selected symbols that have occurred in the string so far and update the memory using simple update mechanisms. We show that instances of such LMs can be represented by RNN LMs in optimal space.
+L285: This provides a step towards a more holistic grasp of the inductive biases of RNN LMs.
+L286: ## Limitations
+L287: We conclude by discussing some limitations of our theoretical investigation and point out some ways these limitations can be addressed. We first touch on the universality of the result implied by cite72†Thm. 4.1 . While we provide a new, more general, class of languages efficiently representable by RNNs and discuss the implications of this result, we do not provide an exact characterization of RNNs’ efficient representational capacity.
+L288: In other words, we do not provide tight lower and upper bounds on the complexity of the languages that can be efficiently represented by RNNs. The lower bound of strictly local languages that can be encoded using parameter sharing is relatively loose (${{{\mathrm{D}\!\left({{b}},{{n}}\right)}}}$ languages are much more complex than strictly local languages) and the upper bound remains evasive.
+L289: This is because we do not characterize the relation of bounded stack languages to other classes of languages, such as sub-regular languages. Determining precise bounds is further complicated by the unavoidable fact that the efficient representational capacity of RNNs also depends on the parameterization of the specific probability distributions formal models of computation can represent, as made clear by cite80†Thm. 4.2 .
+L290: Establishing more concrete bounds is therefore a challenging open problem that is left for future work.
+L291: We note that all our results are also specifically tailored to Elman RNNs with the specific update rule from cite60†Eq. 3b . However, the results naturally generalize to the LSTM architecture in the same way that cite38†Hewitt et al. ’s (cite38†2020 ) original constructions do.
+L292: ## Ethics Statement
+L293: 
+L294: The paper provides a way to theoretically analyze language models. To the best of the authors’ knowledge, this paper has no ethical implications.
+L295: 
+L296: ## Acknowledgements
+L297: 
+L298: Ryan Cotterell acknowledges support from the Swiss National Science Foundation (SNSF) as part of the “The Forgotten Role of Inductive Bias in Interpretability” project. Anej Svete is supported by the ETH AI Center Doctoral Fellowship. We thank the reviewers for their insightful comments and suggestions.
+L299: ## References
+L300:   * Abney et al. (1999) Steven Abney, David McAllester, and Fernando Pereira. 1999. cite81†Relating probabilistic grammars and automata†doi.org . In Proceedings of the 37th Annual Meeting of the Association for Computational Linguistics, pages 542–549, College Park, Maryland, USA. Association for Computational Linguistics.
+L301:   * Bickel et al. (2005) Steffen Bickel, Peter Haider, and Tobias Scheffer. 2005. cite82†Predicting sentences using n-gram language models†aclanthology.org . In Proceedings of Human Language Technology Conference and Conference on Empirical Methods in Natural Language Processing, pages 193–200, Vancouver, British Columbia, Canada. Association for Computational Linguistics.
+L302:   * Borenstein et al. (2024) Nadav Borenstein, Anej Svete, Robin Shing Moon Chan, Josef Valvoda, Franz Nowak, Isabelle Augenstein, Eleanor Chodroff, and Ryan Cotterell. 2024. What languages are easy to language-model? a perspective from learning probabilistic regular languages. In Proceedings of the 62nd Annual Meeting of the Association for Computational Linguistics (Volume 1: Long Papers), Bangkok, Thailand. Association for Computational Linguistics.
+L303:   * Chang and McCallum (2022) Haw-Shiuan Chang and Andrew McCallum. 2022. cite83†Softmax bottleneck makes language models unable to represent multi-mode word distributions†doi.org . In Proceedings of the 60th Annual Meeting of the Association for Computational Linguistics (Volume 1: Long Papers), pages 8048–8073, Dublin, Ireland. Association for Computational Linguistics.
+L304:   * Cotterell et al. (2024) Ryan Cotterell, Anej Svete, Clara Meister, Tianyu Liu, and Li Du. 2024. cite84†Formal aspects of language modeling . arXiv preprint 2311.04329.
+L305:   * Dewdney (1977) A. K. Dewdney. 1977. cite85†Threshold matrices and the state assignment problem for neural nets†ci.nii.ac.jp . In Proceedings of the 8th SouthEastern Conference on Combinatorics, Graph Theory and Computing, pages 227–245, Baton Rouge, La, USA.
+L306:   * Du et al. (2023) Li Du, Lucas Torroba Hennigen, Tiago Pimentel, Clara Meister, Jason Eisner, and Ryan Cotterell. 2023. cite86†A measure-theoretic characterization of tight language models†doi.org . In Proceedings of the 61st Annual Meeting of the Association for Computational Linguistics (Volume 1: Long Papers), pages 9744–9770, Toronto, Canada. Association for Computational Linguistics.
+L307:   * DuSell and Chiang (2023) Brian DuSell and David Chiang. 2023. cite87†The surprising computational power of nondeterministic stack RNNs . arXiv preprint 2210.01343.
+L308:   * Elman (1990) Jeffrey L. Elman. 1990. cite88†Finding structure in time†doi.org . Cognitive Science, 14(2):179–211.
+L309:   * Hao et al. (2018) Yiding Hao, William Merrill, Dana Angluin, Robert Frank, Noah Amsel, Andrew Benz, and Simon Mendelsohn. 2018. cite89†Context-free transductions with neural stacks†doi.org . In Proceedings of the 2018 EMNLP Workshop BlackboxNLP: Analyzing and Interpreting Neural Networks for NLP, pages 306–315, Brussels, Belgium. Association for Computational Linguistics.
+L310:   * Hewitt et al. (2020) John Hewitt, Michael Hahn, Surya Ganguli, Percy Liang, and Christopher D. Manning. 2020. cite90†RNNs can generate bounded hierarchical languages with optimal memory†doi.org . In Proceedings of the 2020 Conference on Empirical Methods in Natural Language Processing (EMNLP), pages 1978–2010, Online. Association for Computational Linguistics.
+L311:   * Hochreiter and Schmidhuber (1997) Sepp Hochreiter and Jürgen Schmidhuber. 1997. cite91†Long short-term memory†doi.org . Neural Computation, 9(8):1735–1780.
+L312:   * Indyk (1995) P. Indyk. 1995. cite92†Optimal simulation of automata by neural nets†dl.acm.org . In STACS 95, pages 337–348, Berlin, Heidelberg. Springer Berlin Heidelberg.
+L313:   * Jäger and Rogers (2012) Gerhard Jäger and James Rogers. 2012. cite93†Formal language theory: Refining the Chomsky hierarchy†doi.org . Philos Trans R Soc Lond B Biol Sci, 367(1598):1956–1970.
+L314:   * Kleene (1956) S. C. Kleene. 1956. cite94†Representation of events in nerve nets and finite automata†doi.org . In C. E. Shannon and J. McCarthy, editors, Automata Studies. (AM-34), Volume 34, pages 3–42. Princeton University Press, Princeton.

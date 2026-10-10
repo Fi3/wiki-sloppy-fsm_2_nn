@@ -1,0 +1,22 @@
+{
+  "retrieved_on": "2026-10-09",
+  "format": "browser-extracted-text",
+  "original_bytes_downloaded": false,
+  "review_scope": "Eric Blais, University of Waterloo CS 365 winter 2026, lectures 10–11. Full numbered text captured/read for definitions, parity construction, Turing-machine simulation and P/poly; figures not inspected and proofs not independently audited.",
+  "segments": [
+    {
+      "url": "https://cs.uwaterloo.ca/~eblais/cs365/w26/circuits",
+      "browser_total_lines": 109,
+      "captured_numbered_lines": 109,
+      "missing_line_ranges": [],
+      "complete_browser_text": true
+    },
+    {
+      "url": "https://cs.uwaterloo.ca/~eblais/cs365/w26/nonuniform",
+      "browser_total_lines": 68,
+      "captured_numbered_lines": 68,
+      "missing_line_ranges": [],
+      "complete_browser_text": true
+    }
+  ]
+}

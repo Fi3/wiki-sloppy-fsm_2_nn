@@ -1,0 +1,10 @@
+{
+  "title": "torch.compiler",
+  "document": "raw/pytorch-compiler/document.txt",
+  "original_filename": "web-extracted-text",
+  "url": "https://docs.pytorch.org/docs/stable/torch.compiler.html",
+  "imported_at": "2026-10-07T09:53:03+00:00",
+  "sha256": "6b43c1f9bc2ef9c17aaf4ea4b961924bfc0cce848a2674534f6e3c7ef7572980",
+  "capture_format": "browser-extracted-text",
+  "retrieved_on": "2026-10-07"
+}

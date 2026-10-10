@@ -1,0 +1,400 @@
+Effective Logic Synthesis for Threshold Logic Circuit Design
+Supplied URL: https://people.eecs.berkeley.edu/~alanmi/publications/2019/tcad19_thresh.pdf
+Retrieved on: 2026-10-07
+Format: text extracted by the web browsing tool, not the original PDF/HTML bytes.
+L numbers refer to the browser extraction. PDF P numbers are zero-based.
+A complete text extraction does not imply that every figure, equation, or proof was reviewed.
+Read capture.json for captured URLs, line coverage, and missing ranges.
+
+
+=== Segment 1: https://people.eecs.berkeley.edu/~alanmi/publications/2019/tcad19_thresh.pdf ===
+
+L0@P0: 926 IEEE TRANSACTIONS ON COMPUTER-AIDED DESIGN OF INTEGRATED CIRCUITS AND SYSTEMS, VOL. 38, NO. 5, MAY 2019
+L1@P0: Effective Logic Synthesis for Threshold
+L2@P0: Logic Circuit Design
+L3@P0: Augusto Neutzling , Student Member, IEEE, Jody Maick Matos , Member, IEEE, Alan Mishchenko,
+L4@P0: Andre Reis, Senior Member, IEEE, and Renato P. Ribas, Member, IEEE
+L5@P0: Abstract—This paper presents a novel and effective logic
+L6@P0: synthesis flow able to identify threshold logic functions during
+L7@P0: the technology mapping process. It provides more efficient logic
+L8@P0: covering, exploring also redundant cuts. Moreover, the proposed
+L9@P0: design flow takes into account different circuit area estimations,
+L10@P0: such as the sum of input weights and threshold values, the gate
+L11@P0: fanin and the number of threshold logic gates. As a result, the
+L12@P0: mapped circuits present a reduction up to 47% and 67% in area
+L13@P0: and logic depth, respectively, in comparison to the most recent
+L14@P0: related approaches.
+L15@P0: Index Terms—Digital circuit, emerging nanotechnologies, logic
+L16@P0: synthesis, technology mapping, threshold logic.
+L17@P0: I. INTRODUCTION
+L18@P0: T HRESHOLD logic is a powerful alternative paradigm for
+L19@P0: implementing Boolean functions in digital circuit design.
+L20@P0: A threshold function can be roughly defined as a Boolean
+L21@P0: function in which the output is evaluated in terms of input
+L22@P0: weights and a given function threshold value. Although this
+L23@P0: subject has been studied since the 1960s, the lack of effective hardware construction of threshold functions led to a
+L24@P0: loss of interest in developing specific circuit design flow and
+L25@P0: methodologies, comprising specialized algorithms and CAD
+L26@P0: tools. However, more recently, some emerging technologies,
+L27@P0: such as memristor [1], [2], quantum cellular automata [3],
+L28@P0: magnetic tunnel junction [4], [5], and resonant tunneling
+L29@P0: device (RTD) [6], have demonstrated to be more appropriate
+L30@P0: for threshold logic than for the most conventional switchbased CMOS/FinFET circuitry, which leads to AND/OR-based
+L31@P0: synthesis.
+L32@P0: As a consequence, algorithms addressing threshold logic
+L33@P0: synthesis (TLS) have been presented in [7]–[13]. The major
+L34@P0: drawback of these methods is the fact that they do not consider
+L35@P0: threshold logic while generating an initial covering in terms
+L36@P0: Manuscript received October 9, 2017; revised February 4, 2018; accepted
+L37@P0: March 21, 2018. Date of publication May 8, 2018; date of current version
+L38@P0: April 19, 2019. This work was supported in part by CAPES and in part
+L39@P0: by CNPq. This paper was recommended by Associate Editor R. Drechsler.
+L40@P0: (Corresponding author: Augusto Neutzling.)
+L41@P0: A. Neutzling, J. M. Matos, A. Reis, and R. P. Ribas are with
+L42@P0: the Institute of Informatics, Federal University of Rio Grande
+L43@P0: do Sul, Porto Alegre 9500, Brazil (e-mail: ansilva@inf.ufrgs.br;
+L44@P0: jody.matos@inf.ufrgs.br; andre.reis@inf.ufrgs.br; rpribas@inf.ufrgs.br).
+L45@P0: A. Mishchenko is with the Electrical Engineering and Computer Science
+L46@P0: Department, University of California at Berkeley, Berkeley, CA 94720 USA
+L47@P0: (e-mail: alanmi@eecs.berkeley.edu).
+L48@P0: Color versions of one or more of the figures in this paper are available
+L49@P0: online at http://ieeexplore.ieee.org.
+L50@P0: Digital Object Identifier 10.1109/TCAD.2018.2834434
+L51@P0: of 6-input single-output nodes. In general, once the circuit
+L52@P0: has been covered, these previous approaches generate locally a
+L53@P0: threshold network for each single-output node, aiming to cover
+L54@P0: the circuit using only threshold logic gates (TLGs). Moreover,
+L55@P0: the area estimation relies only on the number of TLGs in the
+L56@P0: final circuit. However, such an estimation may be inaccurate,
+L57@P0: since some TLG-based designs fit better when considering the
+L58@P0: total sum of input weights and threshold values, or even the
+L59@P0: total number of gate inputs (fanin) [1], [4], [6].
+L60@P0: In this paper, we propose a novel threshold logic circuit
+L61@P0: design flow comprising several orthogonal improvements to
+L62@P0: TLG-oriented technology mapping.
+L63@P0: 1) By exploiting the thresholdness information from quite
+L64@P0: effective threshold logic identification, the proposed
+L65@P0: flow is able to combine area and circuit logic depth
+L66@P0: optimization through a simple and fast procedure with
+L67@P0: good quality-of-results (QoRs).
+L68@P0: 2) By exploiting redundant cuts, the number of enumerated threshold cuts is increased enabling the covering to
+L69@P0: reduce even more the circuit area.
+L70@P0: 3) The proposed approach is able to target different
+L71@P0: threshold-based area estimations, such as the sum of
+L72@P0: input weights and threshold values, the gate fanin and
+L73@P0: the number of TLGs, allowing the exploitation of circuit design particularities related to different thresholdoriented emerging technologies.
+L74@P0: The proposed flow has been implemented in the ABC logic
+L75@P0: synthesis tool [14]. The experimental results demonstrate the
+L76@P0: gains of the proposed threshold-oriented synthesis against the
+L77@P0: standard AND/OR-based flow provided in current commercial
+L78@P0: EDA tools. We also compare the results with the most relevant methods for threshold synthesis, in terms of circuit area
+L79@P0: and logic depth. In order to demonstrate the scalability of this
+L80@P0: method, we have carried out the synthesis of benchmark circuits comprising millions of gates. We also demonstrate that
+L81@P0: the proposed approach is able to treat TLGs with large fanin,
+L82@P0: whereas other methods are limited to six inputs.
+L83@P0: The rest of this paper is organized as follows. In Section II,
+L84@P0: some fundamentals are briefly reviewed for a better understanding of the proposed approach. Section III discusses
+L85@P0: some related works. The proposed threshold synthesis flow
+L86@P0: is described in Section IV, presenting the improvement by
+L87@P0: enumerating redundant cuts and the proposed strategy for a
+L88@P0: technology-oriented area mapping. Section V provides the
+L89@P0: experimental results, whereas the conclusions are given in
+L90@P0: Section VI.
+L91@P0: 0278-0070 c 2018 IEEE. Personal use is permitted, but republication/redistribution requires IEEE permission.
+L92@P0: See http://www.ieee.org/publications_standards/publications/rights/index.html for more information.NEUTZLING et al.: EFFECTIVE LOGIC SYNTHESIS FOR THRESHOLD LOGIC CIRCUIT DESIGN 927
+L93@P1: II. PRELIMINARIES
+L94@P1: In this section, some fundamentals on Boolean networks,
+L95@P1: structural cuts and threshold logic are presented. Different area
+L96@P1: estimations taken into account in this paper are discussed. We
+L97@P1: also review the LUT-based technology mapping for FPGAs,
+L98@P1: which is the basis of the proposed mapper.
+L99@P1: A. General Terms and Definitions
+L100@P1: A Boolean network is a directed acyclic graph (DAG) where
+L101@P1: nodes correspond to logic gates and directed edges represent
+L102@P1: wires connecting the gates. It is assumed that each node has a
+L103@P1: unique ID (integer number). A fanin (fanout) cone of node n
+L104@P1: is a subset of all nodes of the network reachable through the
+L105@P1: fanin (fanout) edges from the given node. A node n has zero or
+L106@P1: larger fanin (nodes driving n) and zero or larger fanout (nodes
+L107@P1: driven by n). The primary inputs (PIs) are nodes without fanin,
+L108@P1: whereas the primary outputs (POs) are a subset of nodes from
+L109@P1: the network connecting it to the environment.
+L110@P1: AND-inverter graph (AIG) is a particular DAG where each
+L111@P1: node has either zero incoming edges (in the case of PI) or two
+L112@P1: incoming edges (in the case of AND node). Each edge can be
+L113@P1: complemented or not. Some nodes are marked as PO.
+L114@P1: Moreover, in terms of structural cuts,a cut c of a node
+L115@P1: n is a set of nodes in the network, called leaves of the cut,
+L116@P1: such that every path between a PI and n contains a node in
+L117@P1: c. A cut of n is irredundant if no subset on it is a cut. A
+L118@P1: K-feasible cut contains K or fewer nodes. Node n is called
+L119@P1: the root of cut c. The cut size is the number of its leaves.
+L120@P1: A trivial cut is the node itself. A local function of an AIG
+L121@P1: node n, denoted by fn(x), is a Boolean function of the logic
+L122@P1: cone rooted in n and expressed in terms of the leaves x of a
+L123@P1: cut of n. Cut enumeration is a technique used by a cut-based
+L124@P1: technology mapper to perform cut computation using dynamic
+L125@P1: programming, starting from PI and ending at PO [15], [16].
+L126@P1: Furthermore, in terms of classes of functions, a set of all
+L127@P1: functions with up to n variables can be grouped taking into
+L128@P1: account the negation (N), and/or the permutation (P) of variables, and/or the negation of the function value, so creating
+L129@P1: NPN representatives [17]. For instance, NP-class corresponds
+L130@P1: to the set of distinct functions obtained by negating and/or permuting the input variables. Similarly, NPN-class corresponds
+L131@P1: to the set of distinct functions obtained by negating and/or
+L132@P1: permuting the input variables and/or negating the function
+L133@P1: value.
+L134@P1: B. Threshold Logic Terms and Area Estimation
+L135@P1: A threshold logic function (TLF) is a Boolean function
+L136@P1: satisfying the following condition [18]:
+L137@P1: f =
+L138@P1: 
+L139@P1: 1, if n
+L140@P1: i=1 xiwi ≥ T
+L141@P1: 0, otherwise (1)
+L142@P1: where xi represents each Boolean input value {0, 1}, wi is the
+L143@P1: weight of each input, and T is the function threshold value.
+L144@P1: Therefore, each input has a specific weight and the function
+L145@P1: has a threshold value. If the sum of active input weights (i.e.,
+L146@P1: inputs are equal to 1) is greater or equal than the threshold
+L147@P1: value, then the function evaluates to 1. Otherwise, the function
+L148@P1: evaluates to 0.
+L149@P1: A TLF is completely represented by a compact vector
+L150@P1: [w1, w2, ..., wn; T], where w1, w2, ..., wn are the input
+L151@P1: weights and T is the function threshold value. For instance,
+L152@P1: the corresponding TLG of the given functions f = x1x2x3 and
+L153@P1: g = x1 + x2 + x3 are [1, 1, 1; 3] and [1, 1, 1; 1], respectively.
+L154@P1: A TLF has also been called “linearly separable” function.
+L155@P1: Although some complex functions are TLFs, there exist
+L156@P1: some simple functions that are not TLF. For instance, the
+L157@P1: function h = x1x2 + x3x4 cannot be represented in terms
+L158@P1: of input weights and threshold value. The threshold logic
+L159@P1: identification process verifies if a given Boolean function is
+L160@P1: TLF (or not) and compute the input weights and the corresponding threshold value. In this paper, we have adopted
+L161@P1: the identification process presented in [19], instead of the
+L162@P1: integer-linear-programming (ILP)-based algorithms applied in
+L163@P1: previous works [7]–[10], [20]. This is mainly due to the fast
+L164@P1: runtime and good QoRs obtained. In such an approach, a complete system of inequalities is also built using a similar strategy
+L165@P1: to ILP inequalities generation algorithms. However, unlike
+L166@P1: ILP-based approaches, the inequalities system is not solved.
+L167@P1: Instead, the algorithm speeds up the process by selecting some
+L168@P1: of the inequalities as constraints to the associated variables and
+L169@P1: computing the variable (input) weights in a bottom-up strategy. After this assignment, the consistency of the entire system
+L170@P1: is verified in order to check whether the weights have been
+L171@P1: correctly computed.
+L172@P1: In the context of structural cuts, we call a threshold cut that
+L173@P1: the corresponding Boolean function is TLF.
+L174@P1: TLG is a single primitive or a nondecomposable circuit
+L175@P1: that physically embodies the behavior expressed in (1). TLGs
+L176@P1: can represent the implementation of complex functions. For
+L177@P1: instance, the TLG defined by [4, 3, 3, 1, 1; 7] corresponds to
+L178@P1: f = x1x2+x1x3+x2x3x4+x2x3x5. Using larger threshold functions has the potential benefit of reducing the total number of
+L179@P1: gates needed to implement digital circuits. Several topologies
+L180@P1: of TLGs have been proposed for CMOS and emerging nanotechnologies. A survey with more than 50 TLG circuitries are
+L181@P1: presented by Beiu et al. [21]. Moreover, TLG designs based
+L182@P1: on memristors [1], spintronics devices [4], and RTDs [7] have
+L183@P1: also been proposed.
+L184@P1: Threshold logic network (TLN), on the other hand, is a
+L185@P1: netlist of TLFs and interconnections. A TLN can be implemented using TLGs, since each TLF can be directly implemented through a single TLG. The area of TLN corresponds
+L186@P1: to the sum of the TLG areas. Notice that the TLG area
+L187@P1: depends directly on the technology adopted to build such a
+L188@P1: gate. However, since no threshold-oriented technology currently available is mature enough to fabricate reliable TLGs in
+L189@P1: large scale, synthesis tools usually consider that each threshold gate presents the same area. Therefore, the total circuit
+L190@P1: area is usually estimated through the overall number of TLGs
+L191@P1: instantiated in the mapped circuit.
+L192@P1: Although it is hard to define a general TLG area estimation, some of them are more suitable for specific technologies.
+L193@P1: For instance, when designing a TLG by using RTDs, each
+L194@P1: input weight and function threshold values determine the diode928 IEEE TRANSACTIONS ON COMPUTER-AIDED DESIGN OF INTEGRATED CIRCUITS AND SYSTEMS, VOL. 38, NO. 5, MAY 2019
+L195@P2: physical area. Therefore, the gate area is directly related to
+L196@P2: the sum of the input weights and the threshold value, as
+L197@P2: follows [7]:
+L198@P2: ATLG = T + Au
+L199@P2: 
+L200@P2: 
+L201@P2: k
+L202@P2: i=1
+L203@P2: wi
+L204@P2: 
+L205@P2: (2)
+L206@P2: where k is the number of TLG inputs (fanin), wi is the weight
+L207@P2: of input i, Au is the unit area of an RTD with w = 1, and T is
+L208@P2: the threshold of the gate.
+L209@P2: In other technologies, such as memristors [1], [2] and
+L210@P2: spintronic-based devices [4], [5], the input weight is set by
+L211@P2: applying a voltage over the device during a moment, so not
+L212@P2: impacting the device physical dimensions. In these cases, each
+L213@P2: input is associated to a single device (with the same area) and,
+L214@P2: as a consequence, the most appropriate gate area estimation
+L215@P2: metric is the number of gate inputs.
+L216@P2: C. LUT-Based Technology Mapping
+L217@P2: Common area and delay design cost criteria for TLS are,
+L218@P2: respectively, the TLG count and the circuit logic depth.
+L219@P2: Therefore, it is straightforward to relate TLS with LUT-based
+L220@P2: technology mapping.
+L221@P2: The technology mapping process transforms a technologyindependent logic network, named subject graph, into a
+L222@P2: network of logic nodes. In SRAM-based FPGA, each logic
+L223@P2: node is represented by a K-input LUT implementing any
+L224@P2: Boolean function up to K variables [15]. The subject graph
+L225@P2: is often represented as an AIG.
+L226@P2: The performance of FPGA-based circuit is determined by
+L227@P2: two factors, the delay in K-LUTs and the delay due to the
+L228@P2: interconnection wires. Each K-LUT has a constant delay independent of the function configured, which represents the access
+L229@P2: time of a K-LUT. The interconnection delay is dominated by
+L230@P2: the physical configuration of the FPGA architecture, which
+L231@P2: is not available during the logic synthesis. Thus, LUT-based
+L232@P2: technology mappers assume that each edge in the mapping
+L233@P2: solution has a constant delay. Due to these reasons, the circuit
+L234@P2: delay is commonly represented by the circuit logic depth and
+L235@P2: the circuit area is represented by the number of K-LUTs from
+L236@P2: the mapped solution.
+L237@P2: Technology mappers for FPGA produce near-optimum logic
+L238@P2: depth while minimizing the number of LUTs in the resulting
+L239@P2: network [15], [22], [23]. A typical procedure comprises the
+L240@P2: following steps.
+L241@P2: 1) Near-optimum delay mapping: computes arrival time at
+L242@P2: each node by computing the depth of priority cuts and
+L243@P2: choosing the best one.
+L244@P2: 2) Area recovery: reduces area using several heuristics, for
+L245@P2: instance, area flow and exact local area [14].
+L246@P2: 3) Choose the resulting cover.
+L247@P2: Notice that the logic depth optimality is only achievable by
+L248@P2: this procedure because the delay-oriented mapping problem
+L249@P2: has two important properties: 1) its optimal solution can be
+L250@P2: obtained by using the optimal solution from its subproblems
+L251@P2: and 2) its subproblems overlap, i.e., solutions of same subproblems are repeatedly needed. With this, through dynamic
+L252@P2: programming, choosing the best cut of a node is incrementally
+L253@P2: solving the mapping problem from inputs to outputs.
+L254@P2: Moreover, circuit logic depth optimality requires the computation of all cuts in delay mapping, which is not scalable,
+L255@P2: i.e., the number of K-cuts in a given network with n nodes is
+L256@P2: O(nK). In order to avoid exhaustive computation, the concept
+L257@P2: of priority cuts allows for the computation of a small number C of K-cuts at each node (typically 4 ≤ C ≤ 8). The
+L258@P2: priority cut computation does not guarantee depth optimality. However, the circuit logic depth is optimal in 95% of the
+L259@P2: cases [24]. This one-pass, depth-oriented mapping increases
+L260@P2: substantially the number of LUTs, which is brought down on
+L261@P2: the area recovery step [15], [22].
+L262@P2: III. RELATED WORKS
+L263@P2: The goal of TLS is to generate a TLN where each TLF can
+L264@P2: be directly implemented through a single TLG. The design
+L265@P2: flow adopted by previous works starts by performing an LUTbased technology mapping [7]–[11]. This first mapping task
+L266@P2: results in a netlist of Boolean functions with restricted fanin.
+L267@P2: Afterwards, these methods identify which Boolean functions
+L268@P2: are TLF and then include them into the final solution. For each
+L269@P2: non-TLF, they generate a subnetwork. The main differences
+L270@P2: among these approaches are: 1) the procedure of the threshold
+L271@P2: logic identification and 2) the generation of the sub-TLN from
+L272@P2: a nonthreshold function.
+L273@P2: Zhang et al. [7] and Subirats et al. [8] used ILP to perform
+L274@P2: the TLF identification. For non-TLFs, the Zhang’s method
+L275@P2: decomposes the function into AND/OR subfunctions, which
+L276@P2: are always TLFs, and select nodes through a heuristic way in
+L277@P2: order to combine them, checking whether the resulting function is TLF. The Subirats’ approach, on the other hand, is
+L278@P2: based on the function truth table description. It selects recursively a variable and performs the Shannon decomposition up
+L279@P2: to find TLF subfunctions. The Subirats’ method improves the
+L280@P2: Zhang’s results in terms of the number of gates and circuit
+L281@P2: logic depth. However, the Subirats’ approach produces only
+L282@P2: two-level TLNs without fanin restrictions, being more suitable
+L283@P2: to neural network design.
+L284@P2: Gowda et al. [9] proposed a heuristic approach to identify
+L285@P2: TLF. They adopt both binary decision diagrams (BDDs) and a
+L286@P2: factorized tree structure [called max literal factor tree (MLFT)]
+L287@P2: in order to generate a TLN. The method breaks recursively the
+L288@P2: initial expression tree into subexpressions, identifying subtrees
+L289@P2: that represent TLF and assigning input weights. The method
+L290@P2: proposed by Palaniswamy and Tragoudas [10], improves the
+L291@P2: Gowda’s approach [9]. It looks for circuit outputs that can
+L292@P2: be implemented as a single TLF. Both the Gowda’s and the
+L293@P2: Palaniswamy’s methods suffer from execution time as the main
+L294@P2: bottleneck, and the solutions depend strongly on the initial
+L295@P2: structure (BDD or MLFT), in particular, on the ordering of
+L296@P2: tree nodes.
+L297@P2: The method proposed by Neutzling et al. [11], is based
+L298@P2: on a TLG association process through the principle called
+L299@P2: functional composition, which is based on dynamic programming [26]. The algorithm associates simpler subsolutions, with
+L300@P2: known design costs, e.g., the number of gates, in order toNEUTZLING et al.: EFFECTIVE LOGIC SYNTHESIS FOR THRESHOLD LOGIC CIRCUIT DESIGN 929
+L301@P3: (a)
+L302@P3: (b)
+L303@P3: (c)
+L304@P3: Fig. 1. Different TLS flows. (a) Previous works from other authors. (b) Proposed in [25]. (c) Proposed in this paper.
+L305@P3: produce the final solution with minimum cost. In order to
+L306@P3: identify whether the Boolean function created from such an
+L307@P3: association is TLF, the method adopts the heuristic method
+L308@P3: proposed in [27]. The Neutzling’s approach presents improved
+L309@P3: results in terms of TLG count when compared to previous
+L310@P3: approaches. However, the design optimization in respect to the
+L311@P3: circuit logic depth is not so significant. Moreover, the execution time is also a limitation and the approach does not scales
+L312@P3: for TLFs with more than six variables (inputs).
+L313@P3: The TLS methods mentioned above generate a TLF network
+L314@P3: from a generic Boolean function netlist. Another set of
+L315@P3: approaches focuses in the optimization starting from a TLN.
+L316@P3: Methods for TLG-based circuit rewiring are presented by
+L317@P3: Lin et al. [12] and Kuo et al. [28]. Kuo’s approach focuses
+L318@P3: only on circuit restructuring for satisfying a new fanin constraint and does not take into account the area and logic
+L319@P3: depth minimization issue. Lin’s approach, on the other hand,
+L320@P3: represents a heuristic for rewiring the circuit by minimizing the summation of input weights and threshold value.
+L321@P3: Chen et al. [13] proposed an analytical approach based on
+L322@P3: collapsing two threshold gates in order to minimize the total
+L323@P3: number of TLGs. Annampedu’s method, in [29], receives as
+L324@P3: input a given (already identified) single-output threshold function. Therefore, this method is not able to treat a general logic
+L325@P3: circuit with multiple outputs corresponding to Boolean functions not necessarily identified as threshold ones. The main
+L326@P3: goal of Annampedu’s method is to restrict the fanin of a given
+L327@P3: threshold function implementation. Finally, Kulkarni et al. [30]
+L328@P3: proposed TLG-based approaches to reduce the circuit area and
+L329@P3: power consumption without loss of performance. However, the
+L330@P3: technology mapping is performed by a commercial tool using
+L331@P3: conventional (i.e., nonthreshold-based) standard cell library.
+L332@P3: This method replaces some standard flip-flops by threshold logic sequential cells [30]. As a consequence, a hybrid
+L333@P3: netlist comprising both TLGs and conventional logic gates is
+L334@P3: provided.
+L335@P3: Notice that all of mentioned TLS approaches focus basically on synthesizing single-output non-TLF. The first step of
+L336@P3: previous methods relies on a complete synthesis process which
+L337@P3: disregards threshold logic domain. Therefore, they do not
+L338@P3: explore the entire circuit where they would find, for instance,
+L339@P3: TLFs between different functions in the netlist.
+L340@P3: IV. PROPOSED THRESHOLD LOGIC SYNTHESIS
+L341@P3: Given a digital circuit functionality, usually described in
+L342@P3: RTL format, the TLS relies on finding an optimized TLN.
+L343@P3: The most TLS tools initially cover the circuit by singleoutput nodes, disregarding their thresholdness, as illustrated in
+L344@P3: Fig. 1(a) [7]–[11]. Then, these approaches perform the resynthesis of any non-TLF found to individual, unshared sub-TLN
+L345@P3: in order to provide the covering of the final TLN.
+L346@P3: In [25], we propose a logic synthesis flow that identifies
+L347@P3: TLFs before the circuit covering task. It is based on a threestage procedure, as depicted in Fig. 1(b): 1) a complete cut
+L348@P3: enumeration, storing Boolean functions of cuts in the design;
+L349@P3: 2) the identification of TLFs related to this set of computed
+L350@P3: cuts; and 3) the technology mapping considering thresholdness of precomputed functions. By doing so, this approach
+L351@P3: is able to discard non-TLF cuts and provides the corresponding threshold network from the first covering action. Such a
+L352@P3: strategy allows the exploitation of multiobjective technology
+L353@P3: mapping algorithms, as described in Section II-C. On the other
+L354@P3: hand, notice that this approach relies on computing cuts twice
+L355@P3: in the flow, in the stages 1) and 3), mentioned above.
+L356@P3: A. Unified Threshold Logic Synthesis Flow
+L357@P3: The new proposed TLS flow, illustrated in Fig. 1(c), seeks a
+L358@P3: single-stage approach, so avoiding to compute cuts twice in the
+L359@P3: flow and performing the threshold logic identification during
+L360@P3: the technology mapping task. A pseudocode is presented in
+L361@P3: Algorithm 1 and is explained in the following.930 IEEE TRANSACTIONS ON COMPUTER-AIDED DESIGN OF INTEGRATED CIRCUITS AND SYSTEMS, VOL. 38, NO. 5, MAY 2019
+L362@P4: Initially, the AIG is traversed in topological order (from
+L363@P4: PIs to POs). For each visited node, an empty cut set is created (line 2 in Algorithm 1). Then, the cuts of a node are
+L364@P4: computed as a Cartesian product of the cuts from its children (lines 3–5). Notice that only cuts that respect the fanin
+L365@P4: constraint are considered in the procedure (lines 6 and 7).
+L366@P4: In the core of the cut computation task, we propose to
+L367@P4: extract the Boolean function of each cut and to compute an
+L368@P4: NPN representative of the target function (lines 8–16) [17].
+L369@P4: By making so, we guarantee that the threshold identification
+L370@P4: is performed only once per NPN representative through the
+L371@P4: use of hash table. This procedure aims to ensure that only
+L372@P4: threshold cuts are matchable in the covering task.
+L373@P4: The next step is to add the new cut into the node cuts set. As
+L374@P4: we have adopted the priority cut strategy (see Section II-C),
+L375@P4: the cut set size is limited by a user-defined parameter C, being
+L376@P4: typically eight, and the set is kept ordered at each iteration.
+L377@P4: Common ordering criteria and tie-breaks are area, delay, and
+L378@P4: fanin. If the cut set is larger than C, then the worst cut is
+L379@P4: discarded.
+L380@P4: Notice that the thresholdness information is already available when adding the new cut into the cut set. This fundamental change, along with the important role of the best cut of a
+L381@P4: node, can be used to guarantee that only threshold cuts are
+L382@P4: taken into account during the mapping process. Moreover, at
+L383@P4: the end of the process, the trivial cut (i.e., the node itself) is
+L384@P4: added to the cut set. Once AIG have been adopted as subject
+L385@P4: graph, the entire design is already decomposed in AND nodes,
+L386@P4: which are TLFs. By adding the trivial cut, we ensure that the
+L387@P4: proposed method can always find a TLF-only covering.
+L388@P4: Once the cut computation step is finished, a covering step

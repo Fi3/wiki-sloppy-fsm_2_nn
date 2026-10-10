@@ -1,0 +1,808 @@
+Efficient Simulation of Finite Automata by Neural Nets
+Supplied URL: https://www.cs.tau.ac.il/~nogaa/PDFS/Publications/Efficient%20simulations%20of%20finite%20automata%20by%20neural%20nets.pdf
+Retrieved on: 2026-10-07
+Format: text extracted by the web browsing tool, not the original PDF/HTML bytes.
+L numbers refer to the browser extraction. PDF P numbers are zero-based.
+A complete text extraction does not imply that every figure, equation, or proof was reviewed.
+Read capture.json for captured URLs, line coverage, and missing ranges.
+
+
+=== Segment 1: https://www.cs.tau.ac.il/~nogaa/PDFS/Publications/Efficient%20simulations%20of%20finite%20automata%20by%20neural%20nets.pdf ===
+
+L0@P0: Efficient Simulation of Finite Automata
+L1@P0: by Neural Nets
+L2@P0: NOGA ALON
+L3@P0: Tel Aviv University, Ramat Aviv, Tel Aviv, Israel
+L4@P0: A. K. DEWDNEY
+L5@P0: University of Western Ontario, London, Ontario, Canada
+L6@P0: AND
+L7@P0: TEUNIS J. OTT
+L8@P0: Bell Communications Research, Morristown, New Jersey
+L9@P0: Abstract. Let K(m) denote the smallest number with the property that every m-state finite automaton
+L10@P0: can be built as a neural net using K(m) or fewer neurons. A counting argument shows that K(m) is at
+L11@P0: least ~((m log m)’ 13), and a construction shows that K(m) is at most 0(m3/4). The counting
+L12@P0: argument and the construction allow neural nets with arbitrarily complex local structure and thus may
+L13@P0: require neurons that themselves amount to complicated networks. Mild, and in practical situations
+L14@P0: almost necessary, constraints on the local structure of the network give, again by a counting argument
+L15@P0: and a construction, lower and upper bounds for K(m) that are both linear in m.
+L16@P0: Categories and Subject Descriptors: F. 1.1 [Computation by Abstract Devices]: Models of Computation—automata, relations between models
+L17@P0: General Terms: Neural nets, Finite automata
+L18@P0: Additional Key Words and Phrases: Mealy Machines
+L19@P0: 1. Introduction
+L20@P0: It has been known since 1954 (see Minsky [9, 10]) that any (deterministic) finite
+L21@P0: automaton can be realized or simulated by a neural net of the original type
+L22@P0: specified by McCullough and Pitts [7]. The simulation is quite simple: A finite
+L23@P0: automaton with m states is replaced by a network containing 2 m + 1 neurons.
+L24@P0: Part of this research was done while N. Alon and A. K. Dewdney were visltmg Bellcore in the Summer
+L25@P0: of 1987.
+L26@P0: Authors’ addresses: N. Alon, Department of Mathematics, Sackler Faculty of Exact Sciences, Tel Aviv
+L27@P0: University, Ramat Aviv, Tel Aviv, Israel 69978; A. K. Dewdney, Department of Computer Science,
+L28@P0: University of Western Ontario, London, Ont., Canada N6A 5B7; T. J. Ott, Bell Commumcations
+L29@P0: Research, 435 South Street, Morristown, N.1 07960.
+L30@P0: Permission to copy without fee all or part of this material is granted provided that the copies are not
+L31@P0: made or distributed for direct commercial advantage, the ACM copyright notice and the title of the
+L32@P0: publication and its date appear, and notice is given that copying is by permission of the Association for
+L33@P0: Computing Machinery. To copy otberwlse, or to republish, requires a fee and/or specific permission.
+L34@P0: 01991 ACM 0004-5411 /91 /040(-0495 $01.50
+L35@P0: Jwrnal of the Awoclat,m fo, Compwng Mach,nay, Vol 38, No Z A@ 1991, pp 495-514496 ALON ET AL
+L36@P1: However, if one considers that a network containing n neurons is capable of
+L37@P1: 2 n states, one might wonder whether a more efficient simulation is possible. In
+L38@P1: particular, it might be expected that an arbitrary n-z-state automaton could be
+L39@P1: simulated by a neural net having O(log m) neurons. This turns out to be very
+L40@P1: far from the truth. Counting arguments developed here show that in general one
+L41@P1: cannot expect to use fewer neurons than some low-order fractional power of m,
+L42@P1: along with a logarithmic factor. Depending on what restrictions are placed on
+L43@P1: the network, one might do no better than 0(( m log m) 1/3). With mild restrictions the exponent changes to 4. Finally, applying the kind of restrictions that
+L44@P1: would typify a realistic hard-ware implementation of a network, we find
+L45@P1: ourselves back in linear territory.
+L46@P1: The final result is somewhat disappointing since it means that parallel
+L47@P1: hardware inspired by this somewhat primitive neural model is unlikely to host
+L48@P1: arbitrary finite automata with uniform high efficiency: Some automata will
+L49@P1: require networks that require about as many neurons as the automata have
+L50@P1: states ! On the other hand, certain automata may be simulable by networks
+L51@P1: having a logarithmic number of neurons. A careful reading of this paper may
+L52@P1: produce the impression that more complicated neural network models will
+L53@P1: suffer from the same inherent inefficiency. We see nothing to contradict this
+L54@P1: impression at the present time, see also the conclusions section in this paper. As
+L55@P1: one of the referees put it: “The paper gives the impression of establishing the
+L56@P1: disturbing result that there may have to be as many neurons in our head as there
+L57@P1: are possible states to our mind”. Although it is totally unclear how to define the
+L58@P1: “state” of our mind, and also while the neurons in our brains may very well be
+L59@P1: more complicated than the “neurons” in this paper, we can not help but agree
+L60@P1: that this is the kind of conclusion our findings lead up to.
+L61@P1: The finite state machines studied in this paper are of the type called “Mealy
+L62@P1: Machines, ” see Mealy [8] or Hopcroft and Unman [4]. Section 3 contains a
+L63@P1: self-contained brief discussion of Mealy machines. In order to prevent confusion with the closely related “Neural Nets, ” as currently defined in Cognitive
+L64@P1: Psychology and Artificial Intelligence (see Rumelhart and McClelland [1 1]), we
+L65@P1: have renamed Neural Nets and Neurons (as used in this paper) “Threshold
+L66@P1: Machines” and “Threshold Cells, ” respectively. Definitions will be given in
+L67@P1: Section 4. It will be seen that classical AND, OR, and NOT gates are special
+L68@P1: cases of the threshold cells used in this paper, so that the negative results in this
+L69@P1: paper carry over to machines based on such classical gates. It is not clear
+L70@P1: whether this is also true for the positive (constructive) results.
+L71@P1: The problem addressed thus becomes: How many threshold cells may be
+L72@P1: needed to build a threshold machine which acts “exactly like” a prespecified
+L73@P1: m-state machine,
+L74@P1: The exact formulation of this question of course depends on the definitions as
+L75@P1: given in the Sections 3 and 4 and on a convention, to be given in Section 3, for
+L76@P1: when two machines are said to be acting the same. A more intuitive description
+L77@P1: might be as follows:
+L78@P1: At each point in time t (t = O, 1, . . . . time is discrete) each of the threshold
+L79@P1: cells or neurons of the threshold machine is in one of two states: either it does,
+L80@P1: or it does not, fire. If the machine has K cells then, since each of the cells is in
+L81@P1: one of two states, the whole machine has 2 K possible states. Hence, every
+L82@P1: K-cell threshold machine is a finite state machine with 2 k states.Efficient Simulation of Finite Automata by Neural Nets 497
+L83@P2: On the other hand, every m-state Mealy machine can be built as a threshold
+L84@P2: machine (see Minsky [9, 10] or Section 5 in this paper). Clearly, there exist
+L85@P2: m-state machines which can be built using only log m (take m = 2 ~ ) threshold
+L86@P2: cells. Would this be almost true for every m-state machine? Unfortunately, the
+L87@P2: answer is negative. The actual number of threshold cells needed to build a
+L88@P2: specific machine depends on how complicated individual cells are allowed to be
+L89@P2: (this is expressed in the size of their weight alphabet, their threshold alphabet,
+L90@P2: and their Fan-in and Fan-out, see Section 4). With more complicated cells, the
+L91@P2: same machine can be built with fewer cells. Typical results are:
+L92@P2: THEOREM 1.1. (see Dewdney [1]). There exists a Cl >0 such that as long
+L93@P2: as there are no restrictions on how complicated individual cells can be,
+L94@P2: every m-state Mealy Machine can be built with
+L95@P2: at most C, “ mBlb threshold cells. (1.1)
+L96@P2: THEOREM 1.2. There exists a Cz >0 such that even if there are no
+L97@P2: restrictions on how complicated individual cells can be, for every sufficiently large m there exists an m-state Mealy Machine which in order to be
+L98@P2: built needs
+L99@P2: at least Cl “ (mlog m)’/’ threshold cells. (1.2]
+L100@P2: The lower bound in (1.2) becomes higher when restrictions are placed on
+L101@P2: how complicated the individual cells can be.
+L102@P2: Even with only mild restrictions on those cells, the number of cells needed to
+L103@P2: build a m-state machine can become linear in m.
+L104@P2: For example:
+L105@P2: THEOREM 1.3. If either there is a limit on the Fan-in of individual cells,
+L106@P2: or there are simultaneous limits on the Fan-out of cells, the weight
+L107@P2: alphabet, and the threshold alphabet, then there exists a Cy >0 such that
+L108@P2: for every sufficiently large m there exists an m-state Mealy Machine which
+L109@P2: in order to be built as a threshold machine satisfying those restrictions
+L110@P2: needs
+L111@P2: at least C3 “ m threshold cells. (1.3]
+L112@P2: The following result shows that at least for the second set of conditions
+L113@P2: Theorem 1.3 is about as sharp as possible.
+L114@P2: THEOREM 1.4. Every m-state Mealy machine can be built as a threshold
+L115@P2: machine that contains only 2 m -t 1 threshold cells. This threshold machine
+L116@P2: has a fixed weight alphabet { – 1, 0, 1J and a fixed threshold alphabet
+L117@P2: {1, 2} (both independent of m). This threshold machine also has the
+L118@P2: property that all cells have a Fan-out of either 2 or 3.
+L119@P2: The proof of Theorem 1.4 is by construction. The construction in Section 5 is
+L120@P2: essentially the construction in Minsky [9], modified because we have binary
+L121@P2: input. The threshold machine constructed in the proof need not have bounded
+L122@P2: fan-in for its cells. This means that we can not exclude the possibility that a498 ALON ET AL
+L123@P3: restriction on the fan-in of cells leads to m-state machines which in order to be
+L124@P3: built need a superlinear (in m) number of cells.
+L125@P3: Section 2 describes the idea of the proof of Theorems 1.2 and 1.3. Section 3
+L126@P3: discusses Mealy Machines and Section 4 discusses threshold machines and
+L127@P3: proves Theorems 1.2 and 1.3. Theorems 1.1 and 1.4 are known results (see
+L128@P3: Dewdney [1]). Section 5 gives an outline of the proofs of these theorems. The
+L129@P3: proofs are based on constructions. Not surprisingly, the construction in the
+L130@P3: proof of Theorem 1.1 uses weight alphabets and threshold alphabets that depend
+L131@P3: on tn.
+L132@P3: 2. The Lower Bound
+L133@P3: Definition 2.1. For each natural number m. K(m) is the smallest number
+L134@P3: such that every Mealy Machine with m or fewer states can be built as a
+L135@P3: threshold machine using K(m) or fewer threshold cells. Theorems 1.1 and 1.2
+L136@P3: say that
+L137@P3: The proof of the lower bounds in (2.1) works by counting the number of
+L138@P3: “really different” m-state Mealy Machines and the number of “really different” Mealy Machines that can be built as a threshold machine using K or
+L139@P3: fewer cells. We still need to define when two Mealy Machines are “really
+L140@P3: different” (the definition actually used will be given in Section 3), but for any
+L141@P3: reasonable definition we trivially have:
+L142@P3: Let L(m) be the number of “really different” Mealy Machines with m or
+L143@P3: fewer states. Let U(K) be the number of different Mealy Machines that can be
+L144@P3: built as a threshold machine using K or fewer cells. Then:
+L145@P3: U(K(rn)) a L(m). (2.2)
+L146@P3: In Section 3, we define when machines are “really different” and we derive a
+L147@P3: lower bound for L(m). In Section 4, we derive an upper bound for U(K), and
+L148@P3: we combine the lower and upper bounds to obtain bounds for K(m). In Section
+L149@P3: 4, we also obtain alternative bounds for U(K), with additional restrictions on
+L150@P3: what kind of threshold machines are allowed, and use these to obtain stronger
+L151@P3: lower bounds for K(m), based of course on stronger requirements.
+L152@P3: 3. Mealy Machines
+L153@P3: An m-state, binary Mealy Machine is a deterministic finite automaton which at
+L154@P3: each point in time t (t = O, 1, ...: time is discrete) is in a state S(t) c
+L155@P3: {1,2,..., nz} ({1,2,..., m} is the state-space) and which at each point in
+L156@P3: time t receives an input 1(t) G {O, 1} ({O, 1} is the input alphabet) and
+L157@P3: generates an output 0(t) ~ {O, 1} ({O, 1} is the output alphabet).
+L158@P3: The output 0(t) depends on the state S(t) and the input 1(t) through maps
+L159@P3: g,: {1,2 7 ..., m}+ {0,1} (Oe{o,l}), (3.1)
+L160@P3: where
+L161@P3: o(f) = ‘%(,)(w)). (3 .2)Efficient Simulation of Finite Automata by Neural Nets 499
+L162@P4: FIGURE 1
+L163@P4: The new state S( t + 1) depends on the old state S(t) and the input 1(t) through
+L164@P4: the maps
+L165@P4: f,: {1,2,..., m}~{l,2, m}., m} (i={ Ojl})j (3.3)
+L166@P4: where
+L167@P4: S(t + 1) =f,(,)(s(t)). (3 .4)
+L168@P4: A Mealy Machine is entirely determined by its state space {1,2, . . . . m}, the
+L169@P4: input alphabet, the output alphabet, and the maps f,, g,. Throughout this paper,
+L170@P4: both input alphabet and output alphabet always are {O, 1} (’‘one bit input, one
+L171@P4: bit output”).
+L172@P4: The input alphabet can of course be replaced by any other two symbols, for
+L173@P4: example {solid, dotted}, and in the same way the output alphabet can be
+L174@P4: replaced by {bell, whistle}. Thus, the m-state Mealy machine can be thought of
+L175@P4: as a directed graph with m nodes, where every node has two outgoing arcs: one
+L176@P4: “solid” and one “dotted,” and where each of the 2 m arcs is labeled
+L177@P4: with either a “bell” or a “whistle.” An example, with m = 3, is shown in
+L178@P4: Figure 1.
+L179@P4: If, at time t, the machine is in state s and the input is “solid,” then the
+L180@P4: machine moves along the solid outgoing arc from state s to the new state, and
+L181@P4: the output is either a bell or a whistle, depending on the label of that arc.
+L182@P4: A very interesting problem is how to decide whether two Mealy Machines are
+L183@P4: the same or not. For example, we could say that two Mealy machines, say
+L184@P4: machine 1 with m(l), f)k), gjl) and machine 2 with m(2), f:), g~3) are “the
+L185@P4: same” only if
+L186@P4: m(l) = m(2) (3.5)
+L187@P4: and
+L188@P4: f:l)(s) = fy)(s) , g:l)(s) = g;z)(s) , (3.6)
+L189@P4: both for all s and all i.
+L190@P4: This very simple definition leads to the obvious conclusion that there are
+L191@P4: exactly (2 m)2 ~ different m-state machines. (3.7)
+L192@P4: This definition clearly is not acceptable. For example, a relabeling of the m
+L193@P4: states certainly does not produce a different machine, while with high probability it changes some f,(s) or g,(s). According to this train of thought,500 ALON ET AL
+L194@P5: (2m)”n “ (m!)-l is an appealing approximation for the number of different
+L195@P5: m-state machines. For a more rigorous treatment, we ask ourselves the
+L196@P5: question: When is machine 2 an implementation of machine 1? In other words,
+L197@P5: when is it true that any copy of machine 1 can be replaced by a copy of machine
+L198@P5: 2?
+L199@P5: Definition 3.1. Machine 2, with m(z), f}2), g}2), is an implementation of
+L200@P5: machine 1 with m(l), f; 1), g~l) whenever there exists a map (called the
+L201@P5: canonical map) Can: { 1, 2, . . . . m(l)} s { 1, 2, . . . . mL2)} with the property
+L202@P5: that whenever machine 1 starts in any state ,s(l) e { 1, 2, . . . . m(l)} (S(l)(0) =
+L203@P5: s(l)) and machine 2 starts in state s(z) = Can (,s(l)) (S(2)(0) = ,s(z) = Can(s(l)))
+L204@P5: then for every common input sequence (1( t))~= ~, as long as both machines
+L205@P5: receive that input sequence (1(1)( t) = 1(2)(t) = 1(t) for all t) both machines
+L206@P5: generate the same output sequence ( 0(1~( t) = 0(2)(f) for all t).(It is sometimes preferable to define Can as a point-to-set map that assigns to each
+L207@P5: S(1) 6 {1,2,..., W$l)} a nonempty subset Can(S(l)) of {1, 2, . . . . m(z)}. This
+L208@P5: does not change anything in any essential way.)
+L209@P5: This paper does not need a solution to the problem of how to determine, for a
+L210@P5: given pair of machines, whether one is an implementation of the other, and of
+L211@P5: how to find the canonical map. However, it is easy to find the following
+L212@P5: characterization:
+L213@P5: Machine 2 is an implementation of machine 1 if and only if there exists a
+L214@P5: point-to-set map Can that assigns to each ,s‘1) e {1,2, . . . . m(l)} a nonempty
+L215@P5: subset Can(s(l)) of {1, 2, . . . . m(2)} and that satisfies
+L216@P5: g:’)(s(’~) = g:2)(@) for all S(2) E Can(s(l)),
+L217@P5: and
+L218@P5: “ {fy)(@ )} C Can(f/l)(s(l))).
+L219@P5: S%can(s(’))
+L220@P5: The requirement in the following definition is probably slightly stronger than
+L221@P5: necessary. It is chosen to facilitate the argument in Section 4. It formalizes the
+L222@P5: notion of “really different” used in Section 2:
+L223@P5: Definition 3.2. Two machines, say with m(~), f~~), g~~) (j = 1, 2) are
+L224@P5: “divergent” if for every pair (S(l), S(2)), s(]) c { 1, 2, . . . , n7(J)}, there exists a
+L225@P5: common input sequence 1(t) such that if machine j starts in state S(J)
+L226@P5: (S(J)(0) = S(J)) and both machines get input sequence (1(t));= ~, then for some
+L227@P5: f>()
+L228@P5: @(~) # @2)(f) (3.8)
+L229@P5: Suppose we have three machines, with rn(~), f} J), g~~). Suppose that the
+L230@P5: machines 1 and 2 are “divergent” (in the sense of Definition 3.2) and that
+L231@P5: machine 3 is an implementation of both machines 1 and 2. We thus have two
+L232@P5: canonical maps Can~: {1,2, . . . , m(~)} ~ {1,2, . . . , m(3)} (j = 1, 2).
+L233@P5: Clearly, CanJ({ 1,2, . . . . m(~)}) is a subset of { 1, 2, . . . . m(3)}. Equally
+L234@P5: clearly, the fact that the machines 1 and 2 are divergent means that these two
+L235@P5: subsets of { 1, 2, . . . , m(3)} are disjoint.Efficient Simulation of Finite A utomata by Neural Nets 501
+L236@P6: 12 >
+L237@P6: m
+L238@P6: o
+L239@P6: 3
+L240@P6: FIGURE2
+L241@P6: By repeating this argument we prove:
+L242@P6: LEMMA 3.1. Suppose there exists a set of U Mealy Machines that are
+L243@P6: pairwise divergent, and suppose there exists an m-state machine which is
+L244@P6: an implementation of all those U machines. Then
+L245@P6: U5m. (3.9)
+L246@P6: We are now ready to proceed to the main topic of this section and obtain two
+L247@P6: lower bounds for the number of (pairwise) divergent m-state Mealy Machines
+L248@P6: that can be found.
+L249@P6: The first lower bound is weaker than the second. We present it because its
+L250@P6: proof nicely illustrates the concepts involved.
+L251@P6: THEOREM 3.1. For every m >1, there exists a system of 2 m ( pairwise)
+L252@P6: divergent m-state Mealy Machines.
+L253@P6: PROOF. The proof consists of establishing a system of 2 n (pairwise) divergent m-state Mealy Machines. This is done by describing the maps f,, g, that
+L254@P6: are allowed. We only allow maps f, for which
+L255@P6: f,(s) = s + lmod m forall 1 SsSm, alli. (3.10)
+L256@P6: Pictorially (see Figure 2) this means that the m states are arranged in a circle
+L257@P6: and, independent of the inputs, the state of the system moves around the circle.
+L258@P6: Further, we only allow maps go for which
+L259@P6: go(S) = ~,.. (JQonecker delta), (3.11)
+L260@P6: and finally, we do not put any restrictions on the map g 1( o). Since, for each S,
+L261@P6: there are two possible values of gl(s), this gives us exactly 2 ‘n machines. All
+L262@P6: we need to do is prove that these 2 ~ machines are pairwise divergent. This will
+L263@P6: be done by contradiction.
+L264@P6: Suppose that two of these machines, say machine 1 and machine 2, are not
+L265@P6: “divergent.” Then there exist states S(J), j = 1, 2, such that if machine j starts
+L266@P6: in state S(J) and both machines get the same (arbitrary) input sequence, then
+L267@P6: both get the same output sequence.
+L268@P6: First, give both machines input sequence (O, O, . ..) (zeros only). At time t,
+L269@P6: . . .
+L270@P6: machme J 1s m state S(J) + t mod m and, by (3.11), has output 61,~~Jj+t~Od~.
+L271@P6: Hence, S(l) = S(2) = so. Next, choose any T={ 1,2, . . . . m} and let d = T – so
+L272@P6: mod m (O s d < m – 1). Give both machines as input d zeros followed by a502 ALON ET AL
+L273@P7: one. At time t = d, both machines arein state ~ and since their outputs are the
+L274@P7: same we have g 11)(T) = g~)( ~). Since ~ was arbitrary, the two machines
+L275@P7: therefore have identical maps gl(. ). This completes the proof. ❑
+L276@P7: THEOREM 3.2. If m is prime, then there exists a system of (2 m) m
+L277@P7: (2 m – 2)/m ( pairwise) divergent m-state Mealy Machines.
+L278@P7: PROOF. Our constraints on the maps f,, g, now are as follows:
+L279@P7: f,(s) =s+ lmodm, (3.12)
+L280@P7: go(s), fors= 1,2, . .
+L281@P7: . , m, are not all the same, (3.13)
+L282@P7: f,(”): arbitrary, (3.14)
+L283@P7: g,(”): arbitrary. (3.15)
+L284@P7: The constraints (3. 12) - (3. 15) define a class of Mealy machines. Clearly, there
+L285@P7: are (2 m)m(2 m – 2) machines in this class. The factor m-1 will be introduced,
+L286@P7: and the theorem will be proven, by showing that if any two machines in this
+L287@P7: class are not divergent then one is a rotation of the other, in the sense that there
+L288@P7: exists a d, O < d < m – 1, such that if the states of machine 2 are relabeled:
+L289@P7: state s is relabeled as state s + d mod m, then after the relabeling the
+L290@P7: machines 1 and 2 have identical f,(”) and gl(. ), see also Figure 3.
+L291@P7: Suppose two machines, say machines 1 and 2, from the class are not
+L292@P7: divergent. That means there are states s (1), s(z) such, that if machine j starts in
+L293@P7: state s(~) and both machines receive the same, but arbitrary, input stream then
+L294@P7: their output streams are identical. By doing a rotation or relabeling of the
+L295@P7: nodes, this time for both machines, we can ensure that s(l) = s(c) = 1.
+L296@P7: First, give both machines input stream (O, O, . ..) (zeros only). Both
+L297@P7: machines, at time t, are in state 1 + t mod m and the outputs at time t are
+L298@P7: g~)(l + t mod m) and g$)(l + t mod m), which must be equal. Hence:
+L299@P7: A&(s) = d?(s) = go(s) for all s. (3.16)
+L300@P7: Next, give as input s – 1 zeros followed by a one. At time s – 1, both
+L301@P7: machines are in state s and the outputs are g \J)(s), which must be equal, so that
+L302@P7: gp(s) = ‘!+)(s) = g,(s) for all s. (3.17)
+L303@P7: Finally, choose any so, 1 5 so s m and give as common input so – 1 zeros,
+L304@P7: then a one, and then further only zeros. At time so – 1, both machines are in
+L305@P7: state so. At time so, machine j is in state f fJ)( so), and at time so + t (t > O)
+L306@P7: machine ~ IS in state ( fjJ)(so) + t) mod m. We need to prove that f ~’‘(so) =
+L307@P7: f ?)(SO). Let
+L308@P7: s] = ffJJ(,so) (3.18)
+L309@P7: and let
+L310@P7: d=sz–slmodm, ()~d~m-1 (3.19)
+L311@P7: It will turn out that d = O.
+L312@P7: Because of the way f. is defined,
+L313@P7: go(sl + t mod m) = go(sl + d + tmod m) for all taO, (3.20)Efficient Simulation of Finite
+L314@P8: d o
+L315@P8: Automata by Neural Nets 503
+L316@P8: %
+L317@P8: \
+L318@P8: FIGURE 3
+L319@P8: d
+L320@P8: so
+L321@P8: St
+L322@P8: In particular:
+L323@P8: gO(Sl)= gO(sl+cfmod m)=gO(sl+2clmod m)= “.” (3.21)
+L324@P8: and in fact
+L325@P8: go(sl) ‘gO(sl+kdmodm) for allintegerk. (3.22)
+L326@P8: Since mis prime, d#Oin(3.22) implies that go(s) =go(s,) for all s, which
+L327@P8: contradicts (3.13). Hence, d = O, that is, f{l)(sO) = f~)(sO), which completes
+L328@P8: the proof. ❑
+L329@P8: 4. Threshold Machines
+L330@P8: A K-cell Threshold machine has K+ lthreshold cells, numbered O, 1>. ..> K,
+L331@P8: interconnected by lines of various weights as explained below. At each point in
+L332@P8: time t = O, 1,. ... each cell either does or does not fire. We use variables
+L333@P8: Xi(t) to describe this:
+L334@P8: 1 cell i fires at time t,
+L335@P8: (4.1) ‘i(t) = { 0 cell i does not fire at time t,
+L336@P8: XO( t) = 1(t),the input at time t,and this variable is externally given: Cell zero
+L337@P8: is the input cell. For j > 1, the value of Xj( t) depends on (x,( t – l))~o
+L338@P8: through weights w, ~, O<i<K, l<j<K, and thresholds 19J, lsj <K.
+L339@P8: Many authors require those weights and thresholds to be integer. In this paper
+L340@P8: we do not put any restrictions on the weights and thresholds (apart from the fact
+L341@P8: that they must be real). The dynamics of the threshold machine is given by
+L342@P8: [
+L343@P8: xJ(t + 1) = 1
+L344@P8: if E :0 xl(t)~l., = ~, 7 (4.2)
+L345@P8: o else,
+L346@P8: hence, the names threshold machine and threshold logic. Clearly, every AND,
+L347@P8: OR, or NOT gate can be implemented by a single threshold cell (or threshold
+L348@P8: gate), while every threshold cell can be implemented using a (possibly large)
+L349@P8: number of AND, OR, and NOT gates. Hence, all the negative results in this
+L350@P8: paper translate into negative results about the power of machines based on
+L351@P8: AND, OR, and NOT gates. The positive (constructive) results do not necessarily carry over in the same way. Outputs are given by
+L352@P8: o(t) = xK(t), (4.3)504 ALON ET AL
+L353@P9: i.e., cell K is chosen to be the output neuron or output cell. This definition
+L354@P9: shows that the input cell is not really a threshold cell: There are no inputs into
+L355@P9: this cell and no threshold associated with this cell.
+L356@P9: With this description, it is clear that every threshold K-machine indeed is a
+L357@P9: 2 ~-state Mealy Machine. It is easily seen (see Section 5) that on the other hand
+L358@P9: every m-state Mealy Machine can be built as a threshold machine with 2 m + 1
+L359@P9: cells.
+L360@P9: A threshold machine is entirely described by K and its weights W,,j and
+L361@P9: thresholds 19J. On the other hand, two different sets of weights and thresholds
+L362@P9: can easily generate the same machine. Suppose we have the machines 1 and 2
+L363@P9: with the same numbers of cells and with weights and thresholds w} ~), (3;’),
+L364@P9: v = 1, 2. We define these machines to be the same if for every j e
+L365@P9: {1,2,..., K}, for every sequence (8., 61, . . . . 6~)e{0, 1}~+1,
+L366@P9: (4.4)
+L367@P9: Clearly, two machines are the same under this definition if and only if they
+L368@P9: have the property that for every subset So of{ 1,2, . . . . K} and for every input
+L369@P9: sequence (1( t));= o, if for both machines at time t = O exactly the neurons in
+L370@P9: SO fire, and both machines receive the same input sequence (1( t))~= o, then at
+L371@P9: every point in time t > 0 the two machines have exactly the same set S~ of
+L372@P9: firing neurons. Also, with this definition, “being the same” defines an equivalence relation on the set of all K-cell threshold machines. Machines not in the
+L373@P9: same equivalence class can still be “the same” in some weaker sense than
+L374@P9: defined above (see Section 3). However, the total number of equivalence
+L375@P9: classes certainly gives an upper bound for the number of in any reasonable
+L376@P9: sense different K-cell machines. We have the following result:
+L377@P9: LEMMA 4.1. The number of equivalence classes in the relation above is
+L378@P9: less than 2(K+ l)’K+K.
+L379@P9: PROOF. We choose a specific j, 1 s j s K, and study the number of ways
+L380@P9: we can choose ( W,,J ) ~=~ and 0,. Any hyperplane
+L381@P9: (4.5)
+L382@P9: generates two such ways: WO, . . , WK; 8 and –wo, . . . , – w~; –8. Two
+L383@P9: such hyperplanes are different (in the sense of the definition above) if they split
+L384@P9: the 2K+ 1 points in {O, 1} ‘+1 in two different ways into two subsets. A result
+L385@P9: by Harding [2] shows that a set of n points in Rd can be divided by a
+L386@P9: hyperplane into two subsets in at most
+L387@P9: (4.6)
+L388@P9: different ways. For N > 1, fixed, we easily prove by induction to L that
+L389@P9: ~;=o(’”-’) < 2NL. H ence, for j fixed, we can choose ( W,,J, 19j) in at most
+L390@P9: 2%’(2’+;- 11‘2(K+’)2+’ (4.7)Efficient Simulation of Finite A utomata by Neural Nets 505
+L391@P10: effectively different ways. Since we can do this for j = 1, 2 ,. ... K, we
+L392@P10: immediately have that the total number of effectively different ways to choose
+L393@P10: the Wi ~, (3J is at most (2(~+1)’+1)~ = 2(~+’)’~+~.
+L394@P10: Each K-cell threshold machine is a 2 K state Mealy machine which by Lemma
+L395@P10: 3.1 implements at most 2 K (pairwise) divergent machines. With Lemma 4.1,
+L396@P10: this leads to:
+L397@P10: THEOREM 4.1. The set of all Mealy machines that can be implemented by
+L398@P10: a K-cell threshold machine can not contain more than 2(’~ 1)3 pairwise
+L399@P10: divergent machines.
+L400@P10: Namely, in the language of Section 2, we have
+L401@P10: U(K) < 2(K+1)2K . 2~K < Z(K+1)3 (4.8)
+L402@P10: Combining, as promised eq. (4.8) with Theorem 3.1, we get
+L403@P10: 2fK(rn)+l)3 ~ ~(K(m)) > L(m) = 2m, (4.9)
+L404@P10: or
+L405@P10: K(m) > m113 – 1. (4.10)
+L406@P10: This result is not quite as good as promised in Theorem 1.2. To prove Theorem
+L407@P10: 1.2, we must combine Theorem 4.1 with Theorem 3.2. Let p(m) be the largest
+L408@P10: prime < m. Clearly, any Mealy machine with p(m) or fewer states can be
+L409@P10: implemented as a threshold machine with K(m) or less cells. Hence
+L410@P10: 2~K(m)+lJ3 ~ U(K(m)) > L(P(m))
+L411@P10: 2P(m) _ ‘2
+L412@P10: a (2p(m) )p(~)
+L413@P10: p(m) ‘
+L414@P10: or for m sufficiently large:
+L415@P10: (K(m) + l)310g2 > (p(m) - 1)(log4 + log p(m)),
+L416@P10: ( (
+L417@P10: log p(m)
+L418@P10: ))
+L419@P10: 1/3
+L420@P10: K(m) > (p(m) - 1) “
+L421@P10: log 2
+L422@P10: +2
+L423@P10: Since it is well known (see, e.g., Hardy and Wright [3]) that
+L424@P10: (4.11)
+L425@P10: 1. (4.12)
+L426@P10: (4.13)
+L427@P10: this proves Theorem 1.2.
+L428@P10: Theorem 4.1 puts no restriction on the set of weights that are allowed, the set
+L429@P10: of thresholds that are allowed, or the Fan-in or Fan-out of cells. This means
+L430@P10: that it is very hard, probably impossible, to “mass produce” one standard
+L431@P10: generic threshold cell that then can be used to build all desired threshold
+L432@P10: machines.
+L433@P10: Next, we investigate the consequences of being restricted to a prespecified set
+L434@P10: of weights, independent of the number of cells or the number of states in the
+L435@P10: machine.506 ALON ET AL
+L436@P11: THEOREM 4.2. Consider a prespecified set W = { WI, . . . . w~} and consider the family of threshold machines that have weights from W only. We
+L437@P11: call W the weight alphabet of this family of machines. On this family, the
+L438@P11: function U satisfies:
+L439@P11: U(K) SI w/K(K+’) “ (2K+1 + l)K2~. (4.14)
+L440@P11: By combining this with Theorem 3.2, we get exactly as in (4. 11)-(4. 13):
+L441@P11: K(m) > Cl(mlogm)”z. (4.15)
+L442@P11: PROOF. We only need to prove (4. 14). In constructing the threshold machine, for each of the K( K + 1) weights there are I W I possible choices, this
+L443@P11: gives the factor I W I ~(~+l). For each j, El 61WZJ ((8., 8,, . . . . b~) e
+L444@P11: {0, 1}‘+ 1) has at most 2(K+’) different values so that there are at most
+L445@P11: 2‘+ 1 + 1 effectively different values for /31. This gives the factor (2’+ 1 + 1)’.
+L446@P11: Finally, the factor 2 K comes from Lemma 3.1.
+L447@P11: A further practical restriction on threshold machines is the Fan-in and the
+L448@P11: Fan-out of cells (see, e.g., Savage [12]). The Fan-in of cell j is defined as
+L449@P11: l{i:w, J#O}l, (4.16)
+L450@P11: and the Fan-out of cell i is defined as
+L451@P11: l{j:w,,J#o}l. (4.17)
+L452@P11: The following two results show that a constraint on the fan-in of cells is much
+L453@P11: more restrictive than a constraint on the fan-out of cells:
+L454@P11: THEOREM 4.3. Suppose there exists a prespecified number F and cells
+L455@P11: i > 1 are only allowed to have Fan-out s F (the input cell is allowed
+L456@P11: unlimited fan-out). Then:
+L457@P11: () K
+L458@P11: U(K) s :
+L459@P11: . 2~2(F+l)2 . z2K (4.18)
+L460@P11: and there exists a C~ >0 such that for every sufficiently large m there
+L461@P11: exists an m-state machine which ( with the restriction on Fan-out above) in
+L462@P11: order to be built as a threshold machine needs
+L463@P11: at least C~[ m log m ] ~12 threshold cells. (4.19)
+L464@P11: PROOF. For each cell i > 1, choose ~ cells j for which w, ~ is allowed to
+L465@P11: be nonzero. This gives the factor (~)’. Given these choices,’ let Aj be the
+L466@P11: maximal possible Fan-in of cell j. Clearly,
+L467@P11: A~ >0, ~AJ=KF+K=K(F+ l), (4.20)
+L468@P11: J=l
+L469@P11: so that
+L470@P11: (4.21)Efficient Simulation of Finite A utomata by Neural Nets 507
+L471@P12: By the same argument as in the proof of Lemma 4.1, we see that for any j the
+L472@P12: weights Wi, j and the threshold t~ can be chosen in less than 2‘~ + 1 different
+L473@P12: ways. This, with (4.2 1), gives the factor 2 ‘2(F+ 1)2‘K, and Lemma 3.1 adds
+L474@P12: another factor 2‘. This completes the proof of (4. 18). The proof now is
+L475@P12: completed by combining (4. 18) with Theorem 3.2, using the fact that (~) K s
+L476@P12: (F’!)-K oKFK. ❑
+L477@P12: The following two results show that under certain circumstances the number
+L478@P12: of cells needed to build an m-state machine may grow linearly in m.
+L479@P12: THEOREM 4.4. Suppose there exists a prespecified number F, and only
+L480@P12: threshold machines where all the cells have a Fan-in < F are allowed. Then
+L481@P12: U(K) s
+L482@P12: (( K:1)2F2+’)K”2K
+L483@P12: (4.22)
+L484@P12: and there exists a Cb >0 such that for every sufficiently large m there
+L485@P12: exists an m-state machine that (with the restriction on Fan-in above) in
+L486@P12: order to be built as a threshold machine needs
+L487@P12: at least C6 - m threshold cells. (4.23)
+L488@P12: PROOF. First, we prove (4.22). For any cell j > 1, choose a set of F cells i
+L489@P12: for which Wi, j is allowed to be nonzero. This gives the factor (K;’). For that j,
+L490@P12: the same argument as used in Lemma 4.1 shows that 19j and the nonzero w, ~
+L491@P12: can be chosen in at most 2”+ 1 effectively different ways. We can do this for
+L492@P12: every j (this gives the power K). The factor 2 K follows from Lemma 3.1. This
+L493@P12: proves (4.22). The bound (4.23) is obtained by combining (4.22) with Theorem
+L494@P12: 3.2. ❑
+L495@P12: THEOREM 4.5. Suppose we only allow threshold machines that satisfy the
+L496@P12: following three restrictions:
+L497@P12: (i)
+L498@P12: (ii)
+L499@P12: (iii)
+L500@P12: and
+L501@P12: Each cell i (1 < i s K) has Fan-out s F (the input cell has unlimited
+L502@P12: Fan-out).
+L503@P12: There exists a prespecified finite set T, and all thresholds 6j must be
+L504@P12: from that set (T is the threshold alphabet that is allowed).
+L505@P12: There exists a prespecified set W = {O, WI, Wz, . . . . w~}, and all
+L506@P12: weights Wi,j must be from that set. Then:
+L507@P12: ‘(K)<((:MF)KIWIKTK2K (4.24)
+L508@P12: there exists a CT >0 such, that for every sufficiently large m there
+L509@P12: exists an m-state machine that ( with the restrictions above) in order to be
+L510@P12: built as a threshold machine needs
+L511@P12: at least CT “ m threshold cells. (4.25)
+L512@P12: PROOF. For each cell i 2 1, choose F cells j for which W,J is allowed to be
+L513@P12: zero. This gives the factor ($) ‘. Each of these w,~ can have I W I different508 ALON ET AL
+L514@P13: values, this gives the factor I Wll~. The factor I Wl~ is dueto the freedom
+L515@P13: in choosing WO,~ (1 = ~ < k), the factor TK is due to the freedom in choosing
+L516@P13: the thresholds Oj, and the factor 2K follows from Lemma 3.1. This proves
+L517@P13: (4.24). The bound (4.25) is obtained by combining (4.24) with Theorem 3.2.
+L518@P13: It is somewhat surprising that a restriction on the Fan-in of cells leads to a
+L519@P13: strong increase in K(m), while a similar restriction on the Fan-out needs
+L520@P13: additional conditions before it leads to the same result. In an attempt to explain
+L521@P13: this asymmetry, we define the Fan-in and Fan-out of a state in a Mealy
+L522@P13: Machine:
+L523@P13: The Fan-in of state .s is the number of pairs (i, s’) with ~l(s’) = S.
+L524@P13: The Fan-out of state s is the number of states in { ~Z( S): i = O, 1}.
+L525@P13: Clearly, each state has Fan-out either 1 or 2, while the Fan-in can be
+L526@P13: anywhere between zero and 2 m (both included). This observation may explain
+L527@P13: the asymmetry in the powers of restrictions on the Fan-in and Fan-out. An
+L528@P13: interesting question therefore is: Given that all states of an m-state Mealy
+L529@P13: machine have Fan-in < F, how many cells may be needed to build it as a
+L530@P13: threshold machine? An interesting related question is: How many (pairwise)
+L531@P13: divergent m-state Mealy machines can be found, if we allow only machines for
+L532@P13: which all states have Fan-in < F?
+L533@P13: In Theorem 1.4, which will be proved in the next section, we promised a
+L534@P13: construction that builds every m-state Mealy machine using exactly 2 m + 1
+L535@P13: cells. In light of the question raised above, it is interesting to observe that in
+L536@P13: that construction, for every state ,s with Fan-in F., the construction uses two
+L537@P13: cells (S, O) and ( .s, 1), which each have Fan-in equal to F. + 1. In addition,
+L538@P13: there is an output cell of which the Fan-in may be as high as 2 rn.
+L539@P13: 5. Constructing Efficient Neural Nets
+L540@P13: The fewer neurons that we are allowed in constructing a network that simulates
+L541@P13: an m-state Mealy machine, the more difficult the job becomes. For a Mealy
+L542@P13: machine on m states, there is no problem constructing a simulating network
+L543@P13: that has 2 m + 2 neurons. This includes the input neuron and, in the language
+L544@P13: of Section 4, it is therefore a 2 m + 1 cell machine.
+L545@P13: In this construction, each state is represented by two neurons. State s
+L546@P13: (1 < s s m) is represented by the neurons (s, O) and (s, 1) and we build the
+L547@P13: threshold machine in such a way that at time t neuron (s, i) fires if and only if
+L548@P13: the original Mealy machine at time t is in state s and receives input i. The
+L549@P13: construction is illustrated in Figure 4. In addition to the input neuron and the
+L550@P13: 2 m neurons obtained as above there is a (2 m + 1)th neuron called the output
+L551@P13: neuron. .
+L552@P13: First, we describe the weights. For any two states x and S, W( ~ ,, ~~,0)=
+L553@P13: W(,,lj,(~,,, e {O, 1}, and this equals 1 if and only if in the original finite state
+L554@P13: machine state x with input i leads to the next state s (in the language of Section
+L555@P13: 3: f,(x) = s). For inputs, wO,(~,O) = – 1 and wO,(~,l) = + 1 for all s. For
+L556@P13: outputs , ~(s,,),2m+ 1 = g,(S) (g,(S) as in Section 3). All weights not yet
+L557@P13: mentioned are equal to zero. The thresholds are defined by 6(S,~, = 2, O(So, = 1,
+L558@P13: and 192~+1 = 1.
+L559@P13: It is clear that if at time t = O exactly one of the neurons (s, i), 1 s s < m,
+L560@P13: O s i s 1, fires then at any time t 2 1 exactly 1 of those neurons will fire, and
+L561@P13: the dynamics is exactly the same as that for the Mealy machine. It is not clearEfficient Simulation of Finite A utomata by Neural Nets 509
+L562@P14: Inputs
+L563@P14: k
+L564@P14: w--l W=l
+L565@P14: t=2 a, 1
+L566@P14: s, 1
+L567@P14: ‘A a’0
+L568@P14: \
+L569@P14: outputs
+L570@P14: outputs
+L571@P14: (b)
+L572@P14: FIG. 4. (a) In-state machine. (b) Neural net
+L573@P14: whether, if by accident multiple neurons fire simultaneously, we ever reach the
+L574@P14: situation where exactly one neuron fires. The outputs of the threshold machine
+L575@P14: just constructed lag one time unit behind the outputs of the Mealy machine.
+L576@P14: Of the 22n states defined by the neurons ( .s, i), only 2 m are used to
+L577@P14: implement the m-state machine. This enormous redundancy suggests that it
+L578@P14: must be possible to implement the machine using much fewer than 2 m neurons.
+L579@P14: Indeed, we know that some m state machines can be built using only log m
+L580@P14: neurons, and Theorem 1.1 shows that there always is a significant improvement
+L581@P14: available over the number 2 m + 1. However, the Theorems 1.2, 1.3, 4.2, 4.3,
+L582@P14: 4.4, and 4.5 also show that often we can not get at all close to the ideal of log
+L583@P14: m, and in particular when there are limits on the nature of the threshold cells
+L584@P14: that can be used, the possible improvement over 2 m + 1 may be quite limited.
+L585@P14: Even when there is no restriction on the type of threshold cell that can be
+L586@P14: used, it requires effort to do better than a linear number of neurons. Take, for
+L587@P14: example, the construction about to be given. It represents the best result so far
+L588@P14: in this direction: We begin with a Mealy machine &f which has m states.
+L589@P14: There are no restrictions on the structure of A4. We show that any such Mealy
+L590@P14: machine can be implemented using at most 0( m314) neurons. This construction
+L591@P14: uses neurons with two different functionalities: there are state-neurons and
+L592@P14: transition neurons. The simulating network will have 2 k state-neurons where
+L593@P14: k = Fm1J21 . These state neurons fire in pairs, in accordance with the scheme
+L594@P14: laid out in Figure 5.
+L595@P14: The state neurons are labeled al, . . . . ak; b,, . . . . b~, the a-set representing
+L596@P14: rows of an implicit matrix, the b-set representing columns. A given state q is
+L597@P14: simulated when one of the pairs (al, b~) fires. In Figure 5, for example, the
+L598@P14: state q corresponds to the simultaneous firing of az and b ~. This is the easy
+L599@P14: part of the construction. Now we must make sure that whenever the Mealy
+L600@P14: machine is in a particular state the correct two state neurons fire. This we do by
+L601@P14: building, for each state neuron, a “black box” of transition neurons that
+L602@P14: make sure that the state neuron fires if and only if the Mealy Machine is in one
+L603@P14: of the states in the row or column of the state neuron. The threshold machine
+L604@P14: thus becomes periodic. By periodic, we mean that the threshold machine
+L605@P14: alternates between two phases: a transition phase, during which only transition510
+L606@P15: FIGURE 5
+L607@P15: ALON ET AL
+L608@P15: ❑b **O ❑
+L609@P15: neurons fire, followed by a state phase, during which only state neurons fire.
+L610@P15: The state phase is exactly one time unit long, the transition phase will be seen to
+L611@P15: be exactly two time units long. To simpli~ comparison between the Mealy
+L612@P15: Machine and the Threshold Machine, we allow cells to fire at time t for t
+L613@P15: integer (at those times only state neurons can fire) and for t = ~ mod 1 or t =
+L614@P15: $ mod 1 (at those times only transition neurons can fire). The transition neurons
+L615@P15: will be organized in two layers. We also introduce an output neuron that can
+L616@P15: fire at time t integer only, and outputs of the threshold machine lag behind
+L617@P15: outputs of the Mealy Machine by one time unit. We now describe the
+L618@P15: construction of the black boxes. In fact, there are two black boxes for each state
+L619@P15: neuron: One to be used if the previous input was zero, the other if the previous
+L620@P15: input was one. To simplify the language, we only describe the black box for a
+L621@P15: “row” state neuron (say state neuron aX), to be used when the previous input
+L622@P15: was zero. Let S( x, O) be the set of states with the property that if at time t – 1
+L623@P15: the Mealy machine is in one of those states and the input is zero, then at time t
+L624@P15: the Machine is in one of the states in the row of x. S( x, O) is a set of states and
+L625@P15: hence k x k incidence matrix, or a set of pairs (a,, b,). The black box must
+L626@P15: have the property that at time t neuron a, fires if and only if at time t – 1 for
+L627@P15: some pair (a,, b~) in S( x, O) both a, and bj fired. The black box is a network
+L628@P15: that recognizes whether a pair in S( x, O) just fired and is accordingly called the
+L629@P15: recognition network for cell aX, for input zero.
+L630@P15: We now discuss some easily recognizable special incidence matrices. A set U
+L631@P15: of pairs (a,, bj) is called simple if there exist nonnegative vectors
+L632@P15: (Al, ..., Ak) and (Bl, ..., B~ ), and a positive threshold T, with the property that
+L633@P15: (a,, b,) E u if and only if A, + B, > T. (5.1)
+L634@P15: As long as exactly one row state neuron a, and exactly one column state
+L635@P15: neuron b~ fire, any simple set U can be recognized by a single neuron or cell
+L636@P15: Cu, with weights and threshold
+L637@P15: w a[, U
+L638@P15: =A,, – B], ‘b,, U –
+L639@P15: 19U= T. (5.2)
+L640@P15: This cell recognizes set U by firing if and only if a state in U just occurred.Efficient Simulation of Finite Automata by Neural Nets 511
+L641@P16: A set U of pairs (a,, bi), i.e., a k x k incidence matrix U, is called a
+L642@P16: “Northwest corner” matrix if there exist indices u ~,
+L643@P16: k>ul>a,>..->a~~(),
+L644@P16: with
+L645@P16: qJ=l if and only if j < u,.
+L646@P16: Equivalently, we could have required that there exist indices
+L647@P16: k>D,>~z>...>(3~>0,
+L648@P16: with
+L649@P16: q,, = 1 if and only if i < ~,
+L650@P16: (5.3)
+L651@P16: (5 .4)
+L652@P16: bJ’
+L653@P16: (5.5)
+L654@P16: (5.6)
+L655@P16: (with CYi = max{ ~: ~,, = 1} and OJ = max{ i: ~,j = l}). Similarly, we could
+L656@P16: define “NE”, “SW”, and “SE” corner matrices. Instead, we define a k x k
+L657@P16: incidence matrix U to be a ‘‘ proto corner-matrix ‘‘ if there exist permutations a
+L658@P16: and ~ of { 1, 2, . . . , k} such that U~(lj,T(~) is a (NW) corner matrix.
+L659@P16: It is easily verified that every k x k NW corner matrix is simple, and that
+L660@P16: the weights A,, BJ and the threshold T all can be chosen in {O, 1, . . . . k} and
+L661@P16: such that
+L662@P16: AI>AZ> --- >A~~(), Bl>Bz>.-.>B~zO. (5.7)
+L663@P16: Hence, also every proto corner matrix is simple. In fact, it is easily seen that an
+L664@P16: incidence matrix is simple if and only if it is a proto corner matrix. (Once
+L665@P16: Al, ..., A~and Bl, ..., B~ are known, use permutations o and ~ such that
+L666@P16: (5.7) holds for the reordered matrix.) A set Q of pairs (a,, b,) is called
+L667@P16: semi-simple if it is the intersection of two simple sets U and V. Clearly, any
+L668@P16: semi-simple set Q can be recognized using three neurons or cells: Cells Cu
+L669@P16: and Cv as above, and a cell C~ with weights and threshold
+L670@P16: WU, Q = WV,Q = 1, 8Q = 2, (5.8)
+L671@P16: so that cell C~” ANDs” the cells Cu and Cv. Cell C~ fires if and only if two
+L672@P16: time units ago a pair ( ai, b~) in Q fired simultaneously. Now suppose we can
+L673@P16: write
+L674@P16: S(x, o) = ~ Sl, (5.9)
+L675@P16: [=1
+L676@P16: where SI, Sz, . . ., S~ (which need not be disjoint) are semi-simple in the sense
+L677@P16: above. In that case, we can recognize S( x, O) using 3 L neurons. Of these, the
+L678@P16: 2L “V” and “U” neurons can fire at time t = ~ mod 1 only, and the L
+L679@P16: neurons for SI, Sz, . . . . S~ can fire at time t = ~ mod 1 only. Between the S1
+L680@P16: neurons and neuron aX we have weights and threshold
+L681@P16: ~s,,ax = 1> O.,=l, (5.10)
+L682@P16: so that neuron aX ‘ ‘ORS” the neurons c~,, . . . . c~~. By this construction,
+L683@P16: neuron aX fires at time t if and only if at time t – 1 a pair (al, b~) in S( x, O)
+L684@P16: both fired. In order to complete the proof of Theorem 1.1, we need an upper
+L685@P16: bound for the number of semi-simple sets (or semi-simple incidence matrices)512 ALON ET AL
+L686@P17: needed to cover a set (or incidence matrix) S. As in Dewdney [1], we define a
+L687@P17: line matrix to be an incidence matrix that either is a subset of some row (all
+L688@P17: ones are in that row), or is a subset of some column (all ones are in that
+L689@P17: column) or is a transversal, i.e., no two or more ones in any row or column. It
+L690@P17: is easily seen that every line matrix is either simple or semi-simple: Any
+L691@P17: incidence matrix that is a subset of some row or column is simple, while every
+L692@P17: transversal is the intersection of two proto corner matrices and therefore is
+L693@P17: semi-simple. Dewdney [1] proved that any set S of pairs (a,, b~) can be
+L694@P17: covered by a set of L line matrices, with
+L695@P17: (5.11)
+L696@P17: The proof is based on “greedily” covering S by a sequence of line matrices
+L697@P17: B,, Bz, . . . and applying Konig’s theorem (Konig [6]) to the matrices B,
+L698@P17: individually, see Dewdney [1] for details. Equation (5.11) gives an upper bound
+L699@P17: for the number of line matrices that may be needed to cover S, and therefore an
+L700@P17: upper bound for the number of semi-simple matrices that may be so needed.
+L701@P17: The remainder of the proof shows that any improvement in (5. 11) produces an
+L702@P17: improvement in the final result. It seems likely that an improvement is indeed
+L703@P17: possible by using more general intersections of pairs of proto corner matrices
+L704@P17: than just line matrices.
+L705@P17: Let nX = I S( x, O) 1. Since each state q is in the set S( x, 0) for exactly one
+L706@P17: a ,, we have
+L707@P17: ~n., =m, 05nysm for all x. (5.12)
+L708@P17: .Y=l
+L709@P17: This shows that
+L710@P17: The total number of transition neurons in the black boxes for the row state
+L711@P17: neurons, for input zero, is at most of the order 3 “ m3iJ. The same argument
+L712@P17: holds for transition neurons for column state neurons, and for input 1. We still
+L713@P17: must make sure that the ‘‘ V‘’ and “U” neurons in the black box to be used
+L714@P17: with input zero do not fire when the input is one (and vice versa). This is done
+L715@P17: in the same way as in the construction of the 2 m + 1 cell machine, earlier in
+L716@P17: this section. Finally, for the output neuron, we also build two black boxes; one
+L717@P17: for input zero, one for input one. Each of these black boxes contains at most 3k
+L718@P17: neurons. In the construction above, the a; and bj neurons can have Fan-out at
+L719@P17: least as high as 2 k (probably more if the sets U and V for different transversals
+L720@P17: are not disjoint ), and that the “U” and ‘‘ V‘’ cells can have Fan-in as high as
+L721@P17: 2 k. From Dewdney [t] or the argument preceding (5.7) above it is clear that
+L722@P17: the weights A,, By take values in {O, 1, . . . . k} and that the thresholds T for
+L723@P17: the “U” and ‘‘ V‘’ cells take values in {1,2, . . . . k}. The construction above
+L724@P17: clearly, and not surprisingly. violates the conditions of Theorems 1.3, 4.2, 4.3,
+L725@P17: 4.4, and 4.5.
+L726@P17: A final note concerns possible improvements to this construction. It would
+L727@P17: seem that one may build recognition networks (to drive each state neuron) that
+L728@P17: are far more efficient than the ones described here.Efficient Simulation of Finite A utomata by Neural Nets 513
+L729@P18: Can one, for example, “recognize” an arbitrary pattern of n 1’s by using no
+L730@P18: more that O(log n) neurons in the recognition network? If so, the overall
+L731@P18: complexity for a network simulating an m-state Mealy machine would drop to
+L732@P18: 0(ml/210g m). Asoften happens intheclosely related field oflogicoptimization (see, for example, Savage [1 1]), there may be a trade-off between depth
+L733@P18: and overall complexity: In other words, one may have to accept recognition
+L734@P18: subnetworks that have a nonconstant depth, which slowly increases as m gets
+L735@P18: large.
+L736@P18: Another possibility involves a construction that uses a 3-dimensional state
+L737@P18: matrix gov&ned by 3 k neurons, where
+L738@P18: k=~%~.
+L739@P18: But, according to Theorem 1.2, we can hardly
+L740@P18: since it implies a construction having
+L741@P18: 0(m’1310g m)
+L742@P18: (5 .14)
+L743@P18: expect to do better than this
+L744@P18: neurons, quite close to the lower bound of Cz “ ( m log m) 1‘3 neurons.
+L745@P18: It is intriguing, nevertheless, that we apparently cannot usefully employ a
+L746@P18: construction that implies a dimension higher than three!
+L747@P18: 6. Conclusion
+L748@P18: The results in this paper amount to a limitation on the power of neural nets. In
+L749@P18: spite of the current climate of optimism, and in spite of successes in limited
+L750@P18: categories of computation, one cannot look to neural networks as the parallel
+L751@P18: panacea of the future.
+L752@P18: The limitations demonstrated here for the classic McCullough- Pitts networks
+L753@P18: apply with some force, obviously, to the case of connectionist mission. For
+L754@P18: example, a Hopfield-style network (see Hopfield and Tank, [5]), having as its
+L755@P18: goal a solution of the traveling salesman problem amounts to a finite automaton
+L756@P18: in which all states (hopefully) lead to one or just a few states.
+L757@P18: We saw that while some m-state machines can be built using very few (in the
+L758@P18: order of log m) neurons, some need many more (namely, K(m)) neurons to be
+L759@P18: built. A naturally arising question is whether there are any interesting classes of
+L760@P18: finite automata that can be efficiently built as neural nets; namely, with a
+L761@P18: number of neurons that is very small compared with the size of the automata.
+L762@P18: Preliminary research by two of the authors of this paper indicates that while
+L763@P18: there are classes of finite state machines that can be efficiently simulated in this
+L764@P18: sense, all really interesting classes considered so far are too rich in structure
+L765@P18: and size. This research is continuing.
+L766@P18: In addition, there is a large number of technical questions about the bounds
+L767@P18: presented in this paper. For example, we suspect (see Theorem 4.4) that a
+L768@P18: limitation on the Fan-in of neurons may lead to m-state machines that can be
+L769@P18: simulated only by a superlinear (in m) number of neurons.
+L770@P18: ACKNOWLEDGMENT. We thank the two anonymous referees for a very careful
+L771@P18: reading of the paper and a large number of constructive comments.
+L772@P18: REFERENCES
+L773@P18: 1. DEWDNEY, A. K. Threshold matrices and the state assignment problem for neural nets. In
+L774@P18: Proceedings of the 8th SouthEastern Conference on Combinatorics, Graph Theory and
+L775@P18: Computing. Louisiana State University, Baton Rouge, La., pp. 227-245.514 ALON ET AL
+L776@P19: 2. HARDING, E. F. The number of partitions of a set of n points m k dimensions induced by
+L777@P19: hyperplanes. Proc. Edinburgh Math. Sot. 11, 15(1966-67),285-289.
+L778@P19: 3. HARDY, G. H., AND WRIGHT, E. M. An Introduction to the Theory of Numbers. Oxford
+L779@P19: University Press, Oxford, England, 1938.
+L780@P19: 4. HOPCROFT, J. E., AND ULLMAN, J. D. htroduct~on to Automata Theory, Languages, and
+L781@P19: Computation. Addison-Wesley. Reading, Mass., 1979.
+L782@P19: 5. HOPFIELD, J. J., AND TANK, D. W. ‘Neural’ computation of decisions m optimization problems.
+L783@P19: Biological Cybernetics 52 (1985), 141-152.
+L784@P19: 6. KONIG, D. Graphen und Matrlzen. Mat. Ftz. Lapok. 38 (1931), 116-119.
+L785@P19: 7. MCCULLOUGH, W. S., AND PITTS, W. A logical calculus of the Ideas immanent in nervous
+L786@P19: activity. Bull. Math. Biophysics, 5 (1943), 115-133.
+L787@P19: 8. MEALY, G. H. A method for synthesizing sequential cmctnts. Bell S.vst. Tech. J. 34 (1955),
+L788@P19: 1W5-1079.
+L789@P19: 9. MINSKY, M. L. Neural Nets and the brain model problem. Ph.D dissertation, Princeton
+L790@P19: Univ., Princeton, N. J., 1954. (Avadable from Umverslty Microfilms, Ann Arbor, Mlch.)
+L791@P19: 10. MINSKY, M. L. Computation: Finite and Infinite Machines. Prentice-Hall, New York, 1967.
+L792@P19: 11. RUMELHART, D. E., MCCLELLAND. J. L., AND THE PDP RESEARCH GROUP. Parallel Distributed
+L793@P19: Processing, vols. I and II. MIT Press, Cambridge, Mass., 1986.
+L794@P19: 12. SAVAGE, J. E. The Complexity of Computing, 2nd ed, Krieger, Malabar, Fla., 1987.
+L795@P19: RECEIVED JULY 1988: REVISED .IUNE AND NOVEMBER 1989, ACCEPTED MARCH 1990
+L796@P19: Journal of the Absocmtlon for Cornputlng Machinery, Vol 38, No 2. April 199 I

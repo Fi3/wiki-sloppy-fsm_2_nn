@@ -1,0 +1,604 @@
+Auto-Vectorization in LLVM
+Supplied URL: https://llvm.org/docs/Vectorizers.html
+Retrieved on: 2026-10-07
+Format: text extracted by the web browsing tool, not the original PDF/HTML bytes.
+L numbers refer to the browser extraction. PDF P numbers are zero-based.
+A complete text extraction does not imply that every figure, equation, or proof was reviewed.
+Read capture.json for captured URLs, line coverage, and missing ranges.
+
+
+=== Segment 1: https://llvm.org/docs/Vectorizers.html ===
+
+L0: [Input] [Input]
+L1: 
+L2: cite0†LLVM
+L3: 
+L4: cite0†LLVM
+L5: 
+L6: [Input: Search] [Input] [Input]
+L7: 
+L8:   * cite1†Frequently Asked Questions (FAQ)
+L9:   * cite2†The LLVM Lexicon
+L10:   * cite3†Getting Started/Tutorials [Input]
+L11:     * cite4†Architecture & Platform Information for Compiler Writers
+L12:     * cite5†Performance Tips for Frontend Authors
+L13:     * cite6†Getting Started with the LLVM System
+L14:     * cite7†Getting Started with the LLVM System using Microsoft Visual Studio
+L15:     * cite8†LLVM Programmer’s Manual
+L16:     * cite9†Debugging LLVM
+L17:     * cite10†LLVM Tutorial: Table of Contents [Input]
+L18:       * cite11†My First Language Frontend with LLVM Tutorial
+L19:       * cite12†1. Kaleidoscope: Kaleidoscope Introduction and the Lexer
+L20:       * cite13†2. Kaleidoscope: Implementing a Parser and AST
+L21:       * cite14†3. Kaleidoscope: Code generation to LLVM IR
+L22:       * cite15†4. Kaleidoscope: Adding JIT and Optimizer Support
+L23:       * cite16†5. Kaleidoscope: Extending the Language: Control Flow
+L24:       * cite17†6. Kaleidoscope: Extending the Language: User-defined Operators
+L25:       * cite18†7. Kaleidoscope: Extending the Language: Mutable Variables
+L26:       * cite19†8. Kaleidoscope: Compiling to Object Code
+L27:       * cite20†9. Kaleidoscope: Adding Debug Information
+L28:       * cite21†10. Kaleidoscope: Conclusion and other useful LLVM tidbits
+L29:       * cite22†1. Building a JIT: Starting out with KaleidoscopeJIT
+L30:       * cite23†2. Building a JIT: Adding Optimizations – An introduction to ORC Layers
+L31:       * cite24†3. Building a JIT: Per-function Lazy Compilation
+L32:       * cite25†4. Building a JIT: Extreme Laziness - Using LazyReexports to JIT from ASTs
+L33:     * cite26†MyFirstTypoFix
+L34:   * cite27†Reference [Input]
+L35:     * cite28†How To Use Attributes
+L36:     * cite29†LLVM Command Guide [Input]
+L37:       * cite30†FileCheck - Flexible pattern matching file verifier
+L38:       * cite31†clang-tblgen - Description to C++ Code for Clang
+L39:       * cite32†dsymutil - manipulate archived DWARF debug symbol files
+L40:       * cite33†lit - LLVM Integrated Tester
+L41:       * cite34†llc - LLVM static compiler
+L42:       * cite35†lldb-tblgen - Description to C++ Code for LLDB
+L43:       * cite36†lli - directly execute programs from LLVM bitcode
+L44:       * cite37†llubi - LLVM UB-aware Interpreter
+L45:       * cite38†llvm-addr2line - a drop-in replacement for addr2line
+L46:       * cite39†llvm-ar - LLVM archiver
+L47:       * cite40†llvm-as - LLVM assembler
+L48:       * cite41†llvm-bcanalyzer - LLVM bitcode analyzer
+L49:       * cite42†llvm-calc-occupancy - AMDGPU occupancy calculator
+L50:       * cite43†llvm-cgdata - LLVM CodeGen Data Tool
+L51:       * cite44†llvm-config - Print LLVM compilation options
+L52:       * cite45†llvm-cov - emit coverage information
+L53:       * cite46†llvm-cxxfilt - LLVM symbol name demangler
+L54:       * cite47†llvm-cxxmap - Mangled name remapping tool
+L55:       * cite48†llvm-debuginfo-analyzer - Print a logical representation of low-level debug information.
+L56:       * cite49†llvm-diff - LLVM structural ‘diff’
+L57:       * cite50†llvm-dis - LLVM disassembler
+L58:       * cite51†llvm-dwarfdump - dump and verify DWARF debug information
+L59:       * cite52†llvm-dwarfutil - A tool to copy and manipulate debug info
+L60:       * cite53†llvm-exegesis - LLVM Machine Instruction Benchmark
+L61:       * cite54†llvm-extract - extract a function from an LLVM module
+L62:       * cite55†llvm-extract-bundle-entry - extract an offload bundle entry
+L63:       * cite56†llvm-gsymutil - GSYM dumping, searching and creating utility
+L64:       * cite57†llvm-ifs - shared object stubbing tool
+L65:       * cite58†llvm-install-name-tool - LLVM tool for manipulating install-names and rpaths
+L66:       * cite59†llvm-ir2vec - IR2Vec and MIR2Vec Embedding Generation Tool
+L67:       * cite60†llvm-lib - LLVM lib.exe compatible library tool
+L68:       * cite61†llvm-libtool-darwin - LLVM tool for creating libraries for Darwin
+L69:       * cite62†llvm-link - LLVM bitcode linker
+L70:       * cite63†llvm-lipo - LLVM tool for manipulating universal binaries
+L71:       * cite64†llvm-locstats - calculate statistics on DWARF debug location
+L72:       * cite65†llvm-mc - LLVM Machine Code Playground
+L73:       * cite66†llvm-mca - LLVM Machine Code Analyzer
+L74:       * cite67†llvm-nm - list LLVM bitcode and object file’s symbol table
+L75:       * cite68†llvm-objcopy - object copying and editing tool
+L76:       * cite69†llvm-objdump - LLVM’s object file dumper
+L77:       * cite70†llvm-offload-binary - LLVM Offload Binary Packager
+L78:       * cite71†llvm-opt-report - generate optimization report from YAML
+L79:       * cite72†llvm-otool - Mach-O dumping tool
+L80:       * cite73†llvm-pdbutil - PDB File forensics and diagnostics
+L81:       * cite74†llvm-profdata - Profile data tool
+L82:       * cite75†llvm-profgen - LLVM SPGO profile generation tool
+L83:       * cite76†llvm-ranlib - generates an archive index
+L84:       * cite77†llvm-readelf - GNU-style LLVM Object Reader
+L85:       * cite78†llvm-readobj - LLVM Object Reader
+L86:       * cite79†llvm-reduce - LLVM automatic testcase reducer.
+L87:       * cite80†llvm-remarkutil - Remark utility
+L88:       * cite81†llvm-size - print size information
+L89:       * cite82†llvm-stress - generate random .ll files
+L90:       * cite83†llvm-strings - print strings
+L91:       * cite84†llvm-strip - object stripping tool
+L92:       * cite85†llvm-symbolizer - convert addresses into source code locations
+L93:       * cite86†llvm-tblgen - Target Description to C++ Code for LLVM
+L94:       * cite87†llvm-test-mustache-spec - LLVM tool to test Mustache library compliance
+L95:       * cite88†llvm-tli-checker - TargetLibraryInfo vs library checker
+L96:       * cite89†mlir-tblgen - Description to C++ Code for MLIR
+L97:       * cite90†opt - LLVM optimizer
+L98:       * cite91†tblgen - Description to C++ Code
+L99:     * cite92†Using -opt-bisect-limit to debug optimization errors
+L100:     * cite93†Symbolizer Markup Format
+L101:     * cite94†The PDB File Format [Input]
+L102:       * cite95†The MSF File Format
+L103:       * cite96†The PDB Info Stream (aka the PDB Stream)
+L104:       * cite97†The PDB TPI and IPI Streams
+L105:       * cite98†The PDB DBI (Debug Info) Stream
+L106:       * cite99†The Module Information Stream
+L107:       * cite100†The PDB Public Symbol Stream
+L108:       * cite101†The PDB Global Symbol Stream
+L109:       * cite102†The PDB Serialized Hash Table Format
+L110:       * cite103†Introduction
+L111:       * cite104†On-Disk Format
+L112:       * cite105†Present and Deleted Bit Vectors
+L113:       * cite106†CodeView Symbol Records
+L114:       * cite107†CodeView Type Records
+L115:     * cite108†Garbage Collection with LLVM
+L116:     * cite109†Garbage Collection Safepoints in LLVM
+L117:     * cite110†libFuzzer – a library for coverage-guided fuzz testing.
+L118:     * cite111†Fuzzing LLVM libraries and tools
+L119:     * cite112†LLVM Language Reference Manual
+L120:     * cite113†LLVM IR Undefined Behavior (UB) Manual
+L121:     * cite114†Design and Usage of the InAlloca Attribute
+L122:     * cite115†LLVM Bitcode File Format
+L123:     * cite116†Machine IR (MIR) Format Reference Manual
+L124:     * cite117†Global Instruction Selection [Input]
+L125:       * cite118†Generic Machine IR
+L126:       * cite119†Generic Opcodes
+L127:       * cite120†MIR Patterns in TableGen
+L128:       * cite121†Core Pipeline
+L129:       * cite122†Porting GlobalISel to A New Target
+L130:       * cite123†Resources
+L131:       * cite124†IRTranslator
+L132:       * cite125†Legalizer
+L133:       * cite126†RegBankSelect
+L134:       * cite127†InstructionSelect
+L135:       * cite128†Known Bits Analysis
+L136:     * cite129†Convergent Operation Semantics
+L137:     * cite130†LLVM Testing Infrastructure Guide [Input]
+L138:       * cite131†test-suite Guide
+L139:     * cite132†GWP-ASan
+L140:     * cite133†XRay Instrumentation
+L141:     * cite134†Debugging with XRay
+L142:     * cite135†FaultMaps and implicit checks
+L143:     * cite136†LLVM Atomic Instructions and Concurrency Guide
+L144:     * cite137†Exception Handling in LLVM
+L145:     * cite138†LLVM Extensions [Input]
+L146:     * cite139†Aligned Instruction Bundling
+L147:     * cite140†How to set up LLVM-style RTTI for your class hierarchy
+L148:     * cite141†LLVM Block Frequency Terminology
+L149:     * cite142†LLVM Branch Weight Metadata
+L150:     * cite143†The Often Misunderstood GEP Instruction
+L151:     * cite144†Scudo Hardened Allocator
+L152:     * cite145†Memory Model Relaxation Annotations
+L153:     * cite146†MemTagSanitizer
+L154:     * cite147†Dependence Graphs in LLVM
+L155:     * cite148†Speculative Load Hardening
+L156:     * cite149†Segmented Stacks in LLVM
+L157:     * cite150†LLVM’s Optional Rich Disassembly Output
+L158:     * cite151†Stack maps and patch points in LLVM
+L159:     * cite152†Coroutines in LLVM
+L160:     * cite153†Pointer Authentication
+L161:     * cite154†YAML I/O
+L162:     * cite155†Convergence And Uniformity
+L163:     * cite156†Machine Learning - Guided Optimization (MLGO)
+L164:     * cite157†Content Addressable Storage
+L165:     * cite158†LLVM CI Best Practices
+L166:     * cite159†LLVM GitHub Actions Runners
+L167:     * cite160†LLVM AI Tool Use Policy
+L168:     * cite161†.llvm.callgraph Section Layout
+L169:     * cite162†LLVM Interface Export Annotations
+L170:     * cite163†LLVM PC Sections Metadata
+L171:     * cite164†LLVM Qualification Group
+L172:     * cite165†LLVM Security Response Group
+L173:     * cite166†LLVM Security Group Transparency Reports
+L174:     * cite167†System Library
+L175:     * cite168†Code Transformation Metadata
+L176:     * cite169†Type Metadata
+L177:     * cite170†XRay Flight Data Recorder Trace Format
+L178:   * cite171†User Guides [Input]
+L179:     * cite172†How To Build On ARM
+L180:     * cite173†How To Build Clang and LLVM with Profile-Guided Optimizations
+L181:     * cite174†How to cross-compile Clang/LLVM using Clang/LLVM
+L182:     * cite175†LLVM Code Coverage Mapping Format
+L183:     * cite176†Control Flow Verification Tool Design Document
+L184:     * cite177†Building a Distribution of LLVM
+L185:     * cite178†Building LLVM with CMake
+L186:     * cite179†A guide to Dockerfiles for building LLVM
+L187:     * cite180†Support Library
+L188:     * cite181†Advanced Build Configurations
+L189:     * cite182†Writing an LLVM Pass
+L190:     * cite183†Writing an LLVM Pass (legacy PM version)
+L191:     * cite184†LLVM’s Analysis and Transform Passes [Input]
+L192:       * cite185†KernelInfo
+L193:       * cite186†Loop Fusion in LLVM
+L194:     * cite187†Stack Safety Analysis
+L195:     * cite188†MergeFunctions pass, how it works
+L196:     * cite189†LLVM Alias Analysis Infrastructure
+L197:     * cite190†MemorySSA
+L198:     * cite191†MemProf: Memory Profiling for LLVM
+L199:     * cite192†LLVM Loop Terminology (and Canonical Forms)
+L200:     * cite193†LLVM Cycle Terminology
+L201:     * cite194†Auto-Vectorization in LLVM [Input]
+L202:       * cite195†Vectorization Plan
+L203:       * cite196†The Sandbox Vectorizer
+L204:     * cite197†LLVM Link Time Optimization: Design and Implementation
+L205:     * cite198†DTLTO [Input]
+L206:     * cite199†The LLVM gold plugin
+L207:     * cite200†Remarks
+L208:     * cite201†Source Level Debugging with LLVM [Input]
+L209:       * cite202†Debug Info Assignment Tracking
+L210:     * cite203†How to Update Debug Info: A Guide for LLVM Pass Authors
+L211:     * cite204†The LLVM Instrumentor Pass
+L212:     * cite205†Instruction referencing for debug info
+L213:     * cite206†Debug info migration: From intrinsics to records
+L214:     * cite207†Key Instructions debug info in LLVM and Clang
+L215:     * cite208†Dynamic Debugging
+L216:     * cite209†Future work
+L217:     * cite210†Instrumentation Profile Format
+L218:     * cite211†InstCombine contributor guide
+L219:     * cite212†Writing an LLVM Backend [Input]
+L220:       * cite213†How To Use Instruction Mappings
+L221:     * cite214†The LLVM Target-Independent Code Generator
+L222:     * cite215†TableGen Overview [Input]
+L223:       * cite216†TableGen BackEnds
+L224:       * cite217†1 TableGen Backend Developer’s Guide
+L225:       * cite218†1 TableGen Programmer’s Reference
+L226:     * cite219†MCJIT Design and Implementation
+L227:     * cite220†ORC Design and Implementation
+L228:     * cite221†JITLink and ORC’s ObjectLinkingLayer
+L229:     * cite222†Debugging JIT-ed Code
+L230:     * cite223†CommandLine 2.0 Library Manual
+L231:     * cite224†Extending LLVM: Adding instructions, intrinsics, types, etc.
+L232:     * cite225†How To Add A Constrained Floating-Point Intrinsic
+L233:     * cite226†How to build Windows Itanium applications.
+L234:     * cite227†How to Cross Compile Compiler-rt Builtins For Arm
+L235:     * cite228†Using ARM NEON instructions in big-endian mode
+L236:     * cite229†Support for AArch64 Scalable Matrix Extension in LLVM
+L237:     * cite230†Compiling CUDA with clang
+L238:     * cite231†User Guide for NVPTX Back-end
+L239:     * cite232†User Guide for AMDGPU Backend [Input]
+L240:       * cite233†Syntax of AMDGPU Instruction Modifiers
+L241:       * cite234†Syntax of AMDGPU Instruction Operands
+L242:       * cite235†AMDGPU Instruction Syntax
+L243:       * cite236†AMDGPU Instructions Notation
+L244:       * cite237†DWARF Extensions For Heterogeneous Debugging
+L245:       * cite238†Allow Location Descriptions on the DWARF Expression Stack
+L246:       * cite239†Developer Guideline for AMDGPU
+L247:     * cite240†AMDGPU Asynchronous Operations
+L248:     * cite241†AMDGPU DMA Operations
+L249:     * cite242†AMDGPU Execution Synchronization
+L250:     * cite243†AMDGPU Memory Model
+L251:     * cite244†User Guide for SPIR-V Target [Input]
+L252:     * cite245†User Guide for the DirectX Target [Input]
+L253:       * cite246†DirectX Container [Input]
+L254:       * cite247†Architecture and Design of DXIL Support in LLVM [Input]
+L255: Toggle navigation of Architecture and Design of DXIL Support in LLVM
+L256:       * cite248†Specification of DXIL Operations using TableGen Representation
+L257:       * cite249†DXIL Resource Handling [Input]
+L258:       * cite250†Root Signatures [Input]
+L259:       * cite251†Semantic Signatures
+L260:     * cite252†User Guide for RISC-V Target
+L261:     * cite253†RISC-V Vector Extension
+L262:     * cite254†Scheduling Information for RISC-V VCIX Instructions
+L263:     * cite255†Sandbox IR: A transactional layer over LLVM IR
+L264:     * cite256†Telemetry framework in LLVM [Input]
+L265:     * cite257†Lightweight Fault Isolation (LFI) in LLVM
+L266:     * cite258†LLVM Admin Tasks
+L267:     * cite259†Benchmarking tips
+L268:     * cite260†CMake Primer
+L269:     * cite261†LLVM Community Code of Conduct
+L270:     * cite262†FatLTO
+L271:     * cite263†LLVM GitHub User Guide
+L272:     * cite264†Markdown Quickstart Template
+L273:     * cite265†Misexpect
+L274:     * cite266†Opaque Pointers
+L275:     * cite267†Using the New Pass Manager
+L276:     * cite268†LLVM CoC Incident Reporting Guide
+L277:     * cite269†Response Guide
+L278:     * cite270†TableGen Fundamentals
+L279:     * cite271†yaml2obj
+L280:   * cite272†Discourse Migration Guide
+L281:   * cite273†Getting Involved [Input]
+L282:     * cite274†Contributing to LLVM
+L283:     * cite275†LLVM Developer Policy
+L284:     * cite276†LLVM Code-Review Policy and Practices
+L285:     * cite277†LLVM Community Support Policy
+L286:     * cite278†Sphinx Quickstart Template
+L287:     * cite279†How to submit an LLVM bug report
+L288:     * cite280†LLVM Bug Life Cycle
+L289:     * cite281†LLVM Coding Standards
+L290:     * cite282†Bisecting LLVM code
+L291:     * cite283†Policies on git repositories
+L292:     * cite284†Creating an LLVM Project
+L293:     * cite285†How To Release LLVM To The Public
+L294:     * cite286†How To Validate a New Release
+L295:     * cite287†How To Add Your Build Configuration To LLVM Buildbot Infrastructure
+L296:     * cite288†LLVM 24.0.0git Release Notes
+L297:     * cite289†How to start LLVM Social in your town
+L298:     * cite290†Moving LLVM Projects to GitHub
+L299:     * cite291†Test-Suite Extensions
+L300:     * cite292†Variable Names Plan
+L301:     * cite293†Vector Predication Roadmap
+L302:   * cite294†Request For Comment (RFC) process
+L303:   * cite295†Project Governance
+L304: cite194†Back to top
+L305: # Auto-Vectorization in LLVMcite296†#
+L306: 
+L307: LLVM has two vectorizers: The cite297†Loop Vectorizer , which operates on Loops, and the cite298†SLP Vectorizer . These vectorizers focus on different optimization opportunities and use different techniques. The SLP vectorizer merges multiple scalars that are found in the code into vectors while the Loop Vectorizer widens instructions in loops to operate on multiple consecutive iterations.
+L308: 
+L309: Both the Loop Vectorizer and the SLP Vectorizer are enabled by default.
+L310: ## The Loop Vectorizercite299†#
+L311: 
+L312: ### Usagecite300†#
+L313: 
+L314: The Loop Vectorizer is enabled by default, but it can be disabled through clang using the command line flag:
+L315: 
+L316:     $ clang ... -fno-vectorize  file.c
+L317: #### Command line flagscite301†#
+L318: 
+L319: The loop vectorizer uses a cost model to decide on the optimal vectorization factor and unroll factor. However, users of the vectorizer can force the vectorizer to use specific values. Both ‘clang’ and ‘opt’ support the flags below.
+L320: 
+L321: Users can control the vectorization SIMD width using the command line flag “-force-vector-width”.
+L322: 
+L323:     $ clang  -mllvm -force-vector-width=8 ...
+L324:     $ opt -loop-vectorize -force-vector-width=8 ...
+L325: Users can control the unroll factor using the command line flag “-force-vector-interleave”
+L326: 
+L327:     $ clang  -mllvm -force-vector-interleave=2 ...
+L328:     $ opt -loop-vectorize -force-vector-interleave=2 ...
+L329: #### Pragma loop hint directivescite302†#
+L330: The `#pragma clang loop` directive allows loop vectorization hints to be specified for the subsequent for, while, do-while, or c++11 range-based for loop. The directive allows vectorization and interleaving to be enabled or disabled. Vector width as well as interleave count can also be manually specified. The following example explicitly enables vectorization and interleaving:
+L331: 
+L332:     #pragma clang loop vectorize(enable) interleave(enable)
+L333:     while(...) {
+L334:       ...
+L335:     }
+L336: The following example implicitly enables vectorization and interleaving by specifying a vector width and interleaving count:
+L337: 
+L338:     #pragma clang loop vectorize_width(2) interleave_count(2)
+L339:     for(...) {
+L340:       ...
+L341:     }
+L342: 
+L343: 
+L344: See the Clang cite303†language extensions†clang.llvm.org for details.
+L345: ### Diagnosticscite304†#
+L346: 
+L347: Many loops cannot be vectorized including loops with complicated control flow, unvectorizable types, and unvectorizable calls. The loop vectorizer generates optimization remarks which can be queried using command line options to identify and diagnose loops that are skipped by the loop-vectorizer.
+L348: 
+L349: Optimization remarks are enabled using:
+L350: 
+L351: `-Rpass=loop-vectorize` identifies loops that were successfully vectorized.
+L352: `-Rpass-missed=loop-vectorize` identifies loops that failed vectorization and indicates if vectorization was specified.
+L353: 
+L354: `-Rpass-analysis=loop-vectorize` identifies the statements that caused vectorization to fail. If in addition `-fsave-optimization-record` is provided, multiple causes of vectorization failure may be listed (this behavior might change in the future).
+L355: Consider the following loop:
+L356: 
+L357:     #pragma clang loop vectorize(enable)
+L358:     for (int i = 0; i < Length; i++) {
+L359:       switch(A[i]) {
+L360:       case 0: A[i] = i*2; break;
+L361:       case 1: A[i] = i;   break;
+L362:       default: A[i] = 0;
+L363:       }
+L364:     }
+L365: 
+L366: 
+L367: The command line `-Rpass-missed=loop-vectorize` prints the remark:
+L368: 
+L369:     no_switch.cpp:4:5: remark: loop not vectorized: vectorization is explicitly enabled [-Rpass-missed=loop-vectorize]
+L370: And the command line `-Rpass-analysis=loop-vectorize` indicates that the switch statement cannot be vectorized.
+L371: 
+L372:     no_switch.cpp:4:5: remark: loop not vectorized: loop contains a switch statement [-Rpass-analysis=loop-vectorize]
+L373:       switch(A[i]) {
+L374:       ^
+L375: 
+L376: 
+L377: To ensure line and column numbers are produced include the command line options `-gline-tables-only` and `-gcolumn-info`. See the Clang cite305†user manual†clang.llvm.org for details
+L378: ### Featurescite306†#
+L379: 
+L380: The LLVM Loop Vectorizer has a number of features that allow it to vectorize complex loops.
+L381: #### Loops with unknown trip countcite307†#
+L382: The Loop Vectorizer supports loops with an unknown trip count. In the loop below, the iteration `start` and `finish` points are unknown, and the Loop Vectorizer has a mechanism to vectorize loops that do not start at zero. In this example, ‘n’ may not be a multiple of the vector width, and the vectorizer has to execute the last few iterations as scalar code. Keeping a scalar copy of the loop increases the code size.
+L383: 
+L384:     void bar(float *A, float* B, float K, int start, int end) {
+L385:       for (int i = start; i < end; ++i)
+L386:         A[i] *= B[i] + K;
+L387:     }
+L388: #### Runtime Checks of Pointerscite308†#
+L389: 
+L390: In the example below, if the pointers A and B point to consecutive addresses, then it is illegal to vectorize the code because some elements of A will be written before they are read from array B.
+L391: Some programmers use the ‘restrict’ keyword to notify the compiler that the pointers are disjointed, but in our example, the Loop Vectorizer has no way of knowing that the pointers A and B are unique. The Loop Vectorizer handles this loop by placing code that checks, at runtime, if the arrays A and B point to disjointed memory locations. If arrays A and B overlap, then the scalar version of the loop is executed.
+L392: 
+L393:     void bar(float *A, float* B, float K, int n) {
+L394:       for (int i = 0; i < n; ++i)
+L395:         A[i] *= B[i] + K;
+L396:     }
+L397: #### Reductionscite309†#
+L398: In this example the `sum` variable is used by consecutive iterations of the loop. Normally, this would prevent vectorization, but the vectorizer can detect that ‘sum’ is a reduction variable. The variable ‘sum’ becomes a vector of integers, and at the end of the loop the elements of the array are added together to create the correct result. We support a number of different reduction operations, such as addition, multiplication, XOR, AND and OR.
+L399: 
+L400:     int foo(int *A, int n) {
+L401:       unsigned sum = 0;
+L402:       for (int i = 0; i < n; ++i)
+L403:         sum += A[i] + 5;
+L404:       return sum;
+L405:     }
+L406: Fully vectorizing reductions requires reordering operations, which is problematic for floating-point arithmetic because it is not associative; therefore results may depend on the evaluation order.
+L407: Changing floating-point results is implicitly prohibited by the C and C++ standards, therefore LLVM supports vectorizing floating point reductions only when at least the `-fassociative-math -fno-signed-zeros -fno-trapping-math` subset of `-ffast-math` is used on most targets. On some targets, such as AArch64 and RISC-V, LLVM can generate ordered reductions that preserve the exact result, enabling limited, standards-compliant vectorization.
+L408: However, ordered reductions are typically less efficient than traditionally vectorized reductions, therefore enabling floating-point reordering may still result in more performant reductions on these targets.
+L409: #### Inductionscite310†#
+L410: 
+L411: In this example the value of the induction variable `i` is saved into an array. The Loop Vectorizer knows to vectorize induction variables.
+L412: 
+L413:     void bar(float *A, int n) {
+L414:       for (int i = 0; i < n; ++i)
+L415:         A[i] = i;
+L416:     }
+L417: #### If Conversioncite311†#
+L418: 
+L419: The Loop Vectorizer is able to “flatten” the IF statement in the code and generate a single stream of instructions. The Loop Vectorizer supports any control flow in the innermost loop. The innermost loop may contain complex nesting of IFs, ELSEs and even GOTOs.
+L420: 
+L421:     int foo(int *A, int *B, int n) {
+L422:       unsigned sum = 0;
+L423:       for (int i = 0; i < n; ++i)
+L424:         if (A[i] > B[i])
+L425:           sum += A[i] + 5;
+L426:       return sum;
+L427:     }
+L428: #### Pointer Induction Variablescite312†#
+L429: 
+L430: This example uses the “accumulate” function of the standard c++ library. This loop uses C++ iterators, which are pointers, and not integer indices. The Loop Vectorizer detects pointer induction variables and can vectorize this loop. This feature is important because many C++ programs use iterators.
+L431: 
+L432:     int baz(int *A, int n) {
+L433:       return std::accumulate(A, A + n, 0);
+L434:     }
+L435: #### Reverse Iteratorscite313†#
+L436: 
+L437: The Loop Vectorizer can vectorize loops that count backwards.
+L438: 
+L439:     void foo(int *A, int n) {
+L440:       for (int i = n; i > 0; --i)
+L441:         A[i] +=1;
+L442:     }
+L443: #### Scatter / Gathercite314†#
+L444: 
+L445: The Loop Vectorizer can vectorize code that becomes a sequence of scalar instructions that scatter/gathers memory.
+L446: 
+L447:     void foo(int * A, int * B, int n) {
+L448:       for (intptr_t i = 0; i < n; ++i)
+L449:           A[i] += B[i * 4];
+L450:     }
+L451: 
+L452: 
+L453: In many situations the cost model will inform LLVM that this is not beneficial and LLVM will only vectorize such code if forced with “-mllvm -force-vector-width=#”.
+L454: #### Vectorization of Mixed Typescite315†#
+L455: 
+L456: The Loop Vectorizer can vectorize programs with mixed types. The Vectorizer cost model can estimate the cost of the type conversion and decide if vectorization is profitable.
+L457: 
+L458:     void foo(int *A, char *B, int n) {
+L459:       for (int i = 0; i < n; ++i)
+L460:         A[i] += 4 * B[i];
+L461:     }
+L462: #### Global Structures Alias Analysiscite316†#
+L463: 
+L464: Access to global structures can also be vectorized, with alias analysis being used to make sure accesses don’t alias. Run-time checks can also be added on pointer access to structure members.
+L465: Many variations are supported, but some that rely on undefined behaviour being ignored (as other compilers do) are still being left un-vectorized.
+L466: 
+L467:     struct { int A[100], K, B[100]; } Foo;
+L468: 
+L469:     void foo() {
+L470:       for (int i = 0; i < 100; ++i)
+L471:         Foo.A[i] = Foo.B[i] + 100;
+L472:     }
+L473: #### Vectorization of function callscite317†#
+L474: 
+L475: The Loop Vectorizer can vectorize intrinsic math functions. See the table below for a list of these functions.
+L476: 
+L477: pow  | exp  | exp2
+L478: sin  | cos  | sqrt
+L479: log  | log2  | log10
+L480: fabs  | floor  | ceil
+L481: fma  | trunc  | nearbyint
+L482:  |  | fmuladd
+L483: Note that the optimizer may not be able to vectorize math library functions that correspond to these intrinsics if the library calls access external state such as “errno”. To allow better optimization of C/C++ math library functions, use “-fno-math-errno”.
+L484: The loop vectorizer knows about special instructions on the target and will vectorize a loop containing a function call that maps to the instructions. For example, the loop below will be vectorized on Intel x86 if the SSE4.1 roundps instruction is available.
+L485: 
+L486:     void foo(float *f) {
+L487:       for (int i = 0; i != 1024; ++i)
+L488:         f[i] = floorf(f[i]);
+L489:     }
+L490: Many of these math functions are only vectorizable if the file has been built with a specified target vector library that provides a vector implementation of that math function. Using clang, this is handled by the “-fveclib” command line option with one of the following vector libraries: “Accelerate,libmvec,MASSV,SVML,SLEEF,Darwin_libsystem_m,ArmPL,AMDLIBM”
+L491: 
+L492:     $ clang ... -fno-math-errno -fveclib=libmvec file.c
+L493: #### Partial unrolling during vectorizationcite318†#
+L494: 
+L495: Modern processors feature multiple execution units, and only programs that contain a high degree of parallelism can fully utilize the entire width of the machine. The Loop Vectorizer increases the instruction level parallelism (ILP) by performing partial-unrolling of loops.
+L496: In the example below the entire array is accumulated into the variable ‘sum’. This is inefficient because only a single execution port can be used by the processor. By unrolling the code the Loop Vectorizer allows two or more execution ports to be used simultaneously.
+L497: 
+L498:     int foo(int *A, int n) {
+L499:       unsigned sum = 0;
+L500:       for (int i = 0; i < n; ++i)
+L501:           sum += A[i];
+L502:       return sum;
+L503:     }
+L504: The Loop Vectorizer uses a cost model to decide when it is profitable to unroll loops. The decision to unroll the loop depends on the register pressure and the generated code size.
+L505: #### Epilogue Vectorizationcite319†#
+L506: When vectorizing a loop, often a scalar remainder (epilogue) loop is necessary to execute tail iterations of the loop if the loop trip count is unknown or it does not evenly divide the vectorization and unroll factors. When the vectorization and unroll factors are large, it’s possible for loops with smaller trip counts to end up spending most of their time in the scalar (rather than the vector) code.
+L507: In order to address this issue, the inner loop vectorizer is enhanced with a feature that allows it to vectorize epilogue loops with a vectorization and unroll factor combination that makes it more likely for small trip count loops to still execute in vectorized code. The diagram below shows the CFG for a typical epilogue vectorized loop with runtime checks.
+L508: As illustrated the control flow is structured in a way that avoids duplicating the runtime pointer checks and optimizes the path length for loops that have very small trip counts.
+L509: cite320†Image: _images/epilogue-vectorization-cfg.png
+L510: #### Early Exit Vectorizationcite321†#
+L511: When vectorizing a loop with a single early exit, the loop blocks following the early exit are predicated and the vector loop will always exit via the latch. The loop terminates with a single BranchOnTwoConds VPInstruction, which takes both the early and latch exiting conditions. If the early exiting condition is true, BranchOnTwoConds exits to an intermediate block (`vector.early.exit` below).
+L512: This intermediate block is responsible for calculating any exit values of loop-defined variables that are used in the early exit block. If the latch exiting condition is true, BranchOnTwoConds exits to the `middle.block` which selects between the exit block and the scalar remainder loop. Otherwise BranchOnTwoConds continues executing the loop by jumping back to the region header.
+L513: cite322†Image: _images/vplan-early-exit.png
+L514: 
+L515: BranchOnTwoConds is lowered to a chain of conditional branches exiting the vector loop after dissolving loop regions:
+L516: 
+L517: cite323†Image: _images/vplan-early-exit-lowered.png
+L518: ### Performancecite324†#
+L519: 
+L520: This section shows the execution time of Clang on a simple benchmark: cite325†gcc-loops†github.com . This benchmarks is a collection of loops from the GCC autovectorization cite326†page†gcc.gnu.org by Dorit Nuzman.
+L521: 
+L522: The chart below compares GCC-4.7, ICC-13, and Clang-SVN with and without loop vectorization at -O3, tuned for “corei7-avx”, running on a Sandybridge iMac. The Y-axis shows the time in msec. Lower is better. The last column shows the geomean of all the kernels.
+L523: cite327†Image: _images/gcc-loops.png
+L524: 
+L525: And Linpack-pc with the same configuration. Result is Mflops, higher is better.
+L526: 
+L527: cite328†Image: _images/linpack-pc.png
+L528: ### Ongoing Development Directionscite329†#
+L529: 
+L530: cite195†Vectorization Plan
+L531: 
+L532: 
+L533: Modeling the process and upgrading the infrastructure of LLVM’s Loop Vectorizer.
+L534: 
+L535: ## The SLP Vectorizercite330†#
+L536: ### Detailscite331†#
+L537: 
+L538: The goal of SLP vectorization (a.k.a. superword-level parallelism) is to combine similar independent instructions into vector instructions. Memory accesses, arithmetic operations, comparison operations, PHI-nodes, can all be vectorized using this technique.
+L539: For example, the following function performs very similar operations on its inputs (a1, b1) and (a2, b2). The basic-block vectorizer may combine these into vector operations.
+L540: 
+L541:     void foo(int a1, int a2, int b1, int b2, int *A) {
+L542:       A[0] = a1*(a1 + b1);
+L543:       A[1] = a2*(a2 + b2);
+L544:       A[2] = a1*(a1 + b1);
+L545:       A[3] = a2*(a2 + b2);
+L546:     }
+L547: 
+L548: 
+L549: The SLP-vectorizer processes the code bottom-up, across basic blocks, in search of scalars to combine.
+L550: ### Usagecite332†#
+L551: 
+L552: The SLP Vectorizer is enabled by default, but it can be disabled through clang using the command line flag:
+L553: 
+L554:     $ clang -fno-slp-vectorize file.c
+L555: ## The Sandbox Vectorizercite333†#
+L556: 
+L557: The cite196†Sandbox Vectorizer is an experimental framework for building modular vectorization pipelines on top of cite255†Sandbox IR , with a focus on ease of testing and ease of development.
+L558: 
+L559: Copyright © 2003-2026, LLVM Project
+L560: 
+L561: Made with cite334†Sphinx†www.sphinx-doc.org and cite335†@pradyunsg†pradyunsg.me 's cite336†Furo†github.com
+L562: 
+L563: Last updated on 2026-10-07
+L564: 
+L565: On this page
+L566:   * cite194†Auto-Vectorization in LLVM
+L567:     * cite299†The Loop Vectorizer
+L568:       * cite300†Usage
+L569:         * cite301†Command line flags
+L570:         * cite302†Pragma loop hint directives
+L571:       * cite304†Diagnostics
+L572:       * cite306†Features
+L573:         * cite307†Loops with unknown trip count
+L574:         * cite308†Runtime Checks of Pointers
+L575:         * cite309†Reductions
+L576:         * cite310†Inductions
+L577:         * cite311†If Conversion
+L578:         * cite312†Pointer Induction Variables
+L579:         * cite313†Reverse Iterators
+L580:         * cite314†Scatter / Gather
+L581:         * cite315†Vectorization of Mixed Types
+L582:         * cite316†Global Structures Alias Analysis
+L583:         * cite317†Vectorization of function calls
+L584:         * cite318†Partial unrolling during vectorization
+L585:         * cite319†Epilogue Vectorization
+L586:         * cite321†Early Exit Vectorization
+L587:       * cite324†Performance
+L588:       * cite329†Ongoing Development Directions
+L589:     * cite330†The SLP Vectorizer
+L590:       * cite331†Details
+L591:       * cite332†Usage
+L592:     * cite333†The Sandbox Vectorizer

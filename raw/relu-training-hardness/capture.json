@@ -1,0 +1,16 @@
+{
+  "original_url": "https://drops.dagstuhl.de/entities/document/10.4230/LIPIcs.ITCS.2021.22",
+  "aliases": [],
+  "retrieved_on": "2026-10-07",
+  "segments": [
+    {
+      "url": "https://drops.dagstuhl.de/entities/document/10.4230/LIPIcs.ITCS.2021.22",
+      "total_browser_lines": 299,
+      "captured_lines": 299,
+      "missing_line_ranges": [],
+      "text_extraction_complete": true
+    }
+  ],
+  "review_status": "first-pass; source summary specifies reviewed scope",
+  "limitations": "Text only; original file bytes and linked assets were not downloaded. Browser extraction can omit equations and figures even with complete line coverage."
+}

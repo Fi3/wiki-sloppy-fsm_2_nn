@@ -1,0 +1,16 @@
+{
+  "retrieved_on": "2026-10-07",
+  "format": "browser-extracted-text",
+  "original_bytes_downloaded": false,
+  "url": "https://www.cs.cornell.edu/~asampson/media/papers/npu-micro2012.pdf",
+  "browser_total_lines": 1642,
+  "captured_numbered_lines": 387,
+  "missing_line_ranges": [
+    [
+      387,
+      1641
+    ]
+  ],
+  "complete_browser_text": false,
+  "review_scope": "First-pass reading of the captured excerpt; no full proof, figure or benchmark audit."
+}

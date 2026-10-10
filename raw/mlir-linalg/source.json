@@ -1,0 +1,10 @@
+{
+  "title": "Linalg Dialect Rationale: The Case For Compiler-Friendly Custom Operations",
+  "document": "raw/mlir-linalg/document.txt",
+  "original_filename": "web-extracted-text",
+  "url": "https://mlir.llvm.org/docs/Rationale/RationaleLinalgDialect/",
+  "imported_at": "2026-10-07T09:53:03+00:00",
+  "sha256": "68cd8c2c45cd3e040a1e8944cf2fb15c079752620bf212c937ae6c6bc51ec79f",
+  "capture_format": "browser-extracted-text",
+  "retrieved_on": "2026-10-07"
+}

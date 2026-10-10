@@ -1,0 +1,1124 @@
+torch.fx
+Supplied URL: https://docs.pytorch.org/docs/stable/fx.html
+Retrieved on: 2026-10-07
+Format: text extracted by the web browsing tool, not the original PDF/HTML bytes.
+L numbers refer to the browser extraction. PDF P numbers are zero-based.
+A complete text extraction does not imply that every figure, equation, or proof was reviewed.
+Read capture.json for captured URLs, line coverage, and missing ranges.
+
+
+=== Segment 1: https://docs.pytorch.org/docs/2.14/fx.html ===
+
+L0: cite0†iframe†www.googletagmanager.com cite1†Image†www.facebook.com
+L1: 
+L2: Back to top [Input] [Input]
+L3: 
+L4: [Input: Search the docs ...] `Ctrl`+`K`
+L5:   *     * cite2†PyTorch Main Components
+L6:     * cite3†torch.compiler
+L7:     * cite4†torch.export
+L8:     * cite5†Developer Notes
+L9:     * cite6†Accelerator Integration
+L10:   *     * cite7†torch
+L11:     * cite8†torch.nn
+L12:     * cite9†torch.nn.functional
+L13:     * cite10†torch.Tensor
+L14:     * cite11†Tensor Attributes
+L15:     * cite12†Tensor Views
+L16:     * cite13†Automatic Mixed Precision package - torch.amp
+L17:     * cite14†Automatic differentiation package - torch.autograd
+L18:     * cite15†torch.library
+L19:     * cite16†torch.accelerator
+L20:     * cite17†torch.cpu
+L21:     * cite18†torch.cuda
+L22:     * cite19†Understanding CUDA Memory Usage
+L23:     * cite20†torch.mps
+L24:     * cite21†torch.xpu
+L25:     * cite22†torch.mtia
+L26:     * cite23†torch.mtia.memory
+L27:     * cite24†torch.mtia.mtia_graph
+L28:     * cite25†Meta device
+L29:     * cite26†torch.backends
+L30:     * cite4†torch.export
+L31:     * cite27†Distributed communication package - torch.distributed
+L32:     * cite28†torch.distributed.tensor
+L33:     * cite29†Generic Join Context Manager
+L34:     * cite30†Torch Distributed Elastic
+L35:     * cite31†FullyShardedDataParallel
+L36:     * cite32†torch.distributed.fsdp.fully_shard
+L37:     * cite33†Tensor Parallelism - torch.distributed.tensor.parallel
+L38:     * cite34†Distributed Optimizers
+L39:     * cite35†Pipeline Parallelism
+L40:     * cite36†PyTorch Symmetric Memory
+L41:     * cite37†Distributed Checkpoint - torch.distributed.checkpoint
+L42:     * cite38†Probability distributions - torch.distributions
+L43:     * cite39†torch.compiler API reference
+L44:     * cite40†torch.fft
+L45:     * cite41†torch.func
+L46:     * cite42†torch.futures
+L47:     * cite43†torch.fx
+L48:     * cite44†torch.fx.experimental
+L49:     * cite45†torch.hub
+L50:     * cite46†torch.linalg
+L51:     * cite47†torch.monitor
+L52:     * cite48†torch.signal
+L53:     * cite49†torch.special
+L54:     * cite50†torch.overrides
+L55:     * cite51†torch.nativert
+L56:     * cite52†torch.package
+L57:     * cite53†torch.profiler
+L58:     * cite54†torch.nn.init
+L59:     * cite55†torch.nn.attention
+L60:     * cite56†torch.onnx
+L61:     * cite57†torch.optim
+L62:     * cite58†Complex Numbers
+L63:     * cite59†DDP Communication Hooks
+L64:     * cite60†Quantization
+L65:     * cite61†Distributed RPC Framework
+L66:     * cite62†torch.random
+L67:     * cite63†torch.masked
+L68:     * cite64†torch.nested
+L69:     * cite65†torch.Size
+L70:     * cite66†torch.sparse
+L71:     * cite67†torch.Storage
+L72:     * cite68†torch.testing
+L73:     * cite69†torch.utils
+L74:     * cite70†Benchmark Utils - torch.utils.benchmark
+L75:     * cite71†torch.utils.checkpoint
+L76:     * cite72†torch.utils.cpp_extension
+L77:     * cite73†torch.utils.data
+L78:     * cite74†torch.utils.deterministic
+L79:     * cite75†JIT Utils - torch.utils.jit
+L80:     * cite76†torch.utils.dlpack
+L81:     * cite77†torch.utils.mobile_optimizer
+L82:     * cite78†torch.utils.model_zoo
+L83:     * cite79†torch.utils.tensorboard
+L84:     * cite80†torch.utils.module_tracker
+L85:     * cite81†Type Info
+L86:     * cite82†torch.config
+L87:     * cite83†torch.__future__
+L88:     * cite84†torch._logging
+L89:     * cite85†Torch Environment Variables
+L90:   *     * cite86†Automatic Mixed Precision examples
+L91:     * cite87†Autograd mechanics
+L92:     * cite88†Broadcasting semantics
+L93:     * cite89†CPU threading and TorchScript inference
+L94:     * cite90†CUDA semantics
+L95:     * cite91†PyTorch Custom Operators Landing Page
+L96:     * cite92†Distributed Data Parallel
+L97:     * cite93†Extending PyTorch
+L98:     * cite94†Extending torch.func with autograd.Function
+L99:     * cite95†Frequently Asked Questions
+L100:     * cite96†Getting Started on Intel GPU
+L101:     * cite97†Gradcheck mechanics
+L102:     * cite98†HIP (ROCm) semantics
+L103:     * cite99†Features for large-scale deployments
+L104:     * cite100†LibTorch Stable ABI
+L105:     * cite101†LocalTensor Tutorial: Single-Process SPMD Debugging
+L106:     * cite102†MKLDNN backend
+L107:     * cite103†Modules
+L108:     * cite104†MPS backend
+L109:     * cite105†Multiprocessing best practices
+L110:     * cite106†Numerical accuracy
+L111:     * cite107†Out Notes
+L112:     * cite108†Reproducibility
+L113:     * cite109†Serialization semantics
+L114:     * cite110†TensorIterator (Python)
+L115:     * cite111†Windows FAQ
+L116:   *     * cite112†PyTorch Governance | Build + CI
+L117:     * cite113†PyTorch Contribution Guide
+L118:     * cite114†PyTorch Design Philosophy
+L119:     * cite115†PyTorch Governance | Mechanics
+L120:     * cite116†PyTorch Governance | Maintainers
+L121:   *     * cite2†PyTorch Main Components
+L122:     * cite3†torch.compiler
+L123:     * cite4†torch.export
+L124:     * cite5†Developer Notes
+L125:     * cite6†Accelerator Integration
+L126:   *     * cite7†torch
+L127:     * cite8†torch.nn
+L128:     * cite9†torch.nn.functional
+L129:     * cite10†torch.Tensor
+L130:     * cite11†Tensor Attributes
+L131:     * cite12†Tensor Views
+L132:     * cite13†Automatic Mixed Precision package - torch.amp
+L133:     * cite14†Automatic differentiation package - torch.autograd
+L134:     * cite15†torch.library
+L135:     * cite16†torch.accelerator
+L136:     * cite17†torch.cpu
+L137:     * cite18†torch.cuda
+L138:     * cite19†Understanding CUDA Memory Usage
+L139:     * cite20†torch.mps
+L140:     * cite21†torch.xpu
+L141:     * cite22†torch.mtia
+L142:     * cite23†torch.mtia.memory
+L143:     * cite24†torch.mtia.mtia_graph
+L144:     * cite25†Meta device
+L145:     * cite26†torch.backends
+L146:     * cite4†torch.export
+L147:     * cite27†Distributed communication package - torch.distributed
+L148:     * cite28†torch.distributed.tensor
+L149:     * cite29†Generic Join Context Manager
+L150:     * cite30†Torch Distributed Elastic
+L151:     * cite31†FullyShardedDataParallel
+L152:     * cite32†torch.distributed.fsdp.fully_shard
+L153:     * cite33†Tensor Parallelism - torch.distributed.tensor.parallel
+L154:     * cite34†Distributed Optimizers
+L155:     * cite35†Pipeline Parallelism
+L156:     * cite36†PyTorch Symmetric Memory
+L157:     * cite37†Distributed Checkpoint - torch.distributed.checkpoint
+L158:     * cite38†Probability distributions - torch.distributions
+L159:     * cite39†torch.compiler API reference
+L160:     * cite40†torch.fft
+L161:     * cite41†torch.func
+L162:     * cite42†torch.futures
+L163:     * cite43†torch.fx
+L164:     * cite44†torch.fx.experimental
+L165:     * cite45†torch.hub
+L166:     * cite46†torch.linalg
+L167:     * cite47†torch.monitor
+L168:     * cite48†torch.signal
+L169:     * cite49†torch.special
+L170:     * cite50†torch.overrides
+L171:     * cite51†torch.nativert
+L172:     * cite52†torch.package
+L173:     * cite53†torch.profiler
+L174:     * cite54†torch.nn.init
+L175:     * cite55†torch.nn.attention
+L176:     * cite56†torch.onnx
+L177:     * cite57†torch.optim
+L178:     * cite58†Complex Numbers
+L179:     * cite59†DDP Communication Hooks
+L180:     * cite60†Quantization
+L181:     * cite61†Distributed RPC Framework
+L182:     * cite62†torch.random
+L183:     * cite63†torch.masked
+L184:     * cite64†torch.nested
+L185:     * cite65†torch.Size
+L186:     * cite66†torch.sparse
+L187:     * cite67†torch.Storage
+L188:     * cite68†torch.testing
+L189:     * cite69†torch.utils
+L190:     * cite70†Benchmark Utils - torch.utils.benchmark
+L191:     * cite71†torch.utils.checkpoint
+L192:     * cite72†torch.utils.cpp_extension
+L193:     * cite73†torch.utils.data
+L194:     * cite74†torch.utils.deterministic
+L195:     * cite75†JIT Utils - torch.utils.jit
+L196:     * cite76†torch.utils.dlpack
+L197:     * cite77†torch.utils.mobile_optimizer
+L198:     * cite78†torch.utils.model_zoo
+L199:     * cite79†torch.utils.tensorboard
+L200:     * cite80†torch.utils.module_tracker
+L201:     * cite81†Type Info
+L202:     * cite82†torch.config
+L203:     * cite83†torch.__future__
+L204:     * cite84†torch._logging
+L205:     * cite85†Torch Environment Variables
+L206:   *     * cite86†Automatic Mixed Precision examples
+L207:     * cite87†Autograd mechanics
+L208:     * cite88†Broadcasting semantics
+L209:     * cite89†CPU threading and TorchScript inference
+L210:     * cite90†CUDA semantics
+L211:     * cite91†PyTorch Custom Operators Landing Page
+L212:     * cite92†Distributed Data Parallel
+L213:     * cite93†Extending PyTorch
+L214:     * cite94†Extending torch.func with autograd.Function
+L215:     * cite95†Frequently Asked Questions
+L216:     * cite96†Getting Started on Intel GPU
+L217:     * cite97†Gradcheck mechanics
+L218:     * cite98†HIP (ROCm) semantics
+L219:     * cite99†Features for large-scale deployments
+L220:     * cite100†LibTorch Stable ABI
+L221:     * cite101†LocalTensor Tutorial: Single-Process SPMD Debugging
+L222:     * cite102†MKLDNN backend
+L223:     * cite103†Modules
+L224:     * cite104†MPS backend
+L225:     * cite105†Multiprocessing best practices
+L226:     * cite106†Numerical accuracy
+L227:     * cite107†Out Notes
+L228:     * cite108†Reproducibility
+L229:     * cite109†Serialization semantics
+L230:     * cite110†TensorIterator (Python)
+L231:     * cite111†Windows FAQ
+L232:   *     * cite112†PyTorch Governance | Build + CI
+L233:     * cite113†PyTorch Contribution Guide
+L234:     * cite114†PyTorch Design Philosophy
+L235:     * cite115†PyTorch Governance | Mechanics
+L236:     * cite116†PyTorch Governance | Maintainers
+L237: Section Navigation
+L238: 
+L239:   * cite117†C++
+L240: 
+L241: Python API
+L242:   * cite7†torch
+L243:     * cite118†torch.is_tensor
+L244:     * cite119†torch.is_storage
+L245:     * cite120†torch.is_complex
+L246:     * cite121†torch.is_conj
+L247:     * cite122†torch.is_floating_point
+L248:     * cite123†torch.is_inference
+L249:     * cite124†torch.is_neg
+L250:     * cite125†torch.is_nonzero
+L251:     * cite126†torch.is_same_size
+L252:     * cite127†torch.is_signed
+L253:     * cite128†torch.set_default_dtype
+L254:     * cite129†torch.get_default_dtype
+L255:     * cite130†torch.set_default_device
+L256:     * cite131†torch.get_default_device
+L257:     * cite132†torch.set_default_tensor_type
+L258:     * cite133†torch.numel
+L259:     * cite134†torch.set_printoptions
+L260:     * cite135†torch.set_flush_denormal
+L261:     * cite136†torch.tensor
+L262:     * cite137†torch.sparse_coo_tensor
+L263:     * cite138†torch.sparse_csr_tensor
+L264:     * cite139†torch.sparse_csc_tensor
+L265:     * cite140†torch.sparse_bsr_tensor
+L266:     * cite141†torch.sparse_bsc_tensor
+L267:     * cite142†torch.asarray
+L268:     * cite143†torch.as_tensor
+L269:     * cite144†torch.as_strided
+L270:     * cite145†torch.from_file
+L271:     * cite146†torch.from_numpy
+L272:     * cite147†torch.from_dlpack
+L273:     * cite148†torch.frombuffer
+L274:     * cite149†torch.zeros
+L275:     * cite150†torch.zeros_like
+L276:     * cite151†torch.ones
+L277:     * cite152†torch.ones_like
+L278:     * cite153†torch.arange
+L279:     * cite154†torch.range
+L280:     * cite155†torch.linspace
+L281:     * cite156†torch.logspace
+L282:     * cite157†torch.eye
+L283:     * cite158†torch.empty
+L284:     * cite159†torch.empty_like
+L285:     * cite160†torch.empty_permuted
+L286:     * cite161†torch.empty_quantized
+L287:     * cite162†torch.empty_strided
+L288:     * cite163†torch.full
+L289:     * cite164†torch.full_like
+L290:     * cite165†quantize_per_tensor
+L291:     * cite166†torch.quantize_per_tensor_dynamic
+L292:     * cite167†quantize_per_channel
+L293:     * cite168†dequantize
+L294:     * cite169†torch.complex
+L295:     * cite170†torch.polar
+L296:     * cite171†torch.scalar_tensor
+L297:     * cite172†torch.heaviside
+L298:     * cite173†torch.adjoint
+L299:     * cite174†torch.alias_copy
+L300:     * cite175†torch.argwhere
+L301:     * cite176†torch.as_strided_copy
+L302:     * cite177†torch.as_strided_scatter
+L303:     * cite178†torch.cat
+L304:     * cite179†torch.ccol_indices_copy
+L305:     * cite180†torch.col_indices_copy
+L306:     * cite181†torch.concat
+L307:     * cite182†torch.concatenate
+L308:     * cite183†torch.conj
+L309:     * cite184†torch.chunk
+L310:     * cite185†torch.crow_indices_copy
+L311:     * cite186†torch.detach
+L312:     * cite187†torch.detach_copy
+L313:     * cite188†torch.diagonal_copy
+L314:     * cite189†torch.dsplit
+L315:     * cite190†torch.column_stack
+L316:     * cite191†torch.dstack
+L317:     * cite192†torch.expand_copy
+L318:     * cite193†torch.fill
+L319:     * cite194†torch.gather
+L320:     * cite195†torch.hsplit
+L321:     * cite196†torch.hstack
+L322:     * cite197†torch.index_add
+L323:     * cite198†torch.index_copy
+L324:     * cite199†torch.index_put_
+L325:     * cite200†torch.index_reduce
+L326:     * cite201†torch.index_select
+L327:     * cite202†torch.indices_copy
+L328:     * cite203†torch.masked_fill
+L329:     * cite204†torch.masked_select
+L330:     * cite205†torch.movedim
+L331:     * cite206†torch.moveaxis
+L332:     * cite207†torch.narrow
+L333:     * cite208†torch.narrow_copy
+L334:     * cite209†torch.nonzero
+L335:     * cite210†torch.nonzero_static
+L336:     * cite211†torch.permute
+L337:     * cite212†torch.permute_copy
+L338:     * cite213†torch.put
+L339:     * cite214†torch.reshape
+L340:     * cite215†torch.row_indices_copy
+L341:     * cite216†torch.row_stack
+L342:     * cite217†torch.select
+L343:     * cite218†torch.select_copy
+L344:     * cite219†torch.scatter
+L345:     * cite220†torch.diagonal_scatter
+L346:     * cite221†torch.select_scatter
+L347:     * cite222†torch.slice_copy
+L348:     * cite223†torch.slice_inverse
+L349:     * cite224†torch.slice_scatter
+L350:     * cite225†torch.scatter_add
+L351:     * cite226†torch.scatter_reduce
+L352:     * cite227†torch.segment_reduce
+L353:     * cite228†torch.split
+L354:     * cite229†torch.split_copy
+L355:     * cite230†torch.split_with_sizes_copy
+L356:     * cite231†torch.squeeze
+L357:     * cite232†torch.squeeze_copy
+L358:     * cite233†torch.stack
+L359:     * cite234†torch.swapaxes
+L360:     * cite235†torch.swapdims
+L361:     * cite236†torch.t
+L362:     * cite237†torch.t_copy
+L363:     * cite238†torch.take
+L364:     * cite239†torch.take_along_dim
+L365:     * cite240†torch.tensor_split
+L366:     * cite241†torch.tile
+L367:     * cite242†torch.transpose
+L368:     * cite243†torch.transpose_copy
+L369:     * cite244†torch.unbind
+L370:     * cite245†torch.unbind_copy
+L371:     * cite246†torch.unfold_copy
+L372:     * cite247†torch.unravel_index
+L373:     * cite248†torch.unsqueeze
+L374:     * cite249†torch.unsqueeze_copy
+L375:     * cite250†torch.values_copy
+L376:     * cite251†torch.view_as_complex_copy
+L377:     * cite252†torch.view_as_real_copy
+L378:     * cite253†torch.view_copy
+L379:     * cite254†torch.vsplit
+L380:     * cite255†torch.vstack
+L381:     * cite256†torch.where
+L382:     * cite257†Stream
+L383:     * cite258†Event
+L384:     * cite259†Generator
+L385:     * cite260†torch.seed
+L386:     * cite261†torch.manual_seed
+L387:     * cite262†torch.initial_seed
+L388:     * cite263†torch.get_rng_state
+L389:     * cite264†torch.set_rng_state
+L390:     * cite265†torch.bernoulli
+L391:     * cite266†torch.multinomial
+L392:     * cite267†torch.normal
+L393:     * cite268†torch.poisson
+L394:     * cite269†torch.rand
+L395:     * cite270†torch.rand_like
+L396:     * cite271†torch.randint
+L397:     * cite272†torch.randint_like
+L398:     * cite273†torch.randn
+L399:     * cite274†torch.randn_like
+L400:     * cite275†torch.randperm
+L401:     * cite276†SobolEngine
+L402:     * cite277†torch.save
+L403:     * cite278†torch.load
+L404:     * cite279†torch.fork
+L405:     * cite280†torch.get_num_threads
+L406:     * cite281†torch.init_num_threads
+L407:     * cite282†torch.set_num_threads
+L408:     * cite283†torch.get_num_interop_threads
+L409:     * cite284†torch.set_num_interop_threads
+L410:     * cite285†torch.wait
+L411:     * cite286†no_grad
+L412:     * cite287†enable_grad
+L413:     * cite288†set_grad_enabled
+L414:     * cite289†torch.is_grad_enabled
+L415:     * cite290†inference_mode
+L416:     * cite291†torch.is_inference_mode_enabled
+L417:     * cite292†torch.abs
+L418:     * cite293†torch.abs_
+L419:     * cite294†torch.absolute
+L420:     * cite295†torch.acos
+L421:     * cite296†torch.acos_
+L422:     * cite297†torch.arccos
+L423:     * cite298†torch.arccos_
+L424:     * cite299†torch.acosh
+L425:     * cite300†torch.acosh_
+L426:     * cite301†torch.arccosh
+L427:     * cite302†torch.arccosh_
+L428:     * cite303†torch.add
+L429:     * cite304†torch.addcdiv
+L430:     * cite305†torch.addcmul
+L431:     * cite306†torch.angle
+L432:     * cite307†torch.asin
+L433:     * cite308†torch.asin_
+L434:     * cite309†torch.arcsin
+L435:     * cite310†torch.arcsin_
+L436:     * cite311†torch.asinh
+L437:     * cite312†torch.asinh_
+L438:     * cite313†torch.arcsinh
+L439:     * cite314†torch.arcsinh_
+L440:     * cite315†torch.atan
+L441:     * cite316†torch.atan_
+L442:     * cite317†torch.arctan
+L443:     * cite318†torch.arctan_
+L444:     * cite319†torch.atanh
+L445:     * cite320†torch.atanh_
+L446:     * cite321†torch.arctanh
+L447:     * cite322†torch.arctanh_
+L448:     * cite323†torch.atan2
+L449:     * cite324†torch.arctan2
+L450:     * cite325†torch.bitwise_not
+L451:     * cite326†torch.bitwise_and
+L452:     * cite327†torch.bitwise_or
+L453:     * cite328†torch.bitwise_xor
+L454:     * cite329†torch.bitwise_left_shift
+L455:     * cite330†torch.bitwise_right_shift
+L456:     * cite331†torch.ceil
+L457:     * cite332†torch.ceil_
+L458:     * cite333†torch.clamp
+L459:     * cite334†torch.clamp_
+L460:     * cite335†torch.clamp_max_
+L461:     * cite336†torch.clamp_min_
+L462:     * cite337†torch.clip
+L463:     * cite338†torch.clip_
+L464:     * cite339†torch.conj_physical
+L465:     * cite340†torch.conj_physical_
+L466:     * cite341†torch.copysign
+L467:     * cite342†torch.cos
+L468:     * cite343†torch.cos_
+L469:     * cite344†torch.cosh
+L470:     * cite345†torch.cosh_
+L471:     * cite346†torch.deg2rad
+L472:     * cite347†torch.deg2rad_
+L473:     * cite348†torch.div
+L474:     * cite349†torch.divide
+L475:     * cite350†torch.digamma
+L476:     * cite351†torch.erf
+L477:     * cite352†torch.erf_
+L478:     * cite353†torch.erfc
+L479:     * cite354†torch.erfc_
+L480:     * cite355†torch.erfinv
+L481:     * cite356†torch.exp
+L482:     * cite357†torch.exp_
+L483:     * cite358†torch.exp2
+L484:     * cite359†torch.exp2_
+L485:     * cite360†torch.expm1
+L486:     * cite361†torch.expm1_
+L487:     * cite362†torch.fake_quantize_per_channel_affine
+L488:     * cite363†torch.fake_quantize_per_tensor_affine
+L489:     * cite364†torch.fill_
+L490:     * cite365†torch.fix
+L491:     * cite366†torch.fix_
+L492:     * cite367†torch.float_power
+L493:     * cite368†torch.floor
+L494:     * cite369†torch.floor_
+L495:     * cite370†torch.floor_divide
+L496:     * cite371†torch.fmod
+L497:     * cite372†torch.frac
+L498:     * cite373†torch.frac_
+L499:     * cite374†torch.frexp
+L500:     * cite375†torch.gradient
+L501:     * cite376†torch.imag
+L502:     * cite377†torch.ldexp
+L503:     * cite378†torch.ldexp_
+L504:     * cite379†torch.lerp
+L505:     * cite380†torch.lgamma
+L506:     * cite381†torch.log
+L507:     * cite382†torch.log_
+L508:     * cite383†torch.log10
+L509:     * cite384†torch.log10_
+L510:     * cite385†torch.log1p
+L511:     * cite386†torch.log1p_
+L512:     * cite387†torch.log2
+L513:     * cite388†torch.log2_
+L514:     * cite389†torch.logaddexp
+L515:     * cite390†torch.logaddexp2
+L516:     * cite391†torch.logical_and
+L517:     * cite392†torch.logical_not
+L518:     * cite393†torch.logical_or
+L519:     * cite394†torch.logical_xor
+L520:     * cite395†torch.logit
+L521:     * cite396†torch.logit_
+L522:     * cite397†torch.hypot
+L523:     * cite398†torch.i0
+L524:     * cite399†torch.i0_
+L525:     * cite400†torch.igamma
+L526:     * cite401†torch.igammac
+L527:     * cite402†torch.mul
+L528:     * cite403†torch.multiply
+L529:     * cite404†torch.mvlgamma
+L530:     * cite405†torch.nan_to_num
+L531:     * cite406†torch.nan_to_num_
+L532:     * cite407†torch.neg
+L533:     * cite408†torch.neg_
+L534:     * cite409†torch.negative
+L535:     * cite410†torch.negative_
+L536:     * cite411†torch.nextafter
+L537:     * cite412†torch.polygamma
+L538:     * cite413†torch.positive
+L539:     * cite414†torch.pow
+L540:     * cite415†torch.quantized_batch_norm
+L541:     * cite416†torch.quantized_max_pool1d
+L542:     * cite417†torch.quantized_max_pool2d
+L543:     * cite418†torch.rad2deg
+L544:     * cite419†torch.rad2deg_
+L545:     * cite420†torch.real
+L546:     * cite421†torch.reciprocal
+L547:     * cite422†torch.reciprocal_
+L548:     * cite423†torch.remainder
+L549:     * cite424†torch.round
+L550:     * cite425†torch.round_
+L551:     * cite426†torch.rsqrt
+L552:     * cite427†torch.rsqrt_
+L553:     * cite428†torch.sigmoid
+L554:     * cite429†torch.sigmoid_
+L555:     * cite430†torch.sign
+L556:     * cite431†torch.sgn
+L557:     * cite432†torch.signbit
+L558:     * cite433†torch.sin
+L559:     * cite434†torch.sin_
+L560:     * cite435†torch.sinc
+L561:     * cite436†torch.sinc_
+L562:     * cite437†torch.sinh
+L563:     * cite438†torch.sinh_
+L564:     * cite439†torch.softmax
+L565:     * cite440†torch.sqrt
+L566:     * cite441†torch.sqrt_
+L567:     * cite442†torch.square
+L568:     * cite443†torch.square_
+L569:     * cite444†torch.sub
+L570:     * cite445†torch.subtract
+L571:     * cite446†torch.tan
+L572:     * cite447†torch.tan_
+L573:     * cite448†torch.tanh
+L574:     * cite449†torch.tanh_
+L575:     * cite450†torch.true_divide
+L576:     * cite451†torch.trunc
+L577:     * cite452†torch.trunc_
+L578:     * cite453†torch.xlogy
+L579:     * cite454†torch.xlogy_
+L580:     * cite455†torch.zero_
+L581:     * cite456†torch.argmax
+L582:     * cite457†torch.argmin
+L583:     * cite458†torch.amax
+L584:     * cite459†torch.amin
+L585:     * cite460†torch.aminmax
+L586:     * cite461†torch.all
+L587:     * cite462†torch.any
+L588:     * cite463†torch.max
+L589:     * cite464†torch.min
+L590:     * cite465†torch.dist
+L591:     * cite466†torch.logsumexp
+L592:     * cite467†torch.mean
+L593:     * cite468†torch.nanmean
+L594:     * cite469†torch.median
+L595:     * cite470†torch.nanmedian
+L596:     * cite471†torch.mode
+L597:     * cite472†torch.norm
+L598:     * cite473†torch.norm_except_dim
+L599:     * cite474†torch.nuclear_norm
+L600:     * cite475†torch.nansum
+L601:     * cite476†torch.prod
+L602:     * cite477†torch.quantile
+L603:     * cite478†torch.nanquantile
+L604:     * cite479†torch.std
+L605:     * cite480†torch.std_mean
+L606:     * cite481†torch.sum
+L607:     * cite482†torch.unique
+L608:     * cite483†torch.unique_consecutive
+L609:     * cite484†torch.var
+L610:     * cite485†torch.var_mean
+L611:     * cite486†torch.count_nonzero
+L612:     * cite487†torch.hash_tensor
+L613:     * cite488†torch.allclose
+L614:     * cite489†torch.argsort
+L615:     * cite490†torch.eq
+L616:     * cite491†torch.equal
+L617:     * cite492†torch.ge
+L618:     * cite493†torch.greater_equal
+L619:     * cite494†torch.gt
+L620:     * cite495†torch.greater
+L621:     * cite496†torch.isclose
+L622:     * cite497†torch.isfinite
+L623:     * cite498†torch.isin
+L624:     * cite499†torch.isinf
+L625:     * cite500†torch.isposinf
+L626:     * cite501†torch.isneginf
+L627:     * cite502†torch.isnan
+L628:     * cite503†torch.isreal
+L629:     * cite504†torch.kthvalue
+L630:     * cite505†torch.le
+L631:     * cite506†torch.less_equal
+L632:     * cite507†torch.lt
+L633:     * cite508†torch.less
+L634:     * cite509†torch.maximum
+L635:     * cite510†torch.minimum
+L636:     * cite511†torch.fmax
+L637:     * cite512†torch.fmin
+L638:     * cite513†torch.ne
+L639:     * cite514†torch.not_equal
+L640:     * cite515†torch.sort
+L641:     * cite516†torch.topk
+L642:     * cite517†torch.msort
+L643:     * cite518†torch.stft
+L644:     * cite519†torch.istft
+L645:     * cite520†torch.bartlett_window
+L646:     * cite521†torch.blackman_window
+L3626:     * cite184†torch.chunk
+L3627:     * cite190†torch.column_stack
+L3628:     * cite189†torch.dsplit
+L3629:     * cite603†torch.flatten
+L3630:     * cite195†torch.hsplit
+L3631:     * cite196†torch.hstack
+L3632:     * cite623†torch.kron
+L3645:     * cite1586†torch.Tensor.expand_as
+L3646:     * cite1808†torch.Tensor.reshape
+L3647:     * cite1809†torch.Tensor.reshape_as
+L3648:     * cite1919†torch.Tensor.unfold
+L3649:     * cite1928†torch.Tensor.view
+L3650:     * cite3287†torch.masked.maskedtensor.core.is_masked_tensor
+L3651:   * cite64†torch.nested
+L3652:   * cite65†torch.Size
+L3653:   * cite66†torch.sparse
+L3654:     * cite3288†SparseSemiStructuredTensorCUSPARSELT
+L3655:     * cite3289†SparseSemiStructuredTensorCUTLASS
+L3656:     * cite1668†torch.Tensor.is_sparse
+L3657:     * cite3290†torch.Tensor.is_sparse_csr
+L3658:     * cite1547†torch.Tensor.dense_dim
+L3659:     * cite1856†torch.Tensor.sparse_dim
+L3660:     * cite1855†torch.Tensor.sparse_mask
+L3661:     * cite1898†torch.Tensor.to_sparse
+L3662:     * cite3291†torch.Tensor.to_sparse_coo
+L3663:     * cite1899†torch.Tensor.to_sparse_csr
+L3664:     * cite1900†torch.Tensor.to_sparse_csc
+L3665:     * cite1901†torch.Tensor.to_sparse_bsr
+L3666:     * cite1902†torch.Tensor.to_sparse_bsc
+L3667:     * cite1897†torch.Tensor.to_dense
+L3668:     * cite1925†torch.Tensor.values
+L3669:     * cite3292†torch.Tensor.coalesce
+L3670:     * cite3293†torch.Tensor.sparse_resize_
+L3671:     * cite3294†torch.Tensor.sparse_resize_and_clear_
+L3672:     * cite3295†torch.Tensor.is_coalesced
+L3673:     * cite1647†torch.Tensor.indices
+L3674:     * cite3296†torch.Tensor.crow_indices
+L3675:     * cite3297†torch.Tensor.col_indices
+L3676:     * cite3298†torch.Tensor.row_indices
+L3677:     * cite3299†torch.Tensor.ccol_indices
+L3678:     * cite137†torch.sparse_coo_tensor
+L3679:     * cite138†torch.sparse_csr_tensor
+L3680:     * cite139†torch.sparse_csc_tensor
+L3681:     * cite140†torch.sparse_bsr_tensor
+L3682:     * cite141†torch.sparse_bsc_tensor
+L3683:     * cite3300†torch.sparse_compressed_tensor
+L3684:     * cite3301†torch.sparse.sum
+L3685:     * cite3302†torch.sparse.addmm
+L3686:     * cite3303†torch.sparse.sampled_addmm
+L3687:     * cite3304†torch.sparse.mm
+L3688:     * cite3305†torch.sspaddmm
+L3689:     * cite3306†torch.hspmm
+L3690:     * cite3307†torch.smm
+L3691:     * cite3308†torch.sparse.softmax
+L3692:     * cite3309†torch.sparse.spsolve
+L3693:     * cite3310†torch.sparse.log_softmax
+L3694:     * cite3311†torch.sparse.spdiags
+L3695:     * cite3312†check_sparse_tensor_invariants
+L3696:     * cite3313†torch.sparse.as_sparse_gradcheck
+L3697:   * cite67†torch.Storage
+L3698:   * cite68†torch.testing
+L3699:   * cite69†torch.utils
+L3700:     * cite3314†torch.utils.get_cpp_backtrace
+L3701:     * cite3315†torch.utils.set_module
+L3702:     * cite3316†torch.utils.swap_tensors
+L3703:   * cite70†Benchmark Utils - torch.utils.benchmark
+L3704:   * cite71†torch.utils.checkpoint
+L3705:   * cite72†torch.utils.cpp_extension
+L3706:   * cite73†torch.utils.data
+L3707:     * cite3317†StreamReaderIterDataPipe
+L3708:     * cite3318†StreamWrapper
+L3709:   * cite74†torch.utils.deterministic
+L3710:   * cite75†JIT Utils - torch.utils.jit
+L3711:   * cite76†torch.utils.dlpack
+L3712:   * cite77†torch.utils.mobile_optimizer
+L3713:   * cite78†torch.utils.model_zoo
+L3714:   * cite79†torch.utils.tensorboard
+L3715:   * cite80†torch.utils.module_tracker
+L3716:   * cite81†Type Info
+L3717:   * cite82†torch.__config__
+L3718:   * cite83†torch.__future__
+L3719:   * cite84†torch._logging
+L3720:     * cite2337†torch._logging.set_logs
+L3721:   * cite85†Torch Environment Variables
+L3722:     * cite3319†Threading Environment Variables
+L3723:     * cite3320†CUDA Environment Variables
+L3724:     * cite3321†MPS Environment Variables
+L3725:     * cite3322†Debugging Environment Variables
+L3726:     * cite3323†Miscellaneous Environment Variables
+L3727:     * cite84†torch._logging
+L3728:       * cite2337†torch._logging.set_logs
+L3729:     * cite3324†PYTORCH ProcessGroupNCCL Environment Variables
+L3730: # torch.fxcite3325†#
+L3731: 
+L3732: Created On: Dec 15, 2020 | Last Updated On: May 08, 2026
+L3733: ## Overviewcite3326†#
+L3734: FX is a toolkit for developers to use to transform `nn.Module` instances. FX consists of three main components: a symbolic tracer, an intermediate representation, and Python code generation. A demonstration of these components in action:
+L3735: 
+L3736:     import torch
+L3737: 
+L3738: 
+L3739:     # Simple module for demonstration
+L3740:     class MyModule(torch.nn.Module):
+L3741:         def __init__(self) -> None:
+L3742:             super().__init__()
+L3743:             self.param = torch.nn.Parameter(torch.rand(3, 4))
+L3744:             self.linear = torch.nn.Linear(4, 5)
+L3745: 
+L3746:         def forward(self, x):
+L3747:             return self.linear(x + self.param).clamp(min=0.0, max=1.0)
+L3748: 
+L3749: 
+L3750:     module = MyModule()
+L3751: 
+L3752:     from torch.fx import symbolic_trace
+L3753: 
+L3754:     # Symbolic tracing frontend - captures the semantics of the module
+L3755:     symbolic_traced: torch.fx.GraphModule = symbolic_trace(module)
+L3756: 
+L3757:     # High-level intermediate representation (IR) - Graph representation
+L3758:     print(symbolic_traced.graph)
+L3759:     """
+L3760:     graph():
+L3761:         %x : [num_users=1] = placeholder[target=x]
+L3762:         %param : [num_users=1] = get_attr[target=param]
+L3763:         %add : [num_users=1] = call_function[target=operator.add](args = (%x, %param), kwargs = {})
+L3764:         %linear : [num_users=1] = call_module[target=linear](args = (%add,), kwargs = {})
+L3765:         %clamp : [num_users=1] = call_method[target=clamp](args = (%linear,), kwargs = {min: 0.0, max: 1.0})
+L3766:         return clamp
+L3767:     """
+L3768: 
+L3769:     # Code generation - valid Python code
+L3770:     print(symbolic_traced.code)
+L3771:     """
+L3772:     def forward(self, x):
+L3773:         param = self.param
+L3774:         add = x + param;  x = param = None
+L3775:         linear = self.linear(add);  add = None
+L3776:         clamp = linear.clamp(min = 0.0, max = 1.0);  linear = None
+L3777:         return clamp
+L3778:     """
+L3779: The symbolic tracer performs “symbolic execution” of the Python code. It feeds fake values, called Proxies, through the code. Operations on these Proxies are recorded. More information about symbolic tracing can be found in the cite3327†`symbolic_trace()` and cite3328†`Tracer` documentation.
+L3780: The intermediate representation is the container for the operations that were recorded during symbolic tracing. It consists of a list of Nodes that represent function inputs, callsites (to functions, methods, or cite3329†`torch.nn.Module` instances), and return values. More information about the IR can be found in the documentation for cite3330†`Graph` . The IR is the format on which transformations are applied.
+L3781: Python code generation is what makes FX a Python-to-Python (or Module-to-Module) transformation toolkit. For each Graph IR, we can create valid Python code matching the Graph’s semantics. This functionality is wrapped up in cite3331†`GraphModule` , which is a cite3329†`torch.nn.Module` instance that holds a cite3330†`Graph` as well as a `forward` method generated from the Graph.
+L3782: Taken together, this pipeline of components (symbolic tracing -> intermediate representation -> transforms -> Python code generation) constitutes the Python-to-Python transformation pipeline of FX. In addition, these components can be used separately. For example, symbolic tracing can be used in isolation to capture a form of the code for analysis (and not transformation) purposes. Code generation can be used for programmatically generating models, for example from a config file.
+L3783: There are many uses for FX!
+L3784: Several example transformations can be found at the cite3332†examples†github.com repository.
+L3785: ## Writing Transformationscite3333†#
+L3786: What is an FX transform? Essentially, it’s a function that looks like this.
+L3787: 
+L3788: 
+L3789:     import torch
+L3790:     import torch.fx
+L3791: 
+L3792:     def transform(m: nn.Module,
+L3793:                     tracer_class : type = torch.fx.Tracer) -> torch.nn.Module:
+L3794:         # Step 1: Acquire a Graph representing the code in `m`
+L3795: 
+L3796:         # NOTE: torch.fx.symbolic_trace is a wrapper around a call to
+L3797:         # fx.Tracer.trace and constructing a GraphModule. We'll
+L3798:         # split that out in our transform to allow the caller to
+L3799:         # customize tracing behavior.
+L3800:         graph : torch.fx.Graph = tracer_class().trace(m)
+L3801: 
+L3802:         # Step 2: Modify this Graph or create a new one
+L3803:         graph = ...
+L3804: 
+L3805:         # Step 3: Construct a Module to return
+L3806:         return torch.fx.GraphModule(m, graph)
+L3807: Your transform will take in a cite3329†`torch.nn.Module` , acquire a cite3330†`Graph` from it, do some modifications, and return a new cite3329†`torch.nn.Module` . You should think of the cite3329†`torch.nn.Module` that your FX transform returns as identical to a regular cite3329†`torch.nn.Module` – you can pass it to another FX transform, or you can run it. Ensuring that the inputs and outputs of your FX transform are a cite3329†`torch.nn.Module` will allow for composability.
+L3808: 
+L3809: Note
+L3810: It is also possible to modify an existing cite3331†`GraphModule` instead of creating a new one, like so:
+L3811: 
+L3812:     import torch
+L3813:     import torch.fx
+L3814: 
+L3815:     def transform(m : nn.Module) -> nn.Module:
+L3816:         gm : torch.fx.GraphModule = torch.fx.symbolic_trace(m)
+L3817: 
+L3818:         # Modify gm.graph
+L3819:         # <...>
+L3820: 
+L3821:         # Recompile the forward() method of `gm` from its Graph
+L3822:         gm.recompile()
+L3823: 
+L3824:         return gm
+L3825: Note that you MUST call cite3334†`GraphModule.recompile()` to bring the generated `forward()` method on the `GraphModule` in sync with the modified cite3330†`Graph` .
+L3826: 
+L3827: Given that you’ve passed in a cite3329†`torch.nn.Module` that has been traced into a cite3330†`Graph` , there are now two primary approaches you can take to building a new cite3330†`Graph` .
+L3828: ### A Quick Primer on Graphscite3335†#
+L3829: 
+L3830: Full treatment of the semantics of graphs can be found in the cite3330†`Graph` documentation, but we are going to cover the basics here. A cite3330†`Graph` is a data structure that represents a method on a cite3331†`GraphModule` . The information that this requires is:
+L3831: 
+L3832:   * What are the inputs to the method?
+L3833: 
+L3834:   * What are the operations that run inside the method?
+L3835: 
+L3836:   * What is the output (i.e. return) value from the method?
+L3837: All three of these concepts are represented with cite3336†`Node` instances. Let’s see what we mean by that with a short example:
+L3838: 
+L3839: 
+L3840:     import torch
+L3841:     import torch.fx
+L3842: 
+L3843:     class MyModule(torch.nn.Module):
+L3844:         def __init__(self):
+L3845:             super().__init__()
+L3846:             self.param = torch.nn.Parameter(torch.rand(3, 4))
+L3847:             self.linear = torch.nn.Linear(4, 5)
+L3848: 
+L3849:         def forward(self, x):
+L3850:             return torch.topk(torch.sum(
+L3851:                 self.linear(x + self.linear.weight).relu(), dim=-1), 3)
+L3852: 
+L3853:     m = MyModule()
+L3854:     gm = torch.fx.symbolic_trace(m)
+L3855: 
+L3856:     gm.graph.print_tabular()
+L3857: Here we define a module `MyModule` for demonstration purposes, instantiate it, symbolically trace it, then call the cite3337†`Graph.print_tabular()` method to print out a table showing the nodes of this cite3330†`Graph` :
+L3858: opcode  | name  | target  | args  | kwargs
+L3859: --- | --- | --- | --- | ---
+L3860: placeholder  | x  | x  | ()  | {}
+L3861: get_attr  | linear_weight  | linear.weight  | ()  | {}
+L3862: call_function  | add_1  |  | (x, linear_weight)  | {}
+L3863: call_module  | linear_1  | linear  | (add_1,)  | {}
+L3864: call_method  | relu_1  | relu  | (linear_1,)  | {}
+L3865: call_function  | sum_1  | <built-in method sum …>  | (relu_1,)  | {‘dim’: -1}
+L3866: call_function  | topk_1  | <built-in method topk …>  | (sum_1, 3)  | {}
+L3937: Another way of manipulating cite3330†`Graph` \s is by reusing the cite3352†`Proxy` machinery used in symbolic tracing. For example, let’s imagine that we wanted to write a transformation that decomposed PyTorch functions into smaller operations. It would transform every `F.relu(x)` call into `(x > 0) * x`. One possibility would be to perform the requisite graph rewriting to insert the comparison and multiplication after the `F.relu`, and then clean up the original `F.relu`.
+L3938: However, we can automate this process by using cite3352†`Proxy` objects to automatically record operations into the cite3330†`Graph` .
+L3939: To use this method, we write the operations that we want inserted as regular PyTorch code and invoke that code with cite3352†`Proxy` objects as arguments. These cite3352†`Proxy` objects will capture the operations that are performed on them and append them to the cite3330†`Graph` .
+L3940: 
+L3941: 
+L3942:     # Note that this decomposition rule can be read as regular Python
+L3943:     def relu_decomposition(x):
+L3944:         return (x > 0) * x
+L3945: 
+L3946:     decomposition_rules = {}
+L3947:     decomposition_rules[F.relu] = relu_decomposition
+L3948:     def decompose(model: torch.nn.Module,
+L3949:                     tracer_class : type = fx.Tracer) -> torch.nn.Module:
+L3950:         """
+L3951:         Decompose `model` into smaller constituent operations.
+L3952:         Currently,this only supports decomposing ReLU into its
+L3953:         mathematical definition: (x > 0) * x
+L3954:         """
+L3955:         graph : fx.Graph = tracer_class().trace(model)
+L3956:         new_graph = fx.Graph()
+L3957:         env = {}
+L3958:         tracer = torch.fx.proxy.GraphAppendingTracer(new_graph)
+L3959:         for node in graph.nodes:
+L3960:             if node.op == 'call_function' and node.target in decomposition_rules:
+L3961:                 # By wrapping the arguments with proxies,
+L3962:                 # we can dispatch to the appropriate
+L3963:                 # decomposition rule and implicitly add it
+L3964:                 # to the Graph by symbolically tracing it.
+L3965:                 proxy_args = [
+L3966:                     fx.Proxy(env[x.name], tracer) if isinstance(x, fx.Node) else x for x in node.args]
+L3967:                 output_proxy = decomposition_rules[node.target](*proxy_args)
+L3968: 
+L3969:                 # Operations on `Proxy` always yield new `Proxy`s, and the
+L3970:                 # return value of our decomposition rule is no exception.
+L3971:                 # We need to extract the underlying `Node` from the `Proxy`
+L3972:                 # to use it in subsequent iterations of this transform.
+L3973:                 new_node = output_proxy.node
+L3974:                 env[node.name] = new_node
+L3975:             else:
+L3976:                 # Default case: we don't have a decomposition rule for this
+L3977:                 # node, so just copy the node over into the new graph.
+L3978:                 new_node = new_graph.node_copy(node, lambda x: env[x.name])
+L3979:                 env[node.name] = new_node
+L3980:         return fx.GraphModule(model, new_graph)
+L3981: In addition to avoiding explicit graph manipulation, using cite3352†`Proxy` \s also allows you to specify your rewrite rules as native Python code. For transformations that require a large amount of rewrite rules (such as vmap or grad), this can often improve readability and maintainability of the rules. Note that while calling cite3352†`Proxy` we also passed a tracer pointing to the underlying variable `graph`. This is done so if in case the operations in graph are n-ary (e.g.
+L3982: add is a binary operator) the call to cite3352†`Proxy` does not create multiple instances of a graph tracer which can lead to unexpected runtime errors. We recommend this method of using cite3352†`Proxy` especially when the underlying operators can not be safely assumed to be unary.
+L3983: A worked example of using cite3352†`Proxy` \s for cite3330†`Graph` manipulation can be found cite3353†here†github.com .
+L3984: ### The Interpreter Patterncite3354†#
+L3985: A useful code organizational pattern in FX is to loop over all the cite3336†`Node` \s in a cite3330†`Graph` and execute them. This can be used for several things including runtime analysis of values flowing through the graph or transformation of the code via retracing with cite3352†`Proxy` \s. For example, suppose we want to run a cite3331†`GraphModule` and record the cite3355†`torch.Tensor` shape and dtype properties on the nodes as we see them at runtime. That might look like:
+L3986: 
+L3987: 
+L3988:     import torch
+L3989:     import torch.fx
+L3990:     from torch.fx.node import Node
+L3991: 
+L3992:     from typing import Dict
+L3993: 
+L3994:     class ShapeProp:
+L3995:         """
+L3996:         Shape propagation. This class takes a `GraphModule`.
+L3997:         Then, its `propagate` method executes the `GraphModule`
+L3998:         node-by-node with the given arguments. As each operation
+L3999:         executes, the ShapeProp class stores away the shape and
+L4000:         element type for the output values of each operation on
+L4001:         the `shape` and `dtype` attributes of the operation's
+L4002:         `Node`.
+L4003:         """
+L4004:         def __init__(self, mod):
+L4005:             self.mod = mod
+L4006:             self.graph = mod.graph
+L4007:             self.modules = dict(self.mod.named_modules())
+L4008: 
+L4009:         def propagate(self, *args):
+L4010:             args_iter = iter(args)
+L4011:             env : Dict[str, Node] = {}
+L4012: 
+L4013:             def load_arg(a):
+L4014:                 return torch.fx.graph.map_arg(a, lambda n: env[n.name])
+L4015: 
+L4016:             def fetch_attr(target : str):
+L4017:                 target_atoms = target.split('.')
+L4018:                 attr_itr = self.mod
+L4019:                 for i, atom in enumerate(target_atoms):
+L4020:                     if not hasattr(attr_itr, atom):
+L4021:                         raise RuntimeError(f"Node referenced nonexistent target {'.'.join(target_atoms[:i])}")
+L4022:                     attr_itr = getattr(attr_itr, atom)
+L4023:                 return attr_itr
+L4024: 
+L4025:             for node in self.graph.nodes:
+L4026:                 if node.op == 'placeholder':
+L4027:                     result = next(args_iter)
+L4028:                 elif node.op == 'get_attr':
+L4029: 
+L4030:                     result = fetch_attr(node.target)
+L4031:                 elif node.op == 'call_function':
+L4032:                     result = node.target(*load_arg(node.args), **load_arg(node.kwargs))
+L4033:                 elif node.op == 'call_method':
+L4034:                     self_obj, *args = load_arg(node.args)
+L4035:                     kwargs = load_arg(node.kwargs)
+L4036:                     result = getattr(self_obj, node.target)(*args, **kwargs)
+L4037:                 elif node.op == 'call_module':
+L4038:                     result = self.modules[node.target](*load_arg(node.args), **load_arg(node.kwargs))
+L4039: 
+L4040:                 # This is the only code specific to shape propagation.
+L4041:                 # you can delete this `if` branch and this becomes
+L4042:                 # a generic GraphModule interpreter.
+L4043:                 if isinstance(result, torch.Tensor):
+L4044:                     node.shape = result.shape
+L4045:                     node.dtype = result.dtype
+L4046:                 env[node.name] = result
+L4047: 
+L4048:             return load_arg(self.graph.result)
+L4049: As you can see, a full interpreter for FX is not that complicated but it can be very useful. To ease using this pattern, we provide the cite3356†`Interpreter` class, which encompasses the above logic in a way that certain aspects of the interpreter’s execution can be overridden via method overrides.
+L4050: In addition to executing operations, we can also generate a new `Graph` by feeding cite3352†`Proxy` values through an interpreter. Similarly, we provide the cite3357†`Transformer` class to encompass this pattern.
+L4051: cite3357†`Transformer` behaves similarly to cite3356†`Interpreter` , but instead of calling the `run` method to get a concrete output value from the Module, you would call the cite3358†`Transformer.transform()` method to return a new cite3331†`GraphModule` which was subject to any transformation rules you installed as overridden methods.
+L4052: #### Examples of the Interpreter Patterncite3359†#
+L4053: 
+L4054:   * cite3360†ShapePropagation†github.com
+L4055: 
+L4056:   * cite3361†Performance Profiler†github.com
+L4057: 
+L4058: ## Debuggingcite3362†#
+L4059: ### Introductioncite3363†#
+L4060: 
+L4061: Often in the course of authoring transformations, our code will not be quite right. In this case, we may need to do some debugging. The key is to work backwards: first, check the results of invoking the generated module to prove or disprove correctness. Then, inspect and debug the generated code. Then, debug the process of transformations that led to the generated code.
+L4062: 
+L4063: If you’re not familiar with debuggers, please see the auxiliary section cite3364†Available Debuggers .
+L4064: ### Common Pitfalls in Transform Authoringcite3365†#
+L4065:   * Nondeterministic `set` iteration order. In Python, the `set` datatype is unordered. Using `set` to contain collections of objects like `Node`\ s, for example, can cause unexpected nondeterminism. An example is iterating over a set of `Node` s to insert them into a `Graph`. Because the `set` data type is unordered, the ordering of the operations in the output program will be nondeterministic and can change across program invocations.
+L4066: The recommended alternative is to use a `dict` data type, which is cite3366†insertion ordered†mail.python.org as of Python 3.7 (and as of cPython 3.6). A `dict` can be used equivalently to a set by storing values to be deduplicated in the keys of the `dict`.
+L4067: ### Checking Correctness of Modulescite3367†#
+L4068: Because the output of most deep learning modules consists of floating point cite3355†`torch.Tensor` instances, checking for equivalence between the results of two cite3329†`torch.nn.Module` is not as straightforward as doing a simple equality check. To motivate this, let’s use an example:
+L4069: 
+L4070: 
+L4071:     import torch
+L4072:     import torch.fx
+L4073:     import torchvision.models as models
+L4074: 
+L4075:     def transform(m : torch.nn.Module) -> torch.nn.Module:
+L4076:         gm = torch.fx.symbolic_trace(m)
+L4077:         # Imagine we're doing some transforms here
+L4078:         # <...>
+L4079: 
+L4080:         gm.recompile()
+L4081: 
+L4082:         return gm
+L4083: 
+L4084:     resnet18 = models.resnet18()
+L4085:     transformed_resnet18 = transform(resnet18)
+L4086: 
+L4087:     input_image = torch.randn(5, 3, 224, 224)
+L4088: 
+L4089:     assert resnet18(input_image) == transformed_resnet18(input_image)
+L4090:     """
+L4091:     RuntimeError: Boolean value of Tensor with more than one value is ambiguous
+L4092:     """
+L4093: Here, we’ve tried to check equality of the values of two deep learning models with the `==` equality operator. However, this is not well-
+L4094: defined both due to the issue of that operator returning a tensor and not a bool, but also because comparison of floating point values should use a margin of error (or epsilon) to account for the non-commutativity of floating point operations (see cite3368†here†floating-point-gui.de for more details). We can use cite3369†`torch.allclose()` instead, which will give us an approximate comparison taking into account a relative and absolute tolerance threshold:
+L4095:     assert torch.allclose(resnet18(input_image), transformed_resnet18(input_image))
+L4096: This is the first tool in our toolbox to check if transformed modules are behaving as we expect compared to a reference implementation.
+L4097: ### Debugging the Generated Codecite3370†#
+L4098: 
+L4099: Because FX generates the `forward()` function on cite3331†`GraphModule` \s, using traditional debugging techniques like `print` statements or `pdb` is not as straightforward. Luckily, we have several techniques we can use for debugging the generated code.
+L4100: #### Use `pdb`cite3371†#
+L4101: Invoke `pdb` to step into the running program. Although the code that represents the cite3330†`Graph` is not in any source file, we can still step into it manually using `pdb` when the forward pass is invoked.
+L4102: 
+L4103: 
+L4104:     import torch
+L4105:     import torch.fx
+L4106:     import torchvision.models as models
+L4107: 
+L4108:     def my_pass(inp: torch.nn.Module, tracer_class : type = fx.Tracer) -> torch.nn.Module:
+L4109:         graph = tracer_class().trace(inp)
+L4110:         # Transformation logic here
+L4111:         # <...>
+L4112:         # Return new Module
+L4113:         return fx.GraphModule(inp, graph)
+L4114: 
+L4115:     my_module = models.resnet18()
+L4116:     my_module_transformed = my_pass(my_module)
+L4117: 
+L4118:     input_value = torch.randn(5, 3, 224, 224)
+L4119: 
+L4120:     # When this line is executed at runtime, we will be dropped into an
+L4121:     # interactive `pdb` prompt. We can use the `step` or `s` command to
+L4122:     # step into the execution of the next line
+L4123:     import pdb; pdb.set_trace()
+L4124: 
+L4125:     my_module_transformed(input_value)
+L4126: #### Print the Generated Codecite3372†#
+L4127: If you’d like to run the same code multiple times, then it can be a bit tedious to step to the right code with `pdb`. In that case, one approach is to simply copy-paste the generated `forward` pass into your code and examine it from there.
+L4128: 
+L4129: 
+L4130:     # Assume that `traced` is a GraphModule that has undergone some
+L4131:     # number of transforms
+L4132: 
+L4133:     # Copy this code for later
+L4134:     print(traced)
+L4135:     # Print the code generated from symbolic tracing. This outputs:
+L4136:     """
+L4137:     def forward(self, y):
+L4138:         x = self.x
+L4139:         add_1 = x + y;  x = y = None
+L4140:         return add_1
+L4141:     """
+L4142: 
+L4143:     # Subclass the original Module
+L4144:     class SubclassM(M):
+L4145:         def __init__(self):
+L4146:             super().__init__()
+L4147: 
+L4148:         # Paste the generated `forward` function (the one we printed and
+L4149:         # copied above) here
+L4150:         def forward(self, y):
+L4151:             x = self.x
+L4152:             add_1 = x + y;  x = y = None
+L4153:             return add_1
+L4154:     # Create an instance of the original, untraced Module. Then, create an
+L4155:     # instance of the Module with the copied `forward` function. We can
+L4156:     # now compare the output of both the original and the traced version.
+L4157:     pre_trace = M()
+L4158:     post_trace = SubclassM()
+L4159: #### Use the `to_folder` Function From `GraphModule`cite3373†#
+L4160: 
+L4161: cite3374†`GraphModule.to_folder()` is a method in `GraphModule` that allows you to dump out the generated FX code to a folder. Although copying the forward pass into the code often suffices as in cite3372†Print the Generated Code , it may be easier to examine modules and parameters using `to_folder`.
+L4162: 
+L4163: 
+L4164:     m = symbolic_trace(M())
+L4165:     m.to_folder("foo", "Bar")
+L4166:     from foo import Bar
+L4167:     y = Bar()
+L4168: After running the above example, we can then look at the code within `foo/module.py` and modify it as desired (e.g. adding `print` statements or using `pdb`) to debug the generated code.
+L4169: ### Debugging the Transformationcite3375†#
+L4170: Now that we’ve identified that a transformation is creating incorrect code, it’s time to debug the transformation itself. First, we’ll check the cite3376†Limitations of Symbolic Tracing section in the documentation. Once we verify that tracing is working as expected, the goal becomes figuring out what went wrong during our `GraphModule` transformation. There may be a quick answer in cite3333†Writing Transformations , but, if not, there are several ways to examine our traced module:
+L4171: 
+L4172: 
+L4173:     # Sample Module

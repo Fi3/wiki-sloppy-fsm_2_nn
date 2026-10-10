@@ -1,0 +1,21 @@
+{
+  "original_url": "https://baloneymath.github.io/files/DAC19_thre.pdf",
+  "aliases": [],
+  "retrieved_on": "2026-10-07",
+  "segments": [
+    {
+      "url": "https://baloneymath.github.io/files/DAC19_thre.pdf",
+      "total_browser_lines": 618,
+      "captured_lines": 362,
+      "missing_line_ranges": [
+        [
+          362,
+          617
+        ]
+      ],
+      "text_extraction_complete": false
+    }
+  ],
+  "review_status": "first-pass; source summary specifies reviewed scope",
+  "limitations": "Text only; original file bytes and linked assets were not downloaded. Browser extraction can omit equations and figures even with complete line coverage."
+}

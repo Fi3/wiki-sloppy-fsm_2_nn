@@ -1,0 +1,417 @@
+Quantum Lower Bounds by Polynomials
+Supplied URL: https://arxiv.org/pdf/quant-ph/9802049
+Retrieved on: 2026-10-07
+Format: text extracted by the web browsing tool, not the original PDF/HTML bytes.
+L numbers refer to the browser extraction. PDF P numbers are zero-based.
+A complete text extraction does not imply that every figure, equation, or proof was reviewed.
+Read capture.json for captured URLs, line coverage, and missing ranges.
+
+
+=== Segment 1: https://arxiv.org/pdf/quant-ph/9802049 ===
+
+L0@P0: arXiv:quant-ph/9802049v3 30 Sep 1998
+L1@P0: Quantum Lower Bounds by Polynomials∗
+L2@P0: Robert Beals
+L3@P0: University of Arizona
+L4@P0: ‡
+L5@P0: Harry Buhrman
+L6@P0: CWI, Amsterdam
+L7@P0: §
+L8@P0: Richard Cleve
+L9@P0: University of Calgary
+L10@P0: ¶
+L11@P0: Michele Mosca
+L12@P0: University of Oxford
+L13@P0: k
+L14@P0: Ronald de Wolf
+L15@P0: CWI and University of Amsterdam
+L16@P0: ∗∗
+L17@P0: Abstract
+L18@P0: We examine the number T of queries that a quantum
+L19@P0: network requires to compute several Boolean functions on
+L20@P0: {0, 1}
+L21@P0: N in the black-box model. We show that, in the blackbox model, the exponential quantum speed-up obtained for
+L22@P0: partial functions (i.e. problems involving a promise on the
+L23@P0: input) by Deutsch and Jozsa and by Simon cannot be obtained for any total function: if a quantum algorithm computes some total Boolean function f with bounded-error using T black-box queries then there is a classical deterministic algorithm that computes f exactly with O(T
+L24@P0: 6
+L25@P0: ) queries.
+L26@P0: We also give asymptotically tight characterizations of T for
+L27@P0: all symmetric f in the exact, zero-error, and bounded-error
+L28@P0: settings. Finally, we give new precise bounds for AND, OR,
+L29@P0: and PARITY. Our results are a quantum extension of the socalled polynomial method, which has been successfully applied in classical complexity theory, and also a quantum extension of results by Nisan about a polynomial relationship
+L30@P0: between randomized and deterministic decision tree complexity.
+L31@P0: 1 Introduction
+L32@P0: The black-box model of computation arises when one is
+L33@P0: given a black-box containing an N-tuple of Boolean vari-
+L34@P0: ∗Part of this work was done while the third and fourth authors were
+L35@P0: visiting CWI in December 1997.
+L36@P0: ‡Department of Mathematics, University of Arizona, P.O. Box
+L37@P0: 210089, 617 N. Santa Rita Ave, Tucson AZ 85721–0089, USA. E-mail:
+L38@P0: beals@math.arizona.edu.
+L39@P0: §CWI, P.O. Box 94079, Amsterdam, The Netherlands. E-mail:
+L40@P0: buhrman@cwi.nl.
+L41@P0: ¶Department of Computer Science, University of Calgary, Calgary, Alberta, Canada T2N 1N4. E-mail: cleve@cpsc.ucalgary.ca.
+L42@P0: kMathematical Institute, University of Oxford, 24-29 St. Giles’, Oxford,OX1 3LB, U.K., and Centre for Quantum Computation, Clarendon Laboratory, Parks Road, Oxford, OX1 3PU, U.K. E-mail:
+L43@P0: mosca@maths.ox.ac.uk.
+L44@P0: ∗∗CWI, P.O. Box 94079, Amsterdam, The Netherlands. E-mail:
+L45@P0: rdewolf@cwi.nl.
+L46@P0: ables X = (x0, x1, . . . , xN−1). The box is equipped to
+L47@P0: output xi on input i. We wish to determine some property
+L48@P0: of X, accessing the xi only through the black-box. Such
+L49@P0: a black-box access is called a query. A property of X is
+L50@P0: any Boolean function that depends on X, i.e. a property is
+L51@P0: a function f : {0, 1}
+L52@P0: N → {0, 1}. We want to compute such
+L53@P0: properties using as few queries as possible.
+L54@P0: Consider, for example, the case where the goal is to determine whether or not X contains at least one 1, so we want
+L55@P0: to compute the property OR(X) = x0 ∨ . . . ∨ xN−1. It is
+L56@P0: well known that the number of queries required to compute
+L57@P0: OR by any classical (deterministic or probabilistic) algorithm is Θ(N). Grover [15] discovered a remarkable quantum algorithm that, making queries in superposition, can be
+L58@P0: used to compute OR with small error probability using only
+L59@P0: O(
+L60@P0: √
+L61@P0: N) queries. This number of queries was shown to be
+L62@P0: asymptotically optimal [3, 5, 37].
+L63@P0: Many other quantum algorithms can be naturally expressed in the black-box model, such as an algorithm due to
+L64@P0: Simon [32], in which one is given a function X˜ : {0, 1}
+L65@P0: n →
+L66@P0: {0, 1}
+L67@P0: n, which, technically, can also be viewed as a blackbox X = (x0, . . . , xN−1) with N = n2
+L68@P0: n. The black-box
+L69@P0: X satisfies a particular promise, and the goal is to determine whether or not X satisfies some other property (the
+L70@P0: details of the promise and properties are explained in [32]).
+L71@P0: Simon’s quantum algorithm is proven to yield an exponential speed-up over classical algorithms in that it makes
+L72@P0: (log N)
+L73@P0: O(1) queries, whereas every classical randomized
+L74@P0: algorithm for the same function must make N Ω(1) queries.
+L75@P0: The promise means that the function f : {0, 1}
+L76@P0: N → {0, 1}
+L77@P0: is partial; it is not defined on all X ∈ {0, 1}
+L78@P0: N. (In the previous example of OR, the function is total; however, the quantum speed-up is only quadratic.) Some other quantum algorithms that are naturally expressed in the black-box model
+L79@P0: are described in [10, 4, 19, 5, 6, 17, 22, 9, 7, 21, 8].
+L80@P0: Of course, upper bounds in the black-box model immediately yield upper bounds for the circuit description
+L81@P0: model in which the function X is succinctly described as
+L82@P0: a (log N)
+L83@P0: O(1)-sized circuit computing xi from i. On theother hand, lower boundsin the black-box model do not imply lower bounds in the circuit model, though they can provide useful guidance, indicating what certain algorithmic
+L84@P1: approaches are capable of accomplishing. It is noteworthy
+L85@P1: that, at present, there is no known algorithm for computing
+L86@P1: OR (i.e. satisfiability) in the circuit model that is significantly more efficient than using the circuit solely to make
+L87@P1: queries (though, proving that no better algorithm exists is
+L88@P1: likely to be difficult, as it would imply P 6= NP).
+L89@P1: It should also be noted that the black-box complexity of
+L90@P1: a function only considers the number of queries; it does not
+L91@P1: capture the complexity of the auxiliary computational steps
+L92@P1: that have to be performed in addition to the queries. In cases
+L93@P1: such as OR, PARITY, MAJORITY, this auxiliary work is
+L94@P1: not significantly larger than the number of queries; however,
+L95@P1: in some cases it may be much larger. For example, consider
+L96@P1: the case of factoring N-bit integers. The best known algorithms for this involve Θ(N) queries to determine the integer, followed by 2
+L97@P1: NΩ(1) operations in the classical case but
+L98@P1: only N2(log N)
+L99@P1: O(1) operations in the quantum case [31].
+L100@P1: Thus, the number of queries is apparently not of primary
+L101@P1: importance in the case of factoring.
+L102@P1: In this paper, we analyze the black-box complexity of
+L103@P1: several functions and classes of functions in the quantum
+L104@P1: computation setting. In particular, we show that the kind
+L105@P1: of exponential quantum speed-up that Simon’s algorithm
+L106@P1: achieves for a partial function cannot be obtained by any
+L107@P1: quantum algorithm for any total function: at most a polynomial speed-up is possible. We also tightly characterize the
+L108@P1: quantum black-box complexity of all symmetric functions,
+L109@P1: and obtain exact bounds for functions such as AND, OR,
+L110@P1: PARITY, and MAJORITY for various error models: exact,
+L111@P1: zero-error, bounded-error.
+L112@P1: An important ingredient of our approach is a reduction
+L113@P1: that translates quantum algorithms that make T queries into
+L114@P1: multilinear polynomials over the N variables of degree at
+L115@P1: most 2T . This is a quantum extension of the so-called
+L116@P1: polynomial method, which has been successfully applied
+L117@P1: in classical complexity theory (see [2] for an overview).
+L118@P1: Also, our polynomial relationship between the quantum and
+L119@P1: the classical complexity is analogous to earlier results by
+L120@P1: Nisan [23], who proved a polynomial relationship between
+L121@P1: randomized and deterministic decision tree complexity.
+L122@P1: 2 Summary of results
+L123@P1: We consider three different settings for computing f on
+L124@P1: {0, 1}
+L125@P1: N in the black-box model. In the exact setting, an algorithm is required to return f(X) with certainty for every
+L126@P1: X. In the zero-error setting, for every X, an algorithm may
+L127@P1: return “inconclusive” with probability at most 1/2, but if it
+L128@P1: returns an answer, this must be the correct value of f(X)
+L129@P1: (algorithms in this setting are sometimes called Las Vegas
+L130@P1: algorithms). Finally, in the two-sided bounded-error setting, for every X, an algorithm must correctly return the
+L131@P1: answer with probability at least 2/3 (algorithms in this setting are sometimes called Monte Carlo algorithms; the 2/3
+L132@P1: is arbitrary). Our main results are:1
+L133@P1: 1. In the black-box model, the quantum speed-up for any
+L134@P1: total function cannot be more than by a sixth-root.
+L135@P1: More specifically, if a quantum algorithm computes f
+L136@P1: with bounded-error probability by making T queries,
+L137@P1: then there is a classical deterministic algorithm that
+L138@P1: computes f exactly making at most O(T
+L139@P1: 6
+L140@P1: ) queries.
+L141@P1: If f is monotone then the classical algorithm needs
+L142@P1: at most O(T
+L143@P1: 4
+L144@P1: ) queries, and if f is symmetric then it
+L145@P1: needs at most O(T
+L146@P1: 2
+L147@P1: ) queries.
+L148@P1: As a by-product, we also improve the polynomial relation between the decision tree complexity D(f) and
+L149@P1: the approximate degree deg g(f) of [25] from D(f) ∈
+L150@P1: O(deg g(f)
+L151@P1: 8
+L152@P1: ) to D(f) ∈ O(deg g(f)
+L153@P1: 6
+L154@P1: ).
+L155@P1: 2. We tightly characterize the black-box complexity of all
+L156@P1: non-constant symmetric functions as follows. In the
+L157@P1: exact or zero-error settings Θ(N) queries are necessary and sufficient, and in the bounded-error setting
+L158@P1: Θ(p
+L159@P1: N(N − Γ(f))) queries are necessary and sufficient, where Γ(f) = min{|2k − N + 1| : f flips value
+L160@P1: if the Hamming weight of the input changes from k to
+L161@P1: k + 1} (this Γ(f) is a number that is low if f flips for
+L162@P1: inputs with Hamming weight close to N/2 [27]). This
+L163@P1: should be compared with the classical bounded-error
+L164@P1: query complexity of such functions, which is Θ(N).
+L165@P1: Thus, Γ(f) characterizes the speed-up that quantum
+L166@P1: algorithms give.
+L167@P1: An interesting example is the THRESHOLDM function which is 1 iff its input X contains at least M 1s.
+L168@P1: This has query complexity Θ(p
+L169@P1: M(N − M + 1)).
+L170@P1: 3. For OR, AND, PARITY, MAJORITY, we obtain the
+L171@P1: bounds in the table below (all given numbers are
+L172@P1: both necessary and sufficient). These results are all
+L173@P1: exact zero-error bounded-error
+L174@P1: OR, AND N N Θ(√N)
+L175@P1: PARITY N/2 N/2 N/2
+L176@P1: MAJORITY Θ(N) Θ(N) Θ(N)
+L177@P1: Table 1. Some quantum complexities
+L178@P1: new, with the exception of the Θ(√
+L179@P1: N)-bounds for
+L180@P1: 1All our results remain valid if we consider a controlled black-box,
+L181@P1: where the first bit of the state indicates whether the black-box is to be
+L182@P1: applied or not. (Thus such a black-box would map |0, i, b, zi to |0, i, b, zi
+L183@P1: and |1, i, b, zi to |1, i, b ⊕ xi, zi.) Also, our results remain valid if we
+L184@P1: consider mixed rather than only pure states.OR and AND in the bounded-error setting, which appear in [15, 3, 5, 37]. The new bounds improve
+L185@P2: by polylog(N) factors previous lower bound results
+L186@P2: from [8], which were obtained through a reduction
+L187@P2: from communication complexity. The new bounds
+L188@P2: for PARITY were independently obtained by Farhi et
+L189@P2: al. [12].
+L190@P2: Note that lower bounds for OR imply lower bounds
+L191@P2: for database search (where we want to find an i such
+L192@P2: that xi = 1, if one exists), so exact or zero-error quantum search requires N queries, in contrast to Θ(√
+L193@P2: N)
+L194@P2: queries for the bounded-error case.
+L195@P2: 3 Preliminaries
+L196@P2: Our main goal in this paper is to find the number
+L197@P2: of queries a quantum algorithm needs to compute some
+L198@P2: Boolean function by relating such networks to polynomials.
+L199@P2: In this section we give some basic definitions and properties
+L200@P2: of multilinear polynomials and Boolean functions, and describe our quantum setting.
+L201@P2: 3.1 Boolean functions and polynomials
+L202@P2: We assume the following setting, mainly adapted
+L203@P2: from [25]. We have a vector of N Boolean variables
+L204@P2: X = (x0, . . . , xN−1), and we want to compute a Boolean
+L205@P2: function f : {0, 1}
+L206@P2: N → {0, 1} of X. Unless explicitly
+L207@P2: stated otherwise, f will always be total. The Hamming
+L208@P2: weight (number of 1s) of X is denoted by |X|. For convenience we will assume N even, unless explicitly stated
+L209@P2: otherwise. We can represent Boolean functions using Nvariate polynomials p : R
+L210@P2: N → R. Since x
+L211@P2: k = x
+L212@P2: whenever x ∈ {0, 1}, we can restrict attention to multilinear p. If p(X) = f(X) for all X ∈ {0, 1}
+L213@P2: N, then
+L214@P2: we say p represents f. We use deg(f) to denote the degree of a minimum-degree p that represents f (actually
+L215@P2: such a p is unique). If |p(X) − f(X)| ≤ 1/3 for all
+L216@P2: X ∈ {0, 1}
+L217@P2: N, we say p approximates f, and deg g(f) denotes the degree of a minimum-degree p that approximates
+L218@P2: f. For example, x0x1 . . . xN−1 is a multilinear polynomial
+L219@P2: of degree N that represents the AND-function. Similarly,
+L220@P2: 1 − (1 − x0)(1 − x1). . .(1 − xN−1) represents OR. The
+L221@P2: polynomial 1
+L222@P2: 3
+L223@P2: x0 + 1
+L224@P2: 3
+L225@P2: x1 approximates but does not represent
+L226@P2: AND on 2 variables.
+L227@P2: Nisan and Szegedy [25, Theorem 2.1] proved a general
+L228@P2: lower bound on the degree of any Boolean function that depends on N variables:
+L229@P2: Theorem 3.1 (Nisan, Szegedy) If f is a Boolean function
+L230@P2: that depends on N variables, then deg(f) ≥ log N −
+L231@P2: O(log log N).
+L232@P2: Let p : R
+L233@P2: N → R be a polynomial. If π is some
+L234@P2: permutation and X = (x0, . . . , xN−1), then π(X) =
+L235@P2: (xπ(0), . . . , xπ(N−1)). Let SN be the set of all N! permutations. The symmetrization p
+L236@P2: sym of p averages over all
+L237@P2: permutations of the input, and is defined as:
+L238@P2: p
+L239@P2: sym(X) =
+L240@P2: P
+L241@P2: π∈SN
+L242@P2: p(π(X))
+L243@P2: N!
+L244@P2: .
+L245@P2: Note that p
+L246@P2: sym is a polynomial of degree at most the degree
+L247@P2: of p. Symmetrizing may actually lower the degree: if p =
+L248@P2: x0 − x1, then p
+L249@P2: sym = 0. The following lemma, originally
+L250@P2: due to [20], allows us to reduce an N-variate polynomial to
+L251@P2: a single-variate one.
+L252@P2: Lemma 3.2 (Minsky, Papert) If p : R
+L253@P2: n → R is a multilinear polynomial, then there exists a polynomial q : R → R,
+L254@P2: of degree at most the degree of p, such that p
+L255@P2: sym(X) =
+L256@P2: q(|X|) for all X ∈ {0, 1}
+L257@P2: N.
+L258@P2: Proof Let d be the degree of p
+L259@P2: sym, which is at most the
+L260@P2: degree of p. Let Vj denote the sum of all N
+L261@P2: j
+L262@P2: 
+L263@P2: products of j
+L264@P2: different variables, so V1 = x0 +. . .+xN−1, V2 = x0x1 +
+L265@P2: x0x2 + . . . + xN−1xN−2, etc. Since p
+L266@P2: sym is symmetrical,
+L267@P2: it can be written as
+L268@P2: p
+L269@P2: sym(X) = a0 + a1V1 + a2V2 + . . . + adVd,
+L270@P2: for some ai ∈ R. Note that Vj assumes value
+L271@P2: |X|
+L272@P2: j
+L273@P2: 
+L274@P2: =
+L275@P2: |X|(|X| − 1)(|X| − 2). . .(|X| − j + 1)/j! on X, which
+L276@P2: is a polynomial of degree j of |X|. Therefore the singlevariate polynomial q defined by
+L277@P2: q(|X|) = a0 + a1
+L278@P2: 
+L279@P2: |X|
+L280@P2: 1
+L281@P2: 
+L282@P2: + a2
+L283@P2: 
+L284@P2: |X|
+L285@P2: 2
+L286@P2: 
+L287@P2: + . . . + ad
+L288@P2: 
+L289@P2: |X|
+L290@P2: d
+L291@P2: 
+L292@P2: satisfies the lemma. ✷
+L293@P2: A Boolean function f is symmetric if permuting the input
+L294@P2: does not change the function value (i.e., f(X) only depends
+L295@P2: on |X|). Paturi has proved a powerful theorem that characterizes deg g(f) for symmetric f. For such f, let fk = f(X)
+L296@P2: for |X| = k, and define
+L297@P2: Γ(f) = min{|2k−N+1| : fk 6= fk+1 and 0 ≤ k ≤ N−1}.
+L298@P2: Γ(f) is low if fk “jumps” near the middle (i.e., for some
+L299@P2: k ≈ N/2). Now [27, Theorem 1] gives:
+L300@P2: Theorem 3.3 (Paturi) If f is a non-constant symmetric Boolean function on {0, 1}
+L301@P2: N, then deg g(f) ∈
+L302@P2: Θ(p
+L303@P2: N(N − Γ(f))).
+L304@P2: For functions like OR and AND, we have Γ(f) = N −1
+L305@P2: and hence deg g(f) ∈ Θ(√N). For PARITY (which is 1 iff
+L306@P2: |X| is odd) and MAJORITY (which is 1 iff |X| > N/2),
+L307@P2: we have Γ(f) = 1 and deg g(f) ∈ Θ(N).3.2 The framework of quantum networks
+L308@P3: Our goal is to compute some Boolean function f of X =
+L309@P3: (x0, . . . , xN−1), where X is given as a black-box: calling
+L310@P3: the black-box on i returns the value of xi. We want to use
+L311@P3: as few queries as possible.
+L312@P3: A classical algorithm that computes f by using (adaptive) black-box queries to X is called a decision tree, since it
+L313@P3: can be pictured as a binary tree where each node is a query,
+L314@P3: each node has the two outcomes of the query as children,
+L315@P3: and the leaves give answer f(X) = 0 or f(X) = 1. The
+L316@P3: cost of such an algorithm is the number of queries made on
+L317@P3: the worst-case X, so the cost is the depth of the tree. The
+L318@P3: decision tree complexity D(f) of f is the cost of the best decision tree that computes f. Similarly we can define R(f)
+L319@P3: as the expected number of queries on the worst-case X for
+L320@P3: randomized algorithms that compute f with bounded-error.
+L321@P3: A quantum network with T queries is the quantum analogue to a classical decision tree with T queries, where
+L322@P3: queries and other operations can now be made in quantum
+L323@P3: superposition. Such a network can be represented as a sequence of unitary transformations:
+L324@P3: U0, O1, U1, O2, . . . , UT −1, OT , UT ,
+L325@P3: where the Ui are arbitrary unitary transformations, and the
+L326@P3: Oj are unitary transformations which correspond to queries
+L327@P3: to X. The computation ends with some measurement or observation of the final state. We assume each transformation
+L328@P3: acts on m qubits and each qubit has basis states |0i and |1i,
+L329@P3: so there are 2
+L330@P3: m basis states for each stage of the computation. It will be convenient to represent each basis state as
+L331@P3: a binary string of length m or as the corresponding natural
+L332@P3: number, so we have basis states |0i, |1i, |2i, . . . , |2
+L333@P3: m − 1i.
+L334@P3: Let K be the index set {0, 1, 2, . . ., 2
+L335@P3: m − 1}. With some
+L336@P3: abuse of notation, we will sometimes identify a set of
+L337@P3: numbers with the corresponding set of basis states. Every state |φi of the network can be uniquely written as
+L338@P3: |φi =
+L339@P3: P
+L340@P3: k∈K αk|ki, where the αk are complex numbers
+L341@P3: such that P
+L342@P3: k∈K |αk|
+L343@P3: 2 = 1. When |φi is measured in the
+L344@P3: above basis, the probability of observing |ki is |αk|
+L345@P3: 2
+L346@P3: . Since
+L347@P3: we want to compute a function of X, which is given as a
+L348@P3: black-box, the initial state of the network is not very important and we will disregard it hereafter (we may assume the
+L349@P3: initial state to be |0i always).
+L350@P3: The queries are implemented using the unitary transformations Oj in the following standard way. The transformation Oj only affects the leftmost part of a basis state: it
+L351@P3: maps basis state |i, b, zi to |i, b ⊕ xi, zi (⊕ denotes XOR).
+L352@P3: Here i has length ⌈log N⌉ bits, b is one bit, and z is an arbitrary string of m − ⌈log N⌉ − 1 bits. Note that the Oj are
+L353@P3: all equal.
+L354@P3: How does a quantum network compute a Boolean function f of X? Let us designate the rightmost bit of the final
+L355@P3: state of the network as the output bit. More precisely, the
+L356@P3: output of the computation is defined to be the value we observe if we measure the rightmost bit of the final state. If
+L357@P3: this output equals f(X) with certainty, for every X, then
+L358@P3: the network computes f exactly. If the output equals f(X)
+L359@P3: with probability at least 2/3, for every X, then the network
+L360@P3: computes f with bounded error probability at most 1/3. To
+L361@P3: define the zero-error setting, the output is obtained by observing the two rightmost bits of the final state. If the first
+L362@P3: of these bits is 0, the network claims ignorance (“inconclusive”), otherwise the second bit should contain f(X) with
+L363@P3: certainty. For every X, the probability of getting “inconclusive” should be less than 1/2. We use QE(f), Q0(f)
+L364@P3: and Q2(f) to denote the minimum number of queries required by a quantum network to compute f in the exact,
+L365@P3: zero-error and bounded-error settings, respectively. Note
+L366@P3: that Q2(f) ≤ Q0(f) ≤ QE(f) ≤ D(f) ≤ N.
+L367@P3: 4 General lower bounds on the number of
+L368@P3: queries
+L369@P3: In this section we will provide some general lower
+L370@P3: bounds on the number of queries required to compute a
+L371@P3: Boolean function f on a quantum network, either exactly
+L372@P3: or with zero- or bounded-error probability.
+L373@P3: 4.1 Bounds for error-free computation
+L374@P3: The next lemmas relate quantum networks to polynomials; they are the key to most of our results.
+L375@P3: Lemma 4.1 Let N be a quantum network that makes T
+L376@P3: queries to a black-box X. Then there exist complex-valued
+L377@P3: N-variate multilinear polynomials p0, . . . , p2m−1, each of
+L378@P3: degree at most T , such that the final state of the network is
+L379@P3: the superposition
+L380@P3: X
+L381@P3: k∈K
+L382@P3: pk(X)|ki,
+L383@P3: for any black-box X.
+L384@P3: Proof Let |φii be the state of the network (using some
+L385@P3: black-box X) just before the ith query. Note that |φi+1i =
+L386@P3: UiOi|φii. The amplitudes in |φ0i depend on the initial state
+L387@P3: and on U0 but not on X, so they are polynomials of X of
+L388@P3: degree 0. A query maps basis state |i, b, zi to |i, b ⊕ xi, zi.
+L389@P3: Hence if the amplitude of |i, 0, zi in |φ0i is α and the amplitude of |i, 1, zi is β, then the amplitude of |i, 0, zi after
+L390@P3: the query becomes (1 − xi)α + xiβ and the amplitude of
+L391@P3: |i, 1, zi becomes xiα + (1 − xi)β, which are polynomials
+L392@P3: of degree 1. (In general, if the amplitudes before a query
+L393@P3: are polynomials of degree ≤ j, then the amplitudes after
+L394@P3: the query will be polynomials of degree ≤ j + 1.) Betweenthe first and the second query lies the unitary transformation
+L395@P4: U1. However, the amplitudes after applying U1 are just linear combinations of the amplitudes before applying U1, so
+L396@P4: the amplitudes in |φ1i are polynomials of degree at most 1.
+L397@P4: Continuing in this manner, the amplitudes of the final states
+L398@P4: are found to be polynomials of degree at most T . We can
+L399@P4: make these polynomials multilinear without affecting their
+L400@P4: values on X ∈ {0, 1}
+L401@P4: N, by replacing all xk
+L402@P4: i
+L403@P4: by xi. ✷
+L404@P4: Note that we have not used the assumption that the Uj
+L405@P4: are unitary, but only their linearity. The next lemma is also
