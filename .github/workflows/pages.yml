@@ -1,0 +1,16 @@
+name: Deploy Wikis
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  deploy:
+    uses: Fi3/blog/.github/workflows/pages.yml@master
+    with:
+      section: wikis
+      source_repository: Fi3/blog
